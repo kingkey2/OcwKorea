@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+
+    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/global.css" type="text/css" />
+    <link rel="stylesheet" href="css/manual.css" type="text/css" />
+
+</head>
+
+<body>
+        <div class="page-container">
+            <!-- Heading-Top -->
+            <div id="heading-top"></div>
+
+            <div class="page-content">
+                <div class="manual-container about-container">
+                    <h2 class="language_replace">關於我們</h2>
+                    <div class="text-wrap">
+                        <p class="language_replace">マハラジャ囊括世界上最知名的遊戲品牌，提供公正、公平的遊戲環境，免安裝的HTML5網頁技術提供了真人直播的經典遊戲，讓您不論用電腦、手機甚至電視，一個帳號多平台通用。更透過專有網路技術，達到最高規格的直播視訊同步速度與畫質，請您務必親自體驗。</p>
+                        <p class="language_replace">而除了真人遊戲外，更提供了多款高水準的老虎機和體育遊戲，結合多元性、樂趣、公正公平於一身的就是，預祝您玩得開心，用的滿意。</p>
+                        <p class="language_replace">我們也很重視您的意見，若有任何建議，還請不吝使用客服信箱告知。</p>
+                        &nbsp;&nbsp;
+                        <div class="company-address">
+                            <p class="name language_replace">会社名：The Orange Crest Limited</p>
+                            <p class="address language_replace">住所：Sino Centre, 582-592 Nathan Rd., Mongkok, Kowloon, Hong Kong.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="partner">
+                <h3 class="title language_replace">合作夥伴</h3>
+                <div class="logo">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-PG.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-CG.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-PP.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-BG.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-VA.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-BNG.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-Bti.png" alt=""></div></div>
+                            <div class="col-3 col-sm col-xl"><div class="img-crop"><img src="images/logo/logo-zeus.png" alt=""></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+    <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
+    <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/OutSrc/js/wallet.js"></script>
+    <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript">
+        if (self != top) {
+            window.parent.API_LoadingStart();
+        }
+
+        var lang;
+        var mlp;
+
+        function init() {           
+            if (self == top) {
+                window.location.href = "index.aspx";
+            } else {
+                window.parent.API_LoadingStart();
+            }
+          
+            mlp = new multiLanguage();            
+            lang = window.parent.API_GetLang();
+            mlp.loadLanguage(lang, function () {
+                window.parent.API_LoadingEnd();
+            });
+        }
+
+        function EWinEventNotify(eventName, isDisplay, param) {
+            switch (eventName) {
+                case "LoginState":
+                    //updateBaseInfo();
+
+                    break;
+                case "BalanceChange":
+                    break;
+                case "SetLanguage":
+                    lang = param;
+                    mlp.loadLanguage(lang);
+                    break;
+            }
+        }
+
+
+        window.onload = init;
+    </script>
+</body>
+</html>

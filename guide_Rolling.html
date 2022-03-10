@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マハラジャ117</title>
+    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/global.css" type="text/css" />    
+    <link rel="stylesheet" href="css/manual.css" type="text/css" />    
+</head>
+<body>
+        <div class="page-container">
+            <!-- Heading-Top -->
+            <div id="heading-top"></div>
+            <div class="manual-container">
+                <div class="custom-content">
+                    <h2 class="language_replace">ローリングについて</h2>                    
+                    <div class="text-wrap">
+                        <section class="section-Wrapper">
+                            <!--h3 class="title-stress language_replace">Q1:虛擬貨幣是甚麼?</h3-->
+                            <p class="language_replace">ローリングとは入金額に対して、ベット総額のことです。</p>
+                            <p class="language_replace">入金額に対して、ローリングすることにより、出金をすることができます。</p>
+                            <p class="language_replace">また、ローリング数に関しましては、ウォレットよりご確認いただけます。</p>
+                        </section>
+						<section class="section-Wrapper">
+                            <h3 class="title-stress language_replace">1 ローリング倍率について</h3>
+                            <p class="language_replace">Paypal・主要暗号資産＝入金額の1.5倍</p>
+                            <p class="language_replace">JKETH＝入金額の8倍</p>
+                            <p class="language_replace">ボーナス＝20倍</p>
+							<br>
+							<p class="language_replace">（計算例）</p>
+							<p class="language_replace">PayPal　10,000+ボーナス10,000の場合</p>
+							<p class="language_replace">10,000×1.5倍+10,000×20倍=215,000</p>
+                        </section>
+						<section class="section-Wrapper">
+                            <h3 class="title-stress language_replace">2 ゲームによってのカウント割合</h3>
+                            <p class="language_replace">【100％カウント】</p>
+                            <p class="language_replace">すべてのスロット・インスタントゲーム(ビッグレース・ホースレーシング・ドッグレーシング・リッチランナー・ホースONE・ペナルティキック・ファンタスティックリーグ)</p>
+                            <p class="language_replace">【15％カウント】</p>
+							<p class="language_replace">ルーレット・バカラ・ポーカー・テキサスホールデ・その他テーブルゲーム</p>
+							<p class="language_replace">【10％カウント】</p>
+							<p class="language_replace">ライブカジノ(バカラ・ポーカー・テキサスホールデ・ブラックジャック)</p>
+							<br>
+							<p class="language_replace">※フィッシングの場合は、0％となります。</p>
+                        </section>
+						<section class="section-Wrapper">
+                            <h3 class="title-stress language_replace">3ローリングの無効について</h3>
+                            <p class="language_replace">ウォレットの OCOINが100以下に成った場合、再度 OCOINをチャージして頂くと、今迄のローリングが無効になり、再度チャージ分のローリングが設定されます。</p>
+							<p class="language_replace">ウォレットのOCOINが100以上場合はローリングが加算されます。</p>
+                        </section>
+						<section class="section-Wrapper">
+                            <h3 class="title-stress language_replace">その他</h3>
+                            <p class="language_replace">マハラジャでの入金とボーナスは同じ価値として使用して頂けますので、加算された出金制限のローリングも個別に計算する事は出来ません。</p>
+                            <p class="language_replace">   出金制限のローリングはプロバイダとの通信環境により情報の反映が少し遅れる事があります。又、情報の更新時お客様のディバイスにより少しの間、ローリング総数の確認が出来ない事があります。その際はカスタマサービス迄お問い合わせ下さい。</p>
+                            
+                        </section>
+                    </div> 
+                </div>
+
+
+            </div>
+
+        </div>
+        <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
+        <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>    
+        <!-- <script src="Scripts/OutSrc/js/wallet.js"></script> -->
+        <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
+        <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+        <script type="text/javascript">
+            if (self != top) {
+                window.parent.API_LoadingStart();
+            }
+
+            var lang;
+            var mlp;
+
+            function init() {           
+                if (self==top) {
+                    window.location.href = "index.aspx";
+                }
+            
+                mlp = new multiLanguage();            
+                lang = window.parent.API_GetLang();
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd();
+                    changePic(lang);
+                });
+            }
+
+            function EWinEventNotify(eventName, isDisplay, param) {
+                switch (eventName) {
+                    case "LoginState":
+                        //updateBaseInfo();
+
+                        break;
+                    case "BalanceChange":
+                        break;
+                    case "SetLanguage":
+                        lang = param;
+                        mlp.loadLanguage(lang);
+                        changePic(lang);
+                        break;
+                }
+            }
+        
+            window.onload = init;
+        
+            // 註冊步驟
+            var swiper5 = new Swiper("#crypto-deposit-steps", {
+                        // loop: true,
+                        // slidesPerView: 2,
+                        slidesPerView: "auto",
+                        // freeMode: true,
+                        // centeredSlides: true,
+                    
+                    
+                        breakpoints: {
+                            // 540: {
+                            //     slidesPerView: 2,
+                            //     freeMode: false,
+                            // },
+                            // 576: {
+                            //     slidesPerView: 5,
+                            //     freeMode: false,
+                            // },
+                            1920: {
+                                slidesPerView: 4,
+                                freeMode: false,
+                                enabled: false
+                            }
+                            
+                        }
+                    });
+
+
+            function changePic(lang) {
+                $("#img2").attr("src", "images/crypto_deposit_step_02_" + lang + ".jpg");
+                $("#img3").attr("src", "images/crypto_deposit_step_03_" + lang + ".jpg");
+                $("#img4").attr("src", "images/crypto_deposit_step_04_" + lang + ".jpg");
+            }
+        </script>   
+</body>
+</html>
