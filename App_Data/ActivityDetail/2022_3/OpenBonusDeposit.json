@@ -1,0 +1,231 @@
+{
+  "Name": "OpenBonusDeposit",
+  "State": 0,
+  "StartDate": "2022/02/16 00:00:00",
+  "EndDate": "2022/04/01 00:00:00",
+  "IntroPath": "",
+  "Title": "初回入金額の100%ボーナス獲得。最高10万円のボーナス！",
+  "SubTitle": "説明:イベント期間、初回入金すれば、入金金額の100％のボーナスを獲得できる！最高返金は10万円。",
+  "Rate1Title": "初回入金は100％返金、最高返金は10万円！",
+  "Rate1SubTitle": "イベント期間、初回入金すれば、入金金額の100％のボーナスを獲得できる！最高返金は10万円。",
+  "Rate2Title": "第二回入金返金は70％、最高返金は10万円！",
+  "Rate2SubTitle": "イベント期間は第二回入金すれば、入金金額の70％をボーナスを獲得でき、最高返金10万円。",
+  "Rate3Title": "第三回以降の入金（第三回を含め）、入金返金は50％、最高返金は10万円！",
+  "Rate3SubTitle": "イベント期間に第三回以降の入金（第三回を含め）、入金金額の50％の返金を獲得できる、最高返金は10万。",
+  "Rate1": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1.1
+    },
+    {
+      "PaymentCode": "JKC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    }
+  ],
+  "Rate2": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.8
+    },
+    {
+      "PaymentCode": "JKC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.7
+    }
+  ],
+  "Rate3": [
+    {
+      "PaymentCode": "HLN",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.6
+    },
+    {
+      "PaymentCode": "JKC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "XRP",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "ETH",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "Paypal",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDT",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "BTC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDC_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "USDT_TRC",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    }
+  ]
+}

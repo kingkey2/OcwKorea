@@ -1,0 +1,95 @@
+.form {
+    &-group {
+       
+
+        .btn-icon {
+           
+
+            &.btn-former{
+                // right: 6.5rem;
+            }
+
+            &.btn-reset{
+               
+                border-radius: 50%;
+                width: 1.5rem;
+                height: 1.5rem;
+                top: 1rem;
+
+            }
+
+            &.btn-latter{
+               
+                &::before{
+                    position: absolute;
+                    left: 0;
+                    content: '';
+                    display: inline-block;
+                    height: 30px;
+                    width: 1px;
+                    background: rgba(#000, 0.1);
+                }
+
+               
+            }
+
+            &.btn-confirm {
+
+                transition: all 0.25s ease-in-out;
+                color: rgba(#2c2d3a, 0.55);
+
+                &:hover{
+                    color: rgba(#2c2d3a, 0.65);
+                    
+                }
+
+
+                ~ .btn-reset{
+                    right: 6.5rem;
+
+                }
+
+                ~ .btn-confirm-check{
+                    display: none;
+                    color: green;
+                    right: 0;
+                    transition: all 0.25s ease-in-out;
+                }
+
+                &.is-hide{
+                    display: none;
+
+                    ~ .btn-reset{
+                        right: 4.5rem;
+    
+                    }
+
+                    ~ .btn-confirm-check{
+                        display: inherit;
+                        right: .5em;
+                        cursor: unset;
+                    }
+
+                    
+
+                }
+
+            }
+
+
+        }
+       
+        
+    }
+   
+}
+
+.page-title-container{
+    position: relative;
+    .header-right{
+        position: absolute;
+        // margin-left: 100px;
+        right: 10px;
+    }
+}
+  

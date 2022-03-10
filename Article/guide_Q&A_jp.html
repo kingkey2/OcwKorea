@@ -1,0 +1,1090 @@
+﻿
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title></title>
+    <meta name='robots' content='max-image-preview:large' />
+    <link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+    <!--<link rel="preload" href="https://img.japanesecasino.com/themes/sunrise2/japan-dark-bg-mobile.jpg" as="image">-->
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel='stylesheet' id='wp-block-library-css' href='CSS/StyleSheet.css' media='all' />
+    <link rel='stylesheet' id='bootstrap-style-css' href='CSS/StyleSheet2.css' media='all' />
+    <link rel="stylesheet" href="CSS/layout.css">
+    <link rel="stylesheet" href="../css/global.css">    
+    <link rel="stylesheet" href="CSS/QaStyle.css">
+    <!--<script defer src='https://www.japanesecasino.com/wp-content/themes/sunrise2/js/components/loadMorePosts.js?ver=5.7.2' id='sunrise2-loadMorePosts-js'></script>-->
+    <link rel="canonical" href="Guide.html" />
+    <meta name="description" content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M38QK3D');
+    </script>
+    <link rel="icon" href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
+    <meta name="msapplication-TileImage" content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
+   
+    <script type="module">
+        /**
+* Script to toggle and enable search
+*/
+        (function () {
+
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                var search_toggler = document.getElementById("search_toggler");
+
+                if (!search_toggler) return;
+
+                search_toggler.addEventListener("click", function () {
+                    var icon = this.children[0];
+                    var form = document.getElementById('search_form');
+                    if (icon.classList.contains('fa-search')) {
+                        icon.classList.remove('fa-search'); icon.classList.add('fa-times');
+                        form.querySelector('.search-input-field').classList.add('show');
+                        setTimeout(function () { form.querySelector('.search-input-field').focus(); }, 10);
+                    } else {
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-search');
+                        form.querySelector('.search-input-field').classList.remove('show');
+                    }
+                }, false);
+            }
+
+        })();        /**
+     * Script to show more elements
+     */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                elems['buttons'] = document.getElementsByClassName("showmore");
+
+                // No buttons found
+                if (elems['buttons'].length === 0) return;
+
+                Array.prototype.forEach.call(elems['buttons'], function (el) {
+                    // Find the target parent
+                    var target = el.getAttribute('data-target');
+
+                    // No target found
+                    if (target == null) return;
+
+                    // Add listeners
+                    el.addEventListener("click", showMore);
+                });
+            }
+
+            /**
+             * Show more elements
+             */
+            function showMore() {
+
+                // Hidden elements within target container
+                var target = event.target.getAttribute('data-target');
+                var hidden = document.getElementById(target).getElementsByClassName('hidden');
+
+                // No hidden elements found
+                if (hidden == null || target == null) return;
+
+                // Count number of
+                var length = hidden.length;
+                var offset = (event.target.getAttribute('data-offset') == null ? length : event.target.getAttribute('data-offset'));
+
+                // Loop through the hidden elements
+                var count = 0;
+                while (hidden.length && (count < offset)) {
+                    hidden[0].classList.remove('hidden');
+                    length--;
+                    count++;
+                }
+
+                // No hidden elements left
+                if (length == 0) {
+                    event.target.classList.add('d-none');
+                    event.target.removeEventListener('click', showMore);
+                    return;
+                }
+            }
+
+        })();                            /**
+     * Script for activating the sticky-element
+     */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Bools
+            var error = false;
+            var passiveSupport = false;
+
+            // Ints
+            var targetTop;
+            var windowHeight;
+            var windowWidth;
+            var tocBtnText;
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            function init() {
+
+                elems['sticky'] = document.getElementById("sticky");
+                elems['breakpoint'] = document.getElementById("stickyBreakpoint");
+                elems['navbar'] = document.getElementById("navbar");
+
+                // Check that all required elements is in place
+                Object.keys(elems).forEach(function (key) {
+                    if (elems[key] === null) {
+                        //console.log( key + ' is missing.' );
+                        error = true;
+                    }
+                });
+
+                // Required element(s) missing, abort
+                if (error === true) return;
+
+                targetTop = elems['navbar'].offsetHeight;
+                windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+                windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+                elems['sticky'].style.top = targetTop + 'px';
+
+                window.addEventListener('resize', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                window.addEventListener('orientationchange', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                // Check if #sticky contains tracked elements
+                elems['anchors'] = elems['sticky'].getElementsByClassName("anchor");
+                elems['toc_dropdown_btn'] = document.getElementById("toc_dropdown_btn");
+
+                // Tracked elements found, add listeners
+                if (elems['anchors'] !== null && elems['toc_dropdown_btn'] !== null) {
+
+                    tocBtnText = elems['toc_dropdown_btn'].innerHTML;
+
+                    Array.prototype.forEach.call(elems['anchors'], function (el) {
+                        el.addEventListener("click", trackAnchorsByClick);
+                    });
+
+                    document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+                }
+
+                // Add listeners
+                checkPassiveSupport();
+                window.addEventListener("scroll", sticky, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Check if the browser supports passive listeners
+             */
+            function checkPassiveSupport() {
+
+                try {
+                    var options = {
+                        get passive() {
+                            passiveSupport = true;
+                        }
+                    };
+
+                    window.addEventListener("test", options, options);
+                    window.removeEventListener("test", options, options);
+                } catch (err) {
+                    passiveSupport = false;
+                }
+            }
+
+            /**
+             * Sticky
+             */
+            function sticky() {
+
+                // Get the breakpoint element's position
+                var breakpoint_rect = elems['breakpoint'].getBoundingClientRect();
+
+                // Get sticky, or not
+                if (isInViewport(breakpoint_rect) || isBelowViewport(breakpoint_rect)) {
+                    elems['sticky'].classList.remove("show");
+
+                    if (tocBtnText != null) elems['toc_dropdown_btn'].innerHTML = tocBtnText;
+
+                } else {
+                    elems['sticky'].classList.add("show");
+                }
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isInViewport(rect) {
+
+                var vertInView = ((rect.top - targetTop) <= windowHeight) && (((rect.top - targetTop) + rect.height) >= 0);
+                return (vertInView);
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isBelowViewport(rect) {
+                if (rect.top >= windowHeight) return true;
+            }
+
+            /**
+             * Set the active anchor by click
+             */
+            function trackAnchorsByClick() {
+
+                // Remove listener by scroll, to avoid conflicts
+                document.removeEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+
+                // Do have an active anchor set?
+                if (elems['active_anchor'] !== undefined) {
+                    elems['active_anchor'].classList.remove("txt-mid-blue");
+                }
+
+                // Set the active anchor
+                elems['active_anchor'] = event.target;
+                event.target.classList.add("txt-mid-blue");
+                elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+
+                // Re-add listener
+                document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Set the active anchor by scroll
+             */
+            function trackAnchorsByScroll() {
+
+                Array.prototype.forEach.call(elems['anchors'], function (el) {
+
+                    // Remove the hashtag to get a clean id
+                    var target = document.getElementById(el.getAttribute("href").substring(1));
+
+                    // Get the target element's position
+                    var target_rect = target.getBoundingClientRect();
+
+                    // Is the heading in the viewport?
+                    if (isInViewport(target_rect)) {
+
+                        // Do have an active anchor set?
+                        if (elems['active_anchor'] !== undefined) {
+                            elems['active_anchor'].classList.remove("txt-mid-blue");
+                        }
+
+                        // Set the active anchor
+                        elems['active_anchor'] = el;
+                        elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+                        el.classList.add("txt-mid-blue");
+                    }
+
+                });
+            }
+
+        })();</script>
+</head>
+<body class="onlinecasinoworld-com">
+    <div class="site-content article__subPage">
+
+       
+        <main class="article__subPageContent" style=" background: rgba(0,0,0, 0.03);">
+          <div class="bg-neutral-dark px-2 px-lg-0">
+            <div class="container text-center one-column pt-5 pb-3 intro">
+                <h1 class="mt-lg-3 mb-0 language_replace">こんにちは！</h1>
+                <p class="lead mt-3 mb-3 language_replace">何かお困りですか？</p>
+            </div>
+            <div class="container pb-5">
+            </div>
+          </div>
+            <!-- Q&A 內容 ================ -->
+            <article class="hotarticle_area container mx-auto one-column py-4 py-lg-5">
+
+                <div class="container-fluid">
+                <div class="row">
+                        <div class="col justify-content-center" style="margin: 0 auto;">
+                        
+                <!--tabs-->
+
+                    <nav>
+                      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                        <button class="nav-link col language_replace active" id="nav-information-tab" data-bs-toggle="tab" data-bs-target="#nav-information" type="button" role="tab" aria-controls="nav-information" aria-selected="true" style="background: none;">アカウント情報</button>
+
+                        <button class="nav-link col language_replace" id="nav-saving-tab" data-bs-toggle="tab" data-bs-target="#nav-saving" type="button" role="tab" aria-controls="nav-saving" aria-selected="false" style="background: none;">入金</button>
+
+                        <button class="nav-link col language_replace" id="nav-collection-tab" data-bs-toggle="tab" data-bs-target="#nav-collection" type="button" role="tab" aria-controls="nav-collection" aria-selected="false" style="background: none;">出金</button>
+
+                        <button class="nav-link col language_replace" id="nav-bouns-tab" data-bs-toggle="tab" data-bs-target="#nav-bouns" type="button" role="tab" aria-controls="nav-bouns" aria-selected="false" style="background: none;">ボーナス</button>
+
+                        <button class="nav-link col" id="nav-game-tab" data-bs-toggle="tab" data-bs-target="#nav-game" type="button" role="tab" aria-controls="nav-game" aria-selected="false" style="background: none;">ゲーム</button>
+
+                        <button class="nav-link col language_replace" id="nav-other-tab" data-bs-toggle="tab" data-bs-target="#nav-other" type="button" role="tab" aria-controls="nav-other" aria-selected="false" style="background: none;">その他</button>
+
+                      </div>
+                    </nav>
+
+                    <div class="tab-content" id="nav-tabContent">
+
+                      <div class="tab-pane fade show active" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">
+                      <!--001アカウント情報-->
+                      <div class="accordion accordion-flush" id="accordionFlushExample">
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading001">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse001" aria-expanded="false" aria-controls="flush-collapse001">
+                              名前、生年月日、電話番号等、アカウント情報を変更したいのですが、どうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse001" class="accordion-collapse collapse" aria-labelledby="flush-heading001" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">アカウント情報の修正に関しましては、カスタマーサポートにご連絡お願いいたします。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading002">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse002" aria-expanded="false" aria-controls="flush-collapse002">
+                              アカウント認証は、いつ、どのようにしたらいいですか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse002" class="accordion-collapse collapse" aria-labelledby="flush-heading002" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">
+                            <p class="language_replace">アカウント認証はいつでも可能ですが、担当部署よりアカウント認証が必要と判断された場合にもメールやサイトよりご連絡いたします。</p>
+                            <p class="language_replace">アカウント認証に必要な書類は、こちらのアカウント認証ページでアップロードいただけます。</p></div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading003">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse003" aria-expanded="false" aria-controls="flush-collapse003">
+                              年齢制限はありますか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse003" class="accordion-collapse collapse" aria-labelledby="flush-heading003" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">当カジノのご利用は18歳以上の方のみとさせていただいております。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading004">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse004" aria-expanded="false" aria-controls="flush-collapse004">
+                              作成可能なアカウント数
+                            </button>
+                          </h2>
+                          <div id="flush-collapse004" class="accordion-collapse collapse" aria-labelledby="flush-heading004" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">不正利用を防ぐ為、多重登録は禁止となっております。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading005">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse005" aria-expanded="false" aria-controls="flush-collapse005">
+                              アカウントを開設するにはどうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse005" class="accordion-collapse collapse" aria-labelledby="flush-heading005" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">
+                            <p class="language_replace">アカウントの開設は、携帯電話番号、パスワードを入力いただき、確認コード送信をクリックいただくと、登録の携帯番号にショートメールが届きます。</p>
+                            <p class="language_replace">確認コードを入力し、次に進んでください。</p>
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading006">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse006" aria-expanded="false" aria-controls="flush-collapse006">
+                              アカウントを削除したい場合はどうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse006" class="accordion-collapse collapse" aria-labelledby="flush-heading006" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">
+                            <p class="language_replace">当カジノでは多重登録を防止するといった観点から退会・アカウントの削除は行っておらず、アカウントの停止・凍結処理にて対応しております。</p></div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading007">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse007" aria-expanded="false" aria-controls="flush-collapse007">
+                              パスワードを忘れました、どうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse007" class="accordion-collapse collapse" aria-labelledby="flush-heading007" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body language_replace">パスワードお忘れの際は、ログインページに、パスワードお忘れの方はこちらをクリックいただくと、再設定いただけます。</div>
+                          </div>
+                        </div>
+  
+  
+                      </div>
+                      <!--001アカウント情報 end-->
+                      </div>
+  
+                      <div class="tab-pane fade" id="nav-saving" role="tabpanel" aria-labelledby="nav-saving-tab">
+  
+                      <!--002入金-->
+                      <div class="accordion accordion-flush" id="accordionFlushExample2">
+                        
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading008">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse008" aria-expanded="false" aria-controls="flush-collapse008">
+                              可能な入金方法を教えてください。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse008" class="accordion-collapse collapse" aria-labelledby="flush-heading008" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body">
+                            <p class="language_replace"></p>現在、ペイパルを利用したクレジットカード決済及び、暗号通貨ＢＴＣ、ＵＳＤＴ、ＵＳＤＣ、ＥＴＨ、ＸＲＰとなります。
+                            <p class="language_replace">今後様々な入金や出金手段を増やしていきます。ご希望の入出金方法が御座いましたらお気軽にカスタマーサポートへご相談ください。</p>
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading009">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse009" aria-expanded="false" aria-controls="flush-collapse009">
+                              仮想通貨での入出金には対応していますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse009" class="accordion-collapse collapse" aria-labelledby="flush-heading009" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body language_replace">はい。BTC・ETH・USDT・USDC・XRP・JKC・HLNに対応しております。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading010">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse010" aria-expanded="false" aria-controls="flush-collapse010">
+                              初めて入金をしようと思います。初回入金ボーナスは、どうすればもらえますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse010" class="accordion-collapse collapse" aria-labelledby="flush-heading010" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body language_replace">初回入金いただくと、自動的に１００％ボーナスが反映いたします。ただし、最大１０万Oコインまでが限度額となります。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading011">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse011" aria-expanded="false" aria-controls="flush-collapse011">
+                              最低入金額はいくらですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse011" class="accordion-collapse collapse" aria-labelledby="flush-heading011" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body language_replace">最低金額はpaypalは500円から、仮想通貨は10000円からです。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading012">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse012" aria-expanded="false" aria-controls="flush-collapse012">
+                              入金限度額を教えてください。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse012" class="accordion-collapse collapse" aria-labelledby="flush-heading012" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body language_replace">入金限度額は特に設けてません。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading013">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse013" aria-expanded="false" aria-controls="flush-collapse013">
+                              アカウントの残高はどこで確認できますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse013" class="accordion-collapse collapse" aria-labelledby="flush-heading013" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body language_replace">
+                            <p class="language_replace">アカウント残高は、右上に表示しております。</p>
+                            <p class="language_replace">また、メニューバーの会員センターからもご確認頂けます。</div>
+                          </div>
+                        </div>
+  
+                        <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading014">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse014" aria-expanded="false" aria-controls="flush-collapse014">
+                              入金がアカウントに反映されません。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse014" class="accordion-collapse collapse" aria-labelledby="flush-heading014" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body language_replace">カスタマーサポートでご確認いたしますので、送信履歴を添付の上、お問い合わせください。</div>
+                          </div>
+                        </div>
+  
+                      <!--002入金 end-->
+                      </div>
+                      </div>
+  
+  
+                      <div class="tab-pane fade" id="nav-collection" role="tabpanel" aria-labelledby="nav-collection-tab">
+                          <div class="accordion accordion-flush" id="accordionFlushExample3">
+                      <!--003出金-->
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading015">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse015" aria-expanded="false" aria-controls="flush-collapse015">
+                              出金処理にかかる時間はどれぐらいですか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse015" class="accordion-collapse collapse" aria-labelledby="flush-heading015" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">
+                                <p class="language_replace">出金申請をしていただいた後、基本的には１５分以内に処理を完了するように心掛けております。</p>
+                              <p class="language_replace">出金の際にはアカウントの利用状況に応じてアカウント認証をお願いすることがございます。</p>
+                            </div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading016">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse016" aria-expanded="false" aria-controls="flush-collapse016">
+                              出金方法を教えてください。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse016" class="accordion-collapse collapse" aria-labelledby="flush-heading016" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body">
+                                <p class="language_replace">出金方法は、各種暗号資産(BTC・ETH・USDT・USDC・XRP・JKC・HLN)で承ります。
+                                </p>
+                            </div>
+                          </div>
+                          </div>
+  
+  
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading017">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse017" aria-expanded="false" aria-controls="flush-collapse017">
+                              ボーナスを出金することはできますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse017" class="accordion-collapse collapse" aria-labelledby="flush-heading017" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">ボーナスは、入金方法により、既定のローリングを行うことにより、ご出金いただけます。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading018">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse018" aria-expanded="false" aria-controls="flush-collapse018">
+                              仮想通貨での入出金には対応していますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse018" class="accordion-collapse collapse" aria-labelledby="flush-heading018" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">はい。BTC・ETH・USDT・USDC・XRP・JKC・HLNに対応しております。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading019">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse019" aria-expanded="false" aria-controls="flush-collapse019">
+                              出金するのに手数料はかかりますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse019" class="accordion-collapse collapse" aria-labelledby="flush-heading019" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">出金手数料は、暗号資産出金のガス代を頂戴します。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading020">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse020" aria-expanded="false" aria-controls="flush-collapse020">
+                              出金を早くしてもらうことはできますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse020" class="accordion-collapse collapse" aria-labelledby="flush-heading020" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">いえ、できません。出金申請順に行います。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading021">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse021" aria-expanded="false" aria-controls="flush-collapse021">
+                              出金をキャンセルすることはできますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse021" class="accordion-collapse collapse" aria-labelledby="flush-heading021" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">はい、現状確認します。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading022">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse022" aria-expanded="false" aria-controls="flush-collapse022">
+                              出金限度額を教えてください。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse022" class="accordion-collapse collapse" aria-labelledby="flush-heading022" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">最低１万Oｃoinから出金出来ます、燃料費が別途で掛かります。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading023">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse023" aria-expanded="false" aria-controls="flush-collapse023">
+                              出金処理はどれくらいで行われますか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse023" class="accordion-collapse collapse" aria-labelledby="flush-heading023" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">迅速の対応に心かけてますが、通常15分程で出金手続き終わります。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading024">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse024" aria-expanded="false" aria-controls="flush-collapse024">
+                              出金が口座に反映されません。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse024" class="accordion-collapse collapse" aria-labelledby="flush-heading024" data-bs-parent="#accordionFlushExample3">
+                            <div class="accordion-body language_replace">カスタマーサポートでご確認いたしますので、お問い合わせください。</div>
+                          </div>
+                          </div>
+  
+                      <!--003出金 end-->
+                          </div>
+                      </div>
+  
+                      <div class="tab-pane fade" id="nav-bouns" role="tabpanel" aria-labelledby="nav-bouns-tab">
+                          <div class="accordion accordion-flush" id="accordionFlushExample4">
+                      <!--004ボーナス-->
+                          
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading025">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse025" aria-expanded="false" aria-controls="flush-collapse025">
+                              ウェルカムボーナスはどうすればもらえますか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse025" class="accordion-collapse collapse" aria-labelledby="flush-heading025" data-bs-parent="#accordionFlushExample4">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">ウェルカムボーナスは初回入金の際にページに表示される「ボーナスを受け取る」ボックスにチェックを入れることでもらうことが可能です。</p>
+                              <p class="language_replace">ウェルカムボーナスは初回入金が完了され次第、アカウントに反映されます。</p></div>
+                          </div>
+                          </div>
+  
+                      <!--004ボーナス end-->
+                          </div>
+                      </div>
+  
+                      <div class="tab-pane fade" id="nav-game" role="tabpanel" aria-labelledby="nav-game-tab">
+                          <div class="accordion accordion-flush" id="accordionFlushExample5">
+                      <!--005ゲーム-->
+                          
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading026">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse026" aria-expanded="false" aria-controls="flush-collapse026">
+                              ゲームに問題が発生しました。どうすればいいですか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse026" class="accordion-collapse collapse" aria-labelledby="flush-heading026" data-bs-parent="#accordionFlushExample5">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">遊びたいゲームがプレイできない場合は、下記の手順を試してください。</p>
+                              <p class="language_replace">1.ご利用のブラウザよりキャッシュおよびクッキーの履歴を削除します。</p>
+                              <p class="" style="color: red;font-size: .5em;">*ブラウザの種類やバージョンにより削除方法が異なりますのでご注意ください。</p>
+                              <p class="language_replace">2.    ログアウトボタンを押し、カジノマハラジャサイトよりログアウトします。</p>
+                              <p class="language_replace">3.    カジノマハラジャ に再度ログインします。</p>
+                              <p class="language_replace">4.    同じゲームにログインしお試しください。</p>
+                              <p class="language_replace">上記の手順でも問題が解決できない場合は、</p>
+                              <p class="language_replace">スクリーンショットとともにカスタマーサポートまでご連絡ください。</p>
+                            </div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading027">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse027" aria-expanded="false" aria-controls="flush-collapse027">
+                              ゲームが途中で止まってしまいました、どうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse027" class="accordion-collapse collapse" aria-labelledby="flush-heading027" data-bs-parent="#accordionFlushExample5">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">ゲームラウンド中にゲームが止まってしまった場合には、まず、その画面のスクリーンショットをお撮りください。</p>
+   
+                              <p class="language_replace">ボーナスステージやフリースピンの途中でゲームが中断された場合、ボーナスステージなどへは基本的に戻れませんが、承認された賭けの結果は、システム上に記録され、自動的にプレイヤーのアカウントへ反映されます。</p>
+                              <p class="language_replace">勝利金がアカウントに反映されない場合には、お手数ですが、一度、手動でログアウトしていただき、キャッシュおよびクッキー履歴の削除を行った後、同じゲームにログインをお試しいただけますようお願いいたします。</p>
+                               
+                              <p class="" style="color: red;font-size: .5em;">※止まってしまったゲームの履歴が確認できない、勝利金が反映されない場合には、ゲームプロバイダーと調査させていただきますので、お手数ですが、「エラー画面のスクリーンショット」をお送りください。</p>
+  
+                            </div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading028">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse028" aria-expanded="false" aria-controls="flush-collapse028">
+                              ゲームでボーナスラウンドを獲得したのですが、スタートしませんでした。どうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse028" class="accordion-collapse collapse" aria-labelledby="flush-heading028" data-bs-parent="#accordionFlushExample5">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">手動でサイトよりログアウトしていただき、キャッシュとクッキー履歴をブラウザから削除してください。</p>
+                              <p class="language_replace">さらに、Google Chromeなど、他のブラウザを使ってゲームへのアクセスをお試しください。</p>
+                              <p class="language_replace">引き続き問題が生じるようであれば、お手数ですが、エラー画面のスクリーンショットをカスタマーサポートまでお送りください。</p>
+                            </div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading029">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse029" aria-expanded="false" aria-controls="flush-collapse029">
+                              勝利金が支払われませんでした、どうすればいいですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse029" class="accordion-collapse collapse" aria-labelledby="flush-heading029" data-bs-parent="#accordionFlushExample5">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">勝利金が支払われなかったと思われる場合には、まずゲーム履歴をご確認ください。</p>
+  
+                              <p class="" style="color: red;font-size: .5em;">※このような場合の対処法といたしまして、下記のステップを再度確認することにより、問題が改善されるケースが多くございますので、一度お試しください。</p>
+                               
+                              <p class="language_replace">ログアウト後、再度ログインを行う</p>
+                              <p class="language_replace">ご利用の端末OSブラウザが最新バージョンに更新されていること</p>
+                              <p class="language_replace">ご利用ブラウザのキャッシュ、クッキー履歴の削除</p>
+                              <p class="language_replace">ブラウザの変更 (Google Chrome, Firefoxなど)</p>
+                              <p class="language_replace">その後、ブラウザを再起動し、再度お試しください</p>
+                            </div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading030">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse030" aria-expanded="false" aria-controls="flush-collapse030 language_replace">
+                              RTPって何ですか?
+                            </button>
+                          </h2>
+                          <div id="flush-collapse030" class="accordion-collapse collapse" aria-labelledby="flush-heading030" data-bs-parent="#accordionFlushExample5">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">RTPとは英語のReturn to Playerの略で、プレイヤーへのリターン率、つまり理論上のゲームのペイアウト率を指します。</p>
+                              <p class="language_replace" style="color: red;font-size: .5em;">※※各プレイヤー様一人に対しての勝率ではなく、当ゲームをご利用いただく全プレイヤー様に対しての数字となります。</p>
+                            </div>
+                          </div>
+                          </div>
+  
+                      <!--005ゲーム end-->
+                          </div>
+                      </div>
+  
+                      <div class="tab-pane fade" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
+                          <div class="accordion accordion-flush" id="accordionFlushExample6">
+                      <!--006その他-->
+                          
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading031">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse031" aria-expanded="false" aria-controls="flush-collapse031 language_replace">
+                              「キャッシュクリア」とは何ですか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse031" class="accordion-collapse collapse" aria-labelledby="flush-heading031" data-bs-parent="#accordionFlushExample6">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">「キャッシュ」とは、Internet Explorerなどのブラウザが、表示したWebページの情報を一時的にコンピューターに保存しておく機能です。</p>
+                              <p class="language_replace">再度同じWebページにアクセスしたときに、インターネット上のデータではなく、キャッシュに保存されたデータを参照することで、Webページを素早く表示することができます。</p>
+                              <p class="language_replace">「Webページが更新されているのに最新の情報が反映されない」「設定を変更したのに表示が変わらない」などの問題が起きた場合は、最新の情報ではなくコンピューターに保存されている過去の情報が表示されている可能性がございます。その場合は、キャッシュを削除することにより、問題が解決できる場合もあります。</p>
+                          </div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading032">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse032" aria-expanded="false" aria-controls="flush-collapse032 language_replace">
+                              認証コードがメールできません
+                            </button>
+                          </h2>
+                          <div id="flush-collapse032" class="accordion-collapse collapse" aria-labelledby="flush-heading032" data-bs-parent="#accordionFlushExample6">
+                            <div class="accordion-body language_replace">ご登録頂いた際の電話番号やメールアドレスの不一致、またはお客様のデバイスの設定で受け取り拒否になっている可能性が御座います。</div>
+                          </div>
+                          </div>
+  
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading033">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse033" aria-expanded="false" aria-controls="flush-collapse033 language_replace">
+                              Cookie（クッキー）とは何ですか？
+                            </button>
+                          </h2>
+                          <div id="flush-collapse033" class="accordion-collapse collapse" aria-labelledby="flush-heading033" data-bs-parent="#accordionFlushExample6">
+                            <div class="accordion-body language_replace">cookieとはWebサーバーからユーザーのwebブラウザに送られる、ユーザーのデータを保存しておくためのファイルのことです。
+  許可する事で一定期間ユーザーのブラウザに保存され次回以降のアクセスがスムーズになります。</div>
+                          </div>
+                          </div>
+                          <div class="accordion-item">
+                          <h2 class="accordion-header QA-style" id="flush-heading033">
+                            <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse034" aria-expanded="false" aria-controls="flush-collapse034 language_replace">
+                              サイトは固定のメンテナンス時間がありますでしょうか。
+                            </button>
+                          </h2>
+                          <div id="flush-collapse034" class="accordion-collapse collapse" aria-labelledby="flush-heading033" data-bs-parent="#accordionFlushExample6">
+                            <div class="accordion-body language_replace">
+                              <p class="language_replace">マハラジャの固定メンテナンス時間は：　</p>
+                              <p class="language_replace">毎週月曜日の12：00から13：00までです。</p>
+                              <p class="language_replace">もしメンテナンスがない場合は、あらかじめお知らせいたしません。</p>
+                            </div>
+                          </div>
+                          </div>
+  
+                      <!--006その他 end-->
+                          </div>
+                      </div>
+  
+                  </div>
+                </div>
+                <!--tabs-->
+                    </div>
+                </div>
+            </article>
+          
+            
+        </main>
+        <section class="py-4 py-lg-5">
+          <!-- 人気記事內容 ================ -->
+          <article class="hotarticle_area container mx-auto one-column">
+          <!--<a href="guide-01_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+                <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">カジノとオンラインカジノの違いは？</h3>                           
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-02_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+                <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">オンラインカジノを遊ぶことは保障がありますか？</h3>                           
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          -->
+          <a href="guide_Q&A_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">よくあるＱ＆Ａ集</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="../guide_Rolling.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">ローリングについての説明</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="../instructions-crypto.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">暗号通貨の入金説明</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-03_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">バカラの攻略ガイド - 基礎規則編</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-04_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">バカラの攻略ガイド - 中級編</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-05_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド - 上級編 1：チューチャイロとダイロ</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-06_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド- 上級編 2：ダイガンチャイ</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-07_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド - 上級編 3：シュウロ</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-08_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド- 上級編 4：カッチャイロ</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-09_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">スロット攻略ガイド</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <a href="guide-10_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+            rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+              <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">テキサスホールデムポーカー攻略ガイド</h3>
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a>
+          <!-- <a href="guide-11_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+            <div class="px-2 pr-3 flex-fill overflow-hidden">
+                <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">ブロックチェーンー ゲーム攻略ガイド</h3>                           
+            </div>
+            <i class="fas fa-chevron-right txt-grey"></i>
+          </a> -->
+          </article>
+          <!-- 人気ゲーム ================ -->
+          <div class="hotgame_area container py-3 px-2 px-lg-0 mx-auto one-column">
+          </div>
+        </section>
+    </div>
+    <footer class="footer_area footer overflow-hidden">        
+    </footer>
+    <div class="float_SideBar">
+     
+      <div class="customer-service" onclick="window.parent.showContactUs()" style="display: none;">
+          <a>
+              <div class="text">
+                  <h3 class="title language_replace">カスタマーサービスへ</h3>
+              </div>
+              <div class="img-wrap">
+                  <img src="../images/games/a-chi-service.svg">
+              </div>
+          </a>
+      </div>
+      
+      <div class="Line-AddFriend"> 
+          <a onclick="window.open('https://lin.ee/KD05l9X')">
+              <!-- <span class="qr-code">
+                  <img src="https://qr-official.line.me/sid/M/476uzdvf.png?shortenUrl=true">
+              </span> -->
+              <span class="addFriend">
+                  <span class="logo"><img src="../images/assets/LINE/Line_W.png" alt=""></span>                  
+                  <!-- <span class="text language_replace">加入好友</span> -->
+              </span>
+          </a>
+      </div>
+  </div>
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js?ver=5.7.2' id='jquery-js'></script>
+    <script src='js/jquery-3.3.1.min.js'></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src='js/main.js'></script> 
+    <script>
+        function getCookie(name) {
+            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return v ? v[2] : null;
+        }
+
+
+        if (getCookie('cookie_consent')) {
+            // SCRIPT NAME: xtremepush
+            (function (p, u, s, h, e, r, l, i, b) {
+                p['XtremePushObject'] = s;
+                p[s] = function () {
+                    (p[s].q = p[s].q || []).push(arguments)
+                };
+                i = u.createElement('script');
+                i.async = 1;
+                i.src = h;
+                b = u.getElementsByTagName('script')[0];
+                b.parentNode.insertBefore(i, b);
+                i.onload = function () {
+                    if (typeof window.dataLayer === 'undefined') {
+                        window.dataLayer = [];
+                    } else {
+                        window.dataLayer.push({
+                            'event': 'xp_sdk_loaded'
+                        });
+
+                        // Wordpress doesn't use sessions -> solution? -> Maybe create a unqiue ID for every user visiting site. How to handle returning users? Cookie!
+                        // xp_http.open("POST", "/services/sessions/json-id", true);
+                        // xp_http.send();
+                    }
+                };
+            })(window, document, 'xtremepush', 'https://cdn.webpu.sh/D-78tQ9V-iLG5U6_j80fZyc_-MH80D9f/sdk.js');
+
+            var xp_http = new XMLHttpRequest();
+            xp_http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if (response.session_id) {
+                        xtremepush('set', 'user_id', response.session_id);
+                    }
+                }
+            };
+
+
+
+        }
+
+        function getOrginPath() {
+            var temp;
+            temp = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            temp = temp.substring(0, temp.lastIndexOf('.'));
+
+            if (temp.lastIndexOf('_') != -1) {
+                temp = temp.substring(0, temp.lastIndexOf('_'));
+            }
+
+            return temp;
+        }
+
+        function init() {
+            if (window.parent != window.top) {
+                window.location.href = "index.aspx";
+            }
+            window.parent.API_LoadingEnd();
+        }
+
+        function EWinEventNotify(eventName, isDisplay, param) {
+            switch (eventName) {
+                case "LoginState":
+                    //updateBaseInfo();
+
+                    break;
+                case "BalanceChange":
+                    break;
+                case "SetLanguage":
+                    var orgin = getOrginPath();
+
+                    switch (param) {
+                        case "JPN":
+                            orgin = orgin + "_jp";
+                            break;
+                        case "CHT":
+                            break;
+                        case "ENG":
+                            orgin = orgin + "_en";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    orgin = "Article/" + orgin + ".html";
+
+                    window.parent.API_LoadPage("Article", orgin);
+                    break;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

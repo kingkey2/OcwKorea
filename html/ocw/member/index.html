@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+    
+    <link rel="stylesheet" href="../src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/lib/swiper/css/swiper-bundle.min.css" type="text/css"/>
+
+    <link rel="stylesheet" href="../src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/member.css" type="text/css"/>
+
+</head>
+
+<body>
+    <div class="page-container">
+
+        <div class="page-content">
+            <div class="member-container">
+                <div class="aside-panel">
+                    <div class="avatar-container">
+                        <div class="avatar">
+                            <img src="../src/img/assets/avatar/avatar-01.jpg">
+                        </div>
+                        <button class="btn btn-icon circle" data-click-btn="avatar">
+                            <i class="icon-photo-camera"></i>
+                        </button>
+                    </div>
+                    <div class="balance-info">
+                        <div class="balance-info-title">
+                            <i class="icon-coin"></i>
+                            <div>SUFFY</div>
+                        </div>
+                        <div class="amount">9,999</div>
+                    </div>
+                </div>
+
+                <div class="main-panel">
+                    <div class="sec-title-wrap">
+                        <div class="sec-title-inner">
+                            <h3 class="title">會員中心</h3>
+                        </div>
+                    </div>
+
+                    <div class="setting-container">
+                        <!-- 姓名 -->
+                        <div class="box-item">
+                            <div class="box-item-inner tab">
+                                <i class="icon-user"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title sup">姓名</div>
+                                    <div class="box-item-desc highlight">Yamada Taro</div>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" data-target="#alertContact">
+                                    <span>編輯</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 生日 -->
+                        <div class="box-item">
+                            <div class="box-item-inner tab">
+                                <i class="icon-birth"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">生日</div>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" data-target="#alertContact">
+                                    <span>編輯</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 登入密碼 -->
+                        <div class="box-item expansion">
+                            <div class="box-item-inner tab">
+                                <i class="icon-pw"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">登入密碼</div>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-click-btn="openPanel">
+                                    <span>編輯</span>
+                                </button>
+                            </div>
+                            <div class="box-item-inner panel">
+                                <div class="form-content">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="form-title">舊密碼</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control custom-style" placeholder="" inputmode="email">
+                                                <div class="invalid-feedback">提示</div>
+                                            </div>
+                                            <button class="btn btn-icon" type="button">
+                                                <i class="icon-eye"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-title">新密碼</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control custom-style" placeholder="" inputmode="email">
+                                                <div class="invalid-feedback">提示</div>
+                                            </div>
+                                            <button class="btn btn-icon" type="button">
+                                                <i class="icon-eye"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="btn-container">
+                                            <button class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span>取消</span></button>
+                                            <button class="btn btn-primary btn-md" data-click-btn="closePanel"><span>儲存變更</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 取款密碼 -->
+                        <div class="box-item expansion">
+                            <div class="box-item-inner tab">
+                                <i class="icon-withdraw-pw"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">
+                                        取款密碼<span class="box-item-status">尚未設定</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-click-btn="openPanel">
+                                    <span>編輯</span>
+                                </button>
+                            </div>
+                            <div class="box-item-inner panel">
+                                <!-- step 1 -->
+                                <div class="form-content" data-form-group="pincodeStep1">
+                                    <form>
+                                        <div class="form-group pincode-box">
+                                            <label class="form-title">輸入密碼</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                            </div>
+                                        </div>
+
+                                        <div class="btn-container">
+                                            <div class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span>取消</span></div>
+                                            <button class="btn btn-primary btn-md" data-click-btn="pincodeStep2"><span>下一步</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- step 2 -->
+                                <div class="form-content is-hide" data-form-group="pincodeStep2">
+                                    <form>
+                                        <div class="form-group pincode-box">
+                                            <label class="form-title">確認密碼</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                                <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                            </div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span>取消</span></button>
+                                            <button class="btn btn-primary btn-md" data-click-btn="closePanel"><span>儲存變更</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 推廣碼 -->
+                        <div class="box-item">
+                            <div class="box-item-inner tab">
+                                <i class="icon-star"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title sup">推廣碼</div>
+                                    <div class="box-item-desc highlight">3238-Y479-8888</div>
+                                </div>
+                                <button class="btn btn-icon" onclick="">
+                                    <i class="icon-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- avatar popup -->
+    <div class="overlay-container is-hide" data-form-group="avatar">
+        <div class="box-item avatar-select-container">
+            <div class="box-item-inner">
+                <p class="text-center mb-4">選擇頭像</p>
+                <div class="swiper-container" id="avatar-select">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="avatar-select">
+                                <input type="radio" name="avatar" id="avatar-01">
+                                <label for="avatar-01">
+                                    <div class="avatar">
+                                        <img src="../src/img/assets/avatar/avatar-01.jpg">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="avatar-select">
+                                <input type="radio" name="avatar" id="avatar-02">
+                                <label for="avatar-02">
+                                    <div class="avatar">
+                                        <img src="../src/img/assets/avatar/avatar-02.jpg">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="avatar-select">
+                                <input type="radio" name="avatar" id="avatar-03">
+                                <label av for="avatar-03">
+                                    <div class="avatar">
+                                        <img src="../src/img/assets/avatar/avatar-03.jpg">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="avatar-select">
+                                <input type="radio" name="avatar" id="avatar-04">
+                                <label for="avatar-04">
+                                    <div class="avatar">
+                                        <img src="../src/img/assets/avatar/avatar-04.jpg">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+
+                <div class="d-flex justify-content-center btn-container">
+                    <button class="btn btn-outline-primary btn-md" data-click-btn="closeAvatar"><span>取消</span></button>
+                    <button class="btn btn-primary btn-md" data-click-btn="closeAvatar"><span>儲存變更</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="overlay-backdrop"></div>
+    </div>
+
+
+    <!-- Modal 有按鈕-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContact" aria-hidden="true" id="alertContact">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p>變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal"><span>前往客服</span></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal"><span>取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal載入整頁畫面-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContact" aria-hidden="true" id="alertContact">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p>變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal"><span>前往客服</span></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal"><span>取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/lib/swiper/js/swiper-bundle.min.js"></script>
+    <script src="../src/js/member.js"></script>
+
+</body>
+</html>

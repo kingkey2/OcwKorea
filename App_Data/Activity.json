@@ -1,0 +1,25 @@
+{
+  "BasicPath": "/App_Data/ActivityDetail/",
+  "Deposit": [
+    {
+      "Name": "OpenBonusDeposit",
+      "Path": "2022_3/OpenBonusDeposit.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "OpenIntroBonus",
+      "Path": "2022_3/OpenIntroBonus.json",
+      "MethodName": "OpenIntroBonus",
+      "InfoMethodName": "OpenIntroBonus"
+    }
+  ],
+  "ParentBonusAfterDeposit": [
+    {
+      "Name": "OpenIntroBonus",
+      "Path": "2022_3/OpenIntroBonus.json",
+      "MethodName": "OpenIntroBonusToParent",
+      "InfoMethodName": "OpenIntroBonusToParent"
+    }
+  ]
+}

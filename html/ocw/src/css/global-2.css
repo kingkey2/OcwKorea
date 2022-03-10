@@ -1,0 +1,52 @@
+.form-group .btn-icon.btn-reset {
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  top: 1rem;
+}
+.form-group .btn-icon.btn-latter::before {
+  position: absolute;
+  left: 0;
+  content: "";
+  display: inline-block;
+  height: 30px;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.form-group .btn-icon.btn-confirm {
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  color: rgba(44, 45, 58, 0.55);
+}
+.form-group .btn-icon.btn-confirm:hover {
+  color: rgba(44, 45, 58, 0.65);
+}
+.form-group .btn-icon.btn-confirm ~ .btn-reset {
+  right: 6.5rem;
+}
+.form-group .btn-icon.btn-confirm ~ .btn-confirm-check {
+  display: none;
+  color: green;
+  right: 0;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.form-group .btn-icon.btn-confirm.is-hide {
+  display: none;
+}
+.form-group .btn-icon.btn-confirm.is-hide ~ .btn-reset {
+  right: 4.5rem;
+}
+.form-group .btn-icon.btn-confirm.is-hide ~ .btn-confirm-check {
+  display: inherit;
+  right: 0.5em;
+  cursor: unset;
+}
+
+.page-title-container {
+  position: relative;
+}
+.page-title-container .header-right {
+  position: absolute;
+  right: 10px;
+}

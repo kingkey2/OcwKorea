@@ -1,0 +1,16 @@
+{
+  "Name": "OpenBonusDeposit",
+  "State": 0,
+  "StartDate": "2022/02/20 00:00:00",
+  "EndDate": "2022/05/31 00:00:00",
+  "Self": {
+    "BonusValue": 500,
+    "ThresholdValue": 10000
+  },
+  "Parent": {
+    "BonusValue": 500,
+    "ThresholdValue": 500
+  },
+  "Title": "マハラジャ紹介キャンペーン！！",
+  "SubTitle": "お客様をご紹介して頂き、紹介された方が入金を頂くと、紹介者、紹介された方共に500 OCOIN プレゼント！"
+}

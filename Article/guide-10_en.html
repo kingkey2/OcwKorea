@@ -1,0 +1,740 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>BCC177</title>
+    <meta name='robots' content='max-image-preview:large' />
+    <link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+    <!--<link rel="preload" href="https://img.japanesecasino.com/themes/sunrise2/japan-dark-bg-mobile.jpg" as="image">-->
+    <link rel='stylesheet' id='wp-block-library-css' href='CSS/StyleSheet.css' media='all' />
+    <link rel='stylesheet' id='bootstrap-style-css' href='CSS/StyleSheet2.css' media='all' />
+    <link rel="stylesheet" href="CSS/layout.css">
+<link rel="stylesheet" href="../css/global.css">
+    <!--<script defer src='https://www.japanesecasino.com/wp-content/themes/sunrise2/js/components/loadMorePosts.js?ver=5.7.2' id='sunrise2-loadMorePosts-js'></script>-->
+    <link rel="canonical" href="Guide.html" />
+    <meta name="description"
+        content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M38QK3D');
+    </script>
+    <link rel="icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-32x32.png"
+        sizes="32x32" />
+    <link rel="icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png"
+        sizes="192x192" />
+    <link rel="apple-touch-icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
+    <meta name="msapplication-TileImage"
+        content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
+
+    <script type="module">
+        /**
+* Script to toggle and enable search
+*/
+        (function () {
+
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                var search_toggler = document.getElementById("search_toggler");
+
+                if (!search_toggler) return;
+
+                search_toggler.addEventListener("click", function () {
+                    var icon = this.children[0];
+                    var form = document.getElementById('search_form');
+                    if (icon.classList.contains('fa-search')) {
+                        icon.classList.remove('fa-search'); icon.classList.add('fa-times');
+                        form.querySelector('.search-input-field').classList.add('show');
+                        setTimeout(function () { form.querySelector('.search-input-field').focus(); }, 10);
+                    } else {
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-search');
+                        form.querySelector('.search-input-field').classList.remove('show');
+                    }
+                }, false);
+            }
+
+        })();        /**
+     * Script to show more elements
+     */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                elems['buttons'] = document.getElementsByClassName("showmore");
+
+                // No buttons found
+                if (elems['buttons'].length === 0) return;
+
+                Array.prototype.forEach.call(elems['buttons'], function (el) {
+                    // Find the target parent
+                    var target = el.getAttribute('data-target');
+
+                    // No target found
+                    if (target == null) return;
+
+                    // Add listeners
+                    el.addEventListener("click", showMore);
+                });
+            }
+
+            /**
+             * Show more elements
+             */
+            function showMore() {
+
+                // Hidden elements within target container
+                var target = event.target.getAttribute('data-target');
+                var hidden = document.getElementById(target).getElementsByClassName('hidden');
+
+                // No hidden elements found
+                if (hidden == null || target == null) return;
+
+                // Count number of
+                var length = hidden.length;
+                var offset = (event.target.getAttribute('data-offset') == null ? length : event.target.getAttribute('data-offset'));
+
+                // Loop through the hidden elements
+                var count = 0;
+                while (hidden.length && (count < offset)) {
+                    hidden[0].classList.remove('hidden');
+                    length--;
+                    count++;
+                }
+
+                // No hidden elements left
+                if (length == 0) {
+                    event.target.classList.add('d-none');
+                    event.target.removeEventListener('click', showMore);
+                    return;
+                }
+            }
+
+        })();                            /**
+     * Script for activating the sticky-element
+     */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Bools
+            var error = false;
+            var passiveSupport = false;
+
+            // Ints
+            var targetTop;
+            var windowHeight;
+            var windowWidth;
+            var tocBtnText;
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            function init() {
+
+                elems['sticky'] = document.getElementById("sticky");
+                elems['breakpoint'] = document.getElementById("stickyBreakpoint");
+                elems['navbar'] = document.getElementById("navbar");
+
+                // Check that all required elements is in place
+                Object.keys(elems).forEach(function (key) {
+                    if (elems[key] === null) {
+                        //console.log( key + ' is missing.' );
+                        error = true;
+                    }
+                });
+
+                // Required element(s) missing, abort
+                if (error === true) return;
+
+                targetTop = elems['navbar'].offsetHeight;
+                windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+                windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+                elems['sticky'].style.top = targetTop + 'px';
+
+                window.addEventListener('resize', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                window.addEventListener('orientationchange', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                // Check if #sticky contains tracked elements
+                elems['anchors'] = elems['sticky'].getElementsByClassName("anchor");
+                elems['toc_dropdown_btn'] = document.getElementById("toc_dropdown_btn");
+
+                // Tracked elements found, add listeners
+                if (elems['anchors'] !== null && elems['toc_dropdown_btn'] !== null) {
+
+                    tocBtnText = elems['toc_dropdown_btn'].innerHTML;
+
+                    Array.prototype.forEach.call(elems['anchors'], function (el) {
+                        el.addEventListener("click", trackAnchorsByClick);
+                    });
+
+                    document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+                }
+
+                // Add listeners
+                checkPassiveSupport();
+                window.addEventListener("scroll", sticky, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Check if the browser supports passive listeners
+             */
+            function checkPassiveSupport() {
+
+                try {
+                    var options = {
+                        get passive() {
+                            passiveSupport = true;
+                        }
+                    };
+
+                    window.addEventListener("test", options, options);
+                    window.removeEventListener("test", options, options);
+                } catch (err) {
+                    passiveSupport = false;
+                }
+            }
+
+            /**
+             * Sticky
+             */
+            function sticky() {
+
+                // Get the breakpoint element's position
+                var breakpoint_rect = elems['breakpoint'].getBoundingClientRect();
+
+                // Get sticky, or not
+                if (isInViewport(breakpoint_rect) || isBelowViewport(breakpoint_rect)) {
+                    elems['sticky'].classList.remove("show");
+
+                    if (tocBtnText != null) elems['toc_dropdown_btn'].innerHTML = tocBtnText;
+
+                } else {
+                    elems['sticky'].classList.add("show");
+                }
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isInViewport(rect) {
+
+                var vertInView = ((rect.top - targetTop) <= windowHeight) && (((rect.top - targetTop) + rect.height) >= 0);
+                return (vertInView);
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isBelowViewport(rect) {
+                if (rect.top >= windowHeight) return true;
+            }
+
+            /**
+             * Set the active anchor by click
+             */
+            function trackAnchorsByClick() {
+
+                // Remove listener by scroll, to avoid conflicts
+                document.removeEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+
+                // Do have an active anchor set?
+                if (elems['active_anchor'] !== undefined) {
+                    elems['active_anchor'].classList.remove("txt-mid-blue");
+                }
+
+                // Set the active anchor
+                elems['active_anchor'] = event.target;
+                event.target.classList.add("txt-mid-blue");
+                elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+
+                // Re-add listener
+                document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Set the active anchor by scroll
+             */
+            function trackAnchorsByScroll() {
+
+                Array.prototype.forEach.call(elems['anchors'], function (el) {
+
+                    // Remove the hashtag to get a clean id
+                    var target = document.getElementById(el.getAttribute("href").substring(1));
+
+                    // Get the target element's position
+                    var target_rect = target.getBoundingClientRect();
+
+                    // Is the heading in the viewport?
+                    if (isInViewport(target_rect)) {
+
+                        // Do have an active anchor set?
+                        if (elems['active_anchor'] !== undefined) {
+                            elems['active_anchor'].classList.remove("txt-mid-blue");
+                        }
+
+                        // Set the active anchor
+                        elems['active_anchor'] = el;
+                        elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+                        el.classList.add("txt-mid-blue");
+                    }
+
+                });
+            }
+
+        })();</script>
+</head>
+<body class="onlinecasinoworld-com">
+   
+    <div class="site-content article__subPage">
+        <main class="article__subPageContent">
+            <div class="bg-neutral-dark px-4 px-lg-0">
+                <div class="container text-center one-column pt-5 pb-3 intro">
+                    <h1 class="txt-larger mt-lg-3 mb-0 language_replace ">テキサスホールデムポーカー攻略ガイド</h1>
+                    <!-- <p class="lead mt-3 mb-3 language_replace">人気ゲームの関連知識と攻略ガイド</p> -->
+                </div>
+                <div class="container py-3 one-column">
+                    <div class="pb-1">
+                        <div class="row mb-4">
+                            <div class="col-12 px-0 mb-4">
+                                <!-- <h2 class="artilce-sub-title "><span class="language_replace">カジノとオンラインカジノの違いは？</span></h2> -->
+                            </div>
+                            <div class="col-12 px-0 color-white">
+                                <p class="language_replace">
+                                    ポーカーには色々な遊び方がありますが、その中でもテキサスホールデムポーカーは一番人気があり、正式な国際大会があるほどです。基本の遊び方としては、プレイヤーには手札（ホールカード）が配られ、その他に共有札（共通カード）があり、最終的に伏せられていないプレイヤーの手札と共有札で役が一番強かった人が勝ちとなります。テキサスホールデムの面白いところは、役をどう揃えるか以外に、運も関わってくる他、対戦相手との心理戦を楽しむところにあります。手札の役が悪くても、対戦プレイヤーがカードを伏せるように仕向けられれば、勝てることもあります。</p>
+
+                                    <div class="mb-2 mb-md-5">
+                                        <div class="area">   
+                                            <div class="desc">
+                                            <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_01.jpg" alt=""></p>
+                                            <p class="language_replace"> 最低2人（二人対決はHeads-UP呼ばれています。俗にいう一対一）から最大10人同時に遊ぶことができます。オンラインゲームでは相手の表情を見ることができませんが、相手は顔色一つ変えずチップを賭ける心理戦の手練れだと想像するとオンラインゲームでも臨場感と緊張感を味わうことができます。</p>
+                                        </div></div>
+                                     
+                                    </div>
+                                
+                               
+                                <ul class="list mb-2 mb-md-5">
+                                    <ol class="mb-3 mb-md-5"><h3 class="title txt-white sub-title language_replace">ルール：</h3>
+                                        <p class="language_replace">各プレイヤーにはカードが2枚ずつと、最終的には共通カードが5枚配られます。プレイヤー同士で場の5枚と手持ちの2枚のカードから役を作り勝負します。</p>
+                                        <div class="area">
+                                            <div class="desc">
+                                                <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_02.jpg" alt=""></p>
+                                                <p class="language_replace"> 複数人のプレイヤーで遊ぶ場合、それぞれのプレイヤーのポジションに対応する呼び名があります。</p>
+                                            </div>
+                                        </div>
+                                    </ol>
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 1：ポジションを決める</h3>
+                                        <ul class="">
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">● 『ボタン』(BTN,Button)</h4>
+                                                <p class="language_replace"> ディーラーはBTNの左のプレイヤーからカードを配ります。つまりBTNは最後にカードが配られ、最後に行動するプレイヤーなので、他の全てのプレイヤーの動きや行動を観察した上で、対応方法を考えることができます。手札にいいカードを持っていればポジションの影響はあまりないが、手札にあまりいいカードが無い状態で相手を出し抜くためにはBTNは非常に有利なポジションとなります。通常、BTNのポジションには『Dealer』の表示が置かれます。</p>
+                                            </ol>
+                                            <p class="language_replace">在遊戲開始還沒發牌，就強制需要投注的玩家：</p>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">● スモールブラインド(SB)</h4>
+                                                <p class="language_replace"> ゲームが始まりカードが配られる前に強制的にベットしなければいけないプレイヤー：</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">● ビッグブラインド(BB)</h4>
+                                                <p class="language_replace"> BTNの左側の人の次の人はゲームの始めに1ブラインドをベットしなければいけません。</p>
+                                            </ol>
+                                        </ul>
+                                    </ol>
+                                    <!-- <ol class="">
+                                        
+                                        <ul class="">
+                                            
+                                        </ul>
+                                    </ol> -->
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP2：カードを配る</h3>
+                                        <p class="language_replace">ディーラーはスモールブラインドの位置から時計回りにカードを1枚ずつ配り、Buttonまで配ったら、再度スモールブラインドの位置から2枚目のカードを配ります。</p>
+                                        <p class="language_replace">各プレイヤーにカードが2枚配られたら*プリフロップラウンドに入ります。</p>
+                                        <p class="language_replace">**プリフロップラウンド(Preflop round)：全てのプレイヤーに最初の2枚のカードが配られ、共通カードが場に出される前に、各プレイヤーがチップを賭けるか降りるか決める段階。</p>
+                                    </ol>
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP3：プリフロップラウンド</h3>
+                                        <p class="language_replace">このラウンドでプレイヤーが行えるアクション。</p>
+                                        <ul class="">
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">1.フォールド(Fold)：</h4>
+                                                <p class="language_replace">BTNの左側の人はゲームの始めに0.5ブラインドをベットしなければいけません。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">2.チェック(Check)：</h4>
+                                                <p class="language_replace">自分の順番の前に誰もベットしていなくて、ベットの権利が回ってきても、何もせずに様子を見ることにして、次のプレイヤーに権利を譲ること。現場でゲームをプレイしている時、考えている時の癖で無意識にテーブルをコンコンと叩いてしまうと、チェックと判断されてしまいます。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">3.コール(Call)：</h4>
+                                                <p class="language_replace"> 自分より前のプレイヤーがベットしていて、自分の順番になった時に相手のベット金額と同額を出してゲームに残ること。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">4.レイズ(Raise)：</h4>
+                                                <p class="language_replace">自分より前のプレイヤーがベットしていて、自分の順番になった時に相手が提示した賭け金以上を提示し、金額を吊り上げること。現場でゲームをプレイする場合、コールとレイズには注意する必要があります。レイズしたかったのに『Raise』と声を出さずにチップを賭けてしまった場合、ディーラーにはコールと勘違いされるので、その損失はプレイヤーの自己責任となります。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">5.オールイン(All-in)</h4>
+                                                <p class="language_replace"> ベットの一種。最低ベット額に制限されることなく、順番になったら手持ちの賭け金を全てポットに投じてオールイン宣言すること。</p>
+                                            </ol>
+                                            <p class="language_replace">  『プリフロップラウンド』が完了したら『フロップラウンド』に入ります。</p>
+                                        </ul>
+                                    </ol>
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 4：フロップ(Flop)ラウンド</h3>
+                                        <p class="language_replace">以下はこの段階で、各プレイヤーが執行可能の各動作を紹介します。</p>
+                                        <div class="area">
+                                            <div class="desc">
+                                                <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_03.jpg" alt=""></p>
+                                                <p class="language_replace">このラウンドでは、ディーラーがデッキの一番上のカードから順番に場に3枚出します。プレイヤーが場に出された3枚のカードを確認したら、スモールブラインドから時計回りにチップを賭けることになります。プレイヤーは手札と場に出された共通カードの組み合わせで役を考え、次の戦略とアクションを考えられます。</p>
+                                            <p class="language_replace">このラウンドでも、フォールドやチェックするプレイヤー、コールやレイズするプレイヤーが出る可能性があります。全てのプレイヤーのアクションが完了したら、ターン (Turn)のラウンドに入ります。</p>
+                                            <p class="language_replace">現場でゲームをプレイする場合、多くのディーラーはデッキの一番上のカードは場に伏せて、二枚目のカードから3枚を場に出すことがあります。これは一番上のカードがプレイヤーに見られた可能性を想定して、あえてそのように対応しています。</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </ol>  
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 5：ターン(Turn)ラウンド</h3>
+                                        <div class="area">
+                                            <div class="desc">
+                                            <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_04.jpg" alt=""></p>
+                                            <p class="language_replace"> ターンのラウンドでは、ディーラーが引き続きデッキから4枚目のカードを元々場に出されている3枚の共通カードの横に出します。この時点で場に出されている共通カードは全部で4枚となります。そしたら、スモールブラインドから時計回りにチップを賭けることになります。プレイヤーは手札と場に出された共通カードの組み合わせで役を考え、次の戦略とアクションを考えます。全てのプレイヤーのアクションが完了したら、リバーターン(River)のラウンドに入ります。</p>
+                                        </div>
+                                        </div> 
+                                    </ol>  
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP  6：リバー(River)ラウンド</h3>
+                                        <div class="area">
+                                            <div class="desc">
+                                                <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_05.jpg" alt=""></p>
+                                                <p class="language_replace"> デッキから最後の1枚の共通カードが場に出されます。この時点で場に出されている共通カードは全部で5枚となります。引き続きスモールブラインドから時計回りにチップを賭けることになります。プレイヤーは手札と場に出された共通カードの組み合わせで役を考え、次の戦略とアクションを考えます。</p>
+                                            <p class="language_replace">  この時点でゲームを降りていない全てのプレイヤーでショウダウンを行い、手札を公開して、手役の比較を行って勝敗を決めます。手役が一番強かったプレイヤーの勝ちとなりますが、複数のプレイヤーで役が同じ強さの場合、ポットに貯まったチップを山分けします。</p>
+                                            <p class="language_replace">ワンゲーム終了後、BTNは時計回りに次のプレイヤーに替わり、次のゲームを始めます。</p>
+                                            </div>
+                                        </div>
+                                    </ol>  
+                                    <ol class="mb-3 mb-md-5"><h3 class="txt-white title sub-title language_replace">役</h3>
+                                        <p class="language_replace"> ゲームのルールを理解したところで、ゲームの勝敗を決めるのはカードの組み合わせで作る役の強さだと分かります。では、どのような役があり、強さの判断はどうなっているのか紹介しまう。</p>                                      
+                                        <p class="language_replace">弱い役から強い役の順に紹介：</p>
+                                        <ul class="desc">
+                                           <ol class="cardType">
+                                                    <div class="area">  
+                                                        <h4 class="card-title title txt-white txt-medium language_replace">● ハイカード（役なし）</h4>
+                                                        <p class="cardTypeStar language_replace">役の強さ -</p>
+                                                        <p class="language_replace">ペアも何もない役なし。数位がバラバラの5枚。一番大きい数位のカードで勝負します。相手もハイカードで、カードの数位が自分のより小さい場合、または相手がゲームを降りた場合にのみ勝つことができます。</p>
+                                                        <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_06.jpg" alt=""></p>
+                                                    </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                               
+                                                    <div class="area"> 
+                                                        <h4 class="card-title title txt-white txt-medium language_replace">● ワンペア</h4>
+                                                        <p class="cardTypeStar language_replace">役の強さ ★</p>  
+                                                        <p class="language_replace">同じ数位のカードを揃えた2枚が1組ある。</p>
+                                                        <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_07.jpg" alt=""></p>
+                                                    </div>
+
+                                               
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                <h4 class="card-title title txt-white txt-medium language_replace">● ツーペア</h4>
+                                                <p class="cardTypeStar language_replace">役の強さ ★★</p>
+                                                <p class="language_replace">ペアが２組ある。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_08.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                <h4 class="card-title title txt-white txt-medium language_replace">● スリー・オブ・ア・カインド</h4>
+                                                <p class="cardTypeStar language_replace">役の強さ ★★★</p>
+                                                <p class="language_replace"> 同じ数位のカードを3枚ある。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_09.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● ストレート</h4>
+                                                    <p class="cardTypeStar language_replace">役の強さ ★★★★</p>
+                                                    <p class="language_replace">5枚のカードの数位が連続して揃っている。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_10.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● フラッシュ</h4>
+                                                    <p class="cardTypeStar language_replace">役の強さ ★★★★★ (5)</p>
+                                                    <p class="language_replace">5枚のカードのスーツ（柄）が全て同じ種類で揃っている。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_11.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● フルハウス</h4>
+                                                    <p class="cardTypeStar language_replace">役の強さ ★★★★★★ (6)</p>
+                                                    <p class="language_replace">スリーカード+ワンペア</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_12.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● フォー・オブ・ア・カインド</h4>
+                                                    <p class="cardTypeStar language_replace">役の強さ ★★★★★★★ (7)</p>
+                                                    <p class="language_replace">同じ数位のカードを4枚ある。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_13.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● ストレートフラッシュ</h4>
+                                                    <p class="cardTypeStar language_replace">役の強さ ★★★★★★★★ (8)</p>
+                                                    <p class="language_replace"> スーツ（柄）が全て同じ種類の5枚のカードの数位が連続して揃っている。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_14.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● ロイヤルストレートフラッシュ</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★★★★★★ (9)</p>
+                                                    <p class="language_replace"> スーツ（柄）が全て同じ種類の5枚のカードの数位が最も高い10、J、Q、K、Aで連続して揃っている。</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/jp/guides10_15.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                        </ul>
+                                    </ol>
+                                </ul>
+                            </div>                            
+                            <!-- <div class="col-12 text-center py-4">
+                                <a href="guides.html" class="btn ghost px-5 py-2" rel="noopener"><span
+                                        class="language_replace">もっと見る</span></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <section class="py-4 py-lg-5">
+            <!-- 人気記事內容 ================ -->
+            <article class="hotarticle_area container mx-auto one-column">
+<!--<a href="guide-01_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">カジノとオンラインカジノの違いは？</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-02_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">オンラインカジノを遊ぶことは保障がありますか？</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+-->
+<a href="../instructions-crypto.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">暗号通貨の入金説明</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-03_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">バカラの攻略ガイド - 基礎規則編</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+
+<a href="guide-04_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">バカラの攻略ガイド - 中級編</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-05_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド - 上級編 1：チューチャイロとダイロ</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-06_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド- 上級編 2：ダイガンチャイ</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-07_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド - 上級編 3：シュウロ</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-08_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">罫線とは? バカラの攻略ガイド- 上級編 4：カッチャイロ</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-09_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">スロット攻略ガイド</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-10_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">テキサスホールデムポーカー攻略ガイド</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<!-- <a href="guide-11_en.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">ブロックチェーンー ゲーム攻略ガイド</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a> -->
+            </article>
+            <!-- 人気ゲーム ================ -->
+            <div class="hotgame_area container py-3 px-2 px-lg-0 mx-auto one-column">
+            </div>
+        </section>
+    </div>
+    <footer class="footer_area footer overflow-hidden">
+    </footer>
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js?ver=5.7.2' id='jquery-js'>
+    </script>
+    <script src='js/jquery-3.3.1.min.js'></script>
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js?ver=5.7.2'
+        id='bootstrap-script-js'></script>
+    <script src='js/main.js'></script>
+    <script>
+        function getCookie(name) {
+            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return v ? v[2] : null;
+        }
+
+
+        if (getCookie('cookie_consent')) {
+            // SCRIPT NAME: xtremepush
+            (function (p, u, s, h, e, r, l, i, b) {
+                p['XtremePushObject'] = s;
+                p[s] = function () {
+                    (p[s].q = p[s].q || []).push(arguments)
+                };
+                i = u.createElement('script');
+                i.async = 1;
+                i.src = h;
+                b = u.getElementsByTagName('script')[0];
+                b.parentNode.insertBefore(i, b);
+                i.onload = function () {
+                    if (typeof window.dataLayer === 'undefined') {
+                        window.dataLayer = [];
+                    } else {
+                        window.dataLayer.push({
+                            'event': 'xp_sdk_loaded'
+                        });
+
+                        // Wordpress doesn't use sessions -> solution? -> Maybe create a unqiue ID for every user visiting site. How to handle returning users? Cookie!
+                        // xp_http.open("POST", "/services/sessions/json-id", true);
+                        // xp_http.send();
+                    }
+                };
+            })(window, document, 'xtremepush', 'https://cdn.webpu.sh/D-78tQ9V-iLG5U6_j80fZyc_-MH80D9f/sdk.js');
+
+            var xp_http = new XMLHttpRequest();
+            xp_http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if (response.session_id) {
+                        xtremepush('set', 'user_id', response.session_id);
+                    }
+                }
+            };
+
+
+
+        }
+
+
+        function getOrginPath() {
+            var temp;
+            temp = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            temp = temp.substring(0, temp.lastIndexOf('.'));
+
+            if (temp.lastIndexOf('_') != -1) {
+                temp = temp.substring(0, temp.lastIndexOf('_'));
+            }
+
+            return temp;
+        }
+
+        function init() {
+            if (window.parent != window.top) {
+                window.location.href = "index.aspx";
+            }
+            window.parent.API_LoadingEnd();
+        }
+
+        function EWinEventNotify(eventName, isDisplay, param) {
+            switch (eventName) {
+                case "LoginState":
+                    //updateBaseInfo();
+
+                    break;
+                case "BalanceChange":
+                    break;
+                case "SetLanguage":
+                    var orgin = getOrginPath();
+
+                    switch (param) {
+                        case "JPN":
+                            orgin = orgin + "_jp";
+                            break;
+                        case "CHT":
+                            break;
+                        case "ENG":
+                            orgin = orgin + "_en";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    orgin = "Article/" + orgin + ".html";
+
+                    window.parent.API_LoadPage("Article", orgin);
+                    break;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,3301 @@
+@charset "UTF-8";
+@import "__common";
+@import "__function";
+
+//錢包中心
+.wallet-menu {
+    margin: 1.5em auto 0;
+    max-width: 600px;
+
+    .box-item {
+        margin: 0 0 1em;
+    }
+
+    i.icon-bank,
+    i.icon-blockchain {
+        color: $white;
+        border-radius: 16px;
+    }
+
+    i.icon-bank {
+        background-color: #5F78FE;
+    }
+
+    i.icon-blockchain {
+        background-color: #82C24F;
+    }
+
+    .box-item-detial {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+//錢包中心
+// .walletcenter-menu{
+//     margin: 1.5em auto 0;
+//     max-width: 600px;
+
+//     &.box-item-container{
+//         flex-direction: row;
+//     }
+//     .box-item {
+//         margin: 0 0 1em;
+//         width: calc(100% / 3);
+//         padding: .25rem;
+        
+//     }
+//     .box-item-link{
+//         height: 100%;
+//     }
+//     .box-item-inner{
+//         display: flex;
+//         flex-flow: column wrap;
+//         align-items: center;
+//         justify-content: center;
+//         height: 100%;
+//         border-radius: font-resize(8px);
+        
+
+//         &.tab{
+//             padding: 0.5rem;
+
+//             > i:first-of-type{
+//                 margin: 0;
+//             }
+//         }
+//         .icon{
+//             font-size: font-resize(30px);
+//         }
+//     }
+//     .box-item-detail{
+//         margin: 0;
+//         font-size: font-resize(13px);
+//         text-align: center;
+//     }
+// }
+
+//新錢包中心
+.walletcenter-menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin: 1.5em auto 0;
+    
+    max-width: 600px;
+
+    .box-item {        
+        aspect-ratio: 1/1;
+        display: flex;
+    }
+
+    .box-item-link {
+        width: 100%;
+    }
+
+    .box-item-inner {
+        &.tab {
+            height: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            padding: 8px;
+            justify-content: center;
+            align-items: center;
+            border-radius: font-resize(8px);
+
+            >i:first-of-type {
+                margin: 0.5rem 0 0;
+                width: 42px;
+                height: 42px;
+            }
+
+            i.icon-casinoworld-process-order{
+                font-size: font-resize(30px);
+            }
+            i.icon-casinoworld-newspaper{
+                font-size: font-resize(30px);
+            }
+
+            .box-item-title{
+                line-height: 1.3;
+                height: 2.5rem;
+                margin-top: 0.5rem;
+            }
+        }
+
+        .icon {
+            font-size: font-resize(30px);
+        }
+
+    }
+
+    .box-item-detail {
+        margin: 0;
+        font-size: font-resize(13px);
+    }
+
+    @media only screen and (min-width: 541px){
+
+        grid-gap: 15px;
+        padding:0 1rem;
+
+        .box-item-inner {                
+            .icon {
+                font-size: font-resize(36px);
+            }
+    
+        }
+        .box-item-detail {
+            margin-top: font-resize(6px);;
+            font-size: font-resize(15px);
+        }
+
+    }
+
+
+}
+
+.heading-user-info {
+    .heading-img {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        background-image: url(../images/assets/avatar/avatar-00.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+        overflow: hidden;
+        -webkit-box-shadow: 8px 8px 40px -12px rgb(137 153 167 / 50%);
+        box-shadow: 8px 8px 40px -12px rgb(137 153 167 / 50%);
+        margin-right: 0.5rem;
+        img {
+            width: 100%;
+        }
+    }
+    
+    .wallet{
+        .coinType{
+            color: rgba($white, .5);
+            font-size: font-resize(10px);
+            margin-right: 0.25rem;
+        }
+
+    }
+
+
+    @media only screen and (min-width: 541px){
+        .wallet{
+            .coinAmount{
+                font-size: font-resize(18px);
+            }
+
+        }
+
+    }
+    @media only screen and (max-width: 540px){
+        .heading-img {
+            display: none;
+        }
+
+    }
+
+}
+
+
+//存取款-選擇加密貨幣
+.crypto-list {
+    .box-item {
+        margin-bottom: 1em;
+
+        &-inner {
+            &.tab {
+                display: flex;
+                flex-flow: row wrap;
+            }
+        }
+
+        &-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &-detail {
+            margin: 0;
+            flex: 1;
+        }
+
+        &-title {
+            display: flex;
+            flex-flow: row wrap;
+            position: relative;
+            margin-top: 0;
+
+            // .item {
+            //     width: 100%;
+            //     display: flex;
+            //     justify-content: space-between;
+            //     line-height: 2;
+            // }
+        }
+
+        .box-item-sub{
+            margin-top: 5px;
+        }
+
+
+        label.tab {
+            .amount {
+                flex: 1;
+                margin: 0;
+                display: flex;
+                flex-flow: row wrap;
+                // flex-flow: column wrap;
+                align-items: center;
+
+                .item{
+                    display: flex;
+                    width: 100%;
+                    align-items: flex-end;
+                    align-items: baseline;
+                    // justify-content: flex-end;
+
+                }
+
+                sup.unit{
+                    top: 0;
+                    margin: 0;
+                    display: block;
+                    // line-height: 2.3;
+                    margin-left: 2px;
+                    font-weight: 500;
+                    font-size: font-resize(8px);
+                    color: rgba($black, .75);
+                }
+            }
+        }
+
+        .coinUnit{
+            flex: 0 0 100%;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            // width: 100%;
+            font-size: font-resize(17px);
+            color: rgba($black, 1);
+        }
+
+        .coinPush {
+            display: flex;
+            align-items: flex-start;
+            font-size: font-resize(13px);
+            // color: rgba(, 1);
+            border-top: solid 1px rgba($greyblue, .2);
+            margin-top: font-resize(5px);
+            padding-top: font-resize(8px);
+            .icon{
+                margin-right: 4px;
+                // color: rgba($pink, .75);
+                // font-size: font-resize(12px);
+            }
+        }
+
+        .icon-logo {
+            margin: 0 0.5em 0 0;
+            width: 48px;
+            height: 48px;
+            color: #fff;
+            background-color: #FF0066;
+            border-radius: 16px;
+            -webkit-box-shadow: 0 4px 16px -4px rgb(137 153 167 / 50%);
+            box-shadow: 0 4px 16px -4px rgb(137 153 167 / 50%);
+
+        }
+        .icon-plus{
+            font-size: 15px;
+            // padding-left: 7.5px;
+            transform: rotate(45deg);
+            // position: absolute;
+            // top: 1.5rem;
+            // left: 8px;
+            font-weight: bold;
+        }
+       
+
+        @media only screen and (min-width: 541px){
+            .coinUnit{
+                flex: 0 0 auto;
+                font-size: font-resize(18px);
+            }
+
+            label.tab {
+                .amount {    
+                    .item{                       
+                        justify-content: flex-end;
+                    } 
+                }
+            }
+
+        }
+
+        @media only screen and (min-width: 721px) and (max-width: 960px){
+            .coinUnit{
+                flex: 0 0 100%;  
+                font-size: font-resize(17px);             
+            }
+
+            label.tab {
+                .amount {    
+                    .item{                       
+                        justify-content: flex-start;
+                    }    
+                   
+                }
+            }
+        }
+
+        @media only screen and (min-width: 961px){
+            .coinUnit{
+                flex: 0 0 auto;               
+            }
+
+            label.tab {
+                .amount {    
+                    .item{                       
+                        justify-content: flex-end;
+                    }    
+                   
+                }
+            }
+
+        }
+        
+
+
+
+
+    }
+}
+
+
+//存取款 Table
+.record-table-container {
+    margin: 0 auto;
+    max-width: 600px;
+
+    .record-table {
+        &-date-select {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 0 .25em;
+
+            .desc {
+                font-size: 1.25em;
+                font-weight: 500;
+            }
+
+            .btn-container {
+                display: flex;
+            }
+
+            .btn-icon {
+                margin: 0;
+                padding: .25em;
+                color: $black;
+
+                &:hover {
+                    opacity: .5;
+                }
+            }
+
+            .modal-info {
+                margin: 0 12px 0 0;
+            }
+
+            .wrap-box {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &-item {
+            margin: 0 0 .25em;
+            background: $white;
+            border: 1px solid $black10;
+            box-sizing: border-box;
+            border-radius: 8px;
+            @include ease(.25s);
+
+            .positive {
+                color: #2AC3CD;
+            }
+
+            .negative {
+                color: $red;
+            }
+
+            &:hover {
+                box-shadow: 4px 4px 16px -8px $sd-blue;
+            }
+
+            &.header {
+                display: flex;
+                padding: .25em 1em;
+                background-color: $greyblue25;
+                border: 0;
+                border-radius: 4px;
+
+                &:hover {
+                    box-shadow: none;
+                }
+
+                .record-table-cell {
+                    flex: auto;
+                    font-size: .75em;
+                    white-space: nowrap;
+                    text-align: center;
+
+                    +.record-table-cell {
+                        margin: 0 0 0 1em;
+                    }
+
+                    &:first-child {
+                        flex: 0;
+                    }
+
+                    &:nth-child(2) {
+                        text-align: right;
+                    }
+                }
+            }
+
+            &.total {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1em 1.5em;
+                background-color: $greyblue25;
+                border: 0;
+                border-radius: 4px;
+
+                &:hover {
+                    box-shadow: none;
+                }
+
+                .ttl {
+                    font-size: .875em;
+                    color: $black75;
+                }
+
+                .count {
+                    font-size: 1.25em;
+                    font-weight: 500;
+                    color: $black;
+                }
+            }
+        }
+
+        &-tab {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            .record-table-cell {
+                flex: auto;
+                padding: .45em .75em;
+                position: relative;
+
+                &:first-child {
+                    flex: 0;
+                }
+
+                &:nth-child(2) {
+                    text-align: right;
+                }
+
+                &:nth-child(3) {
+                    flex: 1;
+                    text-align: center;
+                }
+
+                &:last-child {
+                    flex: 0;
+                }
+
+                .data-date {
+                    display: flex;
+                    align-items: center;
+                    margin: 0 .5em;
+
+                    .month {
+                        font-size: .7em;
+                    }
+
+                    .date {
+                        margin: 0 .2em;
+                        font-size: 1.5em;
+                        font-weight: 500;
+                    }
+
+                    .time {
+                        font-size: .875em;
+                        color: $black50;
+                    }
+                }
+
+                .count {
+                    font-size: 1.25em;
+                    font-weight: 500;
+                    // &.positive {
+                    //     color: #2AC3CD;
+                    // }
+                    // &.negative {
+                    //     color: $red;
+                    // }
+                }
+            }
+        }
+
+        &-drop-panel {
+            padding: 1em;
+            border-top: 1px solid $black10;
+
+            .table {
+                margin: 0 auto;
+                font-size: .9125em;
+
+                th {
+                    font-weight: lighter;
+                    color: $black50;
+                    border: 0;
+                }
+
+                td {
+                    text-align: right;
+                    border: 0;
+                }
+
+
+                .total {
+
+                    th,
+                    td {
+                        padding-top: .75em;
+                        border-top: 1px solid $black10;
+                    }
+
+                    .amount {
+
+                        sup {
+                            margin: 0 .1em 0 0;
+                        }
+
+                        .count {
+                            font-size: 1.5em;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+
+        //遊戲紀錄
+        &.games-record {
+
+            .record-table {
+                &-item {
+                    &.header {
+                        .record-table-cell {
+                            &:first-child {
+                                width: 15%;
+                                flex: unset;
+                                text-align: left;
+                            }
+
+                            &:nth-child(2) {
+                                text-align: left;
+                            }
+                        }
+                    }
+
+                    &.Loading {
+
+                        .loader-lds-dual-ring {
+                            opacity: 1;
+                        }
+
+                        .btn-toggle {
+                            opacity: 0;
+                        }
+
+                    }
+
+                    .Loaded {
+
+                        .loader-lds-dual-ring {
+                            opacity: 0;
+                        }
+
+                        .btn-toggle {
+                            opacity: 1;
+                        }
+
+                    }
+                }
+
+                &-tab {
+
+                    // background-color: rgba($greyblue, 0.03);
+                    background-color: rgba($black, 0.01);
+
+                    .record-table-cell {
+
+                        &:first-child {
+                            flex: unset;
+                            width: 15%;
+                        }
+
+                        &:nth-child(2) {
+                            flex: unset;
+                            width: 20%;
+                            text-align: left;
+                        }
+
+                        &:nth-child(3) {
+                            text-align: right;
+                        }
+
+                        &:last-child {
+                            flex: unset;
+                            width: 15%;
+                            text-align: right;
+
+                            .btn-toggle {
+                                margin: 0 0 0 auto;
+                            }
+                        }
+                    }
+                }
+
+                &-drop-panel {
+
+                    .table-sub {
+
+                        // border-bottom: 1px solid rgba($black, 0.1);
+                        border-bottom: 1px solid rgba($black, 0.048);
+                        // margin: 3px 0 8px;
+
+                        // background-color: rgba($greyblue, 0.15);
+                        // border-radius: 10px;
+
+                        th,
+                        td {
+                            padding: 0.4rem 0.8rem;
+                        }
+
+                        tr:first-child {
+
+                            th,
+                            td {
+                                padding-top: 0.8rem;
+                            }
+
+                        }
+
+                        tr:last-child {
+
+                            th,
+                            td {
+                                padding-bottom: 0.8rem;
+                            }
+
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        &:nth-child(2n) {
+                            background-color: rgba($greyblue, 0.03);
+                            //    background-color: rgba($black, 0.025);
+
+                        }
+
+                    }
+
+
+                    .gameName {
+                        color: rgba($black, 1);
+                        width: 45%;
+                    }
+
+                    .title {
+                        color: rgba($black, 1);
+                    }
+
+                    .thead {
+                        // background-color: rgba($greyblue, 0.15);
+                    }
+
+                    //遊戲紀錄
+                    .table-gamehistory {
+                        display: flex;
+                        flex-flow: row wrap;
+                        padding: 0.3rem 0.3rem;
+                        border-bottom: 1px solid rgba($black, 0.048);
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+
+                        &:nth-child(2n) {
+                            background-color: rgba($greyblue, 0.03);
+                            //    background-color: rgba($black, 0.025);
+
+                        }
+
+                        .th,
+                        .td {
+                            padding: 4px 6px;
+                        }
+
+                        .thead,
+                        .tbody {
+                            width: 100%;
+                        }
+
+                        .thead {
+
+                            //  border-bottom: 1px solid rgba($black, 0.048);
+                            .th {
+                                width: 100%;
+                                font-size: font-resize(16px);
+                            }
+                        }
+
+
+
+                        .tbody {
+                            display: flex;
+                            //    justify-content: space-between;
+                            flex-flow: column wrap;
+
+                            .tr {
+                                display: flex;
+                                justify-content: space-between;
+                            }
+                        }
+
+
+                        .title {
+                            color: rgba($black, 0.8);
+
+                        }
+
+                        .data {
+                            color: $black50;
+                        }
+
+                        .gameName {
+                            padding-top: 0.5rem;
+                            padding-bottom: 0.5rem;
+
+                        }
+
+
+                    }
+
+                }
+
+
+            }
+        }
+
+    }
+
+    .btn-toggle {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease-in;
+
+        div {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 2px;
+            background-color: $black50;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 16px;
+                height: 2px;
+                background-color: $black50;
+                transform: translateX(-50%) rotate(90deg);
+                @include ease(.25s);
+            }
+
+        }
+
+        &.cur {
+            div {
+                &:after {
+                    transform: translateX(-50%) rotate(0deg);
+                }
+            }
+        }
+
+        &:hover {
+
+            div,
+            div:after {
+                background-color: $black;
+            }
+        }
+    }
+
+
+    //存取款紀錄
+    $record-table-detail-btn-spacing:35px;
+
+    &.payment-record{
+       
+
+        .record-table-item{
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .record-table-item.header {
+
+            .record-table-cell{
+                text-align: center;
+
+                &:first-child{
+                    text-align: left;
+                }
+                &:last-child{
+                    // text-align: right;
+                }
+                &.date{
+                    // flex: 1;
+                    flex: 0 0 1rem;
+                  
+                }
+                &.payment-way{
+                    flex: 1;
+                    // flex: 0 0 4rem;
+                }
+                &.status{
+                    text-align: right;
+                }
+            }
+        }
+       
+        
+       //BODY 要強調 第一排
+        .record-table-tab {
+            .record-table-cell{
+                text-align: center;
+
+                &:nth-child(2){
+                    text-align: center;
+                }
+
+                &:last-child{
+                    flex: auto;
+                    // padding-right: $record-table-detail-btn-spacing;
+                    padding-right: 1rem;
+                    text-align: right;
+                    // padding-right: 2rem;
+                    // padding-right: calc(#{$record-table-detail-btn-spacing} + 2rem);
+                }
+
+                .data-status{
+                    margin-right: 0;    
+                }
+
+                &.date{
+                    flex: 0 0 1rem;
+                }
+
+                &.payment-way{
+                    // flex: 1;
+                    flex: 0 0 4rem;
+                }
+                &.count{
+                    text-align: right;
+                    flex: 1;
+                    // flex: 0 0 7rem;
+                    word-break: break-all;
+                    padding-right: 1rem;
+                }
+                &.status{
+                    // text-align: right;
+                    // flex: 1;
+                    flex: 0 0 4rem;
+                }
+            }
+
+        }
+
+        .record-table-drop-panel{
+            flex: auto;
+            // padding-right: $record-table-detail-btn-spacing;
+
+            .table {
+
+                font-size: font-resize(13px);
+
+                th{
+                    &.title{                     
+                        width: 2.5rem;
+                        white-space: nowrap; 
+                    }                             
+                }
+                td{
+                    // font-size: font-resize(12px);
+                    vertical-align: middle;
+                    word-break: break-all;
+                }
+            }
+           
+        }
+
+        .record-table-item.processing{
+            padding-right: $record-table-detail-btn-spacing;
+
+            .record-table-tab .record-table-cell:last-child{                
+               padding-right: 0;
+            }
+
+            .record-table-drop-panel{                
+                padding-right: 0;
+            }           
+        }
+
+        .record-table-detail-btn{
+            position: absolute;
+            right: 0px;
+            z-index: 1;
+            height: 100%;
+            top: 0;
+            background: rgba($greyblue, .1);
+
+            
+
+            .btn{
+                // width: $record-table-detail-btn-spacing;
+                width: 28px;
+                // top: calc(50% - 38px / 2);
+                height: 100%;
+                border-radius: 0 0.25rem 0.25rem 0;
+                
+                &:hover{
+                    // background-color: rgba($pink, .1);
+                    background: rgba($greyblue, .3);
+
+                }
+
+            }
+
+        }
+
+        .data-status{
+            font-size: font-resize(12px);
+        }
+
+        @media only screen and (min-width: 541px) {
+            .record-table-item.header {
+                .record-table-cell{                   
+                    &.date{
+                        // flex: 1;
+                        flex: 0 0 5rem;
+                    }                    
+                }
+            }
+
+            //BODY 要強調 第一排
+            .record-table-tab {
+                .record-table-cell{
+
+                    &:last-child{                       
+                        // padding-right: calc(#{$record-table-detail-btn-spacing} + 2rem);
+                        padding-right: 1em;
+                    }
+                    
+                    &.date{
+                        flex: 0 0 5rem;
+                    }                  
+                }
+
+            }
+
+            .record-table-item.processing{    
+                .record-table-tab .record-table-cell:last-child{                
+                    padding-right: 2rem;
+                    // padding-right: calc(#{$record-table-detail-btn-spacing} + 2rem);
+                }               
+            }
+
+        }
+
+        @media only screen and (max-width: 540px) {
+            font-size: font-resize(13px);            
+        }
+    }
+}
+
+
+.data-status {
+    align-self: center;
+    padding: .1em .25em;
+    font-size: .75rem;
+    white-space: nowrap;
+    border-radius: 4px;
+    border: 1px solid $black;
+
+    &.processing {
+        color: #5FB257;
+        border: 1px solid #5FB257;
+    }
+
+    &.fail {
+        color: $red;
+        border: 1px solid $red;
+    }
+
+
+}
+
+.progress-container {
+    margin: 0 0 1em;
+}
+
+.progress-line {
+    padding: 1em 0 0;
+    justify-content: center;
+    counter-reset: stepNum;
+
+    .progress-step {
+        position: relative;
+        margin: 0 40px;
+
+        &:before {
+            position: absolute;
+            bottom: 3px;
+            left: -70px;
+            content: '';
+            width: 60px;
+            height: 1px;
+            background-color: $black25;
+        }
+
+        &:first-child:before {
+            display: none;
+        }
+
+        &:after {
+            position: absolute;
+            top: -2.5em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: .8125em;
+            color: $black50;
+            counter-increment: stepNum;
+            content: "Step"counter(stepNum);
+        }
+
+        &:last-child:after {
+            content: "Finish";
+        }
+
+        &-item {
+            margin: 0 auto;
+        }
+
+        &.cur {
+            &:after {
+                color: $black;
+            }
+
+            &:before {
+                background-color: $pink;
+            }
+        }
+    }
+}
+
+.progress-title {
+    text-align: center;
+    margin: 0 0 1.5em;
+}
+
+.card-item {
+
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    padding: 10px;
+    // padding-bottom: 55.22%;
+    color: $white;
+    border-radius: 24px;
+
+    @include ease(.25s);
+
+    .card-item-bg {
+        @include img-fit;
+        z-index: 1;
+        border-radius: 24px;
+        display: none;
+    }
+
+    .card-item-link {
+        position: relative;
+
+        display: flex;
+        width: 100%;
+        height: 100%;
+        height: 0;
+        padding-bottom: 55%;
+
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-size: cover;
+        z-index: 3;
+        border-radius: 24px;
+    }
+
+    &.sd-02 .card-item-link {
+        background-image: url(../images/assets/card-surface/card-02.svg);
+
+    }
+
+    &.sd-08 .card-item-link {
+        background-image: url(../images/assets/card-surface/card-08.svg);
+
+    }
+
+
+    &-inner {
+        // position: absolute;
+        z-index: 2;
+        padding: 1rem 1rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+
+
+        .title {
+            margin: .5rem 0 1rem;
+            // font-size: 1.25em;
+            font-size: 5vw;
+            font-weight: 500;
+            margin-bottom: 0;
+
+            i {
+                display: inline;
+                margin: 0 .25em;
+                vertical-align: text-bottom;
+                font-size: 1.25em;
+            }
+
+            &.vertical-center {
+                // position: absolute;
+                // width: 50%;
+                // left: 0;
+                // top: calc( 50% - #{font-resize(36px)} );
+                // top: calc( 50% - 3vw );
+                // bottom: 0;
+
+                // font-size: font-resize(36px);
+                // margin: 0 auto;
+                // font-size: calc( 45vw / 4);
+
+                font-size: calc(25vw / 4);
+                margin-top: 1rem;
+
+            }
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 1em;
+            right: 1.5em;
+
+
+            img+img {
+                margin-top: 1em;
+            }
+
+            i {
+                margin: 0 0 .25em auto;
+                padding: .25em;
+
+                // font-size: 1.75em;
+                font-size: font-resize(23px);
+
+
+                border-radius: 50%;
+                background-color: rgba($color: #fff, $alpha: .2);
+            }
+
+
+            &.vertical-center {
+                position: relative;
+                // top: 0;
+                // bottom: 0;
+                justify-content: center;
+                right: 0;
+                left: 0;
+
+                width: 80%;
+                max-width: 180px;
+
+                margin: 0 auto;
+
+            }
+
+
+
+
+        }
+
+
+        .amount-info {
+            margin: .5em 0 0;
+
+            &-title {
+                font-size: .75em;
+            }
+
+            .amount {
+                font-size: 1.5em;
+                font-weight: bolder;
+
+                sup {
+                    margin: 0 -.25em 0 0;
+                    font-size: .875rem;
+                }
+            }
+        }
+
+        .desc {
+            position: absolute;
+            bottom: 1em;
+            font-size: .875em;
+
+            b {
+                font-size: 1.25em;
+            }
+
+            &.transform-result {
+                left: unset;
+                right: 2em;
+                font-size: .75em;
+            }
+        }
+    }
+
+    &:hover {
+        transform: scale(1.02, 1.02);
+    }
+
+    .account-num {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-group {
+            display: flex;
+            align-items: center;
+            margin: 0 1em 0 0;
+            font-size: 1.5em;
+            font-weight: bolder;
+
+            &:last-child {
+                margin: 0;
+            }
+
+            span {
+                display: block;
+                margin: 0 .45em;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: $white;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    margin: 0 0 0 .55em;
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    background: $white;
+                }
+            }
+        }
+    }
+
+    //虛擬錢包-使用說明
+    .instructions-crypto {
+        font-size: font-resize(15px);
+
+
+        padding: 5px 10px;
+        border-radius: 20px;
+
+        position: absolute;
+        bottom: 1.5em;
+        // right: 2em;
+
+        display: flex;
+        align-items: center;
+
+        background-color: rgba($black, 0.1);
+
+        @include ease(.25s);
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba($black, 0.3);
+
+        }
+
+        i[class^=icon] {
+            display: inline-flex;
+            flex: 0 0 auto;
+            font-size: font-resize(16px);
+            margin-right: 4px;
+        }
+
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 0;
+        height: 100%;
+        width: 80%;
+        border-radius: 40px;
+        filter: blur(20px);
+        opacity: .5;
+    }
+
+    &.sd-01:after {
+        background-color: #5E8DFE;
+    }
+
+    &.sd-02:after {
+        background-color: #5FB257;
+    }
+
+    &.sd-03:after {
+        background-color: #7E317F;
+    }
+
+    &.sd-04:after {
+        background-color: #2D4465;
+    }
+
+    &.sd-05:after {
+        background-color: #148D8D;
+    }
+
+    &.sd-06:after {
+        background-color: #FF988E;
+    }
+
+    &.sd-07:after {
+        background-color: #FF94A1;
+    }
+
+    &.sd-08:after {
+        background-color: #2D4465;
+    }
+
+    &.add-new {
+        color: $black;
+        background-color: $white;
+        border-radius: 8px;
+        box-sizing: border-box;
+        border: 1px solid $black10;
+
+        .desc {
+            display: flex;
+            align-items: center;
+            font-size: 1.25em;
+            top: 50%;
+            bottom: unset;
+            transform: translateY(-50%);
+
+            i {
+                display: inline;
+                vertical-align: middle;
+            }
+
+            .text-wrap {
+                display: inline;
+                margin: 0 0 0 1em;
+                vertical-align: middle;
+                line-height: 1;
+                color: $black;
+
+                span {
+                    font-size: .75em;
+                }
+
+                p {
+                    font-weight: 500;
+                    color: $black;
+                }
+            }
+        }
+    }
+
+    .btn-icon.delete {
+        position: absolute;
+        right: 1em;
+        bottom: 1em;
+        z-index: 10;
+        width: 30px;
+        height: 30px;
+        font-size: .8125em;
+        color: $white;
+        background-color: $black;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: $pink;
+            transform: scale(1.2, 1.2);
+        }
+    }
+
+
+}
+
+.card-container {
+
+    margin-top: -1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    max-width: 660px;
+    margin: 0 auto;
+
+    .card-item {
+        // width: 100%;
+        // max-width: 360px;
+        // padding: 10px;     
+
+        // width: 50%;
+        // max-width: unset; 
+    }
+
+    &.bank-account {
+        .card-item {
+            margin: 2em 1em;
+            width: calc(100% / 3 - 2em);
+            padding-bottom: calc((100% / 3 - 2em) / 100 * 55.22);
+
+            &-inner {
+                .title {
+                    font-size: .875em;
+                }
+
+                .logo {
+                    top: 1.5em;
+                    right: 1.5em;
+                }
+            }
+
+            .account-num {
+                font-size: .875em;
+            }
+        }
+    }
+}
+
+.payment-change {
+    margin: 0 0 24px;
+    text-align: center;
+    font-size: .8125em;
+}
+
+.notice-container {
+    margin-top: 48px;
+}
+
+.award-content {
+    p {
+        display: flex;
+        align-items: center;
+        // font-size: 1.125em;
+        font-size: font-resize(14px);
+    }
+
+    b {
+        margin: 0 .25em;
+        font-size: 1.125em;
+        color: $pink;
+    }
+
+    .award-list {
+        font-size: 1.125em;
+
+        li {
+            position: relative;
+            padding: .25em 0 .25em 2em;
+
+            &:before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                @include icon;
+                content: '\e908';
+                color: $black25;
+                font-size: 1.5em;
+                vertical-align: middle;
+            }
+
+            &.cur:before {
+                // @include icon;
+                // content: '\e908';
+                color: $pink;
+            }
+        }
+    }
+
+    .award-take-check {
+        margin: 16px 0 24px;
+        max-width: 400px;
+    }
+
+}
+
+.theme-grey {
+    padding: .75em 1.5em;
+    background-color: rgba($color: $black, $alpha: .08);
+    border-radius: 8px;
+}
+
+.crypto-info-coantainer {
+
+    // display: inline-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-flow: column;
+    margin-bottom: 1rem;
+
+    .qrcode-img {
+        float: left;
+        margin: 0 16px 0 0;
+        width: 80%;
+        min-width: 80px;
+        max-width: 240px;
+
+        overflow: hidden;
+        border-radius: 4px;
+        border: 1px solid $black10;
+    }
+
+    .crypto-info {
+        // float: left;
+        // display: inline;
+        // margin: 1em 0 0 1em;
+        margin: 1em 0;
+
+        .amount-info {
+            margin-top: 1em;
+            display: inline-flex;
+            align-items: center;
+
+            .amount {
+                font-size: 2em;
+                font-weight: 500;
+
+                sup {
+                    font-size: .75rem;
+                }
+            }
+
+            .btn {
+                margin: .25em;
+            }
+        }
+
+        .wallet-code {
+
+            &-container {
+                display: inline-flex;
+                align-items: center;
+            }
+
+            &-info {
+
+                display: flex;
+                align-items: center;
+                padding: .25em 1em;
+                font-size: .875em;
+                max-width: 240px;
+                border-radius: 24px;
+                background-color: rgba($color: $greyblue, $alpha: .1);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                i {
+                    flex-shrink: 0;
+                }
+
+                span {
+                    flex-grow: 1;
+                    padding: 0 .25em;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+    .box-item {
+        margin-bottom: 1rem;
+    }
+
+}
+
+.cryoto-address {
+    font-size: font-resize(18px);
+}
+
+
+//虛擬幣入款
+.crypto-info-related {
+
+    width: 100%;
+
+    // background-color: rgba(#ddd , .15);
+    background-color: rgba($color: $greyblue, $alpha: .1);
+
+    border-radius: 5px;
+    padding: 12px 8px;
+
+    font-size: font-resize(14px);
+    margin: font-resize(12px) auto;
+
+    .btn-icon {
+        display: inline-flex;
+    }
+
+}
+
+
+// 查詢入款交易狀況
+.crypto-info-inqury {
+    text-align: center;
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        * {
+            margin: 0 2px;
+        }
+
+        .btn {
+            flex: 0 0 auto;
+            padding: 5px;
+        }
+
+        .desc {
+            flex: 1;
+            line-height: 2;
+            // display: flex;
+            // flex-wrap: wrap;
+            // align-items: center;
+            // justify-content: center;
+        }
+
+        .desc-2 {}
+
+
+    }
+
+
+
+
+}
+
+// 匯率換算
+.crypto-exchange-rate {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    border-top: 1px solid rgba(#444, 0.05);
+
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+
+    .rate {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        .sym {
+            flex: 0 0 auto;
+            margin: 0 4px;
+        }
+
+        .crypto,
+        .currency {
+            flex: 1;
+            text-align: center;
+        }
+
+    }
+
+    .period {
+        font-size: font-resize(10px);
+        color: rgba(#444, 0.5);
+    }
+
+    .amount {
+        font-size: font-resize(20px);
+    }
+
+    .unit {
+        font-size: font-resize(12px);
+    }
+
+    .refresh {
+        flex: 0 0 auto;
+        display: flex;
+        flex-flow: column wrap;
+
+    }
+
+    .btn {
+        background-color: #fff;
+
+    }
+
+    .btn-refresh {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: font-resize(12px);
+
+    }
+
+
+}
+
+.btn-etherscan {
+
+    color: transparent;
+    background-image: url(../images/logo/etherscan-logo.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto 60%;
+
+    text-indent: -9999px;
+    width: 7rem;
+    padding: 0.5rem 1rem;
+
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active {
+        background-image: url(../images/logo/etherscan-logo.svg);
+
+    }
+}
+
+.split-layout-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    font-size: font-resize(15px);
+    min-height: 150px;
+
+    // max-width: 480px;
+
+
+    .aside-panel {
+        padding: 0 2%;
+        width: 50%;
+
+        .card-item {
+            margin: 0 auto 2rem;
+            // width: calc(90% - 2em);
+            max-width: 400px;
+            // padding-bottom: calc((90% - 2em) / 100 * 55.22 );
+
+            &-inner {
+                .title {
+                    margin: 0;
+                }
+
+                .logo {
+                    top: 1.5em;
+                    right: 1.5em;
+                }
+            }
+        }
+
+        .form-content {
+            margin: 0 auto;
+            width: 80%;
+        }
+
+    }
+
+    .main-panel {
+        padding: 0 2%;
+        width: 50%;
+    }
+
+    .credit-info {
+        position: relative;
+        top: 40%;
+        transform: translateY(-50%);
+    }
+
+    +.btn-container {
+        // margin-top: 64px;
+    }
+}
+
+.withdraw-balance-containner {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+
+    .balance-info {
+        padding: 0 1.5em;
+
+        &-title {
+            align-self: flex-start;
+            margin: .25em;
+
+            div {
+                font-size: .75rem;
+            }
+        }
+
+        .amount {
+            line-height: 1;
+
+            sup {
+                margin: 0 .25em 0 0;
+                font-size: .5em;
+            }
+        }
+
+        +.balance-info {
+            border-left: 1px solid $black10;
+        }
+    }
+}
+
+.inputlike-box {
+
+    &-group {
+
+        padding: 0.9em 0.9em 0.7em;
+        border-radius: 8px;
+        // display: flex;
+        background-color: rgba(#2c2d3a, .078);
+
+        justify-content: space-between;
+
+    }
+
+    flex: 1;
+
+    // text-align: center;
+
+    .exchanged {
+        color: $black;
+    }
+
+    &:not(.exchanged) .placeholder {
+        color: $black50;
+    }
+
+    &-prepend {
+        margin-right: font-resize(8px);
+    }
+
+}
+
+@media only screen and (min-width: 375px) {
+
+    .card-container {
+
+        .card-item {
+            width: 50%;
+            max-width: unset;
+        }
+
+        .card-item-link {
+            padding-bottom: 85%;
+
+            .logo {
+                right: 2vw;
+                i {
+                    font-size: 4vw;
+                }
+
+            }
+        }
+
+    }
+
+    .card-item-inner {
+
+        .title {
+            font-size: 2.5vw;
+
+            &.vertical-center {
+                font-size: calc(25vw / 4);
+            }
+
+        }
+    }
+
+
+    // .card-item-inner {
+
+    //     .title{           
+
+    //         &.vertical-center{
+    //             font-size: font-resize(40px);
+    //         }
+
+    //     }
+    // }
+}
+
+
+@media only screen and (min-width: 540px) {
+
+    .card-container {
+        .card-item-link {
+            padding-bottom: 65%;
+        }
+    }
+
+    .progress-title {
+
+        font-size: 1em;
+        margin: 0 0 15px;
+    }
+
+
+
+    //遊戲紀錄
+    .table-gamehistory {
+
+        .thead {
+            flex: 0 0 40%;
+
+        }
+
+        .thead,
+        .tbody {
+            flex: 1;
+
+        }
+
+    }
+
+}
+
+@media only screen and (min-width: 576px) {
+
+    .card-container {
+        .card-item-link {
+            padding-bottom: 60%;
+        }
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+      
+    .card-container {
+        .card-item-link {
+            padding-bottom: 60%;
+
+            .logo {
+                right: 1.5rem;
+                i {
+                    font-size: font-resize(25px);
+                }
+
+            }
+        }
+    }
+
+    .card-item-inner {
+
+        .title {
+            font-size: font-resize(18px);
+            margin-bottom: 0.65rem;
+           
+
+            &.vertical-center {
+                font-size: font-resize(40px);
+            }
+
+        }
+    }
+
+    .split-layout-container{
+        .aside-panel {    
+            .card-item {    
+                &-inner {                   
+    
+                    .logo {
+                        top: 2.5em;
+                       
+                    }
+                }
+            }
+    
+            
+    
+        }
+
+    }
+
+}
+
+
+@media only screen and (min-width: 960px) {
+
+    .split-layout-container {
+
+        +.btn-container {
+            margin-top: 64px;
+        }
+
+    }
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+    .card-container {
+        // max-width: 760px;
+
+    }
+
+}
+
+
+
+
+@media only screen and (max-width: 960px) {
+
+    .card-container {
+
+        &.bank-account {
+            .card-item {
+                margin: 1.5em 1em;
+                width: calc(100% / 2 - 2em);
+                padding-bottom: calc((100% / 2 - 2em) / 100 * 55.22);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {}
+
+@media only screen and (max-width: 720px) {
+
+    .split-layout-container {
+        .aside-panel {
+            width: 100%;
+            margin-bottom: 40px;
+            padding: 0 1rem;
+
+            &:only-child {
+                margin-bottom: 0;
+            }
+
+            .card-item {
+                // margin: 1em auto;
+                // width: calc(100% - 4em);
+                width: calc(100% - 2em);
+                max-width: 320px;
+                // padding-bottom: calc((100% - 2em) / 100 * 45.22 );
+            }
+
+            .form-content {
+                width: 90%;
+            }
+        }
+
+        .main-panel {
+            width: 100%;
+            padding: 0 1rem;
+        }
+    }
+
+
+}
+
+@media only screen and (max-width: 540px) {
+    .heading-top-container {
+        display: none;
+    }
+
+    .page-title {
+        &-container {
+            margin: 0 0 1.5em;
+        }
+
+        &-wrap {
+            min-width: unset;
+        }
+
+        &-inner .title {
+            font-size: 1em;
+        }
+
+    }
+
+    .progress-line {
+        padding: 0;
+
+        .progress-step {
+            margin: 0 24px;
+
+            &:before {
+                left: -40px;
+                width: 32px;
+            }
+
+            &:after {
+                display: none;
+                position: absolute;
+            }
+        }
+    }
+
+    .wallet-menu {
+        .box-item {
+            margin: 0 auto .5em;
+        }
+    }
+
+    .dropdown-selector {
+        &-panel {
+            width: 96vw;
+        }
+    }
+
+    .record-table-container {
+        .record-table {
+            &-date-select {
+                .btn-icon {
+                    margin: 0;
+                    color: $black;
+                }
+            }
+
+            &-item {
+                &.header {
+                    .record-table-cell {
+                        +.record-table-cell {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            &-tab {
+                padding: .25em 0;
+
+                .record-table-cell {
+                    padding: .25em;
+
+                    .data-date {
+                        flex-direction: column;
+                        align-items: center;
+                        line-height: 1.1;
+
+                        .month {
+                            font-size: .7em;
+                        }
+
+                        .date {
+                            margin: 0;
+                            font-size: 1.25em;
+                        }
+
+                        .time {
+                            font-size: .75em;
+                        }
+                    }
+
+                    .count {
+                        font-size: 1em;
+                        font-weight: normal;
+                    }
+
+                    .data-status {
+                        margin: 0 -1em 0 0;
+                    }
+                }
+            }
+
+            &-drop-panel {
+                padding: .5em 0.5em 1em;
+
+                .table {
+                    font-size: .875em;
+
+                    .total {
+                        .amount {
+                            sup {
+                                margin: 0 .1em 0 0;
+                            }
+
+                            .count {
+                                font-size: 1.25em;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.games-record {
+                .record-table-tab .record-table-cell .data-date {
+                    margin: 0 0 0 -1em;
+                }
+            }
+        }
+    }
+
+    .award-content .award-list {
+        font-size: 1em;
+    }
+
+    .balance-info .amount {
+        font-size: 1.5em;
+    }
+
+    .crypto-info-coantainer {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        
+
+        .qrcode-img {
+            float: none;
+            // width: 100px;
+        }
+
+        .crypto-info {
+            margin: 0;
+
+            .amount-info {
+                display: flex;
+                align-items: center;
+
+                .amount {
+                    font-size: 2em;
+                    font-weight: 500;
+
+                    sup {
+                        font-size: .75rem;
+                    }
+                }
+
+                .btn {
+                    margin: .25em;
+                }
+            }
+        }
+    }
+
+    .card-container {
+        &.bank-account {
+            .card-item {
+                margin: 1em;
+                width: calc(100% - 2em);
+                padding-bottom: calc((100% - 2em) / 100 * 55.22);
+            }
+        }
+    }
+
+    .card-container .card-item {
+        // margin: 1em;
+        // width: calc(50% - 2em);
+        // max-width: 380px;
+        // padding-bottom: calc((50% - 2em) / 100 * 55.22 );
+    }
+
+
+}
+
+@media only screen and (max-width:375px) {
+
+    .card-container .card-item {
+        // margin: 1em;
+        // width: calc(100% - 2em);
+
+        // padding-bottom: calc((100% - 2em) / 100 * 55.22 );
+    }
+
+    .card-item {
+        &-inner {
+
+            .title {
+                &.vertical-center {
+                    // top: calc( 50% - 8vw );
+                    // font-size: 8vw;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+
+@media only screen and (max-width: 375px) {
+    .crypto-info-inqury {
+
+        .content {
+
+            .desc {
+
+                display: flex;
+                flex-flow: row wrap;
+                align-items: center;
+                // justify-content: center;
+            }
+
+            .btn-etherscan {
+                flex: 1;
+            }
+
+
+            .desc-1 {
+                display: none;
+
+            }
+
+            .desc-2 {
+                // width: 100%;
+                // text-align: left;
+                order: -1;
+
+            }
+
+        }
+
+    }
+
+}
+
+
+
+
+
+//交易結果 ==================
+.WrappertransactionResult {
+
+
+    font-size: 16px;
+
+    $color_success: #2ff3ab;
+    $bg_circle_success: #46ded4;
+
+
+    $color_fail: #f23030;
+
+    text-align: center;
+
+
+
+    .transaction_resultShow {}
+
+    .icon-symbol {
+        width: 40px;
+        height: 40px;
+
+        margin: 0 auto;
+        position: relative;
+        // top: 30px;
+        z-index: 2;
+
+
+        &::before,
+        &::after {
+            position: relative;
+        }
+
+
+    }
+
+
+
+
+    &.success {
+
+        .transaction {
+
+            &_resultDisplay {
+                background: rgb(70, 222, 212);
+                background: linear-gradient(37deg, rgba(#46deb2, 0) 0%, rgba(#46deb2, 1) 100%);
+
+                &:after {
+                    background: rgb(70, 222, 212);
+                    background: linear-gradient(35deg, rgba(#46deb2, 1) 0%, rgba(#46deb2, 1) 100%);
+                }
+
+            }
+
+            &_resultTitle {
+                // color: #45e7b8;
+                color: #26dba6;
+
+            }
+
+            &_resultDesc {
+                color: #26dba6;
+            }
+
+
+            &_amountTitle,
+            &_currencyType {
+                // color: rgba($color_success, 0.7);
+                color: rgba(#00cd91, 1);
+            }
+
+            &_currencyAmount {
+                // color: rgba($color_success, 1);
+                color: rgba(#00cd91, 1);
+            }
+        }
+
+        .icon-symbol {
+
+            &::before,
+            &::after {
+                content: " ";
+                position: absolute;
+                box-sizing: border-box;
+
+                height: 0;
+                width: 7px;
+
+                background-color: rgba(#ffffff, 1);
+
+                display: inline-block;
+                transform-origin: left top;
+                border-radius: 10px;
+
+
+                // transition: opacity ease 0.5;
+            }
+
+
+            &::before {
+                // height: 10px;
+                // animation: dothabottomcheck 0.25s ease-in-out 0s forwards;
+            }
+
+            &::before {
+
+                top: 20px;
+                // right: 20px;
+                left: 0;
+                transform: rotate(-45deg);
+            }
+
+            &::after {
+                // height: 20px;
+                // animation: dothatopcheck 0.5s ease 0s forwards;
+            }
+
+            &::after {
+                right: 17px;
+                top: 33px;
+                transform: rotate(-135deg);
+            }
+
+        }
+    }
+
+    &.fail {
+
+        .transaction {
+
+            &_resultDisplay {
+                background: rgb(244, 59, 59);
+                background: linear-gradient(37deg, rgba(239, 38, 38, 0) 0%, rgba(244, 59, 59, 0.3) 100%);
+
+                &:after {
+                    background: rgb(70, 222, 212);
+                    background: linear-gradient(35deg, rgba(#f44a4a, 1) 0%, rgba(#f44a4a, 0.8) 93%);
+                }
+
+            }
+
+            &_resultTitle {
+                color: #f45656;
+            }
+
+            &_resultDesc {
+                color: #f45656;
+            }
+
+            &_amountTitle,
+            &_currencyType {
+                color: rgba($color_fail, 0.8);
+            }
+
+            &_currencyAmount {
+                color: rgba($color_fail, 1);
+            }
+        }
+
+
+        .icon-symbol {
+
+            width: 40px;
+            height: 40px;
+
+            margin: 0 auto;
+            position: relative;
+
+
+
+            animation: symboRotation 0.5s ease 0s forwards;
+
+
+            &::before,
+            &::after {
+
+
+                background-color: #fff;
+
+                box-sizing: border-box;
+                position: absolute;
+                height: 40px;
+                width: 8px;
+
+                display: inline-block;
+
+
+                border-radius: 10px;
+                content: " ";
+                transition: opacity ease 0.5;
+
+                // transform-origin: left top;
+                transform-origin: center center;
+                // opacity: 0;
+            }
+
+
+            &::before {
+                // height: 40px;
+                // animation: crossLeft 0.5s ease 0s forwards;
+            }
+
+            &::before {
+                top: 1px;
+                right: 15px;
+                transform: rotate(-45deg);
+            }
+
+            &::after {
+                // height: 40px;
+                // animation: crossRight 0.5s ease 0.2s forwards;
+            }
+
+            &::after {
+
+                top: 1px;
+                left: 15px;
+                transform: rotate(45deg);
+            }
+
+        }
+
+    }
+
+    //動畫效果
+    &.resultShow {
+
+        &.success {
+
+            .icon-symbol {
+
+                &::before {
+                    // height: 10px;
+                    animation: dothabottomcheck 0.25s ease-in-out 0.5s forwards;
+                }
+
+                &::after {
+                    // height: 20px;
+                    animation: dothatopcheck 0.5s ease 0.55s forwards;
+                }
+            }
+        }
+
+        &.fail {
+
+            .icon-symbol {
+
+                &::before {
+                    height: 40px;
+                    animation: crossLeft 0.5s ease 0s forwards;
+                }
+
+
+
+                &::after {
+                    height: 40px;
+                    animation: crossRight 0.5s ease 0.2s forwards;
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+    .transaction_resultDisplay {
+
+        width: 120px;
+        height: 120px;
+
+        margin: 0 auto;
+        position: relative;
+
+        border-radius: 50%;
+        margin-top: 15px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+
+        &:after {
+            content: " ";
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+
+            left: 0;
+            right: 0;
+
+            // top: calc( (100px - 120px) / 2);
+            // left: calc( (100px - 120px) / 2);
+
+            border-radius: 50%;
+
+        }
+
+
+
+
+
+
+
+    }
+
+    .transaction_resultTitle {
+
+        font-weight: bold;
+        margin-top: 10px;
+
+        margin-bottom: 1rem;
+        font-size: font-resize(23px);
+
+    }
+
+    .transaction_resultDesc {
+        margin-bottom: 1rem;
+        font-size: font-resize(18px);
+    }
+
+
+
+    .transaction_amountTitle {
+        font-size: 15px;
+    }
+
+    .transaction_currencyType {
+        font-size: 15px;
+    }
+
+    .transaction_currencyAmount {
+        font-size: 36px;
+    }
+
+    // 交易時間
+    .transaction_session {
+
+        // color: rgba(#ffffff, 0.4);
+        border-bottom: solid 1px rgba(#ffffff, 0.05);
+
+        // margin-bottom: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-size: 14px;
+
+    }
+
+    .transaction_notice {
+        text-align: left;
+        font-size: font-resize(15px);
+        // font-weight:lighter;
+        border-top: solid 1px rgba(#000, .1);
+        padding-top: 1rem;
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .item-notice {
+            margin-bottom: 0.8rem;
+
+            &::before {
+                content: '*';
+            }
+        }
+
+        .sub {
+            font-size: font-resize(13px);
+            line-height: 1.8;
+            text-indent: font-resize(13px)
+        }
+    }
+
+    .transaction_detail {
+
+        width: 90%;
+        max-width: 360px;
+        margin: 0 auto 0;
+        font-size: font-resize(15px);
+
+        border-top: solid 1px rgba(#000, .1);
+
+        .item-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 6px 0;
+
+
+        }
+
+    }
+
+
+    // 目前餘額
+    .balance {
+        border-top: solid 1px rgba(#000, .1);
+
+        margin-top: 10px;
+
+        font-weight: 500;
+
+        &+.transaction_currencyBalance {
+            margin-top: 0;
+            margin-bottom: 10px;
+
+        }
+
+        // &:first-of-type{
+        //     margin-top: 10px;
+        // }
+
+        // &:last-of-type{
+        //     margin-bottom: 10px;
+        // }
+
+        .currencyAmount {
+            font-size: 15px;
+        }
+
+
+
+    }
+
+    .transaction_currency {
+        margin-bottom: 2rem;
+    }
+
+
+
+
+    .transaction_recordLink {
+
+        margin: 20px 0;
+
+        i[class^="icon"] {
+            display: inline-flex;
+            font-size: 15px;
+            margin-right: 4px;
+        }
+
+        // 錢包紀錄
+        .wallet_record {
+            // color: #c1a678;
+            margin: 0 5px;
+
+
+            // &:before{
+            //     content: '';
+            //     width: 20px;
+            //     height: 14px;
+            //     display: inline-block;
+            //     background: url(../images/historyBtn.svg) 100% center no-repeat;
+            //     margin-right: 4px;
+            // }
+
+            &:hover {
+                color: $pink;
+            }
+        }
+
+    }
+
+}
+
+
+
+@keyframes dothabottomcheck {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 20px;
+    }
+}
+
+@keyframes dothatopcheck {
+    0% {
+        height: 0;
+    }
+
+    50% {
+        height: 0;
+    }
+
+    100% {
+        height: 40px;
+    }
+}
+
+@keyframes symboRotation {
+    0% {
+        transform: rotate(-200deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes crossLeft {
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(-45deg);
+        opacity: 1;
+    }
+}
+
+@keyframes crossRight {
+    0% {
+        // height: 0;
+        transform: scale(0, 0) rotate(45deg);
+        opacity: 0;
+    }
+
+    100% {
+        // height: 40px;
+        transform: scale(1, 1) rotate(45deg);
+        opacity: 1;
+    }
+}
+
+@keyframes noticeSlideIn {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+
+    100% {
+        height: 20px;
+        opacity: 1;
+    }
+}
+
+//紀錄 Loader ======
+.loader-lds-dual-ring {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 17px;
+    top: 5px;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+
+    transition: all 0.3s ease-in;
+
+    &:after {
+        content: " ";
+        display: block;
+        width: 22px;
+        height: 22px;
+        margin: 3px;
+        border-radius: 50%;
+        // border: 3px solid #fcf;
+        border: 2px solid $black75;
+        border-color: $black75 transparent $black75 transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+
+}
+
+
+//入金步驟-入金確認
+.deposit-list{
+
+}
+
+.deposit-confirm{
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 1.5rem;
+}
+
+//存款細項
+.deposit-detail{
+    margin-top: 1.5rem;
+    
+    .item{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: solid 1px rgba($black, .1);
+        margin-bottom: 1rem;
+
+        &:last-child{
+            border-bottom: none;
+        }
+        
+        .title{
+            font-size: font-resize(15px);
+            font-weight: normal;
+            white-space: nowrap;
+            padding-right: 1rem;
+        }
+        .data{
+            word-break: break-all;
+            text-align: right;
+        }
+    }
+}
+
+//收款項目
+.deposit-calc{
+    background-color: rgba($white, 1);
+    border-radius: 5px;
+    padding: 20px 15px;
+    box-shadow: 0 0 24px -8px rgba(#8999a7, .25);
+    
+
+    .data{
+        font-weight: 500;
+    }
+
+    .deposit-crypto{
+        text-align: center;
+    }
+
+    .icon-logo{
+        display: inline-flex;
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        border-radius: 50%;
+        font-size: font-resize(14px);
+        margin-right: 0.5rem;
+    }
+
+    .deposit-crypto-list{
+        border-bottom: solid 1px rgba($black, .1);
+        margin-bottom: 1rem;
+
+        .item{
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            
+        }
+
+        .title{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .name{
+                margin: 0;
+            }
+        }
+        
+        
+    }
+
+}
+
+//存入金額
+.deposit-total{
+    
+    .item{
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+        align-items: flex-end;
+        margin-bottom: 0.4rem;
+
+        .name{
+            font-size: font-resize(16px);
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .data{
+            display: flex;
+            flex-flow: column wrap;
+            align-items: flex-end;
+    
+            .name{
+                font-size: font-resize(11px);
+                color: rgba($black, .68);
+            }
+    
+            .count{
+                font-size: font-resize(16px);
+            }
+    
+        }
+
+        &.subtotal{
+            color: rgba($black, .9);
+            .data{
+                .count{
+                    font-size: font-resize(17px);
+                }    
+            }
+        }
+    
+        &.total{
+            .title{
+                .name{
+                    font-size: font-resize(18px);
+                    font-weight: bold;                    
+                }
+            }
+
+            .data{    
+                .count{
+                    font-size: font-resize(24px);
+                    line-height: 1.1;
+                }    
+            }
+        }
+        
+    }
+   
+
+}
+
+
+
+
+//人金熱門活動
+.deposit-award-list{
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    flex-flow: row wrap;
+
+    .item{
+        width: 100%;
+        padding: 10px;
+    }
+
+    .img-crop{
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right:0.5rem;
+        img{
+            width: 100%;
+        }
+    }
+    .custom-control{
+        padding-left: 0;
+        height: 100%;
+    }
+
+    .custom-control-label{
+        display: flex;
+        padding: 10px 10px 10px 40px;
+        border-radius: 5px;
+        background-color: rgba($white, 1);
+        border:solid 1px rgba($white, 0.85); 
+        height: 100%;
+    }
+
+    .custom-checkbox .custom-control-label::before {
+        left: 0.5rem;
+        top:  0.6rem;
+    }
+    .custom-checkbox .custom-control-label::after {
+        left: 0.45rem;
+        top: 0.2rem;
+    }
+
+
+    .custom-checkbox .custom-control-input-hidden:checked ~ .custom-control-label {
+        border:solid 1px rgba($pink, 0.85);    
+    }
+
+    .desc{
+        // display: -webkit-box;
+        // -webkit-box-orient: vertical;
+        // -webkit-line-clamp: 2;
+        // overflow: hidden;
+    }
+
+}
+
+.cryptoWallet-address{
+    .input-group-text{
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+        background-color: rgba($white, 1);
+    }
+
+    .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+    }
+    .custom-style{
+        // border-radius:0;
+    //     border-top-left-radius: 0;
+    // border-bottom-left-radius: 0;
+        
+        &:not(:focus){
+            // border-right: rgba($white, 0);
+        }
+    }
+
+    .input-group-append{
+        background-color: rgba($white, 1);
+        border: 1px solid rgba(44, 45, 58, 0.25);
+        border-radius: 0 0.25rem 0.25rem 0;
+    }
+
+    .icon{
+        font-size: font-resize(16px);
+    }
+    .btn-icon{
+        position: relative;
+        top: auto;
+        right: auto;
+    }
+
+    .btn-scan{
+        right: 0;
+    }
+}
+
+
+@media only screen and (min-width: 721px){
+    .deposit-award-list{
+        .item{
+            width: 50%;
+        }
+    }
+
+
+    .deposit-confirm{
+        width: 100%;
+
+        .main-panel{
+            order: -1;
+        }
+    
+    }
+
+    
+}
+
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

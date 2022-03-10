@@ -1,0 +1,746 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>BCC177</title>
+    <meta name='robots' content='max-image-preview:large' />
+    <link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+    <!--<link rel="preload" href="https://img.japanesecasino.com/themes/sunrise2/japan-dark-bg-mobile.jpg" as="image">-->
+    <link rel='stylesheet' id='wp-block-library-css' href='CSS/StyleSheet.css' media='all' />
+    <link rel='stylesheet' id='bootstrap-style-css' href='CSS/StyleSheet2.css' media='all' />
+    <link rel="stylesheet" href="CSS/layout.css">
+<link rel="stylesheet" href="../css/global.css">
+    <!--<script defer src='https://www.japanesecasino.com/wp-content/themes/sunrise2/js/components/loadMorePosts.js?ver=5.7.2' id='sunrise2-loadMorePosts-js'></script>-->
+    <link rel="canonical" href="Guide.html" />
+    <meta name="description"
+        content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M38QK3D');
+    </script>
+    <link rel="icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-32x32.png"
+        sizes="32x32" />
+    <link rel="icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png"
+        sizes="192x192" />
+    <link rel="apple-touch-icon"
+        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
+    <meta name="msapplication-TileImage"
+        content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
+
+    <script type="module">
+        /**
+* Script to toggle and enable search
+*/
+        (function () {
+
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                var search_toggler = document.getElementById("search_toggler");
+
+                if (!search_toggler) return;
+
+                search_toggler.addEventListener("click", function () {
+                    var icon = this.children[0];
+                    var form = document.getElementById('search_form');
+                    if (icon.classList.contains('fa-search')) {
+                        icon.classList.remove('fa-search'); icon.classList.add('fa-times');
+                        form.querySelector('.search-input-field').classList.add('show');
+                        setTimeout(function () { form.querySelector('.search-input-field').focus(); }, 10);
+                    } else {
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-search');
+                        form.querySelector('.search-input-field').classList.remove('show');
+                    }
+                }, false);
+            }
+
+        })();        /**
+     * Script to show more elements
+     */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            /**
+             * Initiate script
+             */
+            function init() {
+
+                elems['buttons'] = document.getElementsByClassName("showmore");
+
+                // No buttons found
+                if (elems['buttons'].length === 0) return;
+
+                Array.prototype.forEach.call(elems['buttons'], function (el) {
+                    // Find the target parent
+                    var target = el.getAttribute('data-target');
+
+                    // No target found
+                    if (target == null) return;
+
+                    // Add listeners
+                    el.addEventListener("click", showMore);
+                });
+            }
+
+            /**
+             * Show more elements
+             */
+            function showMore() {
+
+                // Hidden elements within target container
+                var target = event.target.getAttribute('data-target');
+                var hidden = document.getElementById(target).getElementsByClassName('hidden');
+
+                // No hidden elements found
+                if (hidden == null || target == null) return;
+
+                // Count number of
+                var length = hidden.length;
+                var offset = (event.target.getAttribute('data-offset') == null ? length : event.target.getAttribute('data-offset'));
+
+                // Loop through the hidden elements
+                var count = 0;
+                while (hidden.length && (count < offset)) {
+                    hidden[0].classList.remove('hidden');
+                    length--;
+                    count++;
+                }
+
+                // No hidden elements left
+                if (length == 0) {
+                    event.target.classList.add('d-none');
+                    event.target.removeEventListener('click', showMore);
+                    return;
+                }
+            }
+
+        })();                            /**
+     * Script for activating the sticky-element
+     */
+        (function () {
+
+            // Elements
+            var elems = [];
+
+            // Bools
+            var error = false;
+            var passiveSupport = false;
+
+            // Ints
+            var targetTop;
+            var windowHeight;
+            var windowWidth;
+            var tocBtnText;
+
+            // Run
+            document.addEventListener("DOMContentLoaded", init);
+
+            function init() {
+
+                elems['sticky'] = document.getElementById("sticky");
+                elems['breakpoint'] = document.getElementById("stickyBreakpoint");
+                elems['navbar'] = document.getElementById("navbar");
+
+                // Check that all required elements is in place
+                Object.keys(elems).forEach(function (key) {
+                    if (elems[key] === null) {
+                        //console.log( key + ' is missing.' );
+                        error = true;
+                    }
+                });
+
+                // Required element(s) missing, abort
+                if (error === true) return;
+
+                targetTop = elems['navbar'].offsetHeight;
+                windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+                windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+                elems['sticky'].style.top = targetTop + 'px';
+
+                window.addEventListener('resize', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                window.addEventListener('orientationchange', function () {
+                    targetTop = elems['navbar'].offsetHeight;
+                    elems['sticky'].style.top = targetTop + 'px';
+                }, false);
+
+                // Check if #sticky contains tracked elements
+                elems['anchors'] = elems['sticky'].getElementsByClassName("anchor");
+                elems['toc_dropdown_btn'] = document.getElementById("toc_dropdown_btn");
+
+                // Tracked elements found, add listeners
+                if (elems['anchors'] !== null && elems['toc_dropdown_btn'] !== null) {
+
+                    tocBtnText = elems['toc_dropdown_btn'].innerHTML;
+
+                    Array.prototype.forEach.call(elems['anchors'], function (el) {
+                        el.addEventListener("click", trackAnchorsByClick);
+                    });
+
+                    document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+                }
+
+                // Add listeners
+                checkPassiveSupport();
+                window.addEventListener("scroll", sticky, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Check if the browser supports passive listeners
+             */
+            function checkPassiveSupport() {
+
+                try {
+                    var options = {
+                        get passive() {
+                            passiveSupport = true;
+                        }
+                    };
+
+                    window.addEventListener("test", options, options);
+                    window.removeEventListener("test", options, options);
+                } catch (err) {
+                    passiveSupport = false;
+                }
+            }
+
+            /**
+             * Sticky
+             */
+            function sticky() {
+
+                // Get the breakpoint element's position
+                var breakpoint_rect = elems['breakpoint'].getBoundingClientRect();
+
+                // Get sticky, or not
+                if (isInViewport(breakpoint_rect) || isBelowViewport(breakpoint_rect)) {
+                    elems['sticky'].classList.remove("show");
+
+                    if (tocBtnText != null) elems['toc_dropdown_btn'].innerHTML = tocBtnText;
+
+                } else {
+                    elems['sticky'].classList.add("show");
+                }
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isInViewport(rect) {
+
+                var vertInView = ((rect.top - targetTop) <= windowHeight) && (((rect.top - targetTop) + rect.height) >= 0);
+                return (vertInView);
+            }
+
+            /**
+             * Check if the element is below the viewport
+             */
+            function isBelowViewport(rect) {
+                if (rect.top >= windowHeight) return true;
+            }
+
+            /**
+             * Set the active anchor by click
+             */
+            function trackAnchorsByClick() {
+
+                // Remove listener by scroll, to avoid conflicts
+                document.removeEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+
+                // Do have an active anchor set?
+                if (elems['active_anchor'] !== undefined) {
+                    elems['active_anchor'].classList.remove("txt-mid-blue");
+                }
+
+                // Set the active anchor
+                elems['active_anchor'] = event.target;
+                event.target.classList.add("txt-mid-blue");
+                elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+
+                // Re-add listener
+                document.addEventListener("scroll", trackAnchorsByScroll, passiveSupport ? { passive: true } : false);
+            }
+
+            /**
+             * Set the active anchor by scroll
+             */
+            function trackAnchorsByScroll() {
+
+                Array.prototype.forEach.call(elems['anchors'], function (el) {
+
+                    // Remove the hashtag to get a clean id
+                    var target = document.getElementById(el.getAttribute("href").substring(1));
+
+                    // Get the target element's position
+                    var target_rect = target.getBoundingClientRect();
+
+                    // Is the heading in the viewport?
+                    if (isInViewport(target_rect)) {
+
+                        // Do have an active anchor set?
+                        if (elems['active_anchor'] !== undefined) {
+                            elems['active_anchor'].classList.remove("txt-mid-blue");
+                        }
+
+                        // Set the active anchor
+                        elems['active_anchor'] = el;
+                        elems['toc_dropdown_btn'].innerHTML = elems['active_anchor'].innerHTML;
+                        el.classList.add("txt-mid-blue");
+                    }
+
+                });
+            }
+
+        })();</script>
+</head>
+<body class="onlinecasinoworld-com">
+   
+    <div class="site-content article__subPage">
+        <main class="article__subPageContent">
+            <div class="bg-neutral-dark px-4 px-lg-0">
+                <div class="container text-center one-column pt-5 pb-3 intro">
+                    <h1 class="txt-larger mt-lg-3 mb-0 language_replace ">德州撲克攻略導覽</h1>
+                    <!-- <p class="lead mt-3 mb-3 language_replace">熱門的遊戲相關知識和玩法攻略</p> -->
+                </div>
+                <div class="container py-3 one-column">
+                    <div class="pb-1">
+                        <div class="row mb-4">
+                            <div class="col-12 px-0 mb-4">
+                                <!-- <h2 class="artilce-sub-title "><span class="language_replace">線上賭場和實體賭場的差別是?</span></h2> -->
+                            </div>
+                            <div class="col-12 px-0 color-white">
+                                <p class="language_replace">
+                                    撲克的玩法有非常多種，而其中德州撲克又是最受歡迎的一種，且有正式的國際撲克比賽。核心玩法是每個玩家發一組牌，然後有一組公牌，由最後未蓋牌的玩家之手牌與公牌有最大牌型組合者獲勝。而德州撲克最為人所津津樂道的，除了基本的建立於機率上的運氣外，和對手的心理戰更是精彩。即使拿到的牌不好，也可透過迫使其他玩家蓋牌而獲勝。
+                                </p>
+
+                                    <div class="mb-2 mb-md-5">
+                                        <div class="area">   
+                                            <div class="desc">
+                                            <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_01.jpg" alt=""></p>
+                                            <p class="language_replace">最少2人(兩人對決稱為Heads-UP，俗稱單挑)，最大可10人同時進行，雖然線上版本看不到對方的臉，但可以想像對方都是不漏聲色、下注籌碼進行心理戰的高手，線上比賽同樣緊張感十足。</p>
+                                        </div></div>
+                                     
+                                    </div>
+                                
+                               
+                                <ul class="list mb-2 mb-md-5">
+                                    <ol class="mb-3 mb-md-5"><h3 class="title txt-white sub-title language_replace">發牌規則</h3>
+                                        <p class="language_replace">向每位玩家發2張底牌，最後發5張公牌，然後玩家用手上的2張牌和公牌的5張牌組合出最強的牌型，與其他玩家勝負。</p>
+                                        <div class="area">
+                                            <div class="desc">
+                                                <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_02.jpg" alt=""></p>
+                                                <p class="language_replace">在多名玩家同時遊玩的情況下，有些玩家根據坐的位置有對應的名稱。</p>
+                                            </div>
+                                        </div>
+                                    </ol>
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 1：決定位置</h3>
+                                        <ul class="">
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">● 『按鈕』(BTN,Button)</h4>
+                                                <p class="language_replace">荷官會從BTN左邊第一位玩家開始發牌，所以BTN也就是最後一個被發牌且最後行動的玩家，代表可以在觀察所有對手行動後，思考對應方式，如果你有很好的牌，在什麼位置的影響不大，但如果你的牌不甚理想，想要唬人，那BTN是非常有利的位置。通常的情況下，BTN的位置會被放上『Dealer』的標示。</p>
+                                            </ol>
+                                            <p class="language_replace">在遊戲開始還沒發牌，就強制需要投注的玩家：</p>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">● 小盲(SB)</h4>
+                                                <p class="language_replace">在BTN左手邊(下家)的位置，牌局一開始，小盲位的玩家就需先丟出0.5個盲注。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">● 大盲(BB)</h4>
+                                                <p class="language_replace">在BTN左手邊第二個位置，牌局一開始，大盲位的玩家就需先丟出1個盲注。</p>
+                                            </ol>
+                                        </ul>
+                                    </ol>
+                                    <!-- <ol class="">
+                                        
+                                        <ul class="">
+                                            
+                                        </ul>
+                                    </ol> -->
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 2：開始發牌</h3>
+                                        <p class="language_replace">荷官從小盲位開始，以順時鐘方向開始發牌，一次一張，發到Button位時，再從小盲位開始發第二張牌。</p>
+                                        <p class="language_replace">每位玩家都有兩張牌後，進入*翻牌前的下注階段。</p>
+                                        <p class="language_replace">*翻牌前的下注階段(Preflop round)：所有玩家已經取得兩張牌，發公牌前各玩家要執行下注或蓋牌的動作階段。</p>
+                                    </ol>
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 3：翻牌前下注階段</h3>
+                                        <p class="language_replace">以下介紹在此階段個玩家可能執行的各項動作。</p>
+                                        <ul class="">
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">1. 棄牌(Fold)</h4>
+                                                <p class="language_replace">在BTN左手邊(下家)的位置，牌局一開始，小盲位的玩家就需先丟出0.5個盲注。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">2. 過牌(Check)</h4>
+                                                <p class="language_replace">在前面沒有人下注，自己也不下注，讓給後面玩家的行為。如果在現場，可能因為思考不自覺而敲牌桌，這也是會被判斷為過牌。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">3. 跟注(Call)</h4>
+                                                <p class="language_replace">前面的玩家下注，輪到你時，你拿出相同的籌碼進行遊戲。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">4. 加注(Raise)</h4>
+                                                <p class="language_replace">前面的玩家下注後，輪到你時，你拿出比他更多的籌碼投注。如果在現場，需要注意是跟注以及加注，是玩家自行將籌碼放進牌桌底池，如果是想加注卻沒喊『Raise』，可能會誤被荷官認為只是跟注，那就是玩家自己的損失了。</p>
+                                            </ol>
+                                            <ol class="">
+                                                <h4 class="title txt-white txt-medium language_replace">5. 全下(All-in)</h4>
+                                                <p class="language_replace">屬於加注的一種，不受最小加注額的限制，輪到你下注時，將全部籌碼放入底池，宣告All-in。</p>
+                                            </ol>
+                                            <p class="language_replace"> 『翻牌前下注階段』完成後，就進入『翻牌階段』。</p>
+                                        </ul>
+                                    </ol>
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 4：翻牌下注階段(Flop)</h3>
+                                        <p class="language_replace">以下介紹在此階段個玩家可能執行的各項動作。</p>
+                                        <div class="area">
+                                            <div class="desc">
+                                                <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_03.jpg" alt=""></p>
+                                                <p class="language_replace">進入此階段，將牌疊最上方的一張牌發在桌上，然後依序第二張、第三張，總共三張牌放在桌面上。玩家們看到三張牌後。從小盲位開始順時鐘下注，玩家須根據自己的手牌和公牌進行組合，決定接下來的策略和動作。</p>
+                                            <p class="language_replace">接著可能有的玩家棄牌，有的玩家跟注、加注，完成該圈所有動作後，進入轉牌圈(Turn)。</p>
+                                            <p class="language_replace">如果是現場發牌，多數荷官會將牌疊最上方的一張蓋在牌桌上，從第二張開始發三張至牌桌上，主要是避免最上面那一張不小心被玩家看到，進而採取對應策略。</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </ol>  
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP 5：轉牌圈下注階段(Turn)</h3>
+                                        <div class="area">
+                                            <div class="desc">
+                                            <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_04.jpg" alt=""></p>
+                                            <p class="language_replace">進入轉牌圈，繼續將牌疊上的牌發至公牌區，放在原本三張公牌的旁邊，總共四張公牌。之後繼續由小盲位開始順時針進行下注，玩家繼續根據手牌與公牌的組合決定後續的動作。所有玩家執行完動作後，進入河牌圈(River)</p>
+                                        </div>
+                                        </div> 
+                                    </ol>  
+                                    <ol class="mb-3 mb-md-5"><h3 class="title color-sub-01 sub-title language_replace">STEP  6：河牌圈下注階段(River)</h3>
+                                        <div class="area">
+                                            <div class="desc">
+                                                <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_05.jpg" alt=""></p>
+                                                <p class="language_replace">從牌疊上發出最後一張牌至牌桌上，總共5張公牌，後繼續由小盲位開始順時針進行下注，玩家繼續根據手牌與公牌的組合決定後續的動作。</p>
+                                            <p class="language_replace">此時未蓋牌的所有玩家攤開手牌，手上牌型最大的玩家勝利，如果有複數玩家的牌型一樣大，則均分彩池。</p>
+                                            <p class="language_replace">牌局結束後，BTN順時針由下一位玩家接手繼續牌局。</p>
+                                            </div>
+                                        </div>
+                                    </ol>  
+                                    <ol class="mb-3 mb-md-5"><h3 class="txt-white title sub-title language_replace">牌型</h3>
+                                        <p class="language_replace">看了前面玩法說明，已經可以知道決勝的關鍵當然就是牌型的組合和大小了，那到底有那些牌型組合，又該如何判斷大小呢? 以下來為各位介紹!</p>                                      
+                                        <p class="language_replace">牌型小由大由低而高，依序為：</p>
+                                        <ul class="desc">
+                                           <ol class="cardType">
+                                                    <div class="area">  
+                                                        <h4 class="card-title title txt-white txt-medium language_replace">● 高牌</h4>
+                                                        <p class="cardTypeStar language_replace">牌型強度 -</p>
+                                                        <p class="language_replace">連一對都沒有的五張牌，僅以最大的牌作為是否獲勝的判斷，只有當所有對手都是高牌而牌面較小，或者蓋牌，擁有高牌的玩家才獲勝。</p>
+                                                        <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_06.jpg" alt=""></p>
+                                                    </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                               
+                                                    <div class="area"> 
+                                                        <h4 class="card-title title txt-white txt-medium language_replace">● 一對</h4>
+                                                        <p class="cardTypeStar language_replace">牌型強度 ★</p>  
+                                                        <p class="language_replace">同一個數字的兩張牌</p>
+                                                        <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_07.jpg" alt=""></p>
+                                                    </div>
+
+                                               
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                <h4 class="card-title title txt-white txt-medium language_replace">● 兩對</h4>
+                                                <p class="cardTypeStar language_replace">牌型強度 ★★</p>
+                                                <p class="language_replace">兩個一對</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_08.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                <h4 class="card-title title txt-white txt-medium language_replace">● 三條</h4>
+                                                <p class="cardTypeStar language_replace">牌型強度 ★★★</p>
+                                                <p class="language_replace">同一數字的牌三張</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_09.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● 順子</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★</p>
+                                                    <p class="language_replace">連續的數字五張</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_10.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● 同花</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★★ (5)</p>
+                                                    <p class="language_replace">相同花色的五張牌</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_11.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● 葫蘆</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★★★ (6)</p>
+                                                    <p class="language_replace">三條 + 一對</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_12.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● 四條</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★★★★ (7)</p>
+                                                    <p class="language_replace">同一個數字的牌四張</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_13.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● 同花順</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★★★★★ (8)</p>
+                                                    <p class="language_replace">相同花色的順子</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_14.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                           <ol class="cardType">
+                                                <div class="area"> 
+                                                    <h4 class="card-title title txt-white txt-medium language_replace">● 皇家同花順</h4>
+                                                    <p class="cardTypeStar language_replace">牌型強度 ★★★★★★★★★ (9)</p>
+                                                    <p class="language_replace">數字分別為 10、J、Q、K、A且相同花色的順子</p>
+                                                    <p class="guidesImg text-center bgWhite"><img src="images/guides/zh/guides10_15.jpg" alt=""></p>
+                                                </div>
+                                            </ol>
+                                        </ul>
+                                    </ol>
+                                </ul>
+                            </div>                            
+                            <!-- <div class="col-12 text-center py-4">
+                                <a href="guides.html" class="btn ghost px-5 py-2" rel="noopener"><span
+                                        class="language_replace">看更多</span></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <section class="py-4 py-lg-5">
+            <!-- 熱門文章內容 ================ -->
+            <article class="hotarticle_area container mx-auto one-column">
+<!--<a href="guide-01.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">賭場和線上賭場的差別是?</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-02.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">遊玩 Online Casino 有保障嗎?</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+-->
+<a href="guide_Q&A_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">ローリングのルール・よくあるＱ＆Ａ集</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>					
+<a href="../instructions-crypto.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">虛擬貨幣存款說明</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-03.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">百家樂攻略法 - 基礎規則篇</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-04.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">百家樂攻略法 - 中級篇</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-05.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">路單是? 百家樂的攻略 - 上級篇 1：珠盤路和大路</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-06.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">路單是? 百家樂的攻略 - 上級篇 2：大眼仔路</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-07.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">路單是? 百家樂的攻略 - 上級篇 3：小路</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-08.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">路單是? 百家樂的攻略 - 上級篇 4：小強路</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-09.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">老虎機攻略導覽</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<a href="guide-10.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">德州撲克攻略導覽</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a>
+<!-- <a href="guide-11.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+    <div class="px-2 pr-3 flex-fill overflow-hidden">
+        <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">區塊鍊遊戲攻略導覽</h3>                           
+    </div>
+    <i class="fas fa-chevron-right txt-grey"></i>
+</a> -->
+            </article>
+            <!-- 熱門遊戲 ================ -->
+            <div class="hotgame_area container py-3 px-2 px-lg-0 mx-auto one-column">
+            </div>
+        </section>
+    </div>
+    <footer class="footer_area footer overflow-hidden">
+    </footer>
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js?ver=5.7.2' id='jquery-js'>
+    </script>
+    <script src='js/jquery-3.3.1.min.js'></script>
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js?ver=5.7.2'
+        id='bootstrap-script-js'></script>
+    <script src='js/main.js'></script>
+    <script>
+        function getCookie(name) {
+            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return v ? v[2] : null;
+        }
+
+
+        if (getCookie('cookie_consent')) {
+            // SCRIPT NAME: xtremepush
+            (function (p, u, s, h, e, r, l, i, b) {
+                p['XtremePushObject'] = s;
+                p[s] = function () {
+                    (p[s].q = p[s].q || []).push(arguments)
+                };
+                i = u.createElement('script');
+                i.async = 1;
+                i.src = h;
+                b = u.getElementsByTagName('script')[0];
+                b.parentNode.insertBefore(i, b);
+                i.onload = function () {
+                    if (typeof window.dataLayer === 'undefined') {
+                        window.dataLayer = [];
+                    } else {
+                        window.dataLayer.push({
+                            'event': 'xp_sdk_loaded'
+                        });
+
+                        // Wordpress doesn't use sessions -> solution? -> Maybe create a unqiue ID for every user visiting site. How to handle returning users? Cookie!
+                        // xp_http.open("POST", "/services/sessions/json-id", true);
+                        // xp_http.send();
+                    }
+                };
+            })(window, document, 'xtremepush', 'https://cdn.webpu.sh/D-78tQ9V-iLG5U6_j80fZyc_-MH80D9f/sdk.js');
+
+            var xp_http = new XMLHttpRequest();
+            xp_http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if (response.session_id) {
+                        xtremepush('set', 'user_id', response.session_id);
+                    }
+                }
+            };
+
+
+
+        }
+
+
+        function getOrginPath() {
+            var temp;
+            temp = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            temp = temp.substring(0, temp.lastIndexOf('.'));
+
+            if (temp.lastIndexOf('_') != -1) {
+                temp = temp.substring(0, temp.lastIndexOf('_'));
+            }
+
+            return temp;
+        }
+
+        function init() {
+            if (window.parent != window.top) {
+                window.location.href = "index.aspx";
+            }
+            window.parent.API_LoadingEnd();
+        }
+
+        function EWinEventNotify(eventName, isDisplay, param) {
+            switch (eventName) {
+                case "LoginState":
+                    //updateBaseInfo();
+
+                    break;
+                case "BalanceChange":
+                    break;
+                case "SetLanguage":
+                    var orgin = getOrginPath();
+
+                    switch (param) {
+                        case "JPN":
+                            orgin = orgin + "_jp";
+                            break;
+                        case "CHT":
+                            break;
+                        case "ENG":
+                            orgin = orgin + "_en";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    orgin = "Article/" + orgin + ".html";
+
+                    window.parent.API_LoadPage("Article", orgin);
+                    break;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

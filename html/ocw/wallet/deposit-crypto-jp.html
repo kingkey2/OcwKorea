@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+    
+    <link rel="stylesheet" href="../src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/wallet.css" type="text/css"/>
+
+</head>
+
+<body>
+    <div class="page-container">
+        <!-- Heading-Top -->
+        <div id="heading-top"></div>
+        
+        <div class="page-content">
+
+            <section class="sec-wrap">
+                <!-- 頁面標題 -->
+                <div class="page-title-container">
+                    <div class="page-title-wrap">
+                        <div class="page-title-inner">
+                            <h3 class="title">存款</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 步驟 -->
+                <div class="progress-container progress-line">
+                    <div class="progress-step cur">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step cur">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-item"></div>
+                    </div>
+                </div>
+                <div class="text-wrap progress-title">
+                    <p  data-deposite="step2">輸入存款金額</p>
+                    <p data-deposite="step3">選擇虛擬貨幣</p>
+                    <p data-deposite="step4">支付</p>
+                </div>
+                
+                <div class="split-layout-container">
+                    <div class="aside-panel">
+                        <!-- 卡片 -->
+                        <div class="card-item sd-02">
+                            <div class="card-item-inner">
+                                <div class="title">Crypto</div>
+                                <div class="amount-info">
+                                    <div class="amount-info-title">本次存款 (USD)</div>
+                                    <div class="amount">
+                                        <sup>$</sup>
+                                        <span class="count">99</span>
+                                    </div>
+                                </div>
+                                <div class="desc transform-result">日幣換算：約 <b>0</b> 元</div>
+                                <div class="logo">
+                                    <i class="icon-logo-btc"></i>
+                                    <i class="icon-logo-doge"></i>
+                                    <i class="icon-logo-tron"></i>
+                                </div>
+                            </div>
+                            <img src="../src/img/assets/card-surface/card-02.svg" class="card-item-bg">
+                        </div>
+                        <div class="text-wrap payment-change">
+                            <a href="deposit.html" class="text-link c-blk">
+                                <i class="icon-transfer"></i>
+                                <span>切換</span>
+                            </a>
+                        </div>
+
+                        <div class="form-content" data-deposite="step2">
+                            <form>
+                                <div class="form-group">
+                                    <label class="form-title">金額</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" placeholder="入金額又は金額を選択" inputmode="numeric">
+                                        <div class="invalid-feedback">提示</div>
+                                    </div>
+                                </div>
+        
+                                <div class="btn-wrap btn-radio-wrap">
+                                    <div class="btn-radio">
+                                        <input type="radio" name="amount" id="amount1" >
+                                        <label class="btn btn-outline-primary" for="amount1">
+                                            <span>$25</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="btn-radio">
+                                        <input type="radio" name="amount" id="amount2" >
+                                        <label class="btn btn-outline-primary" for="amount2">
+                                            <span>$50</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="btn-radio">
+                                        <input type="radio" name="amount" id="amount3" >
+                                        <label class="btn btn-outline-primary" for="amount3">
+                                            <span>$100</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- 虛擬錢包 step2 -->
+                    <div class="main-panel" data-deposite="step2">
+                        <!-- 存款獎勵 -->
+                        <div class="text-wrap award-content">
+                            <h5>今チャージしたら、獲得できるボーナス</h5>
+                            <ul class="award-list">
+                                <!-- <li class="cur">$100  獎勵金</li>
+                                <li>$免費進行次數 100 次</li>
+                                <li>獎勵金 1 回</li>
+                                <li>再存 <b>$420</b> 可以獲得最大級獎勵！</li> -->
+                                <li class="cur">金額達成チャージと初回チャージのボーナスイベントは不定期で行う！</li>
+                            </ul>
+                            <!-- <ul class="award-list">
+                                <li class="cur">$100  獎勵金</li>
+                                <li>$免費進行次數 100 次</li>
+                                <li>獎勵金 1 回</li>
+                                <li>再存 <b>$420</b> 可以獲得最大級獎勵！</li>
+                                <li>金額達成チャージと初回チャージのボーナスイベントは不定期で行う！</li>
+                            </ul> -->
+
+                            <!-- <div class="form-group theme-grey award-take-check">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="CheckAward">
+                                    <label class="form-check-label" for="CheckAward">
+                                        不要獎勵
+                                    </label>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- 存款獎勵 -->
+                        <!-- <div class="text-wrap award-content">
+                            <h5>這次存款可以獲得的獎勵</h5>
+                            <p class="note primary">特別獎勵！Note of Death 的免費進行次數</p>
+                            <ul class="award-list">
+                                <li class="cur">Note of Death 的免費進行次數 100 次</li>
+                            </ul>
+                        </div> -->
+                    </div>
+                    <!-- 虛擬錢包 step3 -->
+                    <div class="main-panel" data-deposite="step3">
+                        <div class="box-item-container crypto-list">
+
+                            <div class="box-item">
+                                <input type="radio" name="payment-crypto" id="payment-cry1">
+                                <label class="box-item-inner tab" for="payment-cry1">
+                                    <i class="icon-logo-btc"></i>
+                                    <div class="box-item-detail">
+                                        <div class="box-item-title">BTC
+                                            <span class="box-item-status">1 BTC = 1234567 USD</span>
+                                        </div>
+                                    </div>
+                                    <div class="amount">
+                                        <sup>BTC</sup>
+                                        <span class="count">0.000000</span>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="box-item">
+                                <input type="radio" name="payment-crypto" id="payment-cry2">
+                                <label class="box-item-inner tab" for="payment-cry2">
+                                    <i class="icon-logo-doge"></i>
+                                    <div class="box-item-detail">
+                                        <div class="box-item-title">DOGE
+                                            <span class="box-item-status">1 DOGE = 1234567 USD</span>
+                                        </div>
+                                    </div>
+                                    <div class="amount">
+                                        <sup>DOGE</sup>
+                                        <span class="count">0.000000</span>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="box-item">
+                                <input type="radio" name="payment-crypto" id="payment-cry3">
+                                <label class="box-item-inner tab" for="payment-cry3">
+                                    <i class="icon-logo-tron"></i>
+                                    <div class="box-item-detail">
+                                        <div class="box-item-title">TRON
+                                            <span class="box-item-status">1 TRON = 1234567 USD</span>
+                                        </div>
+                                    </div>
+                                    <div class="amount">
+                                        <sup>TRON</sup>
+                                        <span class="count">0.000000</span>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="box-item">
+                                <input type="radio" name="payment-crypto" id="payment-cry4">
+                                <label class="box-item-inner tab" for="payment-cry4">
+                                    <i class="icon-logo-eth"></i>
+                                    <div class="box-item-detail">
+                                        <div class="box-item-title">ETH
+                                            <span class="box-item-status">1 ETH = 1234567 USD</span>
+                                        </div>
+                                    </div>
+                                    <div class="amount">
+                                        <sup>ETH</sup>
+                                        <span class="count">0.000000</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 虛擬錢包 step4 -->
+                    <div class="main-panel" data-deposite="step4">
+                        <div class="crypto-info-coantainer">
+                            <div class="img-wrap qrcode-img">
+                                <img src="../src/img/assets/qrcode-temp-00.jpg">
+                            </div>
+
+                            <div class="crypto-info">
+                                <div class="amount-info">
+                                    <div class="amount">
+                                        <sup>BTC</sup>
+                                        <span class="count">0.000000</span>
+                                    </div>
+                                    <button class="btn btn-icon">
+                                        <i class="icon-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="wallet-code-container">
+                                    <div class="wallet-code-info">
+                                        <i class="icon-wallet"></i>
+                                        <span>adadasdahqeqr45hqeadadasddadasdahqeqr45hqeadadasd</span>
+                                    </div>
+                                    <button class="btn btn-icon">
+                                        <i class="icon-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-primary" data-deposite="step2">
+                        <span>下一步</span>
+                    </button>
+                    <button class="btn btn-primary" data-deposite="step3">
+                        <span>下一步</span>
+                    </button>
+                    <button class="btn btn-outline-primary" data-deposite="step4" onclick="goBack()">
+                        <span>取消</span>
+                    </button>
+                    <button class="btn btn-primary" data-deposite="step4" data-toggle="modal" data-target="#depositSucc">
+                        <span>確認</span>
+                    </button>
+                </div>
+
+                <!-- 溫馨提醒 -->
+                <div class="notice-container" data-deposite="step3">
+                    <div class="notice-item">
+                        <i class="icon-info_circle_outline"></i>
+                        <div class="text-wrap">
+                            <p class="title">溫馨提醒</p>
+                            <ul class="list-style-decimal">
+                                <li>請正確使用對應的錢包入款，否則將造成資產損失。 <br>
+                                    <span class="primary">※USDT請勿使用ERC20以外的協定。</span></li>
+                                <li>虛擬貨幣入賬需經過數個區塊確認，約需要數分鐘時間。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+     <!-- Modal 有溫馨提醒-->
+     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="depositSucc" aria-hidden="true" id="depositSucc">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-circle-check green"></i>
+                        <div class="text-wrap">
+                            <h6>存款成功 !</h6>
+                            <p>您可進入遊戲確認您本次的入金，以及對應的 Bouns 獎勵。</p>
+                        </div>
+                    </div>
+                    <div class="modal-body-content">
+                        <i class="icon-info_circle_outline"></i>
+                        <div class="text-wrap">
+                            <h6>溫馨提醒</h6>
+                            <p>不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/wallet.js"></script>
+
+</body>
+</html>

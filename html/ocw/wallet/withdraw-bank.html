@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+    
+    <link rel="stylesheet" href="../src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    
+    <link rel="stylesheet" href="../src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/wallet.css" type="text/css"/>
+
+</head>
+
+<body>
+    <div class="page-container">
+        <!-- Heading-Top -->
+        <div id="heading-top"></div>
+        
+        <div class="page-content">
+            
+            <section class="sec-wrap">
+                <!-- 頁面標題 -->
+                <div class="page-title-container">
+                    <div class="page-title-wrap">
+                        <div class="page-title-inner">
+                            <h3 class="title">銀行取款</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 步驟 -->
+                <div class="progress-container progress-line">
+                    <div class="progress-step cur">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step cur">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-item"></div>
+                    </div>
+                </div>
+                <div class="text-wrap progress-title">
+                    <p data-withdraw="step2">輸入取款金額</p>
+                    <p data-withdraw="step3">取款確認</p>
+                </div>
+
+                <div class="split-layout-container">
+                    <div class="aside-panel">
+                        <!-- 卡片 -->
+                        <div class="card-item sd-01">
+                            <div class="card-item-inner">
+                                <div class="title text-right"><i class="icon-bank"></i>Bank</div>
+                                <div class="amount-info">
+                                    <div class="amount-info-title">本次取款 (USD)</div>
+                                    <div class="amount">
+                                        <sup>$</sup>
+                                        <span class="count">99</span>
+                                    </div>
+                                </div>
+                                <div class="desc transform-result">日幣換算：約 <b>0</b> 元</div>
+                            </div>
+                            <img src="../src/img/assets/card-surface/card-01.svg" class="card-item-bg">
+                        </div>
+                        <!-- 餘額顯示 -->
+                        <div class="withdraw-balance-containner">
+                            <div class="balance-info flex-column">
+                                <div class="balance-info-title">
+                                    <div>餘額</div>
+                                </div>
+                                <div class="amount"><sup>$</sup>99</div>
+                            </div>
+                            <div class="balance-info flex-column">
+                                <div class="balance-info-title">
+                                    <div>可取款餘額</div>
+                                </div>
+                                <div class="amount"><sup>$</sup>9,999</div>
+                            </div>
+                        </div>
+
+                        <!-- 銀行 step2 -->
+                        <div class="form-content" data-withdraw="step2">
+                            <form>
+                                <div class="form-group">
+                                    <label class="form-title">金額</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" placeholder="請輸入取款金額" inputmode="numeric">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 銀行 step3 -->
+                        <div class="form-content" data-withdraw="step3">
+                            <form>
+                                <div class="form-group pincode-box">
+                                    <label class="form-title">輸入取款密碼</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                        <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                        <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                        <input type="password" class="form-control custom-style" maxlength="1" size="1">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-primary" data-withdraw="step2">
+                        <span>下一步</span>
+                    </button>
+                    <button class="btn btn-outline-primary" data-withdraw="step3" onclick="goBack()">
+                        <span>取消</span>
+                    </button>
+                    <button class="btn btn-primary" data-withdraw="step3"  data-toggle="modal" data-target="#alertSucc">
+                        <span>確認</span>
+                    </button>
+                </div>
+
+                <!-- 溫馨提醒 -->
+                <div class="notice-container" data-withdraw="step2">
+                    <div class="notice-item">
+                        <i class="icon-info_circle_outline"></i>
+                        <div class="text-wrap">
+                            <p class="title">溫馨提醒</p>
+                            <ul class="list-style-decimal">
+                                <li>取款程序可能需要數分至數小時。</li>
+                                <li>可取款金額與指定流水量於當日00:00進行結算前一日之可取款金額。因此餘額與可取款金額可能有所誤差。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertSucc" aria-hidden="true" id="alertSucc">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-circle-check green"></i>
+                        <div class="text-wrap">
+                            <p>取款申請已送出，請耐心等候。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/wallet.js"></script>
+
+</body>
+</html>

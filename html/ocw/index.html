@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MAHARAJA</title>
+    
+    <link rel="stylesheet" href="src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="src/css/global.css" type="text/css"/>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader-container">
+        <div class="loader-box">
+            <div class="loader-spinner">
+                <div></div>
+            </div>
+            <div class="loader-text">Loading...</div>
+        </div>
+        <div class="loader-backdrop"></div>
+    </div>
+
+    <div class="wrapper">
+        <!-- HEADER -->
+        <div class="nav-toggle">
+            <div></div>
+        </div>
+
+        <header class="header-container">
+            <div class="header-inner">
+                <h1 class="header-logo">
+                    <img src="src/img/assets/logo.svg" alt="Logo Here">
+                </h1>
+                <div class="header-tool">
+                    <div class="header-tool-item user">
+                        <a class="item-tab" href="member/index.html" target="page">
+                            <div class="balance-info">
+                                <div class="amount">9,999</div>
+                            </div>
+                            
+                            <div class="avatar">
+                                <img src="src/img/assets/avatar/avatar-01.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="header-tool-item is-hide">
+                        <a class="item-tab" data-click-btn="signIn">
+                            <i class="icon-user-circle"></i>
+                            <span>登入</span>
+                        </a>
+                    </div>
+                    <div class="header-tool-item">
+                        <a class="item-tab" data-btn-click="openLag">
+                            <i class="icon-world"></i>
+                            <span>CN</span>
+                        </a>
+                        <div class="lang-select-panel">
+                            <ul>
+                                <li><a href="#">JP</a></li>
+                                <li><a href="#">EN</a></li>
+                                <li><a href="#">CN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主選單 -->
+        <div class="nav">
+            <nav class="nav-drawer">
+                <div class="nav-drawer-inner">
+                    <ul class="nav-group">
+                        <li>
+                            <a href="games/index.html" target="page">
+                                <i class="icon-home"></i>
+                                <span>首頁</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="games/casino.html" target="page">
+                                <i class="icon-casino"></i>
+                                <span>賭場</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="games/slot.html" target="page">
+                                <i class="icon-slot"></i>
+                                <span>老虎機</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="games/poker.html" target="page">
+                                <i class="icon-poker"></i>
+                                <span>撲克</span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="">
+                                <i class="icon-news"></i>
+                                <span>新聞</span>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="wallet/index.html" target="page">
+                                <i class="icon-wallet"></i>
+                                <span>錢包</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet/games-record.html" target="page">
+                                <i class="icon-games"></i>
+                                <span>遊戲紀錄</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="member/index.html" target="page">
+                                <i class="icon-member"></i>
+                                <span>會員中心</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="has-msg" data-btn-click="conversation">
+                                <i class="icon-service"></i>
+                                <span>客服</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about/index.html" target="page">
+                                <i class="icon-flag"></i>
+                                <span>關於我們</span>
+                            </a>
+                        </li>
+                    </ul>
+            
+                    <ul class="nav-group">
+                        <li>
+                            <a href="wallet/deposit.html" target="page">
+                                <i class="icon-deposit"></i>
+                                <span>存款</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet/withdraw.html" target="page">
+                                <i class="icon-withdraw"></i>
+                                <span>取款</span>
+                            </a>
+                        </li>
+                    </ul>
+            
+                    <ul class="nav-group">
+                        <li>
+                            <a class="btn-sign-out" data-btn-click="system-msg">
+                                <i class="icon-exit"></i>
+                                <span>登出</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </nav>
+            <div class="body-backdrop"></div>
+        </div>
+
+        <!-- 登入/註冊 -->
+        <div id="sign"></div>
+        <!-- 客服對話 -->
+        <div id="conversation"></div>
+        <!-- 系統錯誤 -->
+        <div id="system-msg">
+            <div class="layout-full-screen system-msg-container">
+                <div class="main-panel">
+
+                    <section class="section-wrap">
+                        <div class="logo">
+                            <img src="src/img/assets/logo-icon.png" alt="">
+                        </div>
+                        <div class="img-wrap">
+                            <img src="src/img/assets/feature-img-joker.svg">
+                        </div>
+                        <div class="text-wrap text-center">
+                            <p>您點選的頁面沒有反應，請回到首頁，<span class="break">或是進入我們為您精心準備的遊戲！</span></p>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#" class="square-link outline">
+                                <i class="icon-home"></i>
+                                <span>首頁</span>
+                            </a>
+                            <a href="games/casino.html" class="square-link primary">
+                                <i class="icon-casino"></i>
+                                <span>賭場</span>
+                            </a>
+                            <a href="games/slot.html" class="square-link secondary">
+                                <i class="icon-slot"></i>
+                                <span>老虎機</span>
+                            </a>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- page -->
+        <div class="iframe-container">
+            <iframe src="games/" frameborder="0" name="page"></iframe>
+            <!-- <iframe src="wallet/deposit-result.html" frameborder="0" name="page"></iframe> -->
+        </div>
+    </div>
+     
+
+    <script src="src/lib/jquery/jquery.min.js"></script>
+    <script src="src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/script.js"></script>
+
+
+</body>
+</html>

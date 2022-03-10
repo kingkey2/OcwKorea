@@ -1,0 +1,93 @@
+/* 客服中心跳出視窗 */
+.chatDiv {
+    position: absolute;
+    /*top: 100px;*/
+    bottom:0px;
+    right: -100%;
+    width: 100%;
+    // height: 597px;
+    height: 100vh;
+    transition: all 0.3s ease-in;
+    background: #fff;
+    z-index: 999;
+
+    border-radius: 10px;
+
+
+    iframe {
+        // width: 100%;
+        // height: 573px;
+        // height: calc(100vh - 50px);
+    }
+    
+    &.show {
+        right: 0px;
+    }
+}
+
+
+.ChatFrame {
+    width: 100%;
+    // height: 573px;
+    height: calc(100% - 55px);
+}
+
+.chatHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5em;
+    border-bottom: 1px solid $black10;
+
+}
+
+
+
+
+.chatBtn.show .chatBtnImg::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 14px;
+    background: rgba(55,59,78,1);
+    background-image: url("../images/closeIcon.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 40%;
+    width: 52px;
+    height: 52px;
+    border-radius: 52px;
+    text-align: center;
+    line-height: 52px;
+    margin: auto;
+    -webkit-box-shadow: inset 0px 0px 4px 1px rgba(255,255,255,0.1);
+    -moz-box-shadow: inset 0px 0px 4px 1px rgba(255,255,255,0.1);
+    box-shadow: inset 0px 0px 4px 1px rgba(255,255,255,0.1);
+    z-index: 9;
+}
+.chatCloseBtn {
+    display: inline-block;
+    color:red;
+}
+.chatTitle {
+    display:inline-block;
+    // color:white;
+    font-size: font-resize(18px);
+    font-weight: normal;
+}
+.chatBtn.show .chatBtnImg::after:hover {
+}
+
+
+@media only screen and (min-width: 576px) {
+
+    .chatDiv{
+      max-width: 440px;  
+      max-height: 70vh;
+
+      border: 1px solid rgba(44, 45, 58, 0.1);
+      box-shadow: 0 -8px 40px -12px rgba(#2c2d3a, .25);
+  
+    }
+  
+  }

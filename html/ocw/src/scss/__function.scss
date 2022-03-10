@@ -1,0 +1,27 @@
+// $font-size-default: $body-fontSize-default;
+$font-size-default: 16px; //原本 的function 是以 16px 為基準, 改變 body的 font size即可
+
+//Convert font unit : PX => REM
+// @function font-resize($size:$font-size-default){
+@function font-resize($size){
+    @return ( $size / $font-size-default) * 1rem;
+}
+  
+//Text nums limitation
+// @function max-size($unit: $font-size-default, $num:1, $spacing){
+
+//     @return ($size / $font-size-default) * 1rem;
+
+// }
+
+
+@function calculateRem($size:$font-size-default) {
+    $remSize: $size / $font-size-default;
+    @return $remSize * 1rem;
+  }
+
+ 
+// return Bootstrap4 Breakpoints in "_variables.scss" => $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+@function breakpoints_BS4($breakpoints){
+    @return map-get($grid-breakpoints, $breakpoints)
+}

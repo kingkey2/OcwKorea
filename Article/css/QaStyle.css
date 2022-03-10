@@ -1,0 +1,46 @@
+/*隱藏scrollbar*/
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
+.QA-style{
+  margin: 0rem 0 0rem 0 !important;
+}
+
+.nav {
+  position: revert;
+  margin-bottom: 20px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+    overflow-x: auto;
+   overflow-y:hidden;
+   flex-wrap: nowrap;
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    background: 0 0;
+    padding-bottom: 25px;
+    border: none;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    white-space: nowrap;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fc5b8c;
+    padding-bottom: 20px;
+    background-color: none;
+    border-color: none;
+    border-bottom:4px solid #fc5b8c ;
+}
+
+.nav-link {
+    color: #333;
+}
+.accordion-body {
+    padding: .5rem 1rem 1.25rem 1rem!important;
+    color: #666;
+}

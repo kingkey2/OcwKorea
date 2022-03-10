@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="TestAPI">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestAPIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestAPIResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="APIResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ResultState" type="tns:enumResultState" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumResultState">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="ERR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetWalletDeposit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CT" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DepositGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWalletDepositResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWalletDepositResult" type="tns:CompanyWalletDepositResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CompanyWalletDepositResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DepositGUID" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DepositType" type="tns:enumDepositType" />
+              <s:element minOccurs="1" maxOccurs="1" name="AuditType" type="tns:enumAuditStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentStatus" type="tns:enumPaymentStatus" />
+              <s:element minOccurs="0" maxOccurs="1" name="DepositDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DepositInfo" type="tns:ArrayOfBitCoinAmount" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="enumDepositType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deposit" />
+          <s:enumeration value="Withdrawal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumAuditStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="WaitAudit" />
+          <s:enumeration value="AuditFinished" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumPaymentStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Finished" />
+          <s:enumeration value="Cancel" />
+          <s:enumeration value="Failure" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfBitCoinAmount">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BitCoinAmount" nillable="true" type="tns:BitCoinAmount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BitCoinAmount">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyWalletGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WalletPublicAddress" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TokenName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumWalletType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ERC20" />
+          <s:enumeration value="XRP" />
+          <s:enumeration value="BTC" />
+          <s:enumeration value="TRC" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateWalletDeposit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CT" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DepositGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenList" type="tns:ArrayOfTokenAmountSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTokenAmountSet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TokenAmountSet" nillable="true" type="tns:TokenAmountSet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TokenAmountSet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyWalletGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateWalletDepositResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateWalletDepositResult" type="tns:CompanyWalletDepositResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBonusValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BonusValue" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="ThresholdValue" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="PDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TDescription" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBonusValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddBonusValueResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetParentUserAccountInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetParentUserAccountInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetParentUserAccountInfoResult" type="tns:ParentUserAccountInfoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ParentUserAccountInfoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="FinishCompanyWallet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CT" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+            <s:element minOccurs="0" maxOccurs="1" name="WalletAddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishCompanyWalletResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FinishCompanyWalletResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableWalletDeposit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CT" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableWalletDepositResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableWalletDepositResult" type="tns:CompanyWalletResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CompanyWalletResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CompanyWalletGUID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WalletPublicAddress" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateBigEagle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BigEagleLoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateBigEagleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateBigEagleResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="CompanyWalletDepositResult" nillable="true" type="tns:CompanyWalletDepositResult" />
+      <s:element name="ParentUserAccountInfoResult" nillable="true" type="tns:ParentUserAccountInfoResult" />
+      <s:element name="CompanyWalletResult" nillable="true" type="tns:CompanyWalletResult" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TestAPISoapIn">
+    <wsdl:part name="parameters" element="tns:TestAPI" />
+  </wsdl:message>
+  <wsdl:message name="TestAPISoapOut">
+    <wsdl:part name="parameters" element="tns:TestAPIResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWalletDepositSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWalletDeposit" />
+  </wsdl:message>
+  <wsdl:message name="GetWalletDepositSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWalletDepositResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateWalletDepositSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateWalletDeposit" />
+  </wsdl:message>
+  <wsdl:message name="CreateWalletDepositSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateWalletDepositResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddBonusValueSoapIn">
+    <wsdl:part name="parameters" element="tns:AddBonusValue" />
+  </wsdl:message>
+  <wsdl:message name="AddBonusValueSoapOut">
+    <wsdl:part name="parameters" element="tns:AddBonusValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetParentUserAccountInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetParentUserAccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetParentUserAccountInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetParentUserAccountInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletSoapIn">
+    <wsdl:part name="parameters" element="tns:FinishCompanyWallet" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletSoapOut">
+    <wsdl:part name="parameters" element="tns:FinishCompanyWalletResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableWalletDeposit" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableWalletDepositResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateBigEagleSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateBigEagle" />
+  </wsdl:message>
+  <wsdl:message name="CreateBigEagleSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateBigEagleResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestAPIHttpGetIn" />
+  <wsdl:message name="TestAPIHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetWalletDepositHttpGetIn">
+    <wsdl:part name="CT" type="s:string" />
+    <wsdl:part name="DepositGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWalletDepositHttpGetOut">
+    <wsdl:part name="Body" element="tns:CompanyWalletDepositResult" />
+  </wsdl:message>
+  <wsdl:message name="AddBonusValueHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="TransactionCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="BonusValue" type="s:string" />
+    <wsdl:part name="ThresholdValue" type="s:string" />
+    <wsdl:part name="PDescription" type="s:string" />
+    <wsdl:part name="TDescription" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddBonusValueHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetParentUserAccountInfoHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetParentUserAccountInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ParentUserAccountInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletHttpGetIn">
+    <wsdl:part name="CT" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+    <wsdl:part name="WalletAddress" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositHttpGetIn">
+    <wsdl:part name="CT" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositHttpGetOut">
+    <wsdl:part name="Body" element="tns:CompanyWalletResult" />
+  </wsdl:message>
+  <wsdl:message name="CreateBigEagleHttpGetIn">
+    <wsdl:part name="BigEagleLoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateBigEagleHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="TestAPIHttpPostIn" />
+  <wsdl:message name="TestAPIHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetWalletDepositHttpPostIn">
+    <wsdl:part name="CT" type="s:string" />
+    <wsdl:part name="DepositGUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWalletDepositHttpPostOut">
+    <wsdl:part name="Body" element="tns:CompanyWalletDepositResult" />
+  </wsdl:message>
+  <wsdl:message name="AddBonusValueHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="TransactionCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="BonusValue" type="s:string" />
+    <wsdl:part name="ThresholdValue" type="s:string" />
+    <wsdl:part name="PDescription" type="s:string" />
+    <wsdl:part name="TDescription" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddBonusValueHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetParentUserAccountInfoHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetParentUserAccountInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ParentUserAccountInfoResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletHttpPostIn">
+    <wsdl:part name="CT" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+    <wsdl:part name="WalletAddress" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishCompanyWalletHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositHttpPostIn">
+    <wsdl:part name="CT" type="s:string" />
+    <wsdl:part name="WalletType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableWalletDepositHttpPostOut">
+    <wsdl:part name="Body" element="tns:CompanyWalletResult" />
+  </wsdl:message>
+  <wsdl:message name="CreateBigEagleHttpPostIn">
+    <wsdl:part name="BigEagleLoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateBigEagleHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:portType name="OCWSoap">
+    <wsdl:operation name="TestAPI">
+      <wsdl:input message="tns:TestAPISoapIn" />
+      <wsdl:output message="tns:TestAPISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <wsdl:input message="tns:GetWalletDepositSoapIn" />
+      <wsdl:output message="tns:GetWalletDepositSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateWalletDeposit">
+      <wsdl:input message="tns:CreateWalletDepositSoapIn" />
+      <wsdl:output message="tns:CreateWalletDepositSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <wsdl:input message="tns:AddBonusValueSoapIn" />
+      <wsdl:output message="tns:AddBonusValueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <wsdl:input message="tns:GetParentUserAccountInfoSoapIn" />
+      <wsdl:output message="tns:GetParentUserAccountInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <wsdl:input message="tns:FinishCompanyWalletSoapIn" />
+      <wsdl:output message="tns:FinishCompanyWalletSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <wsdl:input message="tns:GetAvailableWalletDepositSoapIn" />
+      <wsdl:output message="tns:GetAvailableWalletDepositSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <wsdl:input message="tns:CreateBigEagleSoapIn" />
+      <wsdl:output message="tns:CreateBigEagleSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="OCWHttpGet">
+    <wsdl:operation name="TestAPI">
+      <wsdl:input message="tns:TestAPIHttpGetIn" />
+      <wsdl:output message="tns:TestAPIHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <wsdl:input message="tns:GetWalletDepositHttpGetIn" />
+      <wsdl:output message="tns:GetWalletDepositHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <wsdl:input message="tns:AddBonusValueHttpGetIn" />
+      <wsdl:output message="tns:AddBonusValueHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <wsdl:input message="tns:GetParentUserAccountInfoHttpGetIn" />
+      <wsdl:output message="tns:GetParentUserAccountInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <wsdl:input message="tns:FinishCompanyWalletHttpGetIn" />
+      <wsdl:output message="tns:FinishCompanyWalletHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <wsdl:input message="tns:GetAvailableWalletDepositHttpGetIn" />
+      <wsdl:output message="tns:GetAvailableWalletDepositHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <wsdl:input message="tns:CreateBigEagleHttpGetIn" />
+      <wsdl:output message="tns:CreateBigEagleHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="OCWHttpPost">
+    <wsdl:operation name="TestAPI">
+      <wsdl:input message="tns:TestAPIHttpPostIn" />
+      <wsdl:output message="tns:TestAPIHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <wsdl:input message="tns:GetWalletDepositHttpPostIn" />
+      <wsdl:output message="tns:GetWalletDepositHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <wsdl:input message="tns:AddBonusValueHttpPostIn" />
+      <wsdl:output message="tns:AddBonusValueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <wsdl:input message="tns:GetParentUserAccountInfoHttpPostIn" />
+      <wsdl:output message="tns:GetParentUserAccountInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <wsdl:input message="tns:FinishCompanyWalletHttpPostIn" />
+      <wsdl:output message="tns:FinishCompanyWalletHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <wsdl:input message="tns:GetAvailableWalletDepositHttpPostIn" />
+      <wsdl:output message="tns:GetAvailableWalletDepositHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <wsdl:input message="tns:CreateBigEagleHttpPostIn" />
+      <wsdl:output message="tns:CreateBigEagleHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OCWSoap" type="tns:OCWSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestAPI">
+      <soap:operation soapAction="http://tempuri.org/TestAPI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <soap:operation soapAction="http://tempuri.org/GetWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateWalletDeposit">
+      <soap:operation soapAction="http://tempuri.org/CreateWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <soap:operation soapAction="http://tempuri.org/AddBonusValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <soap:operation soapAction="http://tempuri.org/GetParentUserAccountInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <soap:operation soapAction="http://tempuri.org/FinishCompanyWallet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <soap:operation soapAction="http://tempuri.org/GetAvailableWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <soap:operation soapAction="http://tempuri.org/CreateBigEagle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OCWSoap12" type="tns:OCWSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestAPI">
+      <soap12:operation soapAction="http://tempuri.org/TestAPI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <soap12:operation soapAction="http://tempuri.org/GetWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateWalletDeposit">
+      <soap12:operation soapAction="http://tempuri.org/CreateWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <soap12:operation soapAction="http://tempuri.org/AddBonusValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetParentUserAccountInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <soap12:operation soapAction="http://tempuri.org/FinishCompanyWallet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <soap12:operation soapAction="http://tempuri.org/GetAvailableWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <soap12:operation soapAction="http://tempuri.org/CreateBigEagle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OCWHttpGet" type="tns:OCWHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="TestAPI">
+      <http:operation location="/TestAPI" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <http:operation location="/GetWalletDeposit" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <http:operation location="/AddBonusValue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <http:operation location="/GetParentUserAccountInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <http:operation location="/FinishCompanyWallet" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <http:operation location="/GetAvailableWalletDeposit" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <http:operation location="/CreateBigEagle" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OCWHttpPost" type="tns:OCWHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="TestAPI">
+      <http:operation location="/TestAPI" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWalletDeposit">
+      <http:operation location="/GetWalletDeposit" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBonusValue">
+      <http:operation location="/AddBonusValue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParentUserAccountInfo">
+      <http:operation location="/GetParentUserAccountInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishCompanyWallet">
+      <http:operation location="/FinishCompanyWallet" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableWalletDeposit">
+      <http:operation location="/GetAvailableWalletDeposit" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBigEagle">
+      <http:operation location="/CreateBigEagle" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OCW">
+    <wsdl:port name="OCWSoap" binding="tns:OCWSoap">
+      <soap:address location="http://ewin.dev.mts.idv.tw/API/Partner/OCW.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OCWSoap12" binding="tns:OCWSoap12">
+      <soap12:address location="http://ewin.dev.mts.idv.tw/API/Partner/OCW.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OCWHttpGet" binding="tns:OCWHttpGet">
+      <http:address location="http://ewin.dev.mts.idv.tw/API/Partner/OCW.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OCWHttpPost" binding="tns:OCWHttpPost">
+      <http:address location="http://ewin.dev.mts.idv.tw/API/Partner/OCW.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

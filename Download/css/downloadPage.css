@@ -1,0 +1,306 @@
+@charset "utf-8";
+/* CSS Document */
+
+.dlP_main{
+
+}
+
+.dlP_Wrapper{    
+    background: rgba(0,0,0,0.6);
+}
+
+.dlP_tabDiv{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    top:-50px;
+}
+.dlP_tab{
+    width: 50%;
+    line-height: 50px;
+    max-width: 200px;
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+    cursor: pointer;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.dlP_tab span{
+    color: rgba(255,255,255,.6);
+}
+
+.dlP_tab:hover span{
+    color: rgba(255,255,255,1);
+}
+
+.onGame .dlP_tab.dlP_tab1{
+    color: rgba(255,255,255,1);
+    background: rgba(255,204,102,0.75);
+}
+
+.onGame .dlP_tab.dlP_tab1 span{
+    color: rgba(255,255,255,1);
+}
+
+.onAgent .dlP_tab.dlP_tab2{
+    color: rgba(255,255,255,1);
+    background: rgba(76, 179, 255,0.75);
+}
+
+.onAgent .dlP_tab.dlP_tab2 span{
+    color: rgba(255,255,255,1);
+}
+
+
+.dlP_Con{
+    width: 100%;
+    position: relative;
+    
+}
+
+.onGame .gameLoadDiv,.onAgent .agentLoadDiv{display: block;}
+.onAgent .gameLoadDiv,.onGame .agentLoadDiv{display: none;}
+
+
+
+/* */
+.dlP_ConAppInfo{
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+}
+
+.dlP_ConAppInf::after{
+    content: "";
+    position: absolute;
+    left: 50px;
+    width: 350px;
+    height: 1px;
+    bottom: 5px;
+    background: rgba(255,204,102,0.75);
+}
+
+.dlP_AppIcon{
+    
+}
+
+.dlP_AppType{
+    font-size: 35px;
+    font-weight: bolder;
+    
+}
+.dlP_AppName{
+    font-size: 20px;
+}
+
+.onGame .dlP_AppName span{
+    color: rgba(255,204,102,0.75);
+}
+
+.onAgent .dlP_AppName span{
+    color: rgba(76,179,255,0.75);
+}
+
+.dlP_AppIcon img{
+    width: 90px;
+    
+}
+/* */
+
+
+
+/* */
+.dlP_ConBtnDiv{
+    width: 100%;
+    
+}
+
+.dlP_ConBtn{
+    position: relative;
+    display: flex;
+    background: rgba(0,0,0,0.5);
+    cursor: pointer;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border:2px solid rgba(255,204,102,0.75);
+}
+
+.onGame .dlP_ConBtn{
+    cborder:2px solid rgba(255,204,102,0.75);
+}
+
+.onAgent .dlP_ConBtn{
+    border:2px solid rgba(76,179,255,0.75);
+}
+
+
+
+.onGame .dlP_ConBtn:hover{
+   background: rgba(255,204,102,0.75);
+}
+
+.onAgent .dlP_ConBtn:hover{
+   background: rgba(76,179,255,0.75);
+}
+
+
+
+.dlP_ConBtn img{
+    width: 25px;
+}
+
+.dlP_ConBtn span{
+    margin-left: 3px;
+}
+
+@media (min-width: 750px){
+    
+    .dlP_main{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    
+    .dlP_Wrapper{    
+        width: 90%;
+        height: 90%;
+        max-width: 750px;
+        max-height: 330px;
+        border-radius: 0px 15px 15px 15px;
+    }
+    .dlP_AppIcon{
+    position: absolute;
+    left: 50px;
+}
+    
+    .dlP_ConAppInfo{
+        height: 150px;
+        padding-left: 160px;
+    }
+    .dlP_ConAppQrcode{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 100%;
+        text-align: right;
+
+    }
+    .dlP_ConAppQrcode img{ 
+        margin-right: 50px;
+        width: 212px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .dlP_ConBtn{
+        margin-left: 50px;
+        position: relative;
+        display: flex;
+        width: 200px;
+        padding: 15px 25px;
+        background: rgba(0,0,0,0.5);
+        cursor: pointer;
+        z-index: 10;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        border:2px solid rgba(255,204,102,0.75);
+    }
+    
+}
+
+/*針對移動端垂直向*/	
+@media (max-width: 749px) and (orientation: portrait){
+    .dlP_Wrapper{ 
+        margin: auto;
+        margin-top: 80px;
+        width: calc(100% - 40px);
+        height: calc(100% - 100px);
+        border-radius: 0px 0px 15px 15px;
+    }
+    .dlP_ConAppQrcode{
+        width: 100%;
+        text-align: center;
+        margin: 20px auto;
+    }
+    .dlP_ConAppQrcode img{ 
+        width: 60%;
+        max-width: 180px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .dlP_ConAppInfo{
+        text-align: center;
+    }
+    .dlP_ConBtnDiv{
+        width: 100%;
+        text-align: center;
+        
+    }
+    .dlP_ConBtn{
+        margin: auto;
+        position: relative;
+        display: flex;
+        width: 80%;
+        max-width: 200px;
+        padding: 15px 25px;
+        background: rgba(0,0,0,0.5);
+        cursor: pointer;
+        z-index: 10;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        border:2px solid rgba(255,204,102,0.75);
+    }
+    
+}
+
+
+/*針對移動端水平向*/
+@media screen and (max-width: 749px) and (orientation: landscape) {
+    .dlP_Wrapper{ 
+        margin: 80px auto 20px;
+        width: calc(100% - 40px);
+        height: auto;
+        border-radius: 0px 0px 15px 15px;
+        padding-bottom: 20px;
+    }
+    .dlP_ConAppQrcode{
+        width: 100%;
+        text-align: center;
+        margin: 20px auto;
+    }
+    .dlP_ConAppQrcode img{ 
+        width: 60%;
+        max-width: 180px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .dlP_ConAppInfo{
+        text-align: center;
+    }
+    .dlP_ConBtnDiv{
+        width: 100%;
+        text-align: center;
+        
+    }
+    .dlP_ConBtn{
+        margin: auto;
+        position: relative;
+        display: flex;
+        width: 80%;
+        max-width: 200px;
+        padding: 15px 25px;
+        background: rgba(0,0,0,0.5);
+        cursor: pointer;
+        z-index: 10;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        border:2px solid rgba(255,204,102,0.75);
+    }
+}
+

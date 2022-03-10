@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+    <link rel="stylesheet" href="../src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global-2.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/wallet.css" type="text/css"/>
+</head>
+
+<body>
+    <div class="page-container">
+        <!-- Heading-Top -->
+        <div id="heading-top"></div>
+        
+        <div class="page-content">
+
+            <section class="section-wrap">
+                <!-- 頁面標題 -->
+                <div class="page-title-container">
+                    <div class="page-title-wrap">
+                        <div class="page-title-inner">
+                            <h3 class="title">金幣轉移</h3>
+                        </div>
+                    </div>
+                    <div class="header-right">                       
+                        <button class="btn btn-outline-primary btn-sm" >
+                            <span>轉移紀錄</span>
+                        </button>
+                    </div>
+                </div>
+  <!-- 會員登入 -->
+  <div class="form-container" data-form-group="">
+
+    <div class="form-content">
+        <form>
+            <div class="form-group">
+                <label class="form-title">轉移對象</label>
+                <div class="input-group">
+                    <input type="text" class="form-control custom-style is-invalid" placeholder="請輸入姓名搜尋" inputmode="">
+                    <div class="invalid-feedback">提示</div>
+                </div>
+                <!-- 當 確認完成 時，btn-confirm => class 加入 "is-hide" -->
+                <button class="btn btn-icon btn-confirm btn-latter" type="button">
+                    <i class="icon-search-file"></i><span>確認</span>
+                </button>
+                <!-- Clear Button-->
+                <button class="btn btn-icon btn-former btn-reset" type="reset">
+                    <i class="icon-close-small"></i>
+                </button>
+                <!-- 確認完成-正確狀態-->
+                <div class="btn btn-icon btn-confirm-check btn-latter">
+                    <i class="icon-circle-check"></i>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="form-title">轉移金額</label>
+                <div class="input-group">
+                    <input type="text" class="form-control custom-style" placeholder="請輸入金額" inputmode="email">
+                    <div class="invalid-feedback">請輸入金額</div>
+                </div>
+                <button class="btn btn-icon btn-reset" type="reset">
+                    <i class="icon-close-small"></i>
+                </button>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn btn-outline-primary btn" data-click-btn="closeAvatar"><span>取消</span></button>
+                <button type="submit" class="btn btn-primary" data-click-btn="backToHome"><span>確認</span></button>
+            </div>
+        </form>
+    </div>
+  
+</div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalInfo" aria-hidden="true" id="modalInfo">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="text-wrap">
+                            <ul class="list-style-decimal">
+                                <li>此遊戲紀錄僅列出各遊戲的當日總和，若您需要查詢各遊戲的詳細遊戲，請於各遊戲中的遊戲紀錄進行查詢。</li>
+                                <li>各平台遊戲紀錄查詢方式和路徑不盡相同，此處無法一一列舉說明，請各位玩家見諒。</li>
+                                <li>各遊戲統計遊戲紀錄之時間有可能不盡相同，可能無法進行即時核對，發現金額計算有所差異，可稍後再試。</li>
+                            </ul>
+                            <p class="note primary">※遊戲紀錄統計時間從1分鐘~隔日統計都是有可能的。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertLastMonth" aria-hidden="true" id="alertLastMonth">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="text-wrap">
+                            <p>已經是最新月份了!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/wallet.js"></script>
+
+</body>
+</html>

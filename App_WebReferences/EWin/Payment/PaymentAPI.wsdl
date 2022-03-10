@@ -1,0 +1,1661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HeartBeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EchoString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HeartBeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HeartBeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="_IgnorePaymentInterface">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PDW" type="tns:PaymentDetailWallet" />
+            <s:element minOccurs="0" maxOccurs="1" name="PDB" type="tns:PaymentDetailBankCard" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentDetailWallet">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PaymentDetailInheritsBase">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentDetailWalletID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:enumDetailWalletStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="WalletType" type="tns:enumWalletType" />
+              <s:element minOccurs="0" maxOccurs="1" name="FromWalletAddress" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ToWalletAddress" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TokenName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TokenContractAddress" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TxHash" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TokenAmount" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="GasValue" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="FailureDescription" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PaymentDetailInheritsBase" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DetailType" type="tns:enumDetailType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumDetailType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Bankcard" />
+          <s:enumeration value="BitCoinWallet" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PaymentDetailBankCard">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PaymentDetailInheritsBase">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentDetailBankCardID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="BankCardType" type="tns:enumBankCardType" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:enumBankCardStatus" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AmountMax" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankCardGUID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ReceiptFilename" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ReceiptDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="enumBankCardType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CompanyBankCard" />
+          <s:enumeration value="UserAccountBankCard" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumBankCardStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Confirm" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumDetailWalletStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="DetailCreated" />
+          <s:enumeration value="Finished" />
+          <s:enumeration value="Cancel" />
+          <s:enumeration value="Failure" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumWalletType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ERC20" />
+          <s:enumeration value="XRP" />
+          <s:enumeration value="BTC" />
+          <s:enumeration value="TRC" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="_IgnorePaymentInterfaceResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreatePaymentDeposit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientOrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PointStatus" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentTypeTag" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExpireSecond" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DetailList" type="tns:ArrayOfPaymentDetailInheritsBase" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPaymentDetailInheritsBase">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentDetailInheritsBase" nillable="true" type="tns:PaymentDetailInheritsBase" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreatePaymentDepositResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreatePaymentDepositResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientOrderNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AuditStatus" type="tns:enumAuditStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumDirectionType" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:enumPaymentStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="FinishedBy" type="tns:enumFinishedBy" />
+              <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="BeforeBalance" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TagInfo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FinishedUserIP" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PointStatus" type="tns:enumPointStatus" />
+              <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="PointFailureDescription" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="AuditAdminID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FinishedAdminID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AuditDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FinishedDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="ExpireDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="DetailList" type="tns:ArrayOfPaymentDetailInheritsBase" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ResultStatus" type="tns:enumResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResultMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumResultStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="ERR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumAuditStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoAudit" />
+          <s:enumeration value="AuditAccept" />
+          <s:enumeration value="AuditReject" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumDirectionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Deposit" />
+          <s:enumeration value="Withdrawal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumPaymentStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotYet" />
+          <s:enumeration value="PaymentCreated" />
+          <s:enumeration value="Finished" />
+          <s:enumeration value="Cancel" />
+          <s:enumeration value="Reject" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumFinishedBy">
+        <s:restriction base="s:string">
+          <s:enumeration value="System" />
+          <s:enumeration value="Backend" />
+          <s:enumeration value="User" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="enumPointStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="DoNotOP" />
+          <s:enumeration value="None" />
+          <s:enumeration value="OPSuccess" />
+          <s:enumeration value="OPFailure" />
+          <s:enumeration value="OPRefund" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreatePaymentWithdrawal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientOrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PointStatus" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentTypeTag" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExpireSecond" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DetailList" type="tns:ArrayOfPaymentDetailInheritsBase" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreatePaymentWithdrawalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreatePaymentWithdrawalResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearPaymentFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearPaymentFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClearPaymentFileResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPaymentFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPaymentFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddPaymentFileResult" type="tns:PaymentAddFileResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentAddFileResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="FileID" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="DeletePaymentFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePaymentFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeletePaymentFileResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPaymentFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListPaymentFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPaymentFileResult" type="tns:PaymentFileListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentFileListResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="FileList" type="tns:ArrayOfPaymentFileInfo" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentFileInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentFileInfo" nillable="true" type="tns:PaymentFileInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentFileInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentFileID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Filename" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPaymentFileByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FileID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentFileByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentFileByIDResult" type="tns:PaymentFileListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTagInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TagInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTagInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTagInfoResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentByNonFinished">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FilterDirectionType" type="tns:enumFilterDirectionType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumFilterDirectionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Both" />
+          <s:enumeration value="Deposit" />
+          <s:enumeration value="Withdrawal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetPaymentByNonFinishedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentByNonFinishedResult" type="tns:PaymentResultList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentResultList">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentList" type="tns:ArrayOfPaymentResult" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentResult" nillable="true" type="tns:PaymentResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPaymentByPaymentSerial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentByPaymentSerialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentByPaymentSerialResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentByClientOrderNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientOrderNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentByClientOrderNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentByClientOrderNumberResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishedPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinishedPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FinishedPaymentResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelPaymentResult" type="tns:PaymentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentDetailBankCard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentDetailBankCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentDetailBankCardResult" type="tns:PaymentDetailBankCardResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentDetailBankCardResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DetailList" type="tns:ArrayOfPaymentDetailBankCard" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentDetailBankCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentDetailBankCard" nillable="true" type="tns:PaymentDetailBankCard" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPaymentDetailWallet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentDetailWalletResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentDetailWalletResult" type="tns:PaymentDetailWalletResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentDetailWalletResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DetailList" type="tns:ArrayOfPaymentDetailWallet" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentDetailWallet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentDetailWallet" nillable="true" type="tns:PaymentDetailWallet" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="Result" nillable="true" type="tns:Result" />
+      <s:element name="PaymentAddFileResult" nillable="true" type="tns:PaymentAddFileResult" />
+      <s:element name="PaymentFileListResult" nillable="true" type="tns:PaymentFileListResult" />
+      <s:element name="PaymentResultList" nillable="true" type="tns:PaymentResultList" />
+      <s:element name="PaymentResult" nillable="true" type="tns:PaymentResult" />
+      <s:element name="PaymentDetailBankCardResult" nillable="true" type="tns:PaymentDetailBankCardResult" />
+      <s:element name="PaymentDetailWalletResult" nillable="true" type="tns:PaymentDetailWalletResult" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HeartBeatSoapIn">
+    <wsdl:part name="parameters" element="tns:HeartBeat" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatSoapOut">
+    <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="_IgnorePaymentInterfaceSoapIn">
+    <wsdl:part name="parameters" element="tns:_IgnorePaymentInterface" />
+  </wsdl:message>
+  <wsdl:message name="_IgnorePaymentInterfaceSoapOut">
+    <wsdl:part name="parameters" element="tns:_IgnorePaymentInterfaceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreatePaymentDepositSoapIn">
+    <wsdl:part name="parameters" element="tns:CreatePaymentDeposit" />
+  </wsdl:message>
+  <wsdl:message name="CreatePaymentDepositSoapOut">
+    <wsdl:part name="parameters" element="tns:CreatePaymentDepositResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreatePaymentWithdrawalSoapIn">
+    <wsdl:part name="parameters" element="tns:CreatePaymentWithdrawal" />
+  </wsdl:message>
+  <wsdl:message name="CreatePaymentWithdrawalSoapOut">
+    <wsdl:part name="parameters" element="tns:CreatePaymentWithdrawalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClearPaymentFileSoapIn">
+    <wsdl:part name="parameters" element="tns:ClearPaymentFile" />
+  </wsdl:message>
+  <wsdl:message name="ClearPaymentFileSoapOut">
+    <wsdl:part name="parameters" element="tns:ClearPaymentFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentFileSoapIn">
+    <wsdl:part name="parameters" element="tns:AddPaymentFile" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentFileSoapOut">
+    <wsdl:part name="parameters" element="tns:AddPaymentFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePaymentFileSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePaymentFile" />
+  </wsdl:message>
+  <wsdl:message name="DeletePaymentFileSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePaymentFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentFileSoapIn">
+    <wsdl:part name="parameters" element="tns:ListPaymentFile" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentFileSoapOut">
+    <wsdl:part name="parameters" element="tns:ListPaymentFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentFileByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentFileByID" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentFileByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentFileByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTagInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTagInfo" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTagInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTagInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByNonFinishedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentByNonFinished" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByNonFinishedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentByNonFinishedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByPaymentSerialSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentByPaymentSerial" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByPaymentSerialSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentByPaymentSerialResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByClientOrderNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentByClientOrderNumber" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByClientOrderNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentByClientOrderNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="FinishedPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:FinishedPayment" />
+  </wsdl:message>
+  <wsdl:message name="FinishedPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:FinishedPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelPayment" />
+  </wsdl:message>
+  <wsdl:message name="CancelPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailBankCardSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentDetailBankCard" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailBankCardSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentDetailBankCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailWalletSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentDetailWallet" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailWalletSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentDetailWalletResponse" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpGetIn">
+    <wsdl:part name="EchoString" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearPaymentFileHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearPaymentFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentFileHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="Filename" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentAddFileResult" />
+  </wsdl:message>
+  <wsdl:message name="DeletePaymentFileHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="FileID" type="s:string" />
+    <wsdl:part name="Filename" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeletePaymentFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentFileHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentFileHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentFileListResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentFileByIDHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="FileID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentFileByIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentFileListResult" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTagInfoHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="TagInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTagInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByNonFinishedHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="FilterDirectionType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByNonFinishedHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentResultList" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByPaymentSerialHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByPaymentSerialHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByClientOrderNumberHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ClientOrderNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByClientOrderNumberHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishedPaymentHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishedPaymentHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="CancelPaymentHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancelPaymentHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailBankCardHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailBankCardHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentDetailBankCardResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailWalletHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailWalletHttpGetOut">
+    <wsdl:part name="Body" element="tns:PaymentDetailWalletResult" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpPostIn">
+    <wsdl:part name="EchoString" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HeartBeatHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearPaymentFileHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClearPaymentFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentFileHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="Filename" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentAddFileResult" />
+  </wsdl:message>
+  <wsdl:message name="DeletePaymentFileHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="FileID" type="s:string" />
+    <wsdl:part name="Filename" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeletePaymentFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentFileHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListPaymentFileHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentFileListResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentFileByIDHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="FileID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentFileByIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentFileListResult" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTagInfoHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+    <wsdl:part name="TagInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTagInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:Result" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByNonFinishedHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="FilterDirectionType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByNonFinishedHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentResultList" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByPaymentSerialHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByPaymentSerialHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByClientOrderNumberHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ClientOrderNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentByClientOrderNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="FinishedPaymentHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FinishedPaymentHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="CancelPaymentHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancelPaymentHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailBankCardHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailBankCardHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentDetailBankCardResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailWalletHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PaymentSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentDetailWalletHttpPostOut">
+    <wsdl:part name="Body" element="tns:PaymentDetailWalletResult" />
+  </wsdl:message>
+  <wsdl:portType name="PaymentAPISoap">
+    <wsdl:operation name="HeartBeat">
+      <wsdl:input message="tns:HeartBeatSoapIn" />
+      <wsdl:output message="tns:HeartBeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="_IgnorePaymentInterface">
+      <wsdl:input message="tns:_IgnorePaymentInterfaceSoapIn" />
+      <wsdl:output message="tns:_IgnorePaymentInterfaceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePaymentDeposit">
+      <wsdl:input message="tns:CreatePaymentDepositSoapIn" />
+      <wsdl:output message="tns:CreatePaymentDepositSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePaymentWithdrawal">
+      <wsdl:input message="tns:CreatePaymentWithdrawalSoapIn" />
+      <wsdl:output message="tns:CreatePaymentWithdrawalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <wsdl:input message="tns:ClearPaymentFileSoapIn" />
+      <wsdl:output message="tns:ClearPaymentFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <wsdl:input message="tns:AddPaymentFileSoapIn" />
+      <wsdl:output message="tns:AddPaymentFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <wsdl:input message="tns:DeletePaymentFileSoapIn" />
+      <wsdl:output message="tns:DeletePaymentFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <wsdl:input message="tns:ListPaymentFileSoapIn" />
+      <wsdl:output message="tns:ListPaymentFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <wsdl:input message="tns:GetPaymentFileByIDSoapIn" />
+      <wsdl:output message="tns:GetPaymentFileByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <wsdl:input message="tns:UpdateTagInfoSoapIn" />
+      <wsdl:output message="tns:UpdateTagInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <wsdl:input message="tns:GetPaymentByNonFinishedSoapIn" />
+      <wsdl:output message="tns:GetPaymentByNonFinishedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <wsdl:input message="tns:GetPaymentByPaymentSerialSoapIn" />
+      <wsdl:output message="tns:GetPaymentByPaymentSerialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <wsdl:input message="tns:GetPaymentByClientOrderNumberSoapIn" />
+      <wsdl:output message="tns:GetPaymentByClientOrderNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <wsdl:input message="tns:FinishedPaymentSoapIn" />
+      <wsdl:output message="tns:FinishedPaymentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <wsdl:input message="tns:CancelPaymentSoapIn" />
+      <wsdl:output message="tns:CancelPaymentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <wsdl:input message="tns:GetPaymentDetailBankCardSoapIn" />
+      <wsdl:output message="tns:GetPaymentDetailBankCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <wsdl:input message="tns:GetPaymentDetailWalletSoapIn" />
+      <wsdl:output message="tns:GetPaymentDetailWalletSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PaymentAPIHttpGet">
+    <wsdl:operation name="HeartBeat">
+      <wsdl:input message="tns:HeartBeatHttpGetIn" />
+      <wsdl:output message="tns:HeartBeatHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <wsdl:input message="tns:ClearPaymentFileHttpGetIn" />
+      <wsdl:output message="tns:ClearPaymentFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <wsdl:input message="tns:AddPaymentFileHttpGetIn" />
+      <wsdl:output message="tns:AddPaymentFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <wsdl:input message="tns:DeletePaymentFileHttpGetIn" />
+      <wsdl:output message="tns:DeletePaymentFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <wsdl:input message="tns:ListPaymentFileHttpGetIn" />
+      <wsdl:output message="tns:ListPaymentFileHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <wsdl:input message="tns:GetPaymentFileByIDHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentFileByIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <wsdl:input message="tns:UpdateTagInfoHttpGetIn" />
+      <wsdl:output message="tns:UpdateTagInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <wsdl:input message="tns:GetPaymentByNonFinishedHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentByNonFinishedHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <wsdl:input message="tns:GetPaymentByPaymentSerialHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentByPaymentSerialHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <wsdl:input message="tns:GetPaymentByClientOrderNumberHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentByClientOrderNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <wsdl:input message="tns:FinishedPaymentHttpGetIn" />
+      <wsdl:output message="tns:FinishedPaymentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <wsdl:input message="tns:CancelPaymentHttpGetIn" />
+      <wsdl:output message="tns:CancelPaymentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <wsdl:input message="tns:GetPaymentDetailBankCardHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentDetailBankCardHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <wsdl:input message="tns:GetPaymentDetailWalletHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentDetailWalletHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PaymentAPIHttpPost">
+    <wsdl:operation name="HeartBeat">
+      <wsdl:input message="tns:HeartBeatHttpPostIn" />
+      <wsdl:output message="tns:HeartBeatHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <wsdl:input message="tns:ClearPaymentFileHttpPostIn" />
+      <wsdl:output message="tns:ClearPaymentFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <wsdl:input message="tns:AddPaymentFileHttpPostIn" />
+      <wsdl:output message="tns:AddPaymentFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <wsdl:input message="tns:DeletePaymentFileHttpPostIn" />
+      <wsdl:output message="tns:DeletePaymentFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <wsdl:input message="tns:ListPaymentFileHttpPostIn" />
+      <wsdl:output message="tns:ListPaymentFileHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <wsdl:input message="tns:GetPaymentFileByIDHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentFileByIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <wsdl:input message="tns:UpdateTagInfoHttpPostIn" />
+      <wsdl:output message="tns:UpdateTagInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <wsdl:input message="tns:GetPaymentByNonFinishedHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentByNonFinishedHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <wsdl:input message="tns:GetPaymentByPaymentSerialHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentByPaymentSerialHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <wsdl:input message="tns:GetPaymentByClientOrderNumberHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentByClientOrderNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <wsdl:input message="tns:FinishedPaymentHttpPostIn" />
+      <wsdl:output message="tns:FinishedPaymentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <wsdl:input message="tns:CancelPaymentHttpPostIn" />
+      <wsdl:output message="tns:CancelPaymentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <wsdl:input message="tns:GetPaymentDetailBankCardHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentDetailBankCardHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <wsdl:input message="tns:GetPaymentDetailWalletHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentDetailWalletHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentAPISoap" type="tns:PaymentAPISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HeartBeat">
+      <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_IgnorePaymentInterface">
+      <soap:operation soapAction="http://tempuri.org/_IgnorePaymentInterface" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePaymentDeposit">
+      <soap:operation soapAction="http://tempuri.org/CreatePaymentDeposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePaymentWithdrawal">
+      <soap:operation soapAction="http://tempuri.org/CreatePaymentWithdrawal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <soap:operation soapAction="http://tempuri.org/ClearPaymentFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <soap:operation soapAction="http://tempuri.org/AddPaymentFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <soap:operation soapAction="http://tempuri.org/DeletePaymentFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <soap:operation soapAction="http://tempuri.org/ListPaymentFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentFileByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <soap:operation soapAction="http://tempuri.org/UpdateTagInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentByNonFinished" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentByPaymentSerial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentByClientOrderNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <soap:operation soapAction="http://tempuri.org/FinishedPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <soap:operation soapAction="http://tempuri.org/CancelPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentDetailBankCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentDetailWallet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PaymentAPISoap12" type="tns:PaymentAPISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HeartBeat">
+      <soap12:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_IgnorePaymentInterface">
+      <soap12:operation soapAction="http://tempuri.org/_IgnorePaymentInterface" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePaymentDeposit">
+      <soap12:operation soapAction="http://tempuri.org/CreatePaymentDeposit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePaymentWithdrawal">
+      <soap12:operation soapAction="http://tempuri.org/CreatePaymentWithdrawal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <soap12:operation soapAction="http://tempuri.org/ClearPaymentFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <soap12:operation soapAction="http://tempuri.org/AddPaymentFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <soap12:operation soapAction="http://tempuri.org/DeletePaymentFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <soap12:operation soapAction="http://tempuri.org/ListPaymentFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentFileByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTagInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentByNonFinished" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentByPaymentSerial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentByClientOrderNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <soap12:operation soapAction="http://tempuri.org/FinishedPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <soap12:operation soapAction="http://tempuri.org/CancelPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentDetailBankCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentDetailWallet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PaymentAPIHttpGet" type="tns:PaymentAPIHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HeartBeat">
+      <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <http:operation location="/ClearPaymentFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <http:operation location="/AddPaymentFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <http:operation location="/DeletePaymentFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <http:operation location="/ListPaymentFile" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <http:operation location="/GetPaymentFileByID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <http:operation location="/UpdateTagInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <http:operation location="/GetPaymentByNonFinished" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <http:operation location="/GetPaymentByPaymentSerial" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <http:operation location="/GetPaymentByClientOrderNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <http:operation location="/FinishedPayment" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <http:operation location="/CancelPayment" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <http:operation location="/GetPaymentDetailBankCard" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <http:operation location="/GetPaymentDetailWallet" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PaymentAPIHttpPost" type="tns:PaymentAPIHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HeartBeat">
+      <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearPaymentFile">
+      <http:operation location="/ClearPaymentFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPaymentFile">
+      <http:operation location="/AddPaymentFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePaymentFile">
+      <http:operation location="/DeletePaymentFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPaymentFile">
+      <http:operation location="/ListPaymentFile" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentFileByID">
+      <http:operation location="/GetPaymentFileByID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTagInfo">
+      <http:operation location="/UpdateTagInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByNonFinished">
+      <http:operation location="/GetPaymentByNonFinished" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByPaymentSerial">
+      <http:operation location="/GetPaymentByPaymentSerial" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentByClientOrderNumber">
+      <http:operation location="/GetPaymentByClientOrderNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishedPayment">
+      <http:operation location="/FinishedPayment" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPayment">
+      <http:operation location="/CancelPayment" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailBankCard">
+      <http:operation location="/GetPaymentDetailBankCard" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentDetailWallet">
+      <http:operation location="/GetPaymentDetailWallet" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentAPI">
+    <wsdl:port name="PaymentAPISoap" binding="tns:PaymentAPISoap">
+      <soap:address location="https://ewin.dev.mts.idv.tw/API/PaymentAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PaymentAPISoap12" binding="tns:PaymentAPISoap12">
+      <soap12:address location="https://ewin.dev.mts.idv.tw/API/PaymentAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PaymentAPIHttpGet" binding="tns:PaymentAPIHttpGet">
+      <http:address location="https://ewin.dev.mts.idv.tw/API/PaymentAPI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PaymentAPIHttpPost" binding="tns:PaymentAPIHttpPost">
+      <http:address location="https://ewin.dev.mts.idv.tw/API/PaymentAPI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

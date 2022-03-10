@@ -1,0 +1,560 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+/*--------------
+    animate
+ --------------*/
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes fadeInOut {
+  0% {
+    opacity: 25%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 25%;
+  }
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 25%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 25%;
+  }
+}
+@-webkit-keyframes loader-circle {
+  0% {
+    -webkit-transform: scale3d(0, 0, 0);
+            transform: scale3d(0, 0, 0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale3d(5, 5, 5);
+            transform: scale3d(5, 5, 5);
+    opacity: 1;
+  }
+}
+@keyframes loader-circle {
+  0% {
+    -webkit-transform: scale3d(0, 0, 0);
+            transform: scale3d(0, 0, 0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale3d(5, 5, 5);
+            transform: scale3d(5, 5, 5);
+    opacity: 1;
+  }
+}
+@font-face {
+  font-family: "icomoon";
+  src: url("../fonts/icomoon.eot?j5f59r");
+  src: url("../fonts/icomoon.eot?j5f59r#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?j5f59r") format("truetype"), url("../fonts/icomoon.woff?j5f59r") format("woff"), url("../fonts/icomoon.svg?j5f59r#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "onlinecasinoworld";
+  src: url("../fonts/onlinecasinoworld.eot");
+  src: url("../fonts/onlinecasinoworld.eot?#iefix") format("embedded-opentype"), url("../fonts/onlinecasinoworld.woff") format("woff"), url("../fonts/onlinecasinoworld.ttf") format("truetype"), url("../fonts/onlinecasinoworld.svg#onlinecasinoworld") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[data-icon]:before {
+  font-family: "onlinecasinoworld" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^=icon-], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[class^=icon-].primary, [class*=" icon-"].primary {
+  color: #FF0066;
+}
+[class^=icon-].green, [class*=" icon-"].green {
+  color: #8BD586;
+}
+
+[class^=icon-casinoworld-]:before,
+[class*=" icon-casinoworld-"]:before {
+  font-family: "onlinecasinoworld" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-games:before {
+  content: "";
+}
+
+.icon-user:before {
+  content: "";
+}
+
+.icon-photo-camera:before {
+  content: "";
+}
+
+.icon-poker:before {
+  content: "";
+}
+
+.icon-arrow-left:before {
+  content: "";
+}
+
+.icon-arrow-right:before {
+  content: "";
+}
+
+.icon-bank:before {
+  content: "";
+}
+
+.icon-birth:before {
+  content: "";
+}
+
+.icon-blockchain:before {
+  content: "";
+}
+
+.icon-casino:before {
+  content: "";
+}
+
+.icon-check:before {
+  content: "";
+}
+
+.icon-circle-check:before {
+  content: "";
+}
+
+.icon-close-big:before {
+  content: "";
+}
+
+.icon-close-small:before {
+  content: "";
+}
+
+.icon-coin:before {
+  content: "";
+}
+
+.icon-copy:before {
+  content: "";
+}
+
+.icon-deposit:before {
+  content: "";
+}
+
+.icon-edit-off:before {
+  content: "";
+}
+
+.icon-edit:before {
+  content: "";
+}
+
+.icon-error_outline:before {
+  content: "";
+}
+
+.icon-exit:before {
+  content: "";
+}
+
+.icon-eye-off:before {
+  content: "";
+}
+
+.icon-eye:before {
+  content: "";
+}
+
+.icon-file:before {
+  content: "";
+}
+
+.icon-flag:before {
+  content: "";
+}
+
+.icon-home:before {
+  content: "";
+}
+
+.icon-image:before {
+  content: "";
+}
+
+.icon-info_circle_outline:before {
+  content: "";
+}
+
+.icon-member:before {
+  content: "";
+}
+
+.icon-minus:before {
+  content: "";
+}
+
+.icon-more_vertical:before {
+  content: "";
+}
+
+.icon-news:before {
+  content: "";
+}
+
+.icon-plus-circle-outline:before {
+  content: "";
+}
+
+.icon-pw:before {
+  content: "";
+}
+
+.icon-scan:before {
+  content: "";
+}
+
+.icon-search-file:before {
+  content: "";
+}
+
+.icon-send:before {
+  content: "";
+}
+
+.icon-service:before {
+  content: "";
+}
+
+.icon-setting:before {
+  content: "";
+}
+
+.icon-slot:before {
+  content: "";
+}
+
+.icon-star:before {
+  content: "";
+}
+
+.icon-transfer:before {
+  content: "";
+}
+
+.icon-trash:before {
+  content: "";
+}
+
+.icon-user-circle:before {
+  content: "";
+}
+
+.icon-wallet:before {
+  content: "";
+}
+
+.icon-withdraw-pw:before {
+  content: "";
+}
+
+.icon-withdraw:before {
+  content: "";
+}
+
+.icon-world:before {
+  content: "";
+}
+
+.icon-logo-btc:before {
+  content: "";
+}
+
+.icon-logo-doge:before {
+  content: "";
+}
+
+.icon-logo-eth:before {
+  content: "";
+}
+
+.icon-logo-tron:before {
+  content: "";
+}
+
+.icon-logo-xrp:before {
+  content: "";
+}
+
+.icon-arrow-right.circle {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  border-radius: 100%;
+  background-color: #FF0066;
+}
+.icon-arrow-right.circle:before {
+  top: 1px;
+  left: 1px;
+  font-size: 0.75em;
+}
+
+.icon-check.circle {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  border-radius: 100%;
+  background-color: rgba(44, 45, 58, 0.25);
+}
+.icon-check.circle.active {
+  background-color: #FF0066;
+}
+
+.icon-casinoworld-search:before {
+  content: "a";
+}
+
+.icon-casinoworld-angle-down:before {
+  content: "b";
+}
+
+.icon-casinoworld-angle-left:before {
+  content: "c";
+}
+
+.icon-casinoworld-angle-right:before {
+  content: "d";
+}
+
+.icon-casinoworld-angle-up:before {
+  content: "e";
+}
+
+.icon-casinoworld-check:before {
+  content: "f";
+}
+
+.icon-casinoworld-money-flow:before {
+  content: "i";
+}
+
+.icon-casinoworld-writing:before {
+  content: "j";
+}
+
+.icon-casinoworld-currency-exchange:before {
+  content: "m";
+}
+
+.icon-casinoworld-money-transfer:before {
+  content: "o";
+}
+
+.icon-casinoworld-american-football:before {
+  content: "p";
+}
+
+.icon-casinoworld-menu:before {
+  content: "q";
+}
+
+.icon-casinoworld-football:before {
+  content: "r";
+}
+
+.icon-casinoworld-casino-chip:before {
+  content: "s";
+}
+
+.icon-casinoworld-game-default:before {
+  content: "t";
+}
+
+.icon-casinoworld-ico-coin-btc:before {
+  content: "v";
+}
+
+.icon-casinoworld-magazine:before {
+  content: "z";
+}
+
+.icon-casinoworld-newspaper:before {
+  content: "A";
+}
+
+.icon-casinoworld-article:before {
+  content: "k";
+}
+
+.icon-casinoworld-question-outline:before {
+  content: "n";
+}
+
+.icon-casinoworld-refresh:before {
+  content: "l";
+}
+
+.icon-casinoworld-ico-cycle:before {
+  content: "u";
+}
+
+.icon-casinoworld-ico-goleft:before {
+  content: "D";
+}
+
+.icon-casinoworld-ico-goright:before {
+  content: "E";
+}
+
+.icon-casinoworld-fish-1:before {
+  content: "g";
+}
+
+.icon-casinoworld-fish-2:before {
+  content: "h";
+}
+
+.icon-casinoworld-heart-f:before {
+  content: "B";
+}
+
+.icon-casinoworld-heart-o:before {
+  content: "C";
+}
+
+.icon-casinoworld-telephone:before {
+  content: "F";
+}
+
+.icon-casinoworld-mail:before {
+  content: "G";
+}
+
+.icon-casinoworld-smartphone:before {
+  content: "I";
+}
+
+.icon-logo-eth-o:before {
+  font-family: "onlinecasinoworld" !important;
+  content: "w";
+}
+
+.icon-logo-omi:before {
+  font-family: "onlinecasinoworld" !important;
+  content: "x";
+}
+
+.icon-logo-usdt:before {
+  font-family: "onlinecasinoworld" !important;
+  content: "y";
+}
+
+.icon-logo-jkc:before {
+  font-family: "onlinecasinoworld" !important;
+  content: "H";
+}
+
+.icon-logo-hln:before {
+  font-family: "onlinecasinoworld" !important;
+  content: "J";
+}
+
+.icon-logo-usdc:before {
+  font-family: "onlinecasinoworld" !important;
+  content: "K";
+}
+
+.icon-casinoworld-process-order:before {
+  content: "L";
+}
+
+.icon-casinoworld-stock-exchange:before {
+  content: "M";
+}
+
+.icon-casinoworld-poker:before {
+  content: "N";
+}
+
+.icon-casinoworld-linear-chart-1:before {
+  content: "O";
+}
+
+.icon-casinoworld-linear-chart-2:before {
+  content: "P";
+}

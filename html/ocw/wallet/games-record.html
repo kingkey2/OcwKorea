@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+    
+    <link rel="stylesheet" href="../src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <!-- <link rel="stylesheet" href="../src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/wallet.css" type="text/css"/> -->
+    <link rel="stylesheet" href="../../../css/icons.css" type="text/css" />
+    <link rel="stylesheet" href="../../../css/global.css" type="text/css" />
+    <link rel="stylesheet" href="../../../css/wallet.css" type="text/css" />
+
+</head>
+
+<body>
+    <div class="page-container">
+        <!-- Heading-Top -->
+        <div id="heading-top"></div>
+        
+        <div class="page-content">
+
+            <section class="section-wrap">
+                <!-- 頁面標題 -->
+                <div class="page-title-container">
+                    <div class="page-title-wrap">
+                        <div class="page-title-inner">
+                            <h3 class="title">遊戲紀錄</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 類別選單 -->
+                <div class="slide-menu-container">
+                    <div class="slide-menu-wraper">
+                        <input type="radio" name="record-type" id="record-type-all" checked>
+                        <label class="slide-menu-item" for="record-type-all">
+                            <span>近1日</span>
+                        </label>
+    
+                        <input type="radio" name="record-type" id="record-type-deposit">
+                        <label class="slide-menu-item" for="record-type-deposit">
+                            <span>近7日</span>
+                        </label>
+    
+                        <input type="radio" name="record-type" id="record-type-withdraw">
+                        <label class="slide-menu-item" for="record-type-withdraw">
+                            <span>近30日</span>
+                        </label>
+    
+                        <div class="tracking-bar"></div>
+                    </div>
+                </div>
+
+                <!-- 紀錄列表 -->
+                <div class="record-table-container">
+                    <!--  日期選擇 -->
+                    <div class="record-table-date-select">
+                        <div class="wrap-box">
+                            <div class="modal-info" data-toggle="modal" data-target="#modalInfo">
+                                <i class="icon-error_outline"></i>
+                            </div>
+                            <div class="desc">
+                                <span class="month">October</span>
+                                <span class="year">2021</span>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn btn-icon">
+                                    <i class="icon-arrow-left"></i>
+                                </button>
+                                <button class="btn btn-icon" data-toggle="modal" data-target="#alertLastMonth">
+                                    <i class="icon-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown-selector">
+                            <div class="dropdown-selector-tab" data-click-btn="toggle-dropdown">
+                                <span>All Game</span>
+                            </div>
+                            <div class="dropdown-selector-panel">
+                                <div class="btn-wrap btn-radio-wrap">
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game00" checked>
+                                        <label class="btn btn-outline-primary btn-sm" for="game00">
+                                            <span>All Game</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game2" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game2">
+                                            <span>Ewin</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game3" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game3">
+                                            <span>BG</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game4" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game4">
+                                            <span>BNG</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game5" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game5">
+                                            <span>CG</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game6" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game6">
+                                            <span>HC</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game7" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game7">
+                                            <span>KGS</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game8" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game8">
+                                            <span>PG</span>
+                                        </label>
+                                    </div>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="games" id="game9" >
+                                        <label class="btn btn-outline-primary btn-sm" for="game9">
+                                            <span>abcdefg</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="record-table games-record">
+                        <div class="record-table-item header">
+                            <div class="record-table-cell"><span>日期</span></div>
+                            <!-- <div class="record-table-cell"><span>遊戲</span></div> -->
+                            <div class="record-table-cell"><span>輸贏</span></div>
+                        </div>
+
+                        <div class="record-table-item">
+                            <div class="record-table-tab">
+                                <div class="record-table-cell">
+                                    <div class="data-date">
+                                        <div class="month">OCT</div>
+                                        <div class="date">10</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- <div class="record-table-cell">
+                                    <div>EWIN</div>
+                                </div> -->
+                                <div class="record-table-cell">
+                                    <div class="count positive">+ 9,999</div>
+                                </div>
+                                <div class="record-table-cell">
+                                    <div class="btn-toggle">
+                                        <div></div>
+                                    </div>
+                                    <div class="lds-dual-ring"></div>
+                                </div>
+                            </div>
+
+                            <!-- 下拉明細 -->
+                            <div class="record-table-drop-panel">
+                               <!-- 品牌區分 -->
+                               <table class="table table-sm" style="display: none;">
+                                <tbody>
+                                    <tr>
+                                        <th>投注金額</th>
+                                        <td>-100.00</td>
+                                    </tr>
+                                    <tr>
+                                        <th>有效投注</th>
+                                        <td>50.000</td>
+                                    </tr>
+                                    <tr class="total">
+                                        <th>餘額</th>
+                                        <td>
+                                            <div class="amount">
+                                                <!-- <sup>USD</sup> -->
+                                                <span class="count">0</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- 遊戲區分 -->
+                            <table class="table table-sm">
+                                <tbody>
+
+                                    <tr>
+                                        <table class="table-game-detail">
+                                            <tr>
+                                                <td rowspan="3">ワン ブラックジェック</td>
+                                                <td>Total</td>
+                                                <td>-20</td>
+                                            </tr>
+                                            <tr>
+                                                <!-- <td>Total</td> -->
+                                                <td>投注金額</td>
+                                                <td>Total</td>
+                                            </tr>
+                                            <tr>
+                                                <!-- <td>Total</td> -->
+                                                <td>有效投注</td>
+                                                <td>Total</td>
+                                            </tr>
+                                        </table>
+                                       
+                                    </tr>
+                                  
+                                   
+                                </tbody>
+                            </table>
+                            </div>
+
+                        </div>
+
+                        <div class="record-table-item">
+                            <div class="record-table-tab">
+                                <div class="record-table-cell">
+                                    <div class="data-date">
+                                        <div class="month">OCT</div>
+                                        <div class="date">10</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- <div class="record-table-cell">
+                                    <div>EWIN</div>
+                                </div> -->
+
+                                <div class="record-table-cell">
+                                    <div class="count negative">- 9,999</div>
+                                </div>
+
+                                <div class="record-table-cell">
+                                    <div class="btn-toggle">
+                                        <div></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <!-- 下拉明細 -->
+                            <div class="record-table-drop-panel">                               
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <th>投注金額</th>
+                                            <td>-100.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>有效投注</th>
+                                            <td>50.000</td>
+                                        </tr>
+                                        <tr class="total">
+                                            <th>餘額</th>
+                                            <td>
+                                                <div class="amount">
+                                                    <!-- <sup>USD</sup> -->
+                                                    <span class="count">0</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <div class="record-table-item total">
+                            <div class="record-table-cell">
+                                <div class="ttl">期間輸贏 Total</div>
+                            </div>
+                            <div class="record-table-cell">
+                                <div class="count">- 9,999</div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalInfo" aria-hidden="true" id="modalInfo">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="text-wrap">
+                            <ul class="list-style-decimal">
+                                <li>此遊戲紀錄僅列出各遊戲的當日總和，若您需要查詢各遊戲的詳細遊戲，請於各遊戲中的遊戲紀錄進行查詢。</li>
+                                <li>各平台遊戲紀錄查詢方式和路徑不盡相同，此處無法一一列舉說明，請各位玩家見諒。</li>
+                                <li>各遊戲統計遊戲紀錄之時間有可能不盡相同，可能無法進行即時核對，發現金額計算有所差異，可稍後再試。</li>
+                            </ul>
+                            <p class="note primary">※遊戲紀錄統計時間從1分鐘~隔日統計都是有可能的。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertLastMonth" aria-hidden="true" id="alertLastMonth">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="text-wrap">
+                            <p>已經是最新月份了!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/wallet.js"></script>
+
+</body>
+</html>

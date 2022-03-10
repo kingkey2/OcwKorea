@@ -1,0 +1,467 @@
+@charset "UTF-8";
+@import "__common";
+@import "__function";
+
+$step-item-inner-padding: 15px;
+
+.manual-container {
+    h2 {
+        // font-size: 6vw;
+        // font-size: 5vmin;
+        font-size: font-resize(50px);
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    h3 {
+        margin-bottom: 1rem;
+    }
+
+    > .text-wrap {
+        // margin: 0 0 0 8vw;
+
+        p {
+            letter-spacing: .5px;
+            // line-height: 2;
+            // font-size: 1.125em;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+}
+
+
+//關於我們
+.about-container {
+    
+    > .text-wrap { 
+        margin: 0 0 0 8vw;      
+
+        p {
+            line-height: 2;
+            font-size: 1.125em;
+            
+        }
+
+        .company-address{
+            p{
+                margin-bottom: 0rem;
+                line-height: 1.5;
+                font-size: font-resize(16px);
+        
+            }
+        }
+    }
+
+}
+
+
+
+
+.partner{
+   
+
+    .title{
+        color: rgba(#000, .35);
+        text-align: center;
+    }
+
+    .logo{
+       
+        background: rgba(#fff, 1);
+        text-align: center;
+
+        .container-fluid{
+            max-width: 1200px;
+            margin: 0 auto; 
+        }
+    
+        .img-crop{
+            text-align: center;
+            padding: 5px 10px;
+    
+            img{
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    
+        
+        @media screen and (min-width: 768px) {
+    
+            .img-crop{
+                img{               
+                    // max-height: 170px;
+                }
+            }
+    
+        }
+    
+    }
+    
+
+}
+
+.section-Wrapper{
+    margin-bottom: 40px;
+
+    @media only screen and (min-width: 1200px) {
+        margin-bottom: 80px;
+
+    }
+
+
+
+}
+
+
+.table-custom{
+    background-color: rgba($black, .15);
+    margin-bottom: 40px;
+    border-collapse: collapse;
+    border: solid 1px rgba($white, .15);
+
+    th,td{
+        padding: 10px;
+        border-right: solid 1px rgba($white, .85);
+        border-bottom: solid 1px rgba($white, .85);
+    }
+
+    thead{
+        background-color: rgba($black, .25);
+        th{
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+    }
+
+    tbody{
+        td{
+            font-size: font-resize(14px);
+           
+
+        }
+    }
+}
+
+.bg-gray{
+    background-color: rgba(#000, .02);
+}
+
+.title-stress{
+    &:before {
+        content: "";
+        display: inline-block;
+        margin: 0 0.5em 0 0;
+        vertical-align: bottom;
+        width: 3px;
+        height: 1em;
+        background-color: #FF0066;
+        border-radius: 2px;
+    }
+}
+
+
+.crypto-deposit-steps{
+
+    margin: 0 auto;
+    // margin-top: 5rem;
+    padding: 5rem 0 7rem;
+    
+    width: 100%;
+    max-width: 1360px;
+
+
+    // display: flex; //最上層絕不能用 flex
+
+    .swiper-container {
+        overflow: visible;
+    }
+
+    .swiper-slide{
+        width: 95%;
+        height: auto; //!!Importnt => swiper.css RESET => 高度自動撐滿 100%
+
+        max-width: calc(1360px / 4);
+        // max-width: 320px;
+        // padding: 0 10px;
+    }
+
+    .step-item{
+        display: flex; //!!Importnt => 高度自動撐滿 100%
+        align-items: stretch;
+        height: 100%;
+        
+        position: relative; 
+        padding: 0 15px 0 0;
+    }
+
+    .step-item-inner{
+
+        padding: 0rem 0 20px;
+
+        position: relative;    
+        box-shadow: 0 6px 20px 0px rgba(#000, 0.07);
+        // background-color: #fff;
+        background-color: #fafbfd;
+
+        border-radius: 5px;
+        // overflow: hidden;
+
+        text-align: center;
+    }
+
+    
+
+    
+
+    .content{
+        height: 100%; //!!Importnt => 高度自動撐滿 100% 
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .intro{
+        text-align: left;
+        min-height: 8rem;
+        // margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+
+        padding: 0 $step-item-inner-padding;
+        padding-top: 3rem;
+        p{
+            margin-bottom: 1rem;
+        }
+    }
+
+    .desc{
+
+        min-height: 3rem;
+        font-size: font-resize(14px);
+        text-align: left;
+        // background-color: #000;
+        padding: 0 $step-item-inner-padding;
+
+        p{
+            margin-bottom: 1rem;
+        }
+
+        .btn{
+            margin: 0 auto;
+        }
+    }
+
+    .img-wrap{
+        position: relative;
+        // padding-bottom: 280px;
+        // padding-bottom: 100%;
+        margin-bottom: 10px;
+        overflow: hidden;
+        padding: 0 $step-item-inner-padding;
+        // order: -1;
+
+        img{
+            // position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            object-fit: cover;
+            object-position: center center;
+            width: 100%;
+            height: 100%;
+        }
+     
+    }
+
+
+    .step-title {
+
+        &-container {
+            position: absolute;
+                right: 0;
+                left: 0;
+                margin: 0 auto;
+                top: -2.5rem;
+                z-index: 1;
+
+                &:before{
+                    // content: '';
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: flex-start;
+    
+                    position: absolute;
+                    right: 0;
+                    left: 0;
+                    margin: 0 auto;
+                    top: -30px;
+                    z-index: -1;
+                   
+                    // border-radius: 50%;
+                    width: 60px;
+                    height: 60px;
+                  
+            
+                    background-color: #fa046b;
+                    // transform: skewX(16deg);
+                    transform: rotate(45deg);
+
+                    // background-image: linear-gradient(to right, #A445B2 0%, #FF0066 50%, #D41872 100%);
+                 
+    
+                }
+        }
+
+        &-wrap {
+            // background-size: 200% auto;           
+        }
+
+        &-inner {
+
+            padding-top: 30px;
+            padding-bottom: 10px; 
+            
+            // padding-left: 50px;
+
+            .title {  
+                font-size: font-resize(16px);          
+            }
+
+            .num{
+           
+                display: inline-flex;
+                justify-content: center;
+                align-items: flex-start;
+
+                position: absolute;
+                left: -2px;
+                left: 0;
+                right: 0;
+                
+                margin: 0 auto;
+                // top: -33px;
+                bottom: calc(100% - 20px);
+                z-index: -1;
+               
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                padding-top: 5px;
+        
+                // background-color: #FF0053;
+                // color: #fff;
+
+                text-shadow: 0px 0px 6px #FF0053;
+                transform: skewX(-16deg);
+                
+        
+                font-weight: 600;
+                font-size: font-resize(50px);
+        
+            }
+
+
+        }
+
+    }
+
+
+}
+
+.crypto-coin{
+
+    &-list{
+        width: 90%;
+        margin: 3rem auto 5rem;
+        max-width: 540px;
+
+
+    }
+
+    &-item{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        .logo{
+            > i {
+                &[class^="icon-logo"],
+                &[class^="icon-casinoworld-logo"] {
+                    color: $white;
+                    background-color: $pink;
+                    border-radius: 16px;
+                    box-shadow: 0 4px 16px -4px $sd-blue;
+                    margin: 0 auto;
+                    width: 84px;
+                    height:84px;
+                    font-size: font-resize(30px);
+                }
+    
+                &.icon-logo-btc {
+                    background-color: #FFC700;
+                }
+                &.icon-logo-doge {
+                    background-color: #DCBA2D;
+                }
+                &.icon-logo-tron {
+                    background-color: #F43535;
+                }
+                &.icon-logo-eth {
+                    background-color: $black;
+                }
+                &.icon-logo-usdt {
+                    background-color: $logo-USDT; 
+                }
+    
+            }
+    
+    
+    
+        }
+
+        .title{
+            margin-top: 1rem;
+            font-size: font-resize(16px);
+        }
+
+    }
+
+         
+
+    
+
+}
+
+
+@media only screen and (min-width: 768px) {
+    h2 {
+       
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    .manual-container {
+        h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+        }
+        .text-wrap {
+            margin: 0;
+            p {
+                font-size: 1em;
+            }
+        }
+    }
+
+
+
+}
+
+

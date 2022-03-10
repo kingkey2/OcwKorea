@@ -1,0 +1,153 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharaja</title>
+    
+    <link rel="stylesheet" href="../src/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <!-- <link rel="stylesheet" href="../src/css/icons.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../src/css/wallet.css" type="text/css"/> 
+-->
+    <link rel="stylesheet" href="../../../css/icons.css" type="text/css" />
+    <link rel="stylesheet" href="../../../css/global.css" type="text/css" />
+    <link rel="stylesheet" href="../../../css/wallet.css" type="text/css" />
+
+</head>
+
+<body>
+    <div class="page-container">
+        <!-- Heading-Top -->
+        <div id="heading-top"></div>
+        
+        <div class="page-content">
+            
+            <section class="sec-wrap">
+                <!-- 頁面標題 -->
+                <div class="page-title-container">
+                    <div class="page-title-wrap">
+                        <div class="page-title-inner">
+                            <h3 class="title">存款</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 步驟 -->
+                <div class="progress-container progress-line">
+                    <div class="progress-step cur">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-item"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-item"></div>
+                    </div>
+                </div>
+                <div class="text-wrap progress-title">
+                    <p>選擇存款管道</p>
+                </div>
+
+                <!-- 選擇存款管道  -->
+                <div class="card-container">
+                    <!-- 信用卡 -->
+                    <div class="card-item sd-01">
+                        <a class="card-item-link" href="deposit-credit.html">
+                            <div class="card-item-inner">
+                                <div class="title">Credit / Debet</div>
+                                <div class="desc"><b>20</b> € - <b>10,000</b> € No Fee</div>
+                                <div class="logo">
+                                    <img src="../src/images/assets/card-surface/icon-logo-visa.svg">
+                                    <img src="../src/images/assets/card-surface/icon-logo-master.svg">
+                                </div>
+                            </div>
+                            <img src="../src/images/assets/card-surface/card-01.svg" class="card-item-bg">
+                        </a>
+                    </div>
+                     <!-- PayPal -->
+                     <div class="card-item sd-08">
+                        <a class="card-item-link" href="deposit-paypal.html">
+                            <div class="card-item-inner">
+                                <div class="title">Electronic Wallet</div>
+                                <div class="logo vertical-center">
+                                    <img src="../src/images/assets/card-surface/icon-logo-paypal-w.svg">
+                                </div>
+                            </div>
+                            <img src="../src/images/assets/card-surface/card-08.svg" class="card-item-bg">
+                        </a>
+                    </div>
+
+                    <!-- 虛擬錢包 -->
+                    <div class="card-item sd-02">
+                        <a class="card-item-link" href="deposit-crypto.html">
+                            <div class="card-item-inner">
+                                <div class="title">Crypto Wallet</div>
+                                <div class="desc"><b>30</b> € -  <b>5,000</b> € No Fee</div>
+                                <div class="logo">
+                                    <i class="icon-logo-btc"></i>
+                                    <i class="icon-logo-doge"></i>
+                                    <i class="icon-logo-tron"></i>
+                                </div>
+                            </div>
+                            <img src="../src/images/assets/card-surface/card-02.svg" class="card-item-bg">
+                        </a>
+                    </div>
+
+                    <!-- skrill -->
+                    <div class="card-item sd-03">
+                        <a class="card-item-link" href="">
+                            <div class="card-item-inner">
+                                <div class="title">Skrill</div>
+                                <div class="desc"><b>20</b> € - <b>10,000</b> € No Fee</div>
+                                <div class="logo">
+                                    <img src="../src/images/assets/card-surface/icon-logo-skrill.svg">
+                                </div>
+                            </div>
+                            <img src="../src/images/assets/card-surface/card-03.svg" class="card-item-bg">
+                        </a>
+                    </div>
+
+                    <!-- ecppayz -->
+                    <div class="card-item sd-04">
+                        <a class="card-item-link" href="">
+                            <div class="card-item-inner">
+                                <div class="title">ecopayz</div>
+                                <div class="desc"><b>20</b> € - <b>5,000</b> € No Fee</div>
+                                <div class="logo">
+                                    <img src="../src/images/assets/card-surface/icon-logo-ecopayz.svg">
+                                </div>
+                            </div>
+                            <img src="../src/images/assets/card-surface/card-04.svg" class="card-item-bg">
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 溫馨提醒 -->
+                <div class="notice-container mt-5">
+                    <div class="notice-item">
+                        <i class="icon-info_circle_outline"></i>
+                        <div class="text-wrap">
+                            <p class="title">溫馨提醒</p>
+                            <p>不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+        </div>
+    </div>
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/wallet.js"></script>
+
+</body>
+</html>

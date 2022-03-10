@@ -1,0 +1,310 @@
+    
+<div class="layout-full-screen sign-container is-hide" data-form-group="signContainer">
+
+    <div class="logo" data-click-btn="backToHome">
+        <img src="src/img/assets/logo-icon.png">
+    </div>
+
+    <div class="btn-back is-hide" data-click-btn="backToSign">
+        <div></div>
+    </div>
+
+    <!-- 側邊影像 -->
+    <div class="feature-panel"></div>
+
+    <!-- 主內容框 -->
+    <div class="main-panel">
+
+        <!-- 會員登入 -->
+        <div class="form-container is-hide" data-form-group="signIn">
+            <div class="heading-title">
+                <h3>會員登入</h3>
+            </div>
+
+            <div class="form-content">
+                <form>
+                    <div class="form-group">
+                        <label class="form-title">信箱</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style is-invalid" placeholder="abc@email.com" inputmode="email">
+                            <div class="invalid-feedback">請輸入正確信箱</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-title">密碼</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control custom-style" placeholder="" inputmode="email">
+                            <div class="invalid-feedback">提示</div>
+                        </div>
+                        <button class="btn btn-icon" type="button">
+                            <i class="icon-eye"></i>
+                        </button>
+                        <a class="text-link underline" data-click-btn="restPassword">
+                            <span>忘記密碼？</span>
+                        </a>          
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="submit" class="btn btn-primary" data-click-btn="backToHome"><span>登入</span></button>
+                    </div>
+                </form>
+            </div>
+            <div class="get-start-header">
+                <div>還沒有帳號嗎?</div>
+                <button class="btn btn-outline-primary btn-sm" data-click-btn="registerStep1">
+                    <span>前往註冊</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 重設密碼 -->
+        <div class="form-container is-hide" data-form-group="restPassword">
+            <div class="heading-title">
+                <h3>重設密碼</h3>
+            </div>
+
+            <div class="heading-sub-desc text-wrap">
+                <h6>忘記密碼？</h6>
+                <p>請輸入信箱，會將重設密碼的信至您的信箱。</p>
+            </div>
+
+            <div class="form-content">
+                <form>
+                    <div class="form-group">
+                        <label class="form-title">信箱</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style" placeholder="請輸入信箱地址" inputmode="email">
+                            <div class="invalid-feedback">提示</div>
+                        </div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button class="btn btn-primary" data-click-btn="mailSend"><span>發送</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 重設密碼 發送完成 -->
+        <div class="form-container is-hide" data-form-group="mailSend">
+            <div class="heading-title text-center">
+                <h3>發送完成！</h3>
+            </div>
+
+            <div class="heading-sub-desc text-wrap text-center mb-5">
+                <p>已將重設密碼的信送至您輸入的信箱，請至該信箱確認。</p>
+            </div>
+
+            <div class="btn-container">
+                <a class="btn btn-primary" data-click-btn="signIn"><span>重新登入</span></a>
+            </div>
+        </div>
+
+        <!-- 註冊 -->
+        <div class="form-container is-hide" data-form-group="register">
+            <div class="heading-title">
+                <h3>創建新帳號</h3>
+            </div>
+
+            <!-- 步驟 -->
+            <div class="progress-container mb-4 pb-2">
+                <div class="progress-step cur">
+                    <div class="progress-step-item"></div>
+                </div>
+                <div class="progress-step">
+                    <div class="progress-step-item"></div>
+                </div>
+            </div>
+
+            <!-- 註冊 step1 -->
+            <div class="form-content is-hide" data-form-group="registerStep1">
+                <form>
+                    <div class="form-group">
+                        <label class="form-title">信箱</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email">
+                            <div class="invalid-feedback">提示</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-title">密碼</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control custom-style" placeholder="" inputmode="email">
+                            <div class="invalid-feedback">提示</div>
+                        </div>
+                        <button class="btn btn-icon" type="button">
+                            <i class="icon-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-3">
+                            <label class="form-title">國碼</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal">
+                            </div>
+                        </div>
+                        <div class="form-group col-9">
+                            <label class="form-title">手機電話號碼</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-wrap text-center my-5">
+                        <h5 class="text-primary-gradient">取得 Bonus 還有一個步驟</h5>
+                    </div>
+
+                    <div class="btn-container">
+                        <button class="btn btn-primary" data-click-btn="registerStep2">
+                            <span>下一步</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 註冊 stepTwo -->
+            <div class="form-content is-hide" data-form-group="registerStep2">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md">
+                            <label class="form-title">姓
+                                <span class="form-title-note">(羅馬字)</span></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email">
+                                <div class="invalid-feedback">提示</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md">
+                            <label class="form-title">名
+                                <span class="form-title-note">(羅馬字)</span></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email">
+                                <div class="invalid-feedback">提示</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-title">國家</label>
+                        <div class="input-group">
+                            <select class="form-control custom-style is-invalid">
+                                <option selected>請選擇</option>
+                                <option>...</option>
+                            </select>
+                            <div class="invalid-feedback">提示</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label class="form-title">郵遞區號</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="123-4567" inputmode="numeric">
+                                <div class="invalid-feedback">提示</div>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="form-title">都道縣府<span class="form-title-note">(羅馬字)</span></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="Tokyo" inputmode="">
+                                <div class="invalid-feedback">提示</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-title">市區町村以下的地址
+                            <span class="form-title-note">(羅馬字)</span></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style" placeholder="shinjiku-ku 1-2-3" inputmode="">
+                            <div class="invalid-feedback">提示</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label class="form-title">出生年</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" placeholder="1900" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="form-title">月</label>
+                            <div class="input-group">
+                                <select class="form-control custom-style">
+                                    <option selected>請選擇</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="form-title">日</label>
+                            <div class="input-group">
+                                <select class="form-control custom-style">
+                                    <option selected>請選擇</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-title">推廣碼</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style" placeholder="若無推廣碼可不填寫" inputmode="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="CheckAge">
+                            <label class="form-check-label" for="CheckAge">
+                                我已年滿18歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button class="btn btn-primary" data-click-btn="registerComplete">
+                            <span>註冊</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="get-start-header">
+                <div>已有帳號了?</div>
+                <button class="btn btn-outline-primary btn-sm" data-click-btn="signIn">
+                    <span>前往登入</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- 註冊完成 -->
+        <div class="form-container is-hide" data-form-group="registerComplete">
+            <div class="heading-title">
+                <h1>Welcome</h1>
+            </div>
+            <div class="heading-sub-desc text-wrap">
+                <h5 class="mb-4">歡迎來到 Maharaja！</h5>
+                <p>感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
+                <p>您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。<br>
+                    另外還準備了很多的特典在等待您!</p>
+                <p>如果有任何不清楚的地方，歡迎您利用客服與我們聯絡。</p>
+            </div>
+
+            <div class="btn-container pt-4 mb-4">
+                <button class="btn btn-primary" data-click-btn="backToHome"><span>現在就存款</span></button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="text-link underline" data-click-btn="backToHome">
+                    <span>首頁</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
