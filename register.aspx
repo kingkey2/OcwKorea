@@ -136,18 +136,15 @@
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
-        //idLoginAccount.setCustomValidity(mlp.getLanguageKey("請等待信箱檢查完畢"));
 
         if (idLoginAccount.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             return false;
-        } else {
-            if (!IsEmail(idLoginAccount.value)) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                return false;
-            }
         }
-
+        else if (idLoginPassword.value.length > 12) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
+            return false;
+        }
         return true
         //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
         //    if (success) {
@@ -164,17 +161,18 @@
 
     function CheckPassword() {
         var idLoginPassword = document.getElementById("idLoginPassword");
-        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
+        //var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
-        } else if (idLoginPassword.value.length < 6) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
-            return false;
-        } else if (!rules.test(idLoginPassword.value)) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
-            return false;
         }
+        //else if (idLoginPassword.value.length < 6) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
+        //    return false;
+        //} else if (!rules.test(idLoginPassword.value)) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+        //    return false;
+        //}
 
         return true;
     }
@@ -316,42 +314,32 @@
                 { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
             ];
 
-            p.GetLoginAccount(Math.uuid(), PhonePrefix, PhoneNumber, function (success, o1) {
+            LoginAccount = $("#idLoginAccount").val();
+            p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
-                    if (o1.Result == 0) {
-                        LoginAccount = o1.Message;
-                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
-                            if (success) {
-                                if (o.Result == 0) {
-                                    sendThanksMail();
-                                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
-                                        document.getElementById("idRegister").classList.add("is-hide");
-                                        document.getElementById("contentFinish").classList.remove("is-hide");
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            } else {
-                                if (o == "Timeout") {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            }
+                    if (o.Result == 0) {
+                        sendThanksMail();
+                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                            document.getElementById("idRegister").classList.add("is-hide");
+                            document.getElementById("contentFinish").classList.remove("is-hide");
                         });
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
                             window.parent.API_LoadPage("Register", "Register.aspx")
                         });
                     }
                 }
-            })
+            });
         }
     }
 
@@ -524,17 +512,17 @@
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
                         <div class="form-group">
-                            <label class="form-title language_replace">信箱</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
                                 <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+886" inputmode="decimal" value="+886" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>

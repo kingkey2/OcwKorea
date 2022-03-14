@@ -30,25 +30,13 @@
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
-        if (LoginType == "1") {
-            telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
-            LoginAPIResult = LoginAPI.UserLoginByPhoneNumber(Token, LoginGUID, telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
-        } else {
-            LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
-        }
-
+        LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
+        
 
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
-            if (LoginType == "1") {
-                telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
-
-                LoginAccount = telPhoneNormalize.PhonePrefix + telPhoneNormalize.PhoneNumber;
-                SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-            } else {
-                SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-            }
-
-
+         
+            SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
+          
             DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
 
             if (DT != null && DT.Rows.Count > 0) {
@@ -162,17 +150,6 @@
     //}
 
     function updateBaseInfo() {
-    }
-
-    function setLoginType(type) {
-     
-        document.getElementById("idMailLoginGroup").classList.add("is-hide");
-        document.getElementById("idPhoneLoginGroup").classList.remove("is-hide");
-        document.getElementById("btnMail").classList.remove("active");
-        document.getElementById("btnPhone").classList.add("active");
-      
-
-        document.getElementById("idLoginType").value = LoginType;
     }
 
     function init() {
