@@ -165,19 +165,12 @@
     }
 
     function setLoginType(type) {
-        LoginType = type;
-
-        if (LoginType == 0) {
-            document.getElementById("idMailLoginGroup").classList.remove("is-hide");
-            document.getElementById("idPhoneLoginGroup").classList.add("is-hide");
-            document.getElementById("btnMail").classList.add("active");
-            document.getElementById("btnPhone").classList.remove("active");
-        } else if (LoginType == 1) {
-            document.getElementById("idMailLoginGroup").classList.add("is-hide");
-            document.getElementById("idPhoneLoginGroup").classList.remove("is-hide");
-            document.getElementById("btnMail").classList.remove("active");
-            document.getElementById("btnPhone").classList.add("active");
-        }
+     
+        document.getElementById("idMailLoginGroup").classList.add("is-hide");
+        document.getElementById("idPhoneLoginGroup").classList.remove("is-hide");
+        document.getElementById("btnMail").classList.remove("active");
+        document.getElementById("btnPhone").classList.add("active");
+      
 
         document.getElementById("idLoginType").value = LoginType;
     }
@@ -309,26 +302,14 @@
 
         initValid(form);
 
-        if (LoginType == 0) {
-            if (form.LoginAccount.value == "") {
-                form.LoginAccount.setCustomValidity(mlp.getLanguageKey("請輸入信箱"));
-            } else if (form.LoginPassword.value == "") {
+        if (form.checkValidity()) {
+            if (form.LoginPassword.value == "") {
                 form.LoginPassword.setCustomValidity(mlp.getLanguageKey("請輸入密碼"));
             } else if (form.ValidImg.value == "") {
                 form.ValidImg.setCustomValidity(mlp.getLanguageKey("請輸入驗證碼"));
             }
-        } else if (LoginType == 1) {
-
-            CheckAccountPhoneExist();
-
-            if (form.checkValidity()) {
-                if (form.LoginPassword.value == "") {
-                    form.LoginPassword.setCustomValidity(mlp.getLanguageKey("請輸入密碼"));
-                } else if (form.ValidImg.value == "") {
-                    form.ValidImg.setCustomValidity(mlp.getLanguageKey("請輸入驗證碼"));
-                }
-            }
         }
+     
 
 
 
@@ -425,45 +406,29 @@
                     <h3 class="language_replace">會員登入</h3>
                 </div>
                 <div class="identity_login slideButton-menu-container">
-                    <div class="slideButton-menu-wraper">
+                  <%--  <div class="slideButton-menu-wraper">
                         <button onclick="setLoginType(1)" class="btn menu-item active" id="btnPhone"><i class="icon icon-casinoworld-smartphone"></i><span class="language_replace">電話登入</span></button>
                         <button onclick="setLoginType(0)" class="btn menu-item " id="btnMail"><i class="icon icon-casinoworld-mail"></i><span class="language_replace">信箱登入</span></button>
                         <div class="tracking-bar"></div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="form-content">
                     <form method="post" id="idFormUserLogin">
                         <input type="hidden" name="FingerPrint" value="" />
                         <input type="hidden" name="LoginGUID" value="" />
                         <input id="idLoginType" type="hidden" name="LoginType" value="1" />
-                        <div id="idMailLoginGroup" class="form-group is-hide">
-                            <label class="form-title language_replace">信箱</label>
+                        <div id="idMailLoginGroup" class="form-group">
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email" name="LoginAccount">
-                                <div class="invalid-feedback language_replace">請輸入信箱</div>
+                                <input type="text" class="form-control custom-style" placeholder="abc123"  name="LoginAccount">
+                                <div class="invalid-feedback language_replace">請輸入帳號</div>
                             </div>
                         </div>
 
-                        <div id="idPhoneLoginGroup" class="form-row">
-                            <div class="form-group col-3">
-                                <label class="form-title language_replace">國碼</label>
-                                <div class="input-group">
-                                    <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
-                                    <div class="invalid-feedback language_replace">請輸入國碼</div>
-                                </div>
-                            </div>
-                            <div class="form-group col-9">
-                                <label class="form-title language_replace">手機電話號碼</label>
-                                <div class="input-group">
-                                    <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
-                                    <div class="invalid-feedback language_replace">請輸入正確電話</div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="LoginPassword" type="password" class="form-control custom-style" placeholder="" inputmode="email" name="LoginPassword">
+                                <input id="LoginPassword" type="password" class="form-control custom-style" placeholder="" name="LoginPassword">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('LoginPassword')">
