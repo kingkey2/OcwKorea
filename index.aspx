@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 
 <%
     if (EWinWeb.IsInMaintain()) {
@@ -57,14 +57,14 @@
         } else if (userLang.ToUpper() == "en".ToUpper()) {
             Lang = "ENG";
         } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
-            Lang = "ENG";
+            Lang = "KOR";
         } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
-            Lang = "ENG";
+            Lang = "KOR";
         } else if (userLang.ToUpper() == "ko".ToUpper()) {
-            Lang = "ENG";
+            Lang = "KOR";
         } else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
-        } else { Lang = "JPN"; }
+        } else { Lang = "KOR"; }
     } else {
         Lang = Request["Lang"];
     }
@@ -1141,6 +1141,9 @@
             case "JPN":
                 LangText = "日本語";
                 break;
+			case "KOR":
+                LangText = "한국어";
+                break;
             case "CHT":
                 LangText = "繁體中文";
                 break;
@@ -1151,7 +1154,7 @@
                 LangText = "簡體中文";
                 break;
             default:
-                LangText = "日本語";
+                LangText = "한국어";
                 break;
         }
 
@@ -1656,8 +1659,9 @@
                         </a>
                         <div class="lang-select-panel">
                             <ul>
+                                <li><a onclick="switchLang('KOR', true)">한국어</a></li>
                                 <li><a onclick="switchLang('JPN', true)">日本語</a></li>
-                                <%--                                <li><a onclick="switchLang('ENG', true)">EN</a></li>--%>
+                                <li><a onclick="switchLang('ENG', true)">EN</a></li>
                                 <li><a onclick="switchLang('CHT', true)">繁體中文</a></li>
                             </ul>
                         </div>
