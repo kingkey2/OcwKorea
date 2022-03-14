@@ -189,6 +189,56 @@
         });
     };
 
+    this.CreateEPayDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
+        var url = APIUrl + "/CreateEPayDeposit";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            PaymentMethodID: PaymentMethodID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.ConfirmEPayDeposit = function (WebSID, GUID, OrderNumber, ActivityNames, Lang, cb) {
+        var url = APIUrl + "/ConfirmEPayDeposit";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            OrderNumber: OrderNumber,
+            ActivityNames: ActivityNames,
+            Lang: Lang
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+
     this.CreatePayPalDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
         var url = APIUrl + "/CreatePayPalDeposit";
         var postData;

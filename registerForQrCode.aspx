@@ -446,9 +446,7 @@
 
 
     function init() {
-        if (self != top) {
-            window.parent.API_LoadingStart();
-        }
+
         p = new LobbyAPI("/API/LobbyAPI.asmx");
         lang="JPN"
         mlp = new multiLanguage(v);

@@ -24,7 +24,10 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var c = new common();
     var ui = new uiControl();
     var p;
@@ -222,9 +225,8 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetPaymentAPI();
         lang = window.parent.API_GetLang();

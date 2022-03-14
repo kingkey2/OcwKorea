@@ -21,7 +21,10 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var c = new common();
     var ui = new uiControl();
     var p;
@@ -53,9 +56,8 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
@@ -138,7 +140,7 @@
                                 <div class="item balance-amount">
                                     <div class="title language_replace">錢包餘額</div>
                                     <div class="data">
-                                        <span class="coinType">OCoin</span>
+                                        <span class="coinType" >OCoin</span>
                                         <span id="idPointValue" class="coinAmount"> 9,999.265</span>
                                     </div>
                                 </div>                             
@@ -146,7 +148,7 @@
                                     <div class="title language_replace">取款門檻</div>
                                     <div class="data">
                                         <span class="coinType">OCoin</span>
-                                        <span id="idThrehold" class="coinAmount"> 9,999.265</span>
+                                        <span id="idThrehold" class="coinAmount" > 9,999.265</span>
                                     </div>
                                 </div>                             
 <%--                                <div class="item bouns-amount">

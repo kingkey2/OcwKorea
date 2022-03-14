@@ -4,7 +4,7 @@
     int RValue;
     string Token;
     string MarqueeText = "";
-    string Version=EWinWeb.Version;
+    string Version = EWinWeb.Version;
     Random R = new Random();
 
     EWin.Lobby.APIResult Result;
@@ -13,7 +13,8 @@
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     Result = LobbyAPI.GetCompanyMarqueeText(Token, Guid.NewGuid().ToString());
-    if (Result.Result == EWin.Lobby.enumResult.OK) {
+    if (Result.Result == EWin.Lobby.enumResult.OK)
+    {
         MarqueeText = Result.Message;
     }
 %>
@@ -27,7 +28,7 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-   
+
     <link rel="stylesheet" href="css/games.css" type="text/css" />
     <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
 </head>
@@ -114,24 +115,34 @@
 
     var FourGames = [
         {
-            GameName: "spirit-wonder",
-            GameBrand: "PG",
-            Description:"百鬼出來遊行囉，想要跟百鬼一起感受他們的慶典嗎?來玩這支遊戲就對了!目標是點滿四個燈籠!"
-        },
-        {
             GameName: "Sport",
             GameBrand: "BTI",
-            Description:"BTI擁有歐洲和亞洲風格的網站，並把亞洲投注産品本地化，使得他能全面覆蓋所有亞洲投注類型。提供60,000 項賽前的活動，和每月 18,000+ 項現場賽事。"
+            Description: "BTI擁有歐洲和亞洲風格的網站，並把亞洲投注産品本地化，使得他能全面覆蓋所有亞洲投注類型。提供60,000 項賽前的活動，和每月 18,000+ 項現場賽事。"
         },
         {
-            GameName: "sushi-oishi",
+            GameName: "119",
             GameBrand: "PG",
-            Description:"跟壽司師傅一起來體驗壽司之旅吧! 同時感受美食與遊戲 ♪搭配輕快BGM及畫面，特色的重新旋轉，贏取神秘符號和遞增式獎金倍數!"
+            Description: "百鬼出來遊行囉，想要跟百鬼一起感受他們的慶典嗎?來玩這支遊戲就對了!目標是點滿四個燈籠!"
         },
         {
-            GameName: "vswayssamurai",
-            GameBrand: "PP",
-            Description:"megaways的遊戲玩法，讓您中獎機率更加提高之外，還可以感受到滿滿的武士氣氛跟音樂畫面效果"
+            GameName: "109",
+            GameBrand: "PG",
+            Description: "跟壽司師傅一起來體驗壽司之旅吧! 同時感受美食與遊戲 ♪搭配輕快BGM及畫面，特色的重新旋轉，贏取神秘符號和遞增式獎金倍數!"
+        },
+        {
+            GameName: "TaikoDrumMasterEX",
+            GameBrand: "CG",
+            Description: "日本で大人気の太鼓ゲームを主題になり、日本伝統な太鼓音楽を体験できるし、音楽と画面を結びつけて、とても日本風なゲームです！"
+        },
+        {
+            GameName: "83",
+            GameBrand: "PG",
+            Description: "当たると綺麗なお花火を打ち上げます！"
+        },
+        {
+            GameName: "TravelFrogEX",
+            GameBrand: "CG",
+            Description:"大人気な携帯ゲーム、スロットに変身！"
         }
     ];
 
@@ -141,33 +152,33 @@
         //document.getElementById('idCasinoItemGroup').innerHTML = "";
         //document.getElementById('idSlotItemGroup').innerHTML = "";
 
-/*
-        for (var i = 0; i < HotList.length; i++) {
-            var gameItem = HotList[i];
-
-            if (gameItem.Categ != "Baccarat" && gameItem.Categ != "Classic") {
-                continue;
-            }
-
-            var GI = c.getTemplate("idTempGameItem");
-            var GI_img = GI.querySelector("img");
-            var GI_a = GI.querySelector(".OpenGame");
-
-            if (GI_img != null) {
-                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-                GI_img.onerror = new Function("setDefaultIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-            }
-
-            c.setClassText(GI, "GameCode", null, window.parent.API_GetGameLang(1, gameItem.GameBrand, gameItem.GameName));
-            GI_a.onclick = new Function("window.parent.API_OpenGameCode('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-
-            if (gameItem.Categ == "Baccarat") {
-                document.getElementById('idCasinoItemGroup').appendChild(GI);
-            } else if (gameItem.Categ == "Classic") {
-                document.getElementById('idSlotItemGroup').appendChild(GI);
-            }
-        }
-*/
+        /*
+                for (var i = 0; i < HotList.length; i++) {
+                    var gameItem = HotList[i];
+        
+                    if (gameItem.Categ != "Baccarat" && gameItem.Categ != "Classic") {
+                        continue;
+                    }
+        
+                    var GI = c.getTemplate("idTempGameItem");
+                    var GI_img = GI.querySelector("img");
+                    var GI_a = GI.querySelector(".OpenGame");
+        
+                    if (GI_img != null) {
+                        GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+                        GI_img.onerror = new Function("setDefaultIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                    }
+        
+                    c.setClassText(GI, "GameCode", null, window.parent.API_GetGameLang(1, gameItem.GameBrand, gameItem.GameName));
+                    GI_a.onclick = new Function("window.parent.API_OpenGameCode('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+        
+                    if (gameItem.Categ == "Baccarat") {
+                        document.getElementById('idCasinoItemGroup').appendChild(GI);
+                    } else if (gameItem.Categ == "Classic") {
+                        document.getElementById('idSlotItemGroup').appendChild(GI);
+                    }
+                }
+        */
         //init my game
         document.getElementById('idMyGameItemGroup').innerHTML = "";
         if (window.localStorage.getItem('MyGames')) {
@@ -232,6 +243,8 @@
         setFourGame(1);
         setFourGame(2);
         setFourGame(3);
+        setFourGame(4);
+        setFourGame(5);
     }
 
     function refreshMyGmae() {
@@ -477,12 +490,9 @@
     }
 
     function init() {
-        if (self==top) {
+        if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
-
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
@@ -511,6 +521,43 @@
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
+            }
+        });
+
+        setBulletinBoard();
+    }
+
+    function setBulletinBoard() {
+        var GUID = Math.uuid();
+        p.GetBulletinBoard(GUID, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var ParentMain = document.getElementById("idBulletinBoardContent");
+                    ParentMain.innerHTML = "";
+
+                      if (o.Datas.length > 0) {
+                        var RecordDom;
+                        //var numGameTotalValidBetValue = new BigNumber(0);
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            var record = o.Datas[i];
+                   
+                            RecordDom = c.getTemplate("idTempBulletinBoard");
+                        
+                            var recordDate = new Date(parseInt(record.CreateDate.replace(')/', '').replace('/Date(', '')));
+                            var date = recordDate.getFullYear() + '.' + (recordDate.getMonth()+1)+'.'+recordDate.getDate();
+                            c.setClassText(RecordDom, "CreateDate", null, date);
+                            c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
+   
+   
+
+                         RecordDom.onclick =   new Function("window.parent.showMessageOK('','" + record.BulletinContent + "')");
+                               
+                           
+                            ParentMain.appendChild(RecordDom);
+           
+                        }
+                    }
+                }
             }
         });
     }
@@ -594,7 +641,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" style="background:#efd21e" >
+                    <div class="swiper-slide" style="background-color: #020d48;">
+                        <div class="hero-item">
+                            <div class="img-wrap">
+                                <img src="images/games/hero/hero-10.jpg?20211004" class="desktop">
+                                <img src="images/games/hero/hero-10-m.jpg" class="mobile">
+                            </div>
+                            <div class="hero-info">
+                                <div class="hero-info-inner">
+                                    <div class="hero-info-title language_replace">貂蟬の甘い罠</div>
+                                    <div class="hero-info-text">
+                                        <p class="language_replace" style="font-size: .7em">三国志で大人気のあの貂蝉がスロットに登場、呂布と董卓を翻弄し、歴史を大きく転換させた三国志随一の美人が皆さんを誘惑しますよー！</p>
+                                    </div>
+                                    <a onclick="window.parent.API_OpenGameCode('PG', '1')" class="btn btn-primary">
+                                        <span class="language_replace">Game Now</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background: #efd21e">
                         <div class="hero-item">
                             <a onclick="window.parent.API_LoadPage('OpenBonusDeposit_03012022', '/Activity/OpenBonusDeposit_03012022/index.html')">
                                 <div class="img-wrap">
@@ -604,16 +670,16 @@
                             </a>
                         </div>
                     </div>
-                    <div class="swiper-slide" style="background-image: linear-gradient(to right, #29040b 0%, #29040b 50%, #341f26 51%, #341f26 100%);" >
+                    <div class="swiper-slide" style="background-image: linear-gradient(to right, #29040b 0%, #29040b 50%, #341f26 51%, #341f26 100%);">
                         <div class="hero-item">
-                             <a onclick="window.parent.API_LoadPage('OpenIntroBonus_03012022', '/Activity/OpenIntroBonus_03012022/index.html')">
+                            <a onclick="window.parent.API_LoadPage('OpenIntroBonus_03012022', '/Activity/OpenIntroBonus_03012022/index.html')">
                                 <div class="img-wrap">
                                     <img src="images/games/hero/OpenIntroBonus-11.jpg" class="desktop">
                                     <img src="images/games/hero/OpenIntroBonus-11-m.jpg" class="mobile">
                                 </div>
                             </a>
                         </div>
-                    </div>                   
+                    </div>
                     <div class="swiper-slide" style="background-image: linear-gradient(to right, #c1a679 0%, #c1a679 50%, #11100f 51%, #11100f 100%);">
                         <div class="hero-item">
                             <div class="img-wrap">
@@ -624,7 +690,7 @@
                                 <div class="hero-info-inner">
                                     <div class="hero-info-title language_replace">真人百家樂</div>
                                     <div class="hero-info-text">
-                                        <p class="language_replace">真人即時視訊，公平公正的真實百家樂遊戲!</p>
+                                        <p class="language_replace" style="font-size: .7em">真人即時視訊，公平公正的真實百家樂遊戲!</p>
                                     </div>
                                     <a onclick="window.parent.API_OpenGameCode('EWin', 'EWinGaming')" class="btn btn-primary">
                                         <span class="language_replace">Game Now</span>
@@ -635,26 +701,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide" style="background-color: #050a2a;">
-                        <div class="hero-item">
-                            <div class="img-wrap">
-                                <img src="images/games/hero/hero-06.jpg?20211004" class="desktop">
-                                <img src="images/games/hero/hero-06-m.jpg" class="mobile">
-                            </div>
-                            <div class="hero-info">
-                                <div class="hero-info-inner">
-                                    <div class="hero-info-title language_replace">One BlackJack</div>
-                                    <div class="hero-info-text">
-                                        <p class="language_replace">第一次儲值享額外20%獎勵，金額無上限!</p>
-                                    </div>
-                                    <a onclick="window.parent.API_OpenGameCode('PP', '901')" class="btn btn-primary">
-                                        <span class="language_replace">Game Now</span>
-                                    </a>
-                                    <p class="hero-info-period language_replace">活動期間: 2021年4月5日午前0時00分(EDT) 開始</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- <div class="swiper-slide" style="background-color: #6f3f17;">
                         <div class="hero-item">
                             <div class="img-wrap">
@@ -855,21 +902,21 @@
                     <section class="section-wrap push">
                         <div class="wrap-box">
                             <div class="game-rules" onclick="openHotArticle('guide-03')">
-                                <img src="images/games/rules_game_n_s.jpg" class="mobile" alt="" >
-                                <img src="images/games/rules_game_n.jpg" class="desk" alt="" >
+                                <img src="images/games/rules_game_n_s.jpg" class="mobile" alt="">
+                                <img src="images/games/rules_game_n.jpg" class="desk" alt="">
                                 <span class="btn btn-primary language_replace">規則介紹</span>
                             </div>
                         </div>
                         <div class="wrap-box">
                             <div class="game-play" onclick="window.parent.API_OpenGameCode('EWin', 'EWinGaming')">
-                                <img src="images/games/play_game_n_s.jpg" class="mobile" alt="" >
-                                <img src="images/games/play_game_n.jpg" class="desk" alt="" >
+                                <img src="images/games/play_game_n_s.jpg" class="mobile" alt="">
+                                <img src="images/games/play_game_n.jpg" class="desk" alt="">
                                 <span class="btn btn-primary language_replace">開始遊戲</span>
                             </div>
                         </div>
                     </section>
                     <!-- 熱門遊戲 -->
-              <%--      <section class="section-wrap pop">
+                    <%--      <section class="section-wrap pop">
                         <!-- 熱門賭場遊戲 -->
                         <div class="wrap-box" style="display:none">
                             <div class="sec-title-container">
@@ -1051,7 +1098,38 @@
                                     </div>
                                 </a>
                             </div>
-
+                            <div id="idRecommend5" class="box-item">
+                                <a class="box-item-link">
+                                    <div class="box-item-inner">
+                                        <div class="game-item">
+                                            <div class="img-wrap">
+                                                <img src="images/games/icon/icon-01.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="box-item-detail">
+                                            <div class="box-item-title gameName">Texas Ｈold'em</div>
+                                            <div class="box-item-desc language_replace gameDescription"></div>
+                                        </div>
+                                        <i class="icon-arrow-right circle"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="idRecommend6" class="box-item">
+                                <a class="box-item-link">
+                                    <div class="box-item-inner">
+                                        <div class="game-item">
+                                            <div class="img-wrap">
+                                                <img src="images/games/icon/icon-01.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="box-item-detail">
+                                            <div class="box-item-title gameName">Texas Ｈold'em</div>
+                                            <div class="box-item-desc language_replace gameDescription"></div>
+                                        </div>
+                                        <i class="icon-arrow-right circle"></i>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </section>
 
@@ -1173,7 +1251,7 @@
 
                                         <div class="game-link">
                                             <button class="btn game-play language_replace" onclick="window.parent.API_OpenGameCode('EWin', 'EWinGaming')">玩遊戲</button>
-                                           <%-- <button class="btn game-site language_replace">遊戲官網</button>--%>
+                                            <%-- <button class="btn game-site language_replace">遊戲官網</button>--%>
                                         </div>
                                     </div>
 
@@ -1230,44 +1308,6 @@
                          <img src="images/games/a-chi-service.svg">
                         </div>
                      </div> -->
-                        <%--<div class="customer-service" onclick="window.parent.showMessage('','service@OCW888.com')" >--%>
-
-                        <!-- 浮動側邊 -->
-                        <div class="float_SideBar">
-                            <div class="guide-QA" onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&A_jp.html', false)">
-                                <a>
-                                    <div class="text">
-                                        <h3 class="title language_replace">Q&A</h3>
-                                    </div>
-                                    <div class="img-wrap">
-                                        <img src="images/games/a-chi-QA.svg">
-                                    </div>
-                                </a>
-                            </div>
-                            <%--
-                            <div class="customer-service" onclick="window.parent.showContactUs()">
-                                <a>
-                                    <div class="text">
-                                        <h3 class="title language_replace">聯絡客服</h3>
-                                    </div>
-                                    <div class="img-wrap">
-                                        <img src="images/games/a-chi-service.svg">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Line-AddFriend"> 
-                                <a onclick="window.open('https://lin.ee/KD05l9X')">
-                                    <!-- <span class="qr-code">
-                                        <img src="https://qr-official.line.me/sid/M/476uzdvf.png?shortenUrl=true">
-                                    </span> -->
-                                    <span class="addFriend">
-                                        <span class="logo"><img src="images/assets/LINE/Line_W.png" alt=""></span>                  
-                                        <!-- <span class="text language_replace">加入好友</span> -->
-                                    </span>
-                                </a>
-                            </div>
-                            --%>
-                        </div>
 
                         <section class="section-wrap section-article">
                             <div class="sec-title-container">
@@ -1278,12 +1318,12 @@
                                 </div>
                                 <div class="article-list">
                                     <ul class="article-list-inner">
-                                         <li class="article-item">
+                                        <li class="article-item">
                                             <a onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&A_jp.html', false)" class="content">
                                                 <h4 class="title language_replace">よくあるＱ＆Ａ集</h4>
                                                 <i class="icon-arrow-right"></i></a>
                                         </li>
-                                         <li class="article-item">
+                                        <li class="article-item">
                                             <a onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)" class="content">
                                                 <h4 class="title language_replace">ローリングのルール</h4>
                                                 <i class="icon-arrow-right"></i></a>
@@ -1295,7 +1335,7 @@
                                         </li>
 
 
-                                       <%-- <li class="article-item">
+                                        <%-- <li class="article-item">
                                             <a onclick="openHotArticle('guide-03')" class="content">
                                                 <h4 class="title language_replace">百家樂攻略法 - 基礎規則篇</h4>
                                                 <i class="icon-arrow-right"></i></a>
@@ -1335,17 +1375,27 @@
                                                 <h4 class="title language_replace">德州撲克攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
                                         </li>--%>
-
-
                                     </ul>
                                 </div>
 
                             </div>
                         </section>
                     </aside>
+                    <!-- 最新公告 -->
+                    <section class="section-wrap news">
+                        <div class="sec-title-container">
+                            <div class="sec-title-wrap">
+                                <h3 class="title ">
+                                    <!-- <i class="title-icon icon-service"></i> -->
+                                    <span class="language_replace">最新公告</span></h3>
+                            </div>
+                        </div>
+                        <div class="box-item-container news-list" id="idBulletinBoardContent">
+                        </div>
+                    </section>
 
                     <!-- 關於我們 -->
-                    <section class="section-wrap  about">
+                    <section class="section-wrap  about" style="display: none">
                         <div class="sec-title-container">
                             <div class="sec-title-wrap">
                                 <h3 class="title language_replace">關於我們</h3>
@@ -1357,6 +1407,44 @@
                             <p class="language_replace">我們也很重視您的意見，若有任何建議，還請不吝使用客服信箱告知。</p>
                         </article>
                     </section>
+
+                    <!-- 浮動側邊 -->
+                    <div class="float_SideBar">
+                        <div class="guide-QA" onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&A_jp.html', false)">
+                            <a>
+                                <div class="text">
+                                    <h3 class="title language_replace">Q&A</h3>
+                                </div>
+                                <div class="img-wrap">
+                                    <img src="images/games/a-chi-QA.svg">
+                                </div>
+                            </a>
+                        </div>
+                        <%--<div class="customer-service" onclick="window.parent.showMessage('','service@OCW888.com')" >--%>
+                        <%--
+                        <div class="customer-service" onclick="window.parent.showContactUs()">
+                            <a>
+                                <div class="text">
+                                    <h3 class="title language_replace">聯絡客服</h3>
+                                </div>
+                                <div class="img-wrap">
+                                    <img src="images/games/a-chi-service.svg">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="Line-AddFriend"> 
+                            <a onclick="window.open('https://lin.ee/KD05l9X')">
+                                <!-- <span class="qr-code">
+                                    <img src="https://qr-official.line.me/sid/M/476uzdvf.png?shortenUrl=true">
+                                </span> -->
+                                <span class="addFriend">
+                                    <span class="logo"><img src="images/assets/LINE/Line_W.png" alt=""></span>                  
+                                    <!-- <span class="text language_replace">加入好友</span> -->
+                                </span>
+                            </a>
+                        </div>
+                        --%>
+                    </div>
 
                 </div>
 
@@ -1386,6 +1474,19 @@
                         </div>
                     </div>
                 </div>
+                <div id="idTempBulletinBoard" class="is-hide">
+                    <div class="box-item">
+                        <a class="box-item-link">
+                            <div class="box-item-inner normal">
+                                <div class="box-item-detail">
+                                    <div class="box-item-prep language_replace time CreateDate"></div>
+                                    <div class="box-item-title BulletinTitle"></div>
+                                </div>
+                                <i class="icon-arrow-right circle detailbtn"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </main>
         <!-- footer -->
@@ -1403,39 +1504,48 @@
                     <div class="row">
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-PG.png" alt=""></div>
+                                <img src="images/logo/logo-PG.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-CG.png" alt=""></div>
+                                <img src="images/logo/logo-CG.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-PP.png" alt=""></div>
+                                <img src="images/logo/logo-PP.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-BG.png" alt=""></div>
+                                <img src="images/logo/logo-BG.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-VA.png" alt=""></div>
+                                <img src="images/logo/logo-VA.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-BNG.png" alt=""></div>
+                                <img src="images/logo/logo-BNG.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-pagcor.png" alt=""></div>
+                                <img src="images/logo/logo-pagcor.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-Bti.png" alt=""></div>
+                                <img src="images/logo/logo-Bti.png" alt="">
+                            </div>
                         </div>
                         <div class="logo-item">
                             <div class="img-crop">
-                                <img src="images/logo/logo-zeus.png" alt=""></div>
+                                <img src="images/logo/logo-zeus.png" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>

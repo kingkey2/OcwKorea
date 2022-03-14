@@ -427,22 +427,14 @@
     <script src="Scripts/OutSrc/js/wallet.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript">
-        if (self != top) {
-            window.parent.API_LoadingStart();
-        }
-
         var lang;
         var mlp;
 
         function init() {
-            if (self==top) {
-                window.location.href = "index.aspx";
-            }
-
             mlp = new multiLanguage();
             lang = window.parent.API_GetLang();
             mlp.loadLanguage(lang, function () {
-                window.parent.API_LoadingEnd();
+               
             });
         }
 

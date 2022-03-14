@@ -83,7 +83,10 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/fingerprint.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var c = new common();
     var ui = new uiControl();
     var mlp;
@@ -101,10 +104,7 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
-        }
-
+        } 
 
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();

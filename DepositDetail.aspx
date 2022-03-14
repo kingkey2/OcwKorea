@@ -27,7 +27,10 @@
     <script type="text/javascript" src="/Scripts/DateExtension.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-<script>
+<script>      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var WebInfo;
     var mlp;
     var PaymentSerial;
@@ -39,9 +42,8 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
+
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
@@ -106,13 +108,41 @@
                         }
                     }
 
+                    if (retData.BasicType != 2) {
+                        document.getElementById('idWalletAddressDom').classList.add('is-hide');
+                        paymentInfoDom.querySelector('.EWinCryptoWalletTypeItem').classList.add('is-hide');
+                        document.getElementById('idAlertDom').classList.add('is-hide');
+                        //document.getElementById('idEthScanUrl').classList.add('is-hide');
+                    } else {
+                        if (retData.ToWalletAddress != "") {
+                            setEthWalletAddress(retData.ToWalletAddress);
+                        }              
+
+                        switch (retData.WalletType) {
+                            case 0:
+                                c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, "ERC");                    
+                                break;
+                            case 1:
+                                c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, "XRP");
+                                break;
+                            case 2:
+                                c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, "BTC");
+                                break;
+                            case 3:
+                                c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, "TRC");
+                                break;
+                            default:
+                                paymentInfoDom.querySelector('.EWinCryptoWalletTypeItem').classList.add('is-hide');
+                                break;
+                        }
+                    }
 
 
                     OrderNumber = retData.OrderNumber;
                     c.setClassText(paymentInfoDom, "Paymentserial", null, PaymentSerial);
                     $(paymentInfoDom).find('.inputPaymentSerial').val(PaymentSerial);
                     c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
-                    c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, (retData.WalletType == 0 ? "ERC" : "XRP"));
+                   
                     c.setClassText(paymentInfoDom, "ThresholdValue", null, TotalThresholdValue);
                     c.setClassText(paymentInfoDom, "CreateDate", null, c.addHours(retData.LimitDate, 1).format("yyyy/MM/dd hh:mm:ss"));
 
@@ -135,12 +165,7 @@
                         c.setClassText(paymentDetailDom, "TotalAmount", null, new BigNumber(TotalBonusValue + TotalAmount).toFormat());
                         paymentDetailDom.querySelector(".TotalAmountItem").classList.remove("is-hide");
                     }
-
-
-                    if (retData.ToWalletAddress != "") {
-                        setEthWalletAddress(retData.ToWalletAddress);
-                    }
-
+               
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
                           window.parent.API_Reload();
@@ -229,8 +254,8 @@
 
                 </div>
 
-                <div class="split-layout-container">
-                    <div class="crypto-info-coantainer">
+                <div class="split-layout-container" >
+                    <div class="crypto-info-coantainer" id="idWalletAddressDom">
 
                         <h4 class="mt-2 mt-md-4 cryoto-address language_replace">錢包地址</h4>
                         <div class="img-wrap qrcode-img">
@@ -257,7 +282,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="crypto-info-related">
+                        <div class="crypto-info-related is-hide" id="idEthScanUrl">
                             <!-- 查詢入款交易狀況 -->
                             <div class="crypto-info-inqury">
                                 <div class="content">
@@ -343,7 +368,7 @@
                                         <h6 class="title language_replace">支付方式</h6>
                                         <span class="data PaymentMethodName"></span>
                                     </li>
-                                    <li class="item">
+                                    <li class="item EWinCryptoWalletTypeItem">
                                         <h6 class="title language_replace">合約方式</h6>
                                         <span class="data EWinCryptoWalletType">ERC</span>
                                     </li>
@@ -385,7 +410,7 @@
                 </div>
 
                 <!-- 溫馨提醒 -->
-                <div class="notice-container" data-deposite="step4">
+                <div class="notice-container" data-deposite="step4" id="idAlertDom">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">

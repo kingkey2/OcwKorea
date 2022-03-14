@@ -47,7 +47,7 @@
 
                                 transactionCode = BodyObj.PaymentSerial;
                                 description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
-                                addThresholdResult = lobbyAPI.AddThreshold(GetToken(), GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, CheckResetThreshold(BodyObj.BeforeBalance));
+                                addThresholdResult = lobbyAPI.AddThreshold(GetToken(), GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, false);
 
                                 if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
                                     string TotalErrorMsg = string.Empty;
@@ -143,7 +143,7 @@
                             if (FinishPaymentRet == 0) {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
-                                 ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
+                                ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                             } else {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
@@ -159,6 +159,22 @@
                             //} else {
                             //    SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             //}
+                        } else if (BodyObj.Action == "CancelResume") {
+                            int FinishPaymentRet;
+
+                            FinishPaymentRet = EWinWebDB.UserAccountPayment.ResumePaymentFlowStatus(BodyObj.ClientOrderNumber, BodyObj.PaymentSerial);
+
+
+                            if (FinishPaymentRet == 0) {
+                                R.Result = 0;
+                                var DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(BodyObj.ClientOrderNumber);
+                                var Data = CovertFromRow(DT.Rows[0]);
+                                ReportSystem.UserAccountPayment.ResetUserAccountPayment(BodyObj.LoginAccount, DateTime.Now.Date);
+                                RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(Data), Data.OrderNumber, Data.ExpireSecond);
+                                RedisCache.PaymentContent.KeepPaymentContents(Data, BodyObj.LoginAccount);
+                            } else {
+                                SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
+                            }
                         } else {
                             SetResultException(R, "UnknownAction");
                         }
@@ -200,7 +216,7 @@
                             if (FinishPaymentRet == 0) {
                                 R.Result = 0;
                                 RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
-                                ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);                                
+                                ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                             } else {
                                 SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             }
@@ -215,6 +231,22 @@
                             //} else {
                             //    SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
                             //}
+                        } else if (BodyObj.Action == "CancelResume") {
+                            int FinishPaymentRet;
+
+                            FinishPaymentRet = EWinWebDB.UserAccountPayment.ResumePaymentFlowStatus(BodyObj.ClientOrderNumber, BodyObj.PaymentSerial);
+
+
+                            if (FinishPaymentRet == 0) {
+                                R.Result = 0;
+                                var DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(BodyObj.ClientOrderNumber);
+                                var Data = CovertFromRow(DT.Rows[0]);
+                                ReportSystem.UserAccountPayment.ResetUserAccountPayment(BodyObj.LoginAccount, DateTime.Now.Date);
+                                RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(Data), Data.OrderNumber, Data.ExpireSecond);
+                                RedisCache.PaymentContent.KeepPaymentContents(Data, BodyObj.LoginAccount);
+                            } else {
+                                SetResultException(R, "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString());
+                            }
                         } else {
                             SetResultException(R, "UnknownAction");
                         }
@@ -253,9 +285,5 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>
 </body>
 </html>

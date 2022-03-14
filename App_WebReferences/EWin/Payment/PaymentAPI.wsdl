@@ -151,6 +151,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="PaymentType" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentTypeTag" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="AuditStatus" type="tns:enumAuditStatus" />
               <s:element minOccurs="1" maxOccurs="1" name="DirectionType" type="tns:enumDirectionType" />
               <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:enumPaymentStatus" />

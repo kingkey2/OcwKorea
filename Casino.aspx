@@ -29,7 +29,10 @@
 <%--<script src="Scripts/OutSrc/js/games.js"></script>--%>
 
 
-<script type="text/javascript">
+<script type="text/javascript">      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var ui = new uiControl();
     var c = new common();
     var mlp;
@@ -290,9 +293,8 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         nowCateg = c.getParameter("Category");

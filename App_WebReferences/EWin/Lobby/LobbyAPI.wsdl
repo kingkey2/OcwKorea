@@ -513,10 +513,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="CountryName" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Birthday" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="KYCRealName" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="HasServiceChatMessage" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="Company" type="tns:CompanyInfo" />

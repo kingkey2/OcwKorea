@@ -205,6 +205,9 @@
   font-size: 0.625rem;
   margin-right: 0.25rem;
 }
+.heading-user-info .wallet .coinAmount {
+  font-size: 1.125rem;
+}
 @media only screen and (min-width: 541px) {
   .heading-user-info .wallet .coinAmount {
     font-size: 1.125rem;

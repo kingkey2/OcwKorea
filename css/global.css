@@ -955,6 +955,27 @@ select.custom-style:focus {
   background-color: rgba(44, 45, 58, 0.05);
 }
 
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.85);
+  height: 275px;
+}
+
+/*HEADER -----------------------*/
 .header-container {
   width: 100%;
   height: 64px;
@@ -1948,6 +1969,8 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.875rem;
   margin-bottom: 4px;
+  min-height: 2.5rem;
+  white-space: nowrap;
 }
 .heading-top-container-show .balance-info .amount {
   font-size: 1rem;
@@ -1984,7 +2007,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
         -ms-flex: 1;
             flex: 1;
     text-align: right;
-    padding: 0 2rem;
+    padding: 0 1rem 0 0;
   }
 }
 @media only screen and (max-width: 540px) {
@@ -2202,7 +2225,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 }
 
 /*----------------------------
-        page-conten 
+        page-content 
  ----------------------------*/
 .loader-container {
   position: fixed;
@@ -3646,6 +3669,24 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 
   .page-content {
     padding: 24px 12px 64px;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .sm-fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 295px;
+    padding-top: 10px !important;
+    -webkit-box-shadow: 0 0 10px 2px rgba(44, 45, 58, 0.2);
+            box-shadow: 0 0 10px 2px rgba(44, 45, 58, 0.2);
+  }
+  .sm-fixed ~ .main-panel {
+    padding-top: 210px !important;
   }
 }
 @media only screen and (max-width: 540px) {

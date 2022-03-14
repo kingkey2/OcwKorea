@@ -6,9 +6,7 @@
     int RValue;
     Random R = new Random();
     string Version = EWinWeb.Version;
-
-
-
+    TelPhoneNormalize telPhoneNormalize;
 
     if (CodingControl.FormSubmit()) {
         string LoginGUID = Request["LoginGUID"];
@@ -33,7 +31,8 @@
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
         if (LoginType == "1") {
-            LoginAPIResult = LoginAPI.UserLoginByPhoneNumber(Token, LoginGUID, PhonePrefix, PhoneNumber, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
+            telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
+            LoginAPIResult = LoginAPI.UserLoginByPhoneNumber(Token, LoginGUID, telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
         } else {
             LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
         }
@@ -41,7 +40,7 @@
 
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
             if (LoginType == "1") {
-                TelPhoneNormalize telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
+                telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
 
                 LoginAccount = telPhoneNormalize.PhonePrefix + telPhoneNormalize.PhoneNumber;
                 SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
@@ -61,14 +60,16 @@
                 OldFingerPrint = "";
             }
 
-            if ((string.IsNullOrEmpty(OldFingerPrint) || OldFingerPrint.IndexOf(NewFingerPrint) > 0)) {
-                if (string.IsNullOrEmpty(OldFingerPrint)) {
-                    obj_FingerPrint.Add("FingerPrintName",NewFingerPrint);
-                    arr_FingerPrint.Add(obj_FingerPrint);
-                    if (EWinWebDB.UserAccountTotalSummary.UpdateFingerPrint(Newtonsoft.Json.JsonConvert.SerializeObject(arr_FingerPrint), LoginAccount) == 0) {
-                        EWinWebDB.UserAccountTotalSummary.InsertUserAccountTotalSummary(Newtonsoft.Json.JsonConvert.SerializeObject(arr_FingerPrint), LoginAccount);
+            if ((string.IsNullOrEmpty(OldFingerPrint) || OldFingerPrint.IndexOf(NewFingerPrint) > 0 || LoginType == "0")) {
+                if (LoginType == "1") {
+                    if (string.IsNullOrEmpty(OldFingerPrint)) {
+                        obj_FingerPrint.Add("FingerPrintName", NewFingerPrint);
+                        arr_FingerPrint.Add(obj_FingerPrint);
+                        if (EWinWebDB.UserAccountTotalSummary.UpdateFingerPrint(Newtonsoft.Json.JsonConvert.SerializeObject(arr_FingerPrint), LoginAccount) == 0) {
+                            EWinWebDB.UserAccountTotalSummary.InsertUserAccountTotalSummary(Newtonsoft.Json.JsonConvert.SerializeObject(arr_FingerPrint), LoginAccount);
+                        }
+                        RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(LoginAccount);
                     }
-                    RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(LoginAccount);
                 }
 
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
@@ -142,7 +143,10 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/fingerprint.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var c = new common();
     var ui = new uiControl();
     var mlp;
@@ -181,8 +185,6 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
 
         if (typeof (defalutLoginAccount) != 'undefined') {

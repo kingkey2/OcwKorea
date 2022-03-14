@@ -1,0 +1,8 @@
+{
+  "ApiUrl": "http://epay.dev4.mts.idv.tw/api/Gate/",
+  "CompanyCode": "OCW_JPY",
+  "ApiKey": "5a39646a56114a9d9279e099431f36da",
+  "ServiceType": "JOOB01",
+  "CyrrencyType": "JPY",
+  "ProviderIP": []
+}

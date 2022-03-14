@@ -11,7 +11,8 @@ using System.Web.UI.WebControls;
 /// EWin 的摘要描述
 /// </summary>
 public static class EWinWebDB {
-    public static class UserAccountPayment {
+    public static class UserAccountPayment
+    {
         public enum FlowStatus
         {
             Create = 0,
@@ -51,7 +52,8 @@ public static class EWinWebDB {
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static System.Data.DataTable GetPaymentByOtherOrderNumber(string OtherOrderNumber) {
+        public static System.Data.DataTable GetPaymentByOtherOrderNumber(string OtherOrderNumber)
+        {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -70,7 +72,8 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable UpdateOtherOrderNumberByOrderNumber(string OrderNumber, string OtherOrderNumber) {
+        public static System.Data.DataTable UpdateOtherOrderNumberByOrderNumber(string OrderNumber, string OtherOrderNumber)
+        {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -113,7 +116,7 @@ public static class EWinWebDB {
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
 
-            SS = "SELECT P.*, PC.CategoryName, PM.PaymentCode, PaymentName " +
+            SS = "SELECT P.*, PC.CategoryName, PM.PaymentCode, PaymentName, PM.PaymentMethodID, PM.EWinCryptoWalletType " +
                "FROM UserAccountPayment AS P WITH (NOLOCK) " +
                "LEFT JOIN PaymentMethod AS PM WITH (NOLOCK) ON P.forPaymentMethodID = PM.PaymentMethodID " +
                "LEFT JOIN PaymentCategory AS PC WITH (NOLOCK) ON PM.PaymentCategoryCode = PC.PaymentCategoryCode " +
@@ -144,7 +147,8 @@ public static class EWinWebDB {
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, decimal PointValue, string ActivityData) {
+        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, decimal PointValue, string ActivityData)
+        {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -158,12 +162,19 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@PointValue", System.Data.SqlDbType.Decimal).Value = PointValue;
             DBCmd.Parameters.Add("@ToInfo", System.Data.SqlDbType.NVarChar).Value = ToInfo;
             DBCmd.Parameters.Add("@PaymentSerial", System.Data.SqlDbType.VarChar).Value = PaymentSerial;
-            DBCmd.Parameters.Add("@ActivityData", System.Data.SqlDbType.VarChar).Value = ActivityData;
+
+            if (string.IsNullOrEmpty(ActivityData)) {
+                DBCmd.Parameters.Add("@ActivityData", System.Data.SqlDbType.VarChar).Value = "";
+            } else {
+                DBCmd.Parameters.Add("@ActivityData", System.Data.SqlDbType.VarChar).Value = ActivityData;
+            }
+           
 
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, string OtherOrderNumber, decimal PointValue, string ActivityData) {
+        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, string OtherOrderNumber, decimal PointValue, string ActivityData)
+        {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -199,6 +210,52 @@ public static class EWinWebDB {
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
             return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+        }
+
+        public static int ResumePaymentFlowStatus(string OrderNumber, string PaymentSerial)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+
+            SS = "spSetPaymentFlowStatusByResume";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            DBCmd.Parameters.Add("@OrderNumber", System.Data.SqlDbType.VarChar).Value = OrderNumber;
+            DBCmd.Parameters.Add("@FlowStatus", System.Data.SqlDbType.Int).Value = 1;
+            DBCmd.Parameters.Add("@PaymentSerial", System.Data.SqlDbType.VarChar).Value = PaymentSerial;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+        }
+
+        /// <summary>
+        /// 取得當天進行中與完成的訂單
+        /// </summary>
+        /// <param name="LoginAccount"></param>
+        /// <param name="PaymentType"></param>
+        /// <returns></returns>
+        public static System.Data.DataTable GetTodayPaymentByLoginAccount(string LoginAccount, int PaymentType) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                      " FROM   UserAccountPayment " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND CreateDate >= dbo.Getreportdate(Getdate()) " +
+                      "        AND CreateDate < dbo.Getreportdate(Dateadd (day, 1, Getdate())) " +
+                      "        AND FlowStatus IN ( 1, 2 ) " +
+                      "        AND PaymentType = @PaymentType ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@PaymentType", System.Data.SqlDbType.Int).Value = PaymentType;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
         }
     }
 
@@ -239,6 +296,26 @@ public static class EWinWebDB {
             return RetValue;
         }
 
+    }
+
+    public static class BulletinBoard
+    {
+        public static System.Data.DataTable GetBulletinBoard()
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = "SELECT * " +
+               "FROM BulletinBoard AS BB WITH (NOLOCK) " +
+               "WHERE BB.State=0";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+     
+            return DT;
+        }
     }
 
     public static class PaymentMethod {

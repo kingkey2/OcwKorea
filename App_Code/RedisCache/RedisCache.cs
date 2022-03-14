@@ -720,7 +720,7 @@ public static class RedisCache
             Client.KeyDelete(Key2.ToUpper());
         }
 
-        public static void KeepPaymentContents<T>(T Target, string LoginAccount, int ExpireTime)
+        public static void KeepPaymentContents<T>(T Target, string LoginAccount)
         {
             string Key;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
@@ -738,7 +738,7 @@ public static class RedisCache
 
             for (int I = 0; I <= 3; I++) {
                 try {
-                    JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key, ExpireTime);
+                    JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key);
                     break;
                 } catch (Exception ex) {
                 }
@@ -773,7 +773,7 @@ public static class RedisCache
             if (IsNeedReWrite) {
                 for (int I = 0; I <= 3; I++) {
                     try {
-                        JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key, 3600);
+                        JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key);
                         break;
                     } catch (Exception ex) {
                     }
@@ -1224,6 +1224,63 @@ public static class RedisCache
                 } catch (Exception ex) {
                 }
             }
+        }
+    }
+
+    public static class BulletinBoard
+    {
+        private static string XMLPath = "BulletinBoard";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetBulletinBoard()
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateBulletinBoard();
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateBulletinBoard()
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+            Key = XMLPath;
+
+            SS = "SELECT * " +
+             "FROM BulletinBoard AS BB WITH (NOLOCK) ";
+
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key, 86400);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
         }
     }
 

@@ -69,6 +69,10 @@
 <script type="text/javascript" src="/Scripts/jquery.signalR-2.3.0.min.js"></script>
 <script type="text/javascript" src="/Scripts/ServiceChat/ServiceChatSID.js?202007061"></script>
 <script type="text/javascript">
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
+
     var c = new common();
     var ui = new uiControl();
     var CT = c.getParameter("CT");

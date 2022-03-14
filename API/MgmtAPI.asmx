@@ -16,8 +16,7 @@ using System.Linq;
 // [System.Web.Script.Services.ScriptService]
 [System.ComponentModel.ToolboxItem(false)]
 [System.Web.Script.Services.ScriptService]
-public class MgmtAPI : System.Web.Services.WebService
-{
+public class MgmtAPI : System.Web.Services.WebService {
 
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -26,8 +25,33 @@ public class MgmtAPI : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public UserAccountSummaryResult GetUserAccountSummary(string password, string LoginAccount, DateTime SummaryDate)
-    {
+    public void RefreshRedis(string password) {
+        if (CheckPassword(password)) {
+            System.Data.DataTable DT;
+            RedisCache.PaymentCategory.UpdatePaymentCategory();
+            RedisCache.PaymentMethod.UpdatePaymentMethodByCategory("Paypal");
+            RedisCache.PaymentMethod.UpdatePaymentMethodByCategory("Crypto");
+
+            DT = EWinWebDB.PaymentMethod.GetPaymentMethod();
+
+            if (DT != null) {
+                if (DT.Rows.Count > 0) {
+                    for (int i = 0; i < DT.Rows.Count; i++) {
+                        RedisCache.PaymentMethod.UpdatePaymentMethodByID((int)DT.Rows[i]["PaymentMethodID"]);
+                    }
+                }
+            }
+
+
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            var R = lobbyAPI.GetCompanyGameCode(EWinWeb.GetToken(), System.Guid.NewGuid().ToString()); 
+            RedisCache.Company.UpdateCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(R.GameCodeList));
+        }
+    }
+
+
+    [WebMethod]
+    public UserAccountSummaryResult GetUserAccountSummary(string password, string LoginAccount, DateTime SummaryDate) {
 
         UserAccountSummaryResult R = new UserAccountSummaryResult() { Result = enumResult.ERR };
         System.Data.DataTable DT;
@@ -56,8 +80,7 @@ public class MgmtAPI : System.Web.Services.WebService
 
 
     [WebMethod]
-    public UserAccountTotalSummaryResult GetUserAccountTotalSummary(string password, string LoginAccount)
-    {
+    public UserAccountTotalSummaryResult GetUserAccountTotalSummary(string password, string LoginAccount) {
 
         UserAccountTotalSummaryResult R = new UserAccountTotalSummaryResult() { Result = enumResult.ERR };
         System.Data.DataTable DT;
@@ -87,8 +110,7 @@ public class MgmtAPI : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public APIResult OpenSite(string Password)
-    {
+    public APIResult OpenSite(string Password) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
 
         dynamic o = null;
@@ -121,8 +143,7 @@ public class MgmtAPI : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public APIResult MaintainSite(string Password, string Message)
-    {
+    public APIResult MaintainSite(string Password, string Message) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
 
         dynamic o = null;
@@ -159,8 +180,7 @@ public class MgmtAPI : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public APIResult EnableWithdrawlTemporaryMaintenance(string Password)
-    {
+    public APIResult EnableWithdrawlTemporaryMaintenance(string Password) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
 
         dynamic o = null;
@@ -193,8 +213,7 @@ public class MgmtAPI : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public APIResult DisableWithdrawlTemporaryMaintenance(string Password)
-    {
+    public APIResult DisableWithdrawlTemporaryMaintenance(string Password) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
 
         dynamic o = null;
@@ -227,8 +246,41 @@ public class MgmtAPI : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public PaymentValueReslut CalculatePaymentValue(string Password, string PaymentSerial)
-    {
+    public APIResult UpdateAnnouncement(string Password, string Announcement) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+
+        dynamic o = null;
+        string Filename;
+
+        if (CheckPassword(Password)) {
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/Setting.json");
+
+            if (System.IO.File.Exists(Filename)) {
+                string SettingContent;
+
+                SettingContent = System.IO.File.ReadAllText(Filename);
+
+                if (string.IsNullOrEmpty(SettingContent) == false) {
+                    try {
+                        o = Newtonsoft.Json.JsonConvert.DeserializeObject(SettingContent);
+                        o.LoginMessage["Message"] = Announcement;
+                        o.LoginMessage["Version"] = (decimal)o.LoginMessage["Version"] + 1;
+
+                        System.IO.File.WriteAllText(Filename, Newtonsoft.Json.JsonConvert.SerializeObject(o));
+                        R.Result = enumResult.OK;
+                    } catch (Exception ex) { }
+                }
+            }
+
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+
+        return R;
+    }
+
+    [WebMethod]
+    public PaymentValueReslut CalculatePaymentValue(string Password, string PaymentSerial) {
         PaymentValueReslut R = new PaymentValueReslut() { Result = enumResult.ERR };
 
         if (CheckPassword(Password)) {
@@ -285,9 +337,7 @@ public class MgmtAPI : System.Web.Services.WebService
         return R;
     }
 
-
-    private bool CheckPassword(string Hash)
-    {
+    private bool CheckPassword(string Hash) {
         string key = EWinWeb.PrivateKey;
 
         bool Ret = false;
@@ -313,38 +363,88 @@ public class MgmtAPI : System.Web.Services.WebService
 
     }
 
-    private DateTime RoundUp(DateTime dt, TimeSpan d)
-    {
+    private DateTime RoundUp(DateTime dt, TimeSpan d) {
         return new DateTime((dt.Ticks + d.Ticks - 1) / d.Ticks * d.Ticks, dt.Kind);
     }
 
-    private void SetResultException(APIResult R, string Msg)
-    {
+    private void SetResultException(APIResult R, string Msg) {
         if (R != null) {
             R.Result = enumResult.ERR;
             R.Message = Msg;
         }
     }
 
+    [WebMethod]
+    public APIResult UpdateBulletinBoardState(string Password, int BulletinBoardID, int State) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        string SS;
+        System.Data.SqlClient.SqlCommand DBCmd;
+        int RetValue = 0;
 
-    public class APIResult
-    {
+        if (CheckPassword(Password)) {
+
+            SS = " UPDATE BulletinBoard WITH (ROWLOCK) SET State=@State " +
+                      " WHERE BulletinBoardID=@BulletinBoardID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
+            DBCmd.Parameters.Add("@BulletinBoardID", System.Data.SqlDbType.Int).Value = BulletinBoardID;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            if (RetValue > 0) {
+                RedisCache.BulletinBoard.UpdateBulletinBoard();
+                R.Result = enumResult.OK;
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+
+        return R;
+    }
+
+    [WebMethod]
+    public APIResult InsertBulletinBoard(string Password, string BulletinTitle, string BulletinContent) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        string SS;
+        System.Data.SqlClient.SqlCommand DBCmd;
+        int RetValue = 0;
+
+        if (CheckPassword(Password)) {
+
+            SS = " INSERT INTO BulletinBoard (BulletinTitle, BulletinContent) " +
+                      " VALUES (@BulletinTitle, @BulletinContent) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@BulletinTitle", System.Data.SqlDbType.NVarChar).Value = BulletinTitle;
+            DBCmd.Parameters.Add("@BulletinContent", System.Data.SqlDbType.NVarChar).Value = BulletinContent;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            if (RetValue > 0) {
+                RedisCache.BulletinBoard.UpdateBulletinBoard();
+                R.Result = enumResult.OK;
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+
+        return R;
+    }
+
+
+    public class APIResult {
         public enumResult Result { get; set; }
         public string GUID { get; set; }
         public string Message { get; set; }
     }
 
-
-
-
-    public enum enumResult
-    {
+    public enum enumResult {
         OK = 0,
         ERR = 1
     }
 
-    public class PaymentValueReslut : APIResult
-    {
+    public class PaymentValueReslut : APIResult {
         public string LoginAccount { get; set; }
         public string PaymentCode { get; set; }
         public string PaymentSerial { get; set; }
@@ -355,8 +455,7 @@ public class MgmtAPI : System.Web.Services.WebService
         public string PaymentDescription { get; set; }
     }
 
-    public class UserAccountSummaryResult : APIResult
-    {
+    public class UserAccountSummaryResult : APIResult {
         public string SummaryGUID { get; set; }
         public DateTime SummaryDate { get; set; }
         public string LoginAccount { get; set; }
@@ -368,8 +467,7 @@ public class MgmtAPI : System.Web.Services.WebService
         public decimal WithdrawalAmount { get; set; }
     }
 
-    public class UserAccountTotalSummaryResult : APIResult
-    {
+    public class UserAccountTotalSummaryResult : APIResult {
         public string LoginAccount { get; set; }
         public int DepositCount { get; set; }
         public decimal DepositRealAmount { get; set; }
@@ -380,5 +478,14 @@ public class MgmtAPI : System.Web.Services.WebService
         public DateTime LastDepositDate { get; set; }
         public DateTime LastWithdrawalDate { get; set; }
         public string FingerPrint { get; set; }
+    }
+
+    public class BulletinBoardResult : APIResult {
+        public int BulletinBoardID { get; set; }
+        public string BulletinTitle { get; set; }
+        public string BulletinContent { get; set; }
+        public DateTime CreateDate { get; set; }
+        public int State { get; set; }
+
     }
 }

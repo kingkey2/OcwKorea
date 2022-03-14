@@ -238,8 +238,6 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -397,7 +395,7 @@
                                 <img id="avatarImg" src="images/assets/avatar/avatar-01.jpg">
                             </div>
                             <div class="basic-info">
-                                <div class="name"><span id="idUserName">Yamada Taro</span><span>'s</span></div>
+                                <div class="name"><span id="idUserName">Yamada Taro</span></div>
                                 <%--            <div class="language_replace">錢包</div>--%>
                             </div>
                         </div>

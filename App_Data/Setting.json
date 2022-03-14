@@ -1,1 +1,13 @@
-{"InMaintenance":0,"ThresholdBaseValue":100,"WithdrawalStartTime":"09:00:00","WithdrawlEndTime":"17:00:00","MaintainMessage":"メンテナンス時間：水曜日の 12:00 ～13:00 (GMT+9)","WithdrawlTemporaryMaintenance":0}
+{
+  "InMaintenance": 0,
+  "ThresholdBaseValue": 100,
+  "WithdrawalStartTime": "09:00:00",
+  "WithdrawlEndTime": "17:00:00",
+  "MaintainMessage": "メンテナンス時間：水曜日の 12:00 ～13:00 (GMT+9)",
+  "WithdrawlTemporaryMaintenance": 0,
+  "LoginMessage": {
+    "Message": "<p><strong>＜ゲームのメンテナンスお知らせです。＞</strong></p><p>&nbsp;</p><p><strong>2022/3/11</strong></p><p><br /><strong>PP (プラグマティックプレイ)</strong></p><p><br /><strong>時間：9：00～11：00（GMT+9）</strong></p><p>&nbsp;</p><p><strong>ご迷惑をおかけします。ご了承下さい。</strong></p><p>&nbsp;</p>",
+    "Version": "0.1111"
+  }
+
+}

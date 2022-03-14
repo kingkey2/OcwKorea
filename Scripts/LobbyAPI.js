@@ -460,6 +460,28 @@
         });
     };
 
+    this.GetLoginMessage = function (WebSID,GUID, cb) {
+        var url = APIUrl + "/GetLoginMessage";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetCompanySite = function (GUID, cb) {
         var url = APIUrl + "/GetCompanySite";
         var postData;
@@ -873,6 +895,27 @@
             GUID: GUID,
             BeginDate: BeginDate,
             EndDate: EndDate
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.GetBulletinBoard = function (GUID, cb) {
+        var url = APIUrl + "/GetBulletinBoard";
+        var postData;
+
+        postData = {
+            GUID: GUID
         };
 
         callService(url, postData, 10000, function (success, text) {

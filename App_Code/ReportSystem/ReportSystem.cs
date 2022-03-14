@@ -80,7 +80,7 @@ public static class ReportSystem
 
                 o.FromInfo = (string)DR["FromInfo"];
                 o.DetailData = (string)DR["DetailData"];
-                o.ActivityData = (string)DR["ActivityData"];
+                o.ActivityData = Convert.IsDBNull(DR["ActivityData"]) ? "" : (string)DR["ActivityData"];
                 o.FinishDate = ((DateTime)DR["FinishDate"]).ToString("yyyy/MM/dd HH:mm:ss");
                 o.CreateDate = ((DateTime)DR["CreateDate"]).ToString("yyyy/MM/dd HH:mm:ss");
 
@@ -93,6 +93,68 @@ public static class ReportSystem
             }
         }
 
+        public static void ResetUserAccountPayment(string LoginAccount, DateTime SummaryDate)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+            string Folder;
+            string Filename;
+
+            SS = "SELECT P.*, PC.CategoryName, PM.PaymentCode, PaymentName , PC.PaymentCategoryCode,PM.PaymentType,PM.EWinPaymentType " +
+                 "FROM UserAccountPayment AS P WITH (NOLOCK) " +
+                 "LEFT JOIN PaymentMethod AS PM WITH (NOLOCK) ON P.forPaymentMethodID = PM.PaymentMethodID " +
+                 "LEFT JOIN PaymentCategory AS PC WITH (NOLOCK) ON PM.PaymentCategoryCode = PC.PaymentCategoryCode " +
+                 "WHERE P.LoginAccount=@LoginAccount AND dbo.GetReportDate(FinishDate) = dbo.GetReportDate(@SummaryDate) AND FlowStatus IN (2,3,4) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@SummaryDate", System.Data.SqlDbType.DateTime).Value = SummaryDate;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            string Content = "";
+
+            foreach (System.Data.DataRow DR in DT.Rows) {
+                dynamic o = new System.Dynamic.ExpandoObject();
+               
+                o.PaymentType = (int)DR["PaymentType"];
+                o.BasicType = (int)DR["EWinPaymentType"];
+                o.PaymentFlowType = (int)DR["FlowStatus"];
+                o.LoginAccount = (string)DR["LoginAccount"];
+                o.PaymentSerial = (string)DR["PaymentSerial"];
+                o.OrderNumber = (string)DR["OrderNumber"];
+                o.Amount = (decimal)DR["Amount"];
+                o.PointValue = (decimal)DR["PointValue"];
+                o.HandingFeeRate = (decimal)DR["HandingFeeRate"];
+
+                o.ThresholdValue = (decimal)DR["ThresholdValue"];
+                o.ThresholdRate = (decimal)DR["ThresholdRate"];
+
+                o.ExpireSecond = (int)DR["ExpireSecond"];
+                o.PaymentMethodID = (int)DR["forPaymentMethodID"];
+                o.PaymentMethodName = (string)DR["PaymentName"];
+                o.PaymentCode = (string)DR["PaymentCode"];
+                o.PaymentCategoryCode = (string)DR["PaymentCategoryCode"];
+                o.ToWalletAddress = (string)DR["ToInfo"];
+
+                o.FromInfo = (string)DR["FromInfo"];
+                o.DetailData = (string)DR["DetailData"];
+                o.ActivityData = Convert.IsDBNull(DR["ActivityData"]) ? "" : (string)DR["ActivityData"];
+                o.FinishDate = ((DateTime)DR["FinishDate"]).ToString("yyyy/MM/dd HH:mm:ss");
+                o.CreateDate = ((DateTime)DR["CreateDate"]).ToString("yyyy/MM/dd HH:mm:ss");
+
+                Content += Newtonsoft.Json.JsonConvert.SerializeObject(o) + "\r\n";
+
+              
+            }
+
+
+            Folder = PrepareReportFolder("/Payment/" + SummaryDate.ToString("yyyy-MM-dd") + "/ByLoginAccount");
+            Filename = Folder + "\\" + LoginAccount + ".json";
+
+            WriteAllText(Filename, Content);
+        }
     }
 
 

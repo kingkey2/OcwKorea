@@ -39,8 +39,6 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
 
         WebInfo = window.parent.API_GetWebInfo();

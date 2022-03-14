@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UpdateRedisByPrivateKey.aspx.cs" Inherits="UpdateRedisByPrivateKey" %>
+﻿<%@ Page Language="C#"%>
 
-<!DOCTYPE html>
+
 
 <% 
     string PrivateKey = Request["PrivateKey"];
@@ -31,6 +31,8 @@
         Response.End();
     }
 %>
+
+<!DOCTYPE html>
 
 <html>
 

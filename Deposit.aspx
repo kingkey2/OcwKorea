@@ -31,19 +31,25 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
-
+    var WebInfo;
     var lang;
     var mlp;
     var v ="<%:Version%>";
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
+
+        WebInfo = window.parent.API_GetWebInfo();
+
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+
+            if (WebInfo.UserInfo.LoginAccount == '819059202064' || WebInfo.UserInfo.LoginAccount == 'test002') {
+                document.getElementById('idDepositPaypal').classList.add('is-hide');
+            }
+
             window.parent.API_LoadingEnd();
         },"PaymentAPI");
     }
@@ -105,9 +111,24 @@
 
                 <!-- 選擇存款管道  -->
                 <div class="card-container">
-                    
+                    <!-- EPay -->
+                    <div class="card-item sd-08" style="display:none;">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">銀行卡</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center">
+                                    <img src="images/assets/card-surface/icon-logo-visa.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
+                        </a>      
+
+                    </div>
                     <!-- PayPal -->
-                    <div class="card-item sd-08">
+                    <div class="card-item sd-08" id="idDepositPaypal">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -170,6 +191,14 @@
                             <p class="title language_replace">溫馨提醒</p>
                             <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
                             <p class="language_replace">2.因為選擇的送金方法有所不同，在帳戶上反映的時間是入金之後最多一個營業日為範圍。</p>
+                            <p class="language_replace">3.ローリング倍率について​</p>
+                            <p class="language_replace">Paypal・主要暗号資産＝入金額の1.5倍</p>
+                            <p class="language_replace">JKETH＝入金額の8倍​ ボーナス＝20倍​</p>
+                            <p class="language_replace">（計算例）</p>
+                            <p class="language_replace">PayPal　10,000+ボーナス10,000の場合​</p>
+                            <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
+                            <p class="language_replace">ローリングについての詳しい説明は<span class="link" style="cursor:pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">こちら</span></p>
+                            
                         </div>
                     </div>
                 </div>

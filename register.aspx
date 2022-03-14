@@ -25,7 +25,10 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script>
+<script>      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var c = new common();
     var pCode = "<%=PCode%>";
     var WebInfo;
@@ -371,8 +374,6 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
 
         WebInfo = window.parent.API_GetWebInfo();

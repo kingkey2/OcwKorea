@@ -32,7 +32,10 @@
 <script type="text/javascript" src="/Scripts/crypto-address-validator.min.js"></script>
 <script type="text/javascript" src="/Scripts/DateExtension.js"></script>
 <%--<script src="Scripts/OutSrc/js/wallet.js"></script>--%>
-<script>
+<script>      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var WebInfo;
     var mlp;
     var lang;
@@ -52,8 +55,6 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -387,7 +388,7 @@
     }
 
     function CoinBtn_Click() {
-        let amount = parseInt($(event.currentTarget).parent('.btn-radio').find('.OcoinAmount').text())
+        let amount = parseInt($(event.currentTarget).data("val"))
         $("#amount").val(amount);
         //$("#ExchangeVal").text(parseInt($(event.target).parent('.btn-radio').find('.OcoinAmount').text()));
         ReSetPaymentAmount(false, amount);
@@ -432,7 +433,7 @@
         } else if (walletType == 1) {
             return "XRP";
         } else if (walletType == 2) {
-            return "XRP";
+            return "BTC";
         } else if (walletType == 3) {
             return "TRX";
         } else {
@@ -707,32 +708,32 @@
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount1" />
-                                            <label class="btn btn-outline-primary" for="amount1" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
                                                     <span class="coinType-title">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">10000</span>
+                                                    <span class="coinType-amount OcoinAmount">10,000</span>
                                                 </span>
                                             </label>
                                         </div>
 
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount2" />
-                                            <label class="btn btn-outline-primary" for="amount2" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">50000</span>
+                                                    <span class="coinType-amount OcoinAmount">50,000</span>
                                                 </span>
                                             </label>
                                         </div>
 
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount3" />
-                                            <label class="btn btn-outline-primary" for="amount3" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
                                                     <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">100000</span>
+                                                    <span class="coinType-amount OcoinAmount">100,000</span>
                                                 </span>
                                             </label>
                                         </div>
@@ -794,6 +795,7 @@
                                             <li><span class="language_replace">10万 OCOIN 以上の出金の場合は燃料費は無料となります。</span></li>
                                             <li><span class="language_replace">出金は1日３回までとなります。</span></li>
                                             <li><span class="language_replace">1日出金最大限度額が100万OCOINとなります。</span></li>
+                                            <li><span class="language_replace">出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
@@ -996,7 +998,7 @@
                 </div>
 
                 <!-- 溫馨提醒 -->
-                <div class="notice-container" data-deposite="step4">
+                <div class="notice-container is-hide" data-deposite="step4">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">

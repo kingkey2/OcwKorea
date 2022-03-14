@@ -123,6 +123,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RefreshValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefreshValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefreshValueResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AddBonusValue">
         <s:complexType>
           <s:sequence>
@@ -249,6 +265,12 @@
   <wsdl:message name="CreateWalletDepositSoapOut">
     <wsdl:part name="parameters" element="tns:CreateWalletDepositResponse" />
   </wsdl:message>
+  <wsdl:message name="RefreshValueSoapIn">
+    <wsdl:part name="parameters" element="tns:RefreshValue" />
+  </wsdl:message>
+  <wsdl:message name="RefreshValueSoapOut">
+    <wsdl:part name="parameters" element="tns:RefreshValueResponse" />
+  </wsdl:message>
   <wsdl:message name="AddBonusValueSoapIn">
     <wsdl:part name="parameters" element="tns:AddBonusValue" />
   </wsdl:message>
@@ -289,6 +311,14 @@
   </wsdl:message>
   <wsdl:message name="GetWalletDepositHttpGetOut">
     <wsdl:part name="Body" element="tns:CompanyWalletDepositResult" />
+  </wsdl:message>
+  <wsdl:message name="RefreshValueHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RefreshValueHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddBonusValueHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -342,6 +372,14 @@
   </wsdl:message>
   <wsdl:message name="GetWalletDepositHttpPostOut">
     <wsdl:part name="Body" element="tns:CompanyWalletDepositResult" />
+  </wsdl:message>
+  <wsdl:message name="RefreshValueHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RefreshValueHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddBonusValueHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
@@ -398,6 +436,10 @@
       <wsdl:input message="tns:CreateWalletDepositSoapIn" />
       <wsdl:output message="tns:CreateWalletDepositSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <wsdl:input message="tns:RefreshValueSoapIn" />
+      <wsdl:output message="tns:RefreshValueSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddBonusValue">
       <wsdl:input message="tns:AddBonusValueSoapIn" />
       <wsdl:output message="tns:AddBonusValueSoapOut" />
@@ -428,6 +470,10 @@
       <wsdl:input message="tns:GetWalletDepositHttpGetIn" />
       <wsdl:output message="tns:GetWalletDepositHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <wsdl:input message="tns:RefreshValueHttpGetIn" />
+      <wsdl:output message="tns:RefreshValueHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddBonusValue">
       <wsdl:input message="tns:AddBonusValueHttpGetIn" />
       <wsdl:output message="tns:AddBonusValueHttpGetOut" />
@@ -457,6 +503,10 @@
     <wsdl:operation name="GetWalletDeposit">
       <wsdl:input message="tns:GetWalletDepositHttpPostIn" />
       <wsdl:output message="tns:GetWalletDepositHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <wsdl:input message="tns:RefreshValueHttpPostIn" />
+      <wsdl:output message="tns:RefreshValueHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="AddBonusValue">
       <wsdl:input message="tns:AddBonusValueHttpPostIn" />
@@ -501,6 +551,15 @@
     </wsdl:operation>
     <wsdl:operation name="CreateWalletDeposit">
       <soap:operation soapAction="http://tempuri.org/CreateWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <soap:operation soapAction="http://tempuri.org/RefreshValue" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -583,6 +642,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <soap12:operation soapAction="http://tempuri.org/RefreshValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddBonusValue">
       <soap12:operation soapAction="http://tempuri.org/AddBonusValue" style="document" />
       <wsdl:input>
@@ -649,6 +717,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <http:operation location="/RefreshValue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddBonusValue">
       <http:operation location="/AddBonusValue" />
       <wsdl:input>
@@ -708,6 +785,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetWalletDeposit">
       <http:operation location="/GetWalletDeposit" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshValue">
+      <http:operation location="/RefreshValue" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

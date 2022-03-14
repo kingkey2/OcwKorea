@@ -30,7 +30,10 @@
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="/Scripts/DateExtension.js"></script>
 <script src="Scripts/OutSrc/js/wallet.js"></script>
-<script>
+<script>      
+    if (self != top) {
+        window.parent.API_LoadingStart();
+    }
     var WebInfo;
     var mlp;
     var lang;
@@ -51,6 +54,11 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+
+            if (WebInfo.UserInfo.LoginAccount == '819059202064' || WebInfo.UserInfo.LoginAccount == 'test002') {
+                window.parent.API_Reload();
+            }
+
         },"PaymentAPI");
         btn_NextStep();
 

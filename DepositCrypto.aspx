@@ -53,9 +53,8 @@
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
-        } else {
-            window.parent.API_LoadingStart();
         }
+
 
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
@@ -383,7 +382,7 @@
     }
 
     function CoinBtn_Click() {
-        let amount = parseInt($(event.currentTarget).parent('.btn-radio').find('.OcoinAmount').text())
+        let amount = parseInt($(event.currentTarget).data("val"))
         $("#amount").val(amount);
         //$("#ExchangeVal").text(parseInt($(event.target).parent('.btn-radio').find('.OcoinAmount').text()));
         ReSetPaymentAmount(false, amount);
@@ -777,32 +776,32 @@
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount1" />
-                                            <label class="btn btn-outline-primary" for="amount1" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
                                                     <span class="coinType-title">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">10000</span>
+                                                    <span class="coinType-amount OcoinAmount">10,000</span>
                                                 </span>
                                             </label>
                                         </div>
 
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount2" />
-                                            <label class="btn btn-outline-primary" for="amount2" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">50000</span>
+                                                    <span class="coinType-amount OcoinAmount">50,000</span>
                                                 </span>
                                             </label>
                                         </div>
 
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount3" />
-                                            <label class="btn btn-outline-primary" for="amount3" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
                                                     <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">100000</span>
+                                                    <span class="coinType-amount OcoinAmount">100,000</span>
                                                 </span>
                                             </label>
                                         </div>
