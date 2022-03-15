@@ -111,12 +111,28 @@
 
                 <!-- 選擇存款管道  -->
                 <div class="card-container">
-                    <!-- EPay -->
-                    <div class="card-item sd-08" style="display:none;">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
+					<!-- EPay -->
+                    <div class="card-item sd-03">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositBankCard','DepositBankCard.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">銀行卡</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center">
+                                    <img src="images/assets/card-surface/icon-logo-bankCard.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
+                        </a>      
+
+                    </div>
+                    <!-- EPay -->
+                    <div class="card-item sd-08" style="display: none;">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">信用卡</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center">

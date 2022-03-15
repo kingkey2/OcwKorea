@@ -1020,6 +1020,15 @@
 .card-item.sd-02 .card-item-link {
   background-image: url(../images/assets/card-surface/card-02.svg);
 }
+.card-item.sd-03 .card-item-link {
+  background-image: url(../images/assets/card-surface/card-03.svg);
+}
+.card-item.sd-04 .card-item-link {
+  background-image: url(../images/assets/card-surface/card-04.svg);
+}
+.card-item.sd-05 .card-item-link {
+  background-image: url(../images/assets/card-surface/card-05.svg);
+}
 .card-item.sd-08 .card-item-link {
   background-image: url(../images/assets/card-surface/card-08.svg);
 }

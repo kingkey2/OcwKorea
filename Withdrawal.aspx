@@ -171,6 +171,20 @@
                         </a>      
 
                     </div>--%>
+					<!-- 代理出款 -->
+                    <div class="card-item sd-05" style="">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span>銀行卡轉帳</span>
+                                </div>
+                                <div class="title vertical-center">
+                                    <span class="language_replace">通知代理</span>
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-05.svg" class="card-item-bg">
+                        </a>
+                    </div>
                     <!-- 虛擬錢包 -->
                     <div class="card-item sd-02" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
