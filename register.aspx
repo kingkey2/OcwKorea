@@ -592,7 +592,7 @@
                                 <label class="form-title">
                                     <span class="form-title-note language_replace">姓</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                    <input type="text" class="form-control custom-style" placeholder="" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
@@ -600,7 +600,7 @@
                                 <label class="form-title">
                                     <span class="form-title-note language_replace">名</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                    <input type="text" class="form-control custom-style" placeholder="" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
