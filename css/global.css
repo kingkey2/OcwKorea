@@ -612,7 +612,7 @@ button {
           box-shadow: none;
 }
 .custom-style[type=password] {
-  letter-spacing: 0.5em;
+  /*letter-spacing: 0.5em;*/
 }
 .custom-style::-webkit-input-placeholder {
   color: rgba(44, 45, 58, 0.25);

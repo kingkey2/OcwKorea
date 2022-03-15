@@ -514,7 +514,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="英文或數字12位以內，不分大小寫" inputmode="email">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="英文或數字12位以內，不分大小寫" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>
@@ -522,7 +522,7 @@
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+886" inputmode="decimal" value="+886" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="+886" inputmode="decimal" value="+886" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
