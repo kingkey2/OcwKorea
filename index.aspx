@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+<%@ Page Language="C#" %>
 
 <%
     if (EWinWeb.IsInMaintain()) {
@@ -13,7 +13,7 @@
     string CT = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
-    string Version = EWinWeb.Version;
+    string Version=EWinWeb.Version;   
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
         SID = Request["SID"];
@@ -87,7 +87,7 @@
     <meta property="og:image" content="https://bbc117.com/images/share_pic.png" /-->
     <meta property="og:type" content="website" />
     <!-- Share image -->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
+    <!--link rel="image_src" href="https://bbc117.com/images/share_pic.png"-->
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -125,10 +125,7 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>""></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>""></script>
-<script type="text/javascript">      
-    if (self != top) {
-        window.parent.API_LoadingStart();
-    }
+<script type="text/javascript">
     var c = new common();
     var ui = new uiControl();
     var mlp;
@@ -162,11 +159,10 @@
     var SiteInfo;
     var selectedCurrency = '';
     var GameInfoModal;
-    var v = "<%=Version%>";
-    var LoginMessage;
-    var LoginMessageVersion;
+    var v ="<%:Version%>";
+
     var test = "";
-    var gameWindow;
+
     var LobbyGameList;
 
 
@@ -325,7 +321,7 @@
         var footerDom = c.getTemplate("footer");
         if (document.getElementById("IFramePage").contentDocument) {
             if (type && type == 1) {
-
+                
             } else {
                 document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
             }
@@ -393,7 +389,7 @@
             GameInfoModal.toggle();
         }
     }
-
+  
     function API_LoadPage(title, url, checkLogined) {
         if (EWinWebInfo.IsOpenGame) {
             EWinWebInfo.IsOpenGame = false;
@@ -425,7 +421,7 @@
                 //IFramePage.
 
             }
-
+    
         }
     }
 
@@ -475,7 +471,7 @@
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
         return nonCloseShowMessageOK(title, msg, cbOK);
     }
-
+    
     function API_ShowPartialHtml(title, pathName, isNeedLang, cbOK) {
         //return window.open(pathName);
         return showPartialHtml(title, pathName, isNeedLang, cbOK);
@@ -579,7 +575,7 @@
             var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
 
             if (messageModal == null) {
-                messageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+                messageModal = new bootstrap.Modal(divMessageBox);
             }
 
             if (divMessageBox != null) {
@@ -623,9 +619,9 @@
             var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
 
             if (messageModal == null) {
-                messageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+                messageModal = new bootstrap.Modal(divMessageBox);
             }
-
+           
             if (divMessageBox != null) {
                 messageModal.show();
 
@@ -650,57 +646,20 @@
         }
     }
 
-    function WithCheckBoxShowMessageOK(title, message, cbOK) {
-        var alertDom = $("#alertContactWithCheckBox")
-        if (alertDom.attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertContactWithCheckBox");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
-            var checkBoxmessageModal;
-            if (checkBoxmessageModal == null) {
-                checkBoxmessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-            }
-
-            if (divMessageBox != null) {
-                checkBoxmessageModal.show();
-                alertDom.attr("aria-hidden", 'false');
-
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
-                }
-
-                if (divMessageBoxOKButton != null) {
-                    //divMessageBoxOKButton.style.display = "inline";
-
-                    divMessageBoxOKButton.onclick = function () {
-                        checkBoxmessageModal.hide();
-                        alertDom.attr("aria-hidden", 'true');
-                        if (cbOK != null)
-                            cbOK();
-                    }
-                }
-
-                //divMessageBoxTitle.innerHTML = title;
-                divMessageBoxContent.innerHTML = message;
-            }
-        }
-    }
-
     function nonCloseShowMessageOK(title, message, cbOK) {
-        var nonCloseDom = $("#nonClose_alertContact");
-        if (nonCloseDom.attr("aria-hidden") == 'true') {
+        if ($("#nonClose_alertContact").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("nonClose_alertContact");
             var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
             //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
             var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
-            var nonCloseMessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
 
+            if (messageModal == null) {
+                messageModal = new bootstrap.Modal(divMessageBox);
+            }
+           
             if (divMessageBox != null) {
-                nonCloseMessageModal.show();
-                nonCloseDom.attr("aria-hidden",'false');
+                messageModal.show();
 
                 if (divMessageBoxCloseButton != null) {
                     divMessageBoxCloseButton.classList.add("is-hide");
@@ -710,19 +669,19 @@
                     //divMessageBoxOKButton.style.display = "inline";
 
                     divMessageBoxOKButton.onclick = function () {
-                        nonCloseMessageModal.hide();
-                        nonCloseDom.attr("aria-hidden", 'true');
+                        messageModal.hide();
+
                         if (cbOK != null)
                             cbOK();
                     }
                 }
 
-                //divMessageBox.onclick = function () {
-                //    messageModal.hide();
+                divMessageBox.onclick = function () {
+                        messageModal.hide();
 
-                //    if (cbOK != null)
-                //        cbOK();
-                //}
+                        if (cbOK != null)
+                            cbOK();
+                    }
 
                 //divMessageBoxTitle.innerHTML = title;
                 divMessageBoxContent.innerHTML = message;
@@ -738,7 +697,7 @@
             //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
             var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
 
-            var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            var modal = new bootstrap.Modal(divMessageBox);
 
 
             if (divMessageBox != null) {
@@ -825,10 +784,10 @@
         var NickName = contactUsDom.querySelector(".contectUs_NickName").value;
         var Phone = contactUsDom.querySelector(".contectUs_Phone").value;
         //if (!NickName) {
-        //contactUsDom.NickName.setCustomValidity(mlp.getLanguageKey("NickName"));
+             //contactUsDom.NickName.setCustomValidity(mlp.getLanguageKey("NickName"));
         //}
-
-        API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
+      
+        API_SendSerivceMail(subjectText,"ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>"+ bodyText, emailText);
     }
     //Game
 
@@ -839,10 +798,6 @@
     }
 
     function openGame(gameBrand, gameName, categ) {
-        if (gameWindow) {
-            gameWindow.close();
-        }
-
         if (!EWinWebInfo.UserLogined) {
             showMessageInGameInfo(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 GameInfoModal.hide();
@@ -853,9 +808,9 @@
             setGameCodeToMyGames(gameBrand, gameName);
             GameInfoModal.hide();
 
-            if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
+            if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {               
                 if (EWinWebInfo.DeviceType == 1) {
-                    gameWindow =window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                    window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "_blank")
                 } else {
                     SwitchGameHeader(1, gameBrand, gameName, categ);
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
@@ -863,7 +818,7 @@
             } else {
                 setGameCodeToMyGames(gameBrand, gameName);
                 GameInfoModal.hide();
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "_blank")
             }
         }
     }
@@ -873,13 +828,9 @@
         setGameCodeToMyGames(gameBrand, gameName);
         GameInfoModal.hide();
 
-        if (gameWindow) {
-            gameWindow.close();
-        }
-
         if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
             if (EWinWebInfo.DeviceType == 1) {
-                gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "_blank")
             } else {
                 SwitchGameHeader(1, gameBrand, gameName, categ);
                 GameLoadPage("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
@@ -887,7 +838,7 @@
         } else {
             setGameCodeToMyGames(gameBrand, gameName);
             GameInfoModal.hide();
-            gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+            window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "_blank")
         }
     }
 
@@ -937,7 +888,7 @@
             GameBrand: gameBrand,
             GameName: gameName
         };
-  
+        debugger
         if (type == 0) {
             //add
             favoriteGames.splice(0, 0, favoriteGame);
@@ -979,21 +930,7 @@
 
         lobbyClient.GetUserInfo(SID, guid, function (success, o) {
             if (success) {
-                if (o.Result == 0) {                   
-                    //EXTRA DATA 處理
-                    var ExtraData;
-
-                    if (o.ExtraData != null && o.ExtraData != '') {
-                        ExtraData = JSON.parse(o.ExtraData);
-                        o.KYCRealName = ExtraData.KYCRealName;
-                        o.Country = ExtraData.Country;
-                        o.CountryName = ExtraData.CountryName;
-                    } else {
-                        o.KYCRealName = '';
-                        o.Country = '';
-                        o.CountryName = '';
-                    }
-                   
+                if (o.Result == 0) {
                     EWinWebInfo.SID = SID;
                     EWinWebInfo.UserLogined = true;
                     EWinWebInfo.UserInfo = o;
@@ -1073,12 +1010,8 @@
             var postData;
 
             //API_ShowMask(mlp.getLanguageKey("登入復原中"), "full");
-            //postData = encodeURI("RecoverToken=" + recoverToken + "&" + "LoginAccount=" + LoginAccount);
-            postData = {
-                "RecoverToken": recoverToken,
-                "LoginAccount": LoginAccount
-            }
-            c.callService("/LoginRecover.aspx", postData, function (success, o) {
+            postData = encodeURI("RecoverToken=" + recoverToken + "&" + "LoginAccount=" + LoginAccount);
+            c.callService("/LoginRecover.aspx?" + postData, null, function (success, o) {
                 //API_HideMask();
 
                 if (success) {
@@ -1098,7 +1031,7 @@
                         });
                     } else {
                         EWinWebInfo.UserLogined = false;
-                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請重新登入") + ":" + mlp.getLanguageKey(obj.Message), function () {
+                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請重新登入") + ":" + mlp.getLanguageKey(obj.Message) , function () {
                             API_Logout();
                         });
 
@@ -1200,18 +1133,21 @@
     }
 
     function init() {
+        if (self != top) {
+            window.parent.API_LoadingStart();
+        }
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
-
+      
         //mlpByGameBrand = new multiLanguage();
 
         if (window.localStorage.getItem("Lang")) {
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
-
+  
         switchLang(EWinWebInfo.Lang, false);
 
-
+   
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
             mlpByGameCode.loadLanguageByOtherFile(EWinWebInfo.EWinUrl + "/GameCode.", EWinWebInfo.Lang, function () {
@@ -1245,8 +1181,6 @@
 
                 getCompanyGameCode();
 
-             
-
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -1255,50 +1189,6 @@
                                 SiteInfo = o;
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                     API_SetLogin(EWinWebInfo.SID, function (logined) {
-                                        //顯示登入資訊 
-                                        getLoginMessage(function () {
-                                            if (LoginMessage) {
-                                                if (!localStorage.getItem("LoginMessage")) {
-                                                    if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            if (document.getElementById("cboxLoginMessage").checked) {
-                                                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            }
-                                                        });
-                                                    } else {
-                                                        if (!sessionStorage.getItem("LoginMessage")) {
-                                                            WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                                sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                if (document.getElementById("cboxLoginMessage").checked) {
-                                                                    localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                }
-                                                            });
-                                                        } else {
-                                                            if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
-                                                                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                    if (document.getElementById("cboxLoginMessage").checked) {
-                                                                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
-                                                    }
-                                                } else {
-                                                    if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            if (document.getElementById("cboxLoginMessage").checked) {
-                                                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                        });
-                                       
-
                                         if (logined == false) {
                                             userRecover();
                                         } else {
@@ -1381,27 +1271,12 @@
         API_changeAvatarImg(getCookie("selectAvatar"));
         //document.getElementById("IFramePage").onload = loadingEnd;
 
-        GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
-
-    }
-
-    function getLoginMessage(cb) {
-        lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    LoginMessage = o.Message;
-                    LoginMessageVersion = o.Version;
-                    if (cb != null) {
-                        cb();
-                    }
-                }
-            }
-        });
+        GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"));
     }
 
     function getCompanyGameCode(cb) {
         LobbyGameList = {
-            HotList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
+            HotList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID:"0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
             NewList: [],
             CategoryList: [{
                 Categ: "All",
@@ -1719,13 +1594,7 @@
                         <li>
                             <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Live')">
                                 <i class="icon-casino"></i>
-                                <span class="language_replace">真人</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Sports')">
-                                <i class="icon-casinoworld-football"></i>
-                                <span class="language_replace">體育</span>
+                                <span class="language_replace">賭場</span>
                             </a>
                         </li>
                         <li>
@@ -2013,37 +1882,6 @@
                         <i class="icon-error_outline primary"></i>
                         <div class="text-wrap">
                             <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-container">
-                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
-                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--alert-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox"  aria-hidden="true" id="alertContactWithCheckBox">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body-content">
-                        <i class="icon-error_outline primary"></i>
-                        <div class="text-wrap">
-                            <div class="alertContact_Text"></div>
-                            <div>
-                                <input style="width:16px;height:16px;cursor:pointer" type="checkbox" id="cboxLoginMessage">
-                                <label style="font-size:18px" for="cboxLoginMessage language_replace">ログイン時に表示しない！</label>
-                            </div>
                         </div>
                     </div>
                 </div>
