@@ -136,18 +136,15 @@
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
-        //idLoginAccount.setCustomValidity(mlp.getLanguageKey("請等待信箱檢查完畢"));
 
         if (idLoginAccount.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             return false;
-        } else {
-            if (!IsEmail(idLoginAccount.value)) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                return false;
-            }
         }
-
+        else if (idLoginPassword.value.length > 12) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
+            return false;
+        }
         return true
         //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
         //    if (success) {
@@ -164,17 +161,18 @@
 
     function CheckPassword() {
         var idLoginPassword = document.getElementById("idLoginPassword");
-        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
+        //var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
-        } else if (idLoginPassword.value.length < 6) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
-            return false;
-        } else if (!rules.test(idLoginPassword.value)) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
-            return false;
         }
+        //else if (idLoginPassword.value.length < 6) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
+        //    return false;
+        //} else if (!rules.test(idLoginPassword.value)) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+        //    return false;
+        //}
 
         return true;
     }
@@ -316,42 +314,32 @@
                 { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
             ];
 
-            p.GetLoginAccount(Math.uuid(), PhonePrefix, PhoneNumber, function (success, o1) {
+            LoginAccount = $("#idLoginAccount").val();
+            p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
-                    if (o1.Result == 0) {
-                        LoginAccount = o1.Message;
-                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
-                            if (success) {
-                                if (o.Result == 0) {
-                                    sendThanksMail();
-                                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
-                                        document.getElementById("idRegister").classList.add("is-hide");
-                                        document.getElementById("contentFinish").classList.remove("is-hide");
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            } else {
-                                if (o == "Timeout") {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            }
+                    if (o.Result == 0) {
+                        sendThanksMail();
+                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                            document.getElementById("idRegister").classList.add("is-hide");
+                            document.getElementById("contentFinish").classList.remove("is-hide");
                         });
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
                             window.parent.API_LoadPage("Register", "Register.aspx")
                         });
                     }
                 }
-            })
+            });
         }
     }
 
@@ -524,24 +512,24 @@
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
                         <div class="form-group">
-                            <label class="form-title language_replace">信箱</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="英文或數字12位以內，不分大小寫" inputmode="email">
+                                <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+886" inputmode="decimal" value="+886" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
                             <div class="form-group col">
                                 <label class="form-title language_replace">手機電話號碼</label>
                                 <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的0請勿輸入)" inputmode="decimal">
                                     <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
                             </div>
@@ -589,7 +577,7 @@
                 
                                 <label class="form-check-label language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
             
-                                <label class="form-check-label language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
+                                <!--label class="form-check-label language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br-->
                            
                             </div>
                         </div>
@@ -602,8 +590,7 @@
                         <div class="form-row">
                             <div class="form-group col-md">
                                 <label class="form-title">
-                                    姓
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                    <span class="form-title-note language_replace">姓</span></label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
@@ -611,9 +598,7 @@
                             </div>
                             <div class="form-group col-md">
                                 <label class="form-title">
-                                    名
-                               
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                    <span class="form-title-note language_replace">名</span></label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
@@ -960,9 +945,9 @@
                                 <label class="form-check-label language_replace" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
                             </div>
                         </div>
-                        <div class="form-group rules-privacy text-small">
+                        <!--div class="form-group rules-privacy text-small">
                             <p class="language_replace">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
-                        </div>
+                        </div-->
 
                         <div class="btn-container">
                             <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep2()">
@@ -987,7 +972,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Maharaja！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 BET 파라다이스</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p>
                         <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>
