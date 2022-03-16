@@ -1060,7 +1060,7 @@
             if (cb)
                 cb();
         });
-
+        
         mlpByGameCode.loadLanguageByOtherFile(EWinWebInfo.EWinUrl + "/GameCode.", c, function () {
             notifyWindowEvent("SetLanguage", c);
         });

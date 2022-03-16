@@ -6,7 +6,7 @@
   "MaintainMessage": "メンテナンス時間：水曜日の 12:00 ～13:00 (GMT+9)",
   "WithdrawlTemporaryMaintenance": 0,
   "LoginMessage": {
-    "Message": "",
+    "Message": "測試登入提示",
     "Version": "0.1111"
   }
 

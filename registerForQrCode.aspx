@@ -3,12 +3,11 @@
 <%
     string PCode = Request["P"];
     string CompanyCode = Request["C"];
-    string PersonCodeA1;  // 北村帳號 (結算帳戶 B 會放在此處)
-    string PersonCodeL3;  // L3 帳號 (實際大老鷹的帳戶會掛在下線)
-    string Lang = "JPN";
+
+    string Lang = Request["Lang"];
     bool CreateBigEagle = false;
     string Version = EWinWeb.Version;
-    if (string.IsNullOrEmpty(Request["Lang"])) {
+    if (string.IsNullOrEmpty(Lang)) {
         string userLang = CodingControl.GetDefaultLanguage();
 
         if (userLang.ToUpper() == "zh-TW".ToUpper()) {
@@ -48,19 +47,6 @@
         Lang = Request["Lang"];
     }
 
-    if (EWinWeb.IsTestSite) {
-        // 測試機
-        PersonCodeA1 = "S96615788867898";
-        PersonCodeL3 = "A43015788512541";
-    } else {
-        // 正式機
-        PersonCodeA1 = "S41916395974388";
-        PersonCodeL3 = "A11316397366506";
-    }
-
-    if (PersonCodeL3 == PCode) {
-        CreateBigEagle = true;
-    }
 %>
 <!doctype html>
 <html>
@@ -215,30 +201,27 @@
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
-        //idLoginAccount.setCustomValidity(mlp.getLanguageKey("請等待信箱檢查完畢"));
 
         if (idLoginAccount.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
-            return false;
-        } else {
-            if (!IsEmail(idLoginAccount.value)) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
-                return false;
-            }
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
+            cb(false);
+        }
+        else if (idLoginPassword.value.length > 12) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
+            cb(false);
         }
 
-        return true
-        //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
-        //    if (success) {
-        //        if (o.Result != 0) {
-        //            idLoginAccount.setCustomValidity("");
-        //        } else {
-        //            idLoginAccount.setCustomValidity(mlp.getLanguageKey("信箱已存在"));
-        //        }
-        //    }
-
-        //    cb();
-        //});
+        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
+            if (success) {
+                if (o.Result != 0) {
+                    idLoginAccount.setCustomValidity("");
+                    cb(true);
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
+                    cb(false);
+                }
+            }
+        });
     }
 
     function CheckPassword() {
@@ -247,40 +230,45 @@
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
-        } else if (idLoginPassword.value.length < 6) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
-            return false;
-        } else if (!rules.test(idLoginPassword.value)) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
-            return false;
         }
+        //else if (idLoginPassword.value.length < 6) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
+        //    return false;
+        //} else if (!rules.test(idLoginPassword.value)) {
+        //    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+        //    return false;
+        //}
 
         return true;
     }
 
     function onBtnSendValidateCode() {
-        if (isSent == false) {
-            var form = document.getElementById("registerStep1");
-            CheckAccountPhoneExist(function (check) {
-                if (check) {
-                    p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), function (success, o) {
-                        if (success) {
-                            if (o.Result != 0) {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
-                            } else {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
 
-                                startCountDown(120);
-                                //$("#divSendValidateCodeBtn").hide();
-                                $("#divStep1Btn").show();
+        CheckUserAccountExist(function (isCheck) {
+            if (isSent == false) {
+                var form = document.getElementById("registerStep1");
+                CheckAccountPhoneExist(function (check) {
+                    if (check) {
+                        p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), function (success, o) {
+                            if (success) {
+                                if (o.Result != 0) {
+                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                                } else {
+                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+
+                                    startCountDown(120);
+                                    //$("#divSendValidateCodeBtn").hide();
+                                    $("#divStep1Btn").show();
+                                }
                             }
-                        }
-                    });
-                }                
-            });
-        } else {
-            window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
-        }
+                        });
+                    }
+                });
+            } else {
+                window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+            }
+        });
+     
     }
 
 
@@ -305,6 +293,7 @@
                         if (PhonePrefix.substring(0, 1) == "+") {
                             PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
                         }
+
                         p.CheckValidateCode(Math.uuid(), 1, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
                             if (success) {
                                 if (o.Result != 0) {
@@ -366,84 +355,42 @@
                 { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
                 { Name: "ContactPhonePrefix", Value: PhonePrefix },
                 { Name: "ContactPhoneNumber", Value: PhoneNumber },
-                { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+    
                 //{ Name: "ContactAddress", Value: form2.PostalCode.value + "," + form2.Prefectures.value + "," + form2.Address.value },
                 { Name: "CountryName", Value: form2.Country.options[form2.Country.selectedIndex].text },
                 { Name: "Country", Value: form2.Country.options[form2.Country.selectedIndex].value },
                 { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
             ];
 
-
-            p.GetLoginAccount(Math.uuid(), PhonePrefix, PhoneNumber, function (success, o1) {
+            LoginAccount = $("#idLoginAccount").val();
+            p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
-                    if (o1.Result == 0) {
-                        LoginAccount = o1.Message;
-                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
-                            if (success) {
-                                if (o.Result == 0) {
-                                    //sendThanksMail();
-                                    if (CreateBigEagle.toUpperCase() == "TRUE") {
-                                        p.CreateBigEagle(LoginAccount, function (success1, o1) {
-                                            if (success1) {
-                                                showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
-                                                    document.getElementById("idRegister").classList.add("is-hide");
-                                                    document.getElementById("contentFinish").classList.remove("is-hide");
-                                                });
-                                            } else {
-                                                showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
-                                                    location.reload();
-                                                });
-                                            }
-                                        })
-                                    } else {
-                                        showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
-                                            document.getElementById("idRegister").classList.add("is-hide");
-                                            document.getElementById("contentFinish").classList.remove("is-hide");
-                                        });
-                                    }
-                                } else {
-                                    showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                                        location.reload();
-                                    });
-                                }
-                            } else {
-                                if (o == "Timeout") {
-                                    showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                                        location.reload();
-                                    });
-                                } else {
-                                    showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                                        location.reload();
-                                    });
-                                }
-                            }
+                    if (o.Result == 0) {
+                      
+                            showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
+                                document.getElementById("idRegister").classList.add("is-hide");
+                                document.getElementById("contentFinish").classList.remove("is-hide");
+                            });
+                       
+                    } else {
+                        showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                            location.reload();
+                        });
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                            location.reload();
                         });
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
+                            location.reload();
                         });
                     }
                 }
-            })
+            });
         }
     }
-
-    function updateBaseInfo() {
-
-    }
-
-    function sendThanksMail() {
-        p.SetUserMail(Math.uuid(), 0, 2, $("#idLoginAccount").val(), "", "", function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-
-                } else {
-
-                }
-            }
-        });
-    }
-
 
     function init() {
 
@@ -674,17 +621,17 @@
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
                         <div class="form-group">
-                            <label class="form-title language_replace">信箱</label>
+                            <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
                                 <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email">
-                                <div class="invalid-feedback language_replace">請輸入正確信箱</div>
+                                <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-3">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+82" inputmode="decimal" value="+82" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
@@ -895,14 +842,14 @@
                                     <option value="IL">Israel</option>
                                     <option value="IT">Italy</option>
                                     <option value="JM">Jamaica</option>
-                                    <option value="JP" selected>Japan</option>
+                                    <option value="JP">Japan</option>
                                     <option value="JE">Jersey</option>
                                     <option value="JO">Jordan</option>
                                     <option value="KZ">Kazakhstan</option>
                                     <option value="KE">Kenya</option>
                                     <option value="KI">Kiribati</option>
                                     <option value="KP">Korea (the Democratic People's Republic of)</option>
-                                    <option value="KR">Korea (the Republic of)</option>
+                                    <option value="KR" selected>Korea (the Republic of)</option>
                                     <option value="KW">Kuwait</option>
                                     <option value="KG">Kyrgyzstan</option>
                                     <option value="LA">Lao People's Democratic Republic (the)</option>

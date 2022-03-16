@@ -140,37 +140,29 @@
             }
         }
 
-        p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
+
+        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
+                if (o.Result == 0) {
+                    p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
-
-                                p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
-                                    if (success) {
-                                        if (o.Result == 0) {
-                                            isSent = true;
-                                            startCountDown(120);
-                                            window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
-                                        } else {
-                                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
-                                        }
-                                    } else {
-                                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                                    }
-                                });
+                                isSent = true;
+                                startCountDown(120);
+                                window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
                             } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話不存在"));
+                                window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
                             }
+                        } else {
+                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
                         }
                     });
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message));
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話不存在"));
                 }
             }
         });
+
     }
 
     function SetNewPassword(validCode, newPassword) {

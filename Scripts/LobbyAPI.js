@@ -318,6 +318,29 @@
         });
     };
 
+    this.CheckAccountExistByContactPhoneNumber = function (GUID, PhonePrefix, PhoneNumber, cb) {
+        var url = APIUrl + "/CheckAccountExistByContactPhoneNumber";
+        var postData;
+
+        postData = {
+            PhonePrefix: PhonePrefix,
+            PhoneNumber: PhoneNumber,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.CheckAccountExist = function (GUID, LoginAccount, cb) {
         var url = APIUrl + "/CheckAccountExist";
         var postData;

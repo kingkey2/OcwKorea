@@ -280,9 +280,11 @@
         initValid(form);
 
         if (form.checkValidity()) {
-            if (form.LoginPassword.value == "") {
+            if (form.LoginAccount.value.trim() == "") {
+                form.LoginAccount.setCustomValidity(mlp.getLanguageKey("請輸入帳號"));
+            } else if (form.LoginPassword.value.trim() == "") {
                 form.LoginPassword.setCustomValidity(mlp.getLanguageKey("請輸入密碼"));
-            } else if (form.ValidImg.value == "") {
+            } else if (form.ValidImg.value.trim() == "") {
                 form.ValidImg.setCustomValidity(mlp.getLanguageKey("請輸入驗證碼"));
             }
         }
