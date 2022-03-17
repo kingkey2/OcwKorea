@@ -187,13 +187,14 @@
 
         let countInterval = setInterval(function () {
             let BtnSend = document.getElementById("btnSend");
-
+            $('#btnSend').attr('disabled', 'disabled');
             //min = parseInt(secondsRemaining / 60);
             //sec = parseInt(secondsRemaining % 60);
             BtnSend.querySelector("span").innerText = secondsRemaining + "s"
 
             secondsRemaining = secondsRemaining - 1;
             if (secondsRemaining < 0) {
+                $('#btnSend').removeAttr('disabled');
                 clearInterval(countInterval);
                 SetBtnSend();
             };

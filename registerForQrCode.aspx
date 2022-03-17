@@ -90,13 +90,14 @@
 
         let countInterval = setInterval(function () {
             let BtnSend = document.getElementById("divSendValidateCodeBtn");
-
+            $('#divSendValidateCodeBtn>button').attr('disabled', 'disabled');
             //min = parseInt(secondsRemaining / 60);
             //sec = parseInt(secondsRemaining % 60);
             BtnSend.querySelector("span").innerText = secondsRemaining + "s"
 
             secondsRemaining = secondsRemaining - 1;
             if (secondsRemaining < 0) {
+                $('#divSendValidateCodeBtn>button').removeAttr('disabled');
                 clearInterval(countInterval);
                 SetBtnSend();
             };
@@ -133,13 +134,9 @@
         var idPhonePrefix = document.getElementById("idPhonePrefix");
         var idPhoneNumber = document.getElementById("idPhoneNumber");
 
-        idPhoneNumber.setCustomValidity("");
-        idPhonePrefix.setCustomValidity("");
-
         if (idPhonePrefix.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
             cb(false);
-            return;
         }
         //else if (idPhonePrefix.value != "+81") {
         //    window.parent.showMessageOK("", mlp.getLanguageKey("國碼只能為+81"));
@@ -173,26 +170,14 @@
             }
         }
 
-        p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
+        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
-                        if (success) {
-                            if (o.Result != 0) {
-                                cb(true);
-                            } else {
-                                cb(false);
-                                window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
-                            }
-                        }
-
-                    });
+                if (o.Result != 0) {
+                    cb(true);
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
-
-                    });
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
                     cb(false);
+                    return;
                 }
             }
         });
@@ -202,13 +187,19 @@
         var idLoginAccount = document.getElementById("idLoginAccount");
 
 
-        if (idLoginAccount.value == "") {
+        if (idLoginAccount.value.trim() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             cb(false);
+            return;
+        } else if (idLoginPassword.value.trim() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+            cb(false);
+            return;
         }
         else if (idLoginPassword.value.length > 12) {
             window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
             cb(false);
+            return;
         }
 
         p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
@@ -219,6 +210,7 @@
                 } else {
                     window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
                     cb(false);
+                    return;
                 }
             }
         });
@@ -283,7 +275,7 @@
                     return;
                 }
 
-                if (!CheckUserAccountExist()) {
+                if (!CheckUserAccountExist(function () { })) {
                     return;
                 }
 
@@ -395,7 +387,6 @@
     function init() {
 
         p = new LobbyAPI("/API/LobbyAPI.asmx");
-        lang="JPN"
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (pCode) {
@@ -487,14 +478,7 @@
         }
     }
 
-    function IsEmail(email) {
-        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (!regex.test(email)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+  
 
     function showMessage(title, message, cbOK, cbCancel) {
         if ($("#alertContact").attr("aria-hidden") == 'true') {
@@ -623,7 +607,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc" inputmode="">
                                 <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>

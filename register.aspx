@@ -51,13 +51,14 @@
 
         let countInterval = setInterval(function () {
             let BtnSend = document.getElementById("divSendValidateCodeBtn");
-
+            $('#divSendValidateCodeBtn>button').attr('disabled', 'disabled');
             //min = parseInt(secondsRemaining / 60);
             //sec = parseInt(secondsRemaining % 60);
             BtnSend.querySelector("span").innerText = secondsRemaining + "s"
 
             secondsRemaining = secondsRemaining - 1;
             if (secondsRemaining < 0) {
+                $('#divSendValidateCodeBtn>button').removeAttr('disabled');
                 clearInterval(countInterval);
                 SetBtnSend();
             };
@@ -113,8 +114,9 @@
                 if (o.Result != 0) {
                     cb(true);
                 } else {
-                    cb(false);
                     window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                    cb(false);
+                    return;
                 }
             }
         });
@@ -124,13 +126,19 @@
         var idLoginAccount = document.getElementById("idLoginAccount");
 
 
-        if (idLoginAccount.value == "") {
+        if (idLoginAccount.value.trim() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             cb(false);
+            return;
+        } else if (idLoginPassword.value.trim() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+            cb(false);
+            return;
         }
         else if (idLoginPassword.value.length > 12) {
             window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
             cb(false);
+            return;
         }
      
         p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
@@ -141,6 +149,7 @@
                 } else {
                     window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
                     cb(false);
+                    return;
                 }
             }
         });
@@ -210,6 +219,10 @@
                 window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
             } else {
                 if (!CheckPassword()) {
+                    return;
+                }
+
+                if (!CheckUserAccountExist()) {
                     return;
                 }
 

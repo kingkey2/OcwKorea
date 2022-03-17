@@ -17,7 +17,6 @@
         string PhoneNumber = Request["PhoneNumber"];
         string LoginType = Request["LoginType"];
         string NewFingerPrint = Request["FingerPrint"];
-        string OldFingerPrint;
         Newtonsoft.Json.Linq.JObject obj_FingerPrint = new Newtonsoft.Json.Linq.JObject();
         Newtonsoft.Json.Linq.JArray arr_FingerPrint = new Newtonsoft.Json.Linq.JArray();
         string UserIP = CodingControl.GetUserIP();
@@ -36,74 +35,14 @@
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
          
             SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-          
-            DT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
-
-            if (DT != null && DT.Rows.Count > 0) {
-                OldFingerPrint = DT.Rows[0]["FingerPrints"].ToString();
-                if (!string.IsNullOrEmpty(OldFingerPrint)) {
-                    arr_FingerPrint = Newtonsoft.Json.Linq.JArray.Parse(OldFingerPrint);
-                }
-            } else {
-                OldFingerPrint = "";
-            }
-
-            if ((string.IsNullOrEmpty(OldFingerPrint) || OldFingerPrint.IndexOf(NewFingerPrint) > 0 || LoginType == "0")) {
-                if (LoginType == "1") {
-                    if (string.IsNullOrEmpty(OldFingerPrint)) {
-                        obj_FingerPrint.Add("FingerPrintName", NewFingerPrint);
-                        arr_FingerPrint.Add(obj_FingerPrint);
-                        if (EWinWebDB.UserAccountTotalSummary.UpdateFingerPrint(Newtonsoft.Json.JsonConvert.SerializeObject(arr_FingerPrint), LoginAccount) == 0) {
-                            EWinWebDB.UserAccountTotalSummary.InsertUserAccountTotalSummary(Newtonsoft.Json.JsonConvert.SerializeObject(arr_FingerPrint), LoginAccount);
-                        }
-                        RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(LoginAccount);
-                    }
-                }
-
+      
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("SID", SID));
                 Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
 
                 Response.Redirect("RefreshParent.aspx?index.aspx");
-            } else {
-                if (EWinWeb.IsTestSite) {
-                    var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
-                    dynamic tempFP = new System.Dynamic.ExpandoObject();
-                    tempFP.ValidateCode = ValidateCode;
-                    tempFP.RecoverToken = LoginAPIResult.RecoverToken;
-                    tempFP.LoginAccount = LoginAccount;
-                    tempFP.SID = SID;
-                    tempFP.CT = LoginAPIResult.CT;
-                    tempFP.FingerPrint = NewFingerPrint;
-
-                    RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
-                    Response.Write("<script>window.parent.API_ShowMessageOK('測試', '測試驗證碼:" + ValidateCode + "',function(){ window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx');});</script>");
-                } else {
-                    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-                    var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
-                    string smsContent = "ただいまマハラジャへのログインは本人確認を行なっております。確認コード（" + ValidateCode + "）入力して下さい。";
-
-
-
-                    var SendResult = lobbyAPI.SendSMS(Token, System.Guid.NewGuid().ToString(), "0", 0, LoginAccount, smsContent);
-
-                    if (SendResult.Result == EWin.Lobby.enumResult.OK) {
-                        dynamic tempFP = new System.Dynamic.ExpandoObject();
-                        tempFP.ValidateCode = ValidateCode;
-                        tempFP.RecoverToken = LoginAPIResult.RecoverToken;
-                        tempFP.LoginAccount = LoginAccount;
-                        tempFP.SID = SID;
-                        tempFP.CT = LoginAPIResult.CT;
-                        tempFP.FingerPrint = NewFingerPrint;
-
-                        RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
-                        Response.Write("<script>window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx')</script>");
-                    } else {
-                        Response.Write("<script>var defalutLoginAccount = '" + LoginAccount + "'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
-                    }
-                }
-            }
+          
         } else {
             Response.Write("<script>var defalutLoginAccount = '" + LoginAccount + "'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
             //Response.Write("<script>var defalutLoginAccount = '" + LoginAccount +"'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
