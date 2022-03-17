@@ -770,7 +770,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SetUserMail(string GUID, EWin.Lobby.enumValidateType ValidateType, CodingControl.enumSendMailType SendMailType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber) {
+    public EWin.Lobby.APIResult SetUserMail(string GUID, EWin.Lobby.enumValidateType ValidateType, CodingControl.enumSendMailType SendMailType, string EMail, string ContactPhonePrefix, string ContactPhoneNumber,string SMSContent) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         EWin.Lobby.ValidateCodeResult validateCodeResult;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
@@ -804,8 +804,9 @@ public class LobbyAPI : System.Web.Services.WebService {
                 R = SendMail(EMail, ValidateCode, R, SendMailType);
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
-                string smsContent = "新規登録確認コード(" + ValidateCode + "）" + "\r\n" + "カジノマハラジャをお選びいただき、ありがとうございます。";
-                R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, smsContent);
+                SMSContent = string.Format(SMSContent, ValidateCode);
+         
+                R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, SMSContent);
                 break;
             default:
                 break;

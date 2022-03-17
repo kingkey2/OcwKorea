@@ -857,7 +857,7 @@
         });
     };
 
-    this.SetUserMail = function (GUID, ValidateType, SendMailType, EMail, ContactPhonePrefix, ContactPhoneNumber, cb) {
+    this.SetUserMail = function (GUID, ValidateType, SendMailType, EMail, ContactPhonePrefix, ContactPhoneNumber, SMSContent, cb) {
         var url = APIUrl + "/SetUserMail";
         var postData;
 
@@ -868,6 +868,7 @@
             EMail: EMail,
             ContactPhonePrefix: ContactPhonePrefix,
             ContactPhoneNumber: ContactPhoneNumber,
+            SMSContent: SMSContent
         };
 
         callService(url, postData, 10000, function (success, text) {

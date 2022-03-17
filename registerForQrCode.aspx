@@ -249,7 +249,7 @@
                 var form = document.getElementById("registerStep1");
                 CheckAccountPhoneExist(function (check) {
                     if (check) {
-                        p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), function (success, o) {
+                        p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
                             if (success) {
                                 if (o.Result != 0) {
                                     window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));

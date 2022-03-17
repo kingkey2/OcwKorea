@@ -1138,7 +1138,7 @@
         }
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
-      
+
         //mlpByGameBrand = new multiLanguage();
 
         if (window.localStorage.getItem("Lang")) {

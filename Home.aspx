@@ -497,6 +497,12 @@
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
+
+        if (WebInfo.IsOpenGame) {
+            WebInfo.IsOpenGame = false;
+            window.parent.SwitchGameHeader(0);
+        }
+
         HotList = window.parent.API_GetGameList(1);
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
