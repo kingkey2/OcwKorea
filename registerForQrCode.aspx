@@ -54,7 +54,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>BET 파라다이스</title>
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -635,22 +635,22 @@
                         <div class="form-group">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc" inputmode="">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="英文或數字12位以內，不分大小寫" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-3">
+                            <div class="form-group col phonePrefix">
                                 <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+82" inputmode="decimal" value="+82" onchange="onChangePhonePrefix()">
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="+82" inputmode="decimal" value="+82" onchange="onChangePhonePrefix()">
                                     <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
-                            <div class="form-group col-9">
+                            <div class="form-group col">
                                 <label class="form-title language_replace">手機電話號碼</label>
                                 <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的0請勿輸入)" inputmode="decimal">
                                     <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
                             </div>
@@ -658,7 +658,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" placeholder="アルファベットと数字を合わせて6~12文字" inputmode="email">
+                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
@@ -692,7 +692,7 @@
                 
                                 <label class="form-check-label language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
             
-                                <label class="form-check-label language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
+                                <!--label class="form-check-label language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 BET 파라다이스 的信息。</label></br-->
                            
                             </div>
                         </div>
@@ -716,16 +716,18 @@
                     <form id="registerStep2">
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <label class="form-title language_replace">姓<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                <label class="form-title">
+                                    <span class="form-title-note language_replace">姓</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                    <input type="text" class="form-control custom-style" placeholder="" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
                             <div class="form-group col-md">
-                                <label class="form-title language_replace">名<span class="form-title-note language_replace">(羅馬字)</span></label>
+                                <label class="form-title">
+                                    <span class="form-title-note language_replace">名</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                    <input type="text" class="form-control custom-style" placeholder="" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
@@ -1090,7 +1092,7 @@
                     <h1>Welcome</h1>
                 </div>
                 <div class="heading-sub-desc text-wrap">
-                    <h5 class="mb-4 language_replace">歡迎來到 Maharaja！</h5>
+                    <h5 class="mb-4 language_replace">歡迎來到 BET 파라다이스！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
                     <p class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</p>
                     <p class="language_replace">另外還準備了很多的特典在等待您!</p>
