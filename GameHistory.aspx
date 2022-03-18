@@ -46,7 +46,7 @@
 
 
         setSearchDate(0);
-        createGameBrand();
+        //createGameBrand();
     }
 
     function switchGameBrand(brand) {
@@ -295,7 +295,13 @@
                         for (var i = 0; i < o.DetailList.length; i++) {
                             var record = o.DetailList[i];
                             var RecordDom = c.getTemplate("temRecordDetailItem");
-                            c.setClassText(RecordDom, "gameName", null, window.parent.API_GetGameLang(2, "", record.GameCode));
+                            var gameName = '';
+                            //if (record.GameCode.toUpperCase().includes('EWIN')) {
+                            //    gameName = window.parent.API_GetGameLang(2, "", "EWin.EWinGaming") + "(eWIN)";
+                            //} else {
+                                gameName = window.parent.API_GetGameLang(2, "", record.GameCode);
+                            /*}*/
+                            c.setClassText(RecordDom, "gameName", null, gameName);
                             RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
                             RecordDom.querySelector(".gameName").classList.add("gameLangkey");
                             if (record.RewardValue >= 0) {

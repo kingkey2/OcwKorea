@@ -602,7 +602,9 @@
                                                 <div class="form-data" id="idPhone"></div>
                                             </div>
                                         </div>
-                                    
+                                         <div class="text-wrap">
+                                            <p class="note primary text-s language_replace mt-2 mb-3">※會員資料若需要修改，請與客服聯繫。</p>
+                                        </div>
                                         <div class="btn-container">
                                             <button type="button" class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span class="language_replace">取消</span></button>
                                         </div>
