@@ -1415,6 +1415,7 @@
                     </section>
 
                     <!-- 浮動側邊 -->
+					<%--
                     <div class="float_SideBar">
                         <div class="guide-QA" onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&A_jp.html', false)">
                             <a>
@@ -1449,8 +1450,8 @@
                                 </span>
                             </a>
                         </div>
-                        --%>
-                    </div>
+                       
+                    </div>--%>
 
                 </div>
 
