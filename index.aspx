@@ -1535,7 +1535,7 @@
                         <div class="lang-select-panel">
                             <ul>
                                 <li><a onclick="switchLang('KOR', true)">한국어</a></li>
-                                <li><a onclick="switchLang('JPN', true)">日本語</a></li>
+                                <!--li><a onclick="switchLang('JPN', true)">日本語</a></li-->
                                 <li><a onclick="switchLang('ENG', true)">EN</a></li>
                                 <li><a onclick="switchLang('CHT', true)">繁體中文</a></li>
                                 <li><a onclick="switchLang('CHS', true)">簡體中文</a></li>
