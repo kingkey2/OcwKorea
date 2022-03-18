@@ -164,46 +164,45 @@
                 p.CheckAccountExist(Math.uuid(), idLoginAccount.value.trim(), function (success, o) {
                     if (success) {
                         if (o.Result != 0) {
+                            if (isSent == false) {
+                                var form = document.getElementById("registerStep1");
+                                CheckAccountPhoneExist(function (check) {
+                                    if (check) {
+                                        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
+                                            if (success) {
+                                                if (o.Result != 0) {
+                                                    p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val().trim(), $("#idPhonePrefix").val().trim(), $("#idPhoneNumber").val().trim(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
+                                                        if (success) {
+                                                            if (o.Result != 0) {
+                                                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                                                            } else {
+                                                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+
+                                                                startCountDown(120);
+                                                                //$("#divSendValidateCodeBtn").hide();
+                                                                $("#divStep1Btn").show();
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                                                    return;
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+                                    }
+                                });
+                            } else {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+                            }
                         } else {
                             window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
                             return;
                         }
                     }
                 });
-
-                if (isSent == false) {
-                    var form = document.getElementById("registerStep1");
-                    CheckAccountPhoneExist(function (check) {
-                        if (check) {
-                            p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
-                                if (success) {
-                                    if (o.Result != 0) {
-                                        p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val().trim(), $("#idPhonePrefix").val().trim(), $("#idPhoneNumber").val().trim(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
-                                            if (success) {
-                                                if (o.Result != 0) {
-                                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
-                                                } else {
-                                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
-
-                                                    startCountDown(120);
-                                                    //$("#divSendValidateCodeBtn").hide();
-                                                    $("#divStep1Btn").show();
-                                                }
-                                            }
-                                        });
-                                    } else {
-                                        window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
-                                        return;
-                                    }
-                                }
-                            });
-                        } else {
-                            //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
-                        }
-                    });
-                } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
-                }
             }
         });
     }
