@@ -109,50 +109,34 @@
             }
         }
 
-        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-                    cb(true);
-                } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
-                    cb(false);
-                    return;
-                }
-            }
-        });
+        cb(true);
     }
 
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
-
         if (idLoginAccount.value.trim() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             cb(false);
             return;
-        } else if (idLoginPassword.value.trim() == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+        } else if (idLoginAccount.value.trim().length < 4) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最小為 4"));
             cb(false);
             return;
         }
-        else if (idLoginPassword.value.length > 12) {
+        else if (idLoginAccount.value.trim().length > 12) {
             window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
             cb(false);
             return;
         }
-     
-        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-                    idLoginAccount.setCustomValidity("");
-                    cb(true);
-                } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
-                    cb(false);
-                    return;
-                }
-            }
-        });
+        else if (idLoginPassword.value.trim() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+            cb(false);
+            return;
+        }
+
+
+        cb(true);
     }
 
     function CheckPassword() {
@@ -177,20 +161,39 @@
 
         CheckUserAccountExist(function (isCheck) {
             if (isCheck) {
+                p.CheckAccountExist(Math.uuid(), idLoginAccount.value.trim(), function (success, o) {
+                    if (success) {
+                        if (o.Result != 0) {
+                        } else {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
+                            return;
+                        }
+                    }
+                });
+
                 if (isSent == false) {
                     var form = document.getElementById("registerStep1");
                     CheckAccountPhoneExist(function (check) {
                         if (check) {
-                            p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。") ,function (success, o) {
+                            p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
                                 if (success) {
                                     if (o.Result != 0) {
-                                        window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
-                                    } else {
-                                        window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+                                        p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val().trim(), $("#idPhonePrefix").val().trim(), $("#idPhoneNumber").val().trim(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
+                                            if (success) {
+                                                if (o.Result != 0) {
+                                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                                                } else {
+                                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
 
-                                        startCountDown(120);
-                                        //$("#divSendValidateCodeBtn").hide();
-                                        $("#divStep1Btn").show();
+                                                    startCountDown(120);
+                                                    //$("#divSendValidateCodeBtn").hide();
+                                                    $("#divStep1Btn").show();
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                                        return;
                                     }
                                 }
                             });
@@ -201,7 +204,7 @@
                 } else {
                     window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
                 }
-            } 
+            }
         });
     }
 
@@ -222,34 +225,59 @@
                     return;
                 }
 
-                if (!CheckUserAccountExist()) {
-                    return;
-                }
-
-                CheckAccountPhoneExist(function (isCheck) {
+                CheckUserAccountExist(function (isCheck) {
                     if (isCheck) {
-                        var PhonePrefix = $("#idPhonePrefix").val();
-                        if (PhonePrefix.substring(0, 1) == "+") {
-                            PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
-                        }
-                        p.CheckValidateCode(Math.uuid(), 1, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
+                        p.CheckAccountExist(Math.uuid(), idLoginAccount.value.trim(), function (success, o) {
                             if (success) {
                                 if (o.Result != 0) {
-                                    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
-                                    return;
-                                } else {
-                                    document.getElementById("contentStep1").classList.add("is-hide");
-                                    document.getElementById("contentStep2").classList.remove("is-hide");
+                                    CheckAccountPhoneExist(function (isCheck2) {
+                                        if (isCheck2) {
+                                            p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
+                                                if (success) {
+                                                    if (o.Result != 0) {
+                                                        var PhonePrefix = $("#idPhonePrefix").val();
+                                                        if (PhonePrefix.substring(0, 1) == "+") {
+                                                            PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
+                                                        }
+                                                        p.CheckValidateCode(Math.uuid(), 1, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
+                                                            if (success) {
+                                                                if (o.Result != 0) {
+                                                                    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
+                                                                    return;
+                                                                } else {
+                                                                    document.getElementById("contentStep1").classList.add("is-hide");
+                                                                    document.getElementById("contentStep2").classList.remove("is-hide");
 
-                                    document.getElementById("progressStep1").classList.remove("cur");
-                                    document.getElementById("progressStep2").classList.add("cur");
+                                                                    document.getElementById("progressStep1").classList.remove("cur");
+                                                                    document.getElementById("progressStep2").classList.add("cur");
+                                                                }
+                                                            } else {
+                                                                window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
+                                                            }
+                                                        });
+                                                    } else {
+                                                        window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                                                        return;
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
+                                    return;
                                 }
-                            } else {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
                             }
                         });
+                    } else {
+                        return;
                     }
-                });
+
+                })
+
+
+
+
             }
         } else {
             window.parent.showMessageOK("", mlp.getLanguageKey("請先取得驗證碼"));

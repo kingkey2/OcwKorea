@@ -195,7 +195,7 @@
             cb(false);
             return;
         }
-       
+
 
         cb(true);
     }
@@ -265,7 +265,7 @@
                 }
             }
         });
-     
+
     }
 
 
@@ -327,10 +327,10 @@
                     } else {
                         return;
                     }
-                  
+
                 })
 
-              
+
             }
         } else {
             window.parent.showMessageOK("", mlp.getLanguageKey("請先取得驗證碼"));
