@@ -24,7 +24,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>BET 파라다이스</title>
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
@@ -506,9 +506,9 @@
         HotList = window.parent.API_GetGameList(1);
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
-            if (WebInfo.UserLogined) {
+            /*if (WebInfo.UserLogined) {
                 document.getElementById("idRegisterBonus").classList.add("is-hide");
-            }
+            }*/
 
 
             window.parent.API_LoadingEnd();
@@ -533,7 +533,7 @@
         setBulletinBoard();
     }
 
-    function setBulletinBoard() {
+    /*function setBulletinBoard() {
         var GUID = Math.uuid();
         p.GetBulletinBoard(GUID, function (success, o) {
             if (success) {
@@ -566,7 +566,7 @@
                 }
             }
         });
-    }
+    }*/
 
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
@@ -957,7 +957,7 @@
                     </section>--%>
 
                     <!-- 獎勵步驟 -->
-                    <section class="section-wrap register-list" id="idRegisterBonus">
+                    <section class="section-wrap register-list is-hide" id="idRegisterBonus">
                         <div class="sec-title-container">
                             <div class="sec-title-wrap">
                                 <h3 class="title language_replace">簡單三步驟拿獎勵</h3>
@@ -1324,7 +1324,7 @@
                                 </div>
                                 <div class="article-list">
                                     <ul class="article-list-inner">
-                                        <li class="article-item">
+                                        <!--li class="article-item">
                                             <a onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&A_jp.html', false)" class="content">
                                                 <h4 class="title language_replace">よくあるＱ＆Ａ集</h4>
                                                 <i class="icon-arrow-right"></i></a>
@@ -1338,10 +1338,10 @@
                                             <a onclick="window.parent.API_LoadPage('instructions-crypto', 'instructions-crypto.html', false)" class="content">
                                                 <h4 class="title language_replace">虛擬貨幣存款說明</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li-->
 
 
-                                        <%-- <li class="article-item">
+                                        <li class="article-item">
                                             <a onclick="openHotArticle('guide-03')" class="content">
                                                 <h4 class="title language_replace">百家樂攻略法 - 基礎規則篇</h4>
                                                 <i class="icon-arrow-right"></i></a>
@@ -1351,7 +1351,7 @@
                                                 <h4 class="title language_replace">百家樂攻略法 - 中級篇</h4>
                                                 <i class="icon-arrow-right"></i></a>
                                         </li>
-                                        <li class="article-item">
+                                        <%--li class="article-item">
                                             <a onclick="openHotArticle('guide-05')" class="content">
                                                 <h4 class="title language_replace">路單是? 百家樂的攻略 - 上級篇 1：珠盤路和大路</h4>
                                                 <i class="icon-arrow-right"></i></a>
@@ -1375,12 +1375,12 @@
                                             <a onclick="openHotArticle('guide-09')" class="content">
                                                 <h4 class="title language_replace">老虎機攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li>--%>
                                         <li class="article-item">
                                             <a onclick="openHotArticle('guide-10')" class="content">
                                                 <h4 class="title language_replace">德州撲克攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>--%>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -1388,7 +1388,7 @@
                         </section>
                     </aside>
                     <!-- 最新公告 -->
-                    <section class="section-wrap news">
+                    <section class="section-wrap news" style="display: none;">
                         <div class="sec-title-container">
                             <div class="sec-title-wrap">
                                 <h3 class="title ">

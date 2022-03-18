@@ -1092,12 +1092,8 @@
                 <div class="heading-sub-desc text-wrap">
                     <h5 class="mb-4 language_replace">歡迎來到 Maharaja！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
-                    <p>
-                        <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>
-                        <br>
-                        <span class="language_replace">另外還準備了很多的特典在等待您!</span>
-
-                    </p>
+                    <p class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</p>
+                    <p class="language_replace">另外還準備了很多的特典在等待您!</p>
                     <p class="language_replace">如果有任何不清楚的地方，歡迎您利用客服與我們聯絡。</p>
                 </div>
 
