@@ -1495,7 +1495,7 @@
         <header class="header-container">
             <div class="header-inner ">
                 <h1 class="header-logo" onclick="API_LoadPage('Home','Home.aspx')">
-                    <img src="images/assets/logo_maharaja.svg" alt="マハラジャ Casino Maharaja">
+                    <img src="images/assets/logo_maharaja.svg" alt="BET파라다이스">
                 </h1>
                 <div class="header-tool">
                     <div id="idMenuLogin" class="header-tool-item user is-hide">     
@@ -1547,7 +1547,7 @@
 
             <div class="header-inner GameHeader is-hide">
                 <h1 class="header-logo" onclick="API_LoadPage('Home','Home.aspx')">
-                    <img src="images/assets/logo_maharaja.svg" alt="マハラジャ">
+                    <img src="images/assets/logo_maharaja.svg" alt="BET파라다이스">
                 </h1>
                 <div class="header-gameName">
                     <div class="logo">
@@ -1555,6 +1555,7 @@
                             <img class="GameLogo" src="" alt=""></div>
                     </div>
                     <span class="GameName"></span>
+					<div class="gameClodeBtn btn btn-primary btn-sm" onclick="API_LoadPage('Home','Home.aspx')"><span class="language_replace">關閉遊戲</span></div>
                 </div>
                 <div class="header-tool" style="display: none;">
                 </div>
@@ -1835,7 +1836,7 @@
                     <p class="address">Sino Centre, 582-592 Nathan Rd., Mongkok, Kowloon, Hong Kong.</p>
                 </div>
                 <div class="footer-copyright">
-                    <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                    <p>Copyright © 2022 BET파라다이스. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>

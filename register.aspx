@@ -51,13 +51,14 @@
 
         let countInterval = setInterval(function () {
             let BtnSend = document.getElementById("divSendValidateCodeBtn");
-
+            $('#divSendValidateCodeBtn>button').attr('disabled', 'disabled');
             //min = parseInt(secondsRemaining / 60);
             //sec = parseInt(secondsRemaining % 60);
             BtnSend.querySelector("span").innerText = secondsRemaining + "s"
 
             secondsRemaining = secondsRemaining - 1;
             if (secondsRemaining < 0) {
+                $('#divSendValidateCodeBtn>button').removeAttr('disabled');
                 clearInterval(countInterval);
                 SetBtnSend();
             };
@@ -113,8 +114,9 @@
                 if (o.Result != 0) {
                     cb(true);
                 } else {
-                    cb(false);
                     window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                    cb(false);
+                    return;
                 }
             }
         });
@@ -124,13 +126,19 @@
         var idLoginAccount = document.getElementById("idLoginAccount");
 
 
-        if (idLoginAccount.value == "") {
+        if (idLoginAccount.value.trim() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             cb(false);
+            return;
+        } else if (idLoginPassword.value.trim() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+            cb(false);
+            return;
         }
         else if (idLoginPassword.value.length > 12) {
             window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
             cb(false);
+            return;
         }
      
         p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
@@ -141,6 +149,7 @@
                 } else {
                     window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
                     cb(false);
+                    return;
                 }
             }
         });
@@ -210,6 +219,10 @@
                 window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
             } else {
                 if (!CheckPassword()) {
+                    return;
+                }
+
+                if (!CheckUserAccountExist()) {
                     return;
                 }
 
@@ -951,12 +964,8 @@
                 <div class="heading-sub-desc text-wrap">
                     <h5 class="mb-4 language_replace">歡迎來到 BET 파라다이스</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
-                    <p>
-                        <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>
-                        <br>
-                        <span class="language_replace">另外還準備了很多的特典在等待您!</span>
-
-                    </p>
+                    <p class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</p>
+                    <p class="language_replace">另外還準備了很多的特典在等待您!</p>
                     <p class="language_replace">如果有任何不清楚的地方，歡迎您利用客服與我們聯絡。</p>
                 </div>
 

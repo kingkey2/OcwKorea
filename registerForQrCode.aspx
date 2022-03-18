@@ -90,13 +90,14 @@
 
         let countInterval = setInterval(function () {
             let BtnSend = document.getElementById("divSendValidateCodeBtn");
-
+            $('#divSendValidateCodeBtn>button').attr('disabled', 'disabled');
             //min = parseInt(secondsRemaining / 60);
             //sec = parseInt(secondsRemaining % 60);
             BtnSend.querySelector("span").innerText = secondsRemaining + "s"
 
             secondsRemaining = secondsRemaining - 1;
             if (secondsRemaining < 0) {
+                $('#divSendValidateCodeBtn>button').removeAttr('disabled');
                 clearInterval(countInterval);
                 SetBtnSend();
             };
@@ -132,9 +133,6 @@
 
         var idPhonePrefix = document.getElementById("idPhonePrefix");
         var idPhoneNumber = document.getElementById("idPhoneNumber");
-
-        idPhoneNumber.setCustomValidity("");
-        idPhonePrefix.setCustomValidity("");
 
         if (idPhonePrefix.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
@@ -173,26 +171,14 @@
             }
         }
 
-        p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
+        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
-                        if (success) {
-                            if (o.Result != 0) {
-                                cb(true);
-                            } else {
-                                cb(false);
-                                window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
-                            }
-                        }
-
-                    });
+                if (o.Result != 0) {
+                    cb(true);
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
-
-                    });
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
                     cb(false);
+                    return;
                 }
             }
         });
@@ -202,13 +188,19 @@
         var idLoginAccount = document.getElementById("idLoginAccount");
 
 
-        if (idLoginAccount.value == "") {
+        if (idLoginAccount.value.trim() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入帳號"));
             cb(false);
+            return;
+        } else if (idLoginPassword.value.trim() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+            cb(false);
+            return;
         }
         else if (idLoginPassword.value.length > 12) {
             window.parent.showMessageOK("", mlp.getLanguageKey("帳號長度最大為 12 "));
             cb(false);
+            return;
         }
 
         p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
@@ -219,6 +211,7 @@
                 } else {
                     window.parent.showMessageOK("", mlp.getLanguageKey("帳號已存在"));
                     cb(false);
+                    return;
                 }
             }
         });
@@ -245,27 +238,29 @@
     function onBtnSendValidateCode() {
 
         CheckUserAccountExist(function (isCheck) {
-            if (isSent == false) {
-                var form = document.getElementById("registerStep1");
-                CheckAccountPhoneExist(function (check) {
-                    if (check) {
-                        p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
-                            if (success) {
-                                if (o.Result != 0) {
-                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
-                                } else {
-                                    window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+            if (isCheck) {
+                if (isSent == false) {
+                    var form = document.getElementById("registerStep1");
+                    CheckAccountPhoneExist(function (check) {
+                        if (check) {
+                            p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
+                                if (success) {
+                                    if (o.Result != 0) {
+                                        window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                                    } else {
+                                        window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
 
-                                    startCountDown(120);
-                                    //$("#divSendValidateCodeBtn").hide();
-                                    $("#divStep1Btn").show();
+                                        startCountDown(120);
+                                        //$("#divSendValidateCodeBtn").hide();
+                                        $("#divStep1Btn").show();
+                                    }
                                 }
-                            }
-                        });
-                    }
-                });
-            } else {
-                window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+                            });
+                        }
+                    });
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+                }
             }
         });
      
@@ -283,7 +278,7 @@
                     return;
                 }
 
-                if (!CheckUserAccountExist()) {
+                if (!CheckUserAccountExist(function () { })) {
                     return;
                 }
 
@@ -395,7 +390,6 @@
     function init() {
 
         p = new LobbyAPI("/API/LobbyAPI.asmx");
-        lang="JPN"
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (pCode) {
@@ -487,14 +481,7 @@
         }
     }
 
-    function IsEmail(email) {
-        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (!regex.test(email)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+  
 
     function showMessage(title, message, cbOK, cbCancel) {
         if ($("#alertContact").attr("aria-hidden") == 'true') {
@@ -623,7 +610,7 @@
                         <div class="form-group">
                             <label class="form-title language_replace">帳號</label>
                             <div class="input-group">
-                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc@email.com" inputmode="email">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" placeholder="abc" inputmode="">
                                 <div class="invalid-feedback language_replace">請輸入正確帳號</div>
                             </div>
                         </div>
@@ -1080,12 +1067,8 @@
                 <div class="heading-sub-desc text-wrap">
                     <h5 class="mb-4 language_replace">歡迎來到 Maharaja！</h5>
                     <p class="language_replace">感謝您註冊我們的新會員，真正非常的感謝您 ！</p>
-                    <p>
-                        <span class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</span>
-                        <br>
-                        <span class="language_replace">另外還準備了很多的特典在等待您!</span>
-
-                    </p>
+                    <p class="language_replace">您現在可以馬上進入遊戲裡盡情的遊玩我們為您準備的優質遊戲。</p>
+                    <p class="language_replace">另外還準備了很多的特典在等待您!</p>
                     <p class="language_replace">如果有任何不清楚的地方，歡迎您利用客服與我們聯絡。</p>
                 </div>
 
