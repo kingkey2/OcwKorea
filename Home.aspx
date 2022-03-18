@@ -506,9 +506,9 @@
         HotList = window.parent.API_GetGameList(1);
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
-            if (WebInfo.UserLogined) {
+            /*if (WebInfo.UserLogined) {
                 document.getElementById("idRegisterBonus").classList.add("is-hide");
-            }
+            }*/
 
 
             window.parent.API_LoadingEnd();
@@ -957,7 +957,7 @@
                     </section>--%>
 
                     <!-- 獎勵步驟 -->
-                    <section class="section-wrap register-list" id="idRegisterBonus">
+                    <section class="section-wrap register-list is-hide" id="idRegisterBonus">
                         <div class="sec-title-container">
                             <div class="sec-title-wrap">
                                 <h3 class="title language_replace">簡單三步驟拿獎勵</h3>
