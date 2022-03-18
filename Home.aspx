@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-
     <link rel="stylesheet" href="css/games.css" type="text/css" />
     <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
 </head>
@@ -114,34 +113,35 @@
     var FavoGames;
 
     var FourGames = [
+      
+        {
+            GameName: "EWinGaming",
+            GameBrand: "EWin",
+            Description: "百鬼出來遊行囉，想要跟百鬼一起感受他們的慶典嗎?來玩這支遊戲就對了!目標是點滿四個燈籠!"
+        },
         {
             GameName: "Sport",
             GameBrand: "BTI",
             Description: "BTI擁有歐洲和亞洲風格的網站，並把亞洲投注産品本地化，使得他能全面覆蓋所有亞洲投注類型。提供60,000 項賽前的活動，和每月 18,000+ 項現場賽事。"
         },
         {
-            GameName: "119",
-            GameBrand: "PG",
-            Description: "百鬼出來遊行囉，想要跟百鬼一起感受他們的慶典嗎?來玩這支遊戲就對了!目標是點滿四個燈籠!"
-        },
-        {
-            GameName: "109",
+            GameName: "1",
             GameBrand: "PG",
             Description: "跟壽司師傅一起來體驗壽司之旅吧! 同時感受美食與遊戲 ♪搭配輕快BGM及畫面，特色的重新旋轉，贏取神秘符號和遞增式獎金倍數!"
         },
         {
-            GameName: "TaikoDrumMasterEX",
-            GameBrand: "CG",
+            GameName: "7",
+            GameBrand: "PG",
             Description: "日本で大人気の太鼓ゲームを主題になり、日本伝統な太鼓音楽を体験できるし、音楽と画面を結びつけて、とても日本風なゲームです！"
         },
         {
-            GameName: "83",
+            GameName: "126",
             GameBrand: "PG",
             Description: "当たると綺麗なお花火を打ち上げます！"
         },
         {
-            GameName: "TravelFrogEX",
-            GameBrand: "CG",
+            GameName: "vs20tweethouse",
+            GameBrand: "PP",
             Description:"大人気な携帯ゲーム、スロットに変身！"
         }
     ];
@@ -488,14 +488,21 @@
         gameInitByOther();
         changeMultImg();
     }
+   
+    
 
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
         }
+      
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
+
+        $('head').append(`<link href="/css/Home.${lang}.css" rel="stylesheet" id="HomeCss" />`);
+
         mlp = new multiLanguage(v);
 
         if (WebInfo.IsOpenGame) {
@@ -583,6 +590,9 @@
                     updateBaseInfo();
                 });
 
+                $('#HomeCss').remove();
+                $('head').append(`<link href="/css/Home.${lang}.css" rel="stylesheet" id="HomeCss" />`);
+
                 break;
         }
     }
@@ -635,6 +645,7 @@
 </script>
 <body>
     <div class="page-container">
+        <div id="testdiv" style="height:500px;width:500px;"></div>
         <!-- 輪播 banner -->
         <div class="hero-container">
             <div class="swiper-container hero-main" id="hero">

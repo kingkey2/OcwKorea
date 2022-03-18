@@ -1594,10 +1594,16 @@
                                 <span class="language_replace">首頁</span>
                             </a>
                         </li>
-                        <li>
+                          <li>
                             <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Live')">
                                 <i class="icon-casino"></i>
-                                <span class="language_replace">賭場</span>
+                                <span class="language_replace">真人</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Sports')">
+                                <i class="icon-casinoworld-football"></i>
+                                <span class="language_replace">體育</span>
                             </a>
                         </li>
                         <li>
