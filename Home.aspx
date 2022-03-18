@@ -645,7 +645,7 @@
 </script>
 <body>
     <div class="page-container">
-        <div id="testdiv" style="height:500px;width:500px;"></div>
+     
         <!-- 輪播 banner -->
         <div class="hero-container">
             <div class="swiper-container hero-main" id="hero">
