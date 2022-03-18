@@ -335,6 +335,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CheckAccountExistByContactPhoneNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistByContactPhoneNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistByContactPhoneNumberResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RequireRegister">
         <s:complexType>
           <s:sequence>
@@ -1122,6 +1139,12 @@
   <wsdl:message name="CheckAccountExistSoapOut">
     <wsdl:part name="parameters" element="tns:CheckAccountExistResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistByContactPhoneNumber" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistByContactPhoneNumberResponse" />
+  </wsdl:message>
   <wsdl:message name="RequireRegisterSoapIn">
     <wsdl:part name="parameters" element="tns:RequireRegister" />
   </wsdl:message>
@@ -1380,6 +1403,15 @@
     <wsdl:part name="LoginAccount" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PhonePrefix" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanySiteHttpGetIn">
@@ -1689,6 +1721,15 @@
   <wsdl:message name="CheckAccountExistHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PhonePrefix" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetCompanySiteHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -1907,6 +1948,10 @@
       <wsdl:input message="tns:CheckAccountExistSoapIn" />
       <wsdl:output message="tns:CheckAccountExistSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberSoapIn" />
+      <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RequireRegister">
       <wsdl:input message="tns:RequireRegisterSoapIn" />
       <wsdl:output message="tns:RequireRegisterSoapOut" />
@@ -2041,6 +2086,10 @@
       <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
       <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberHttpGetIn" />
+      <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <wsdl:input message="tns:GetCompanySiteHttpGetIn" />
       <wsdl:output message="tns:GetCompanySiteHttpGetOut" />
@@ -2166,6 +2215,10 @@
     <wsdl:operation name="CheckAccountExist">
       <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
       <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberHttpPostIn" />
+      <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <wsdl:input message="tns:GetCompanySiteHttpPostIn" />
@@ -2357,6 +2410,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <soap:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <soap:operation soapAction="http://tempuri.org/CheckAccountExistByContactPhoneNumber" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2664,6 +2726,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <soap12:operation soapAction="http://tempuri.org/CheckAccountExistByContactPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RequireRegister">
       <soap12:operation soapAction="http://tempuri.org/RequireRegister" style="document" />
       <wsdl:input>
@@ -2964,6 +3035,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <http:operation location="/CheckAccountExistByContactPhoneNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <http:operation location="/GetCompanySite" />
       <wsdl:input>
@@ -3239,6 +3319,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <http:operation location="/CheckAccountExist" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <http:operation location="/CheckAccountExistByContactPhoneNumber" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

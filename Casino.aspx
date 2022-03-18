@@ -301,6 +301,11 @@
         nowSubCateg = c.getParameter("SubCategory");
         lang = window.parent.API_GetLang();
 
+        if (WebInfo.IsOpenGame) {
+            WebInfo.IsOpenGame = false;
+            window.parent.SwitchGameHeader(0);
+        }
+
         if (nowCateg == undefined || nowCateg == "") {
             nowCateg = "All";
         }

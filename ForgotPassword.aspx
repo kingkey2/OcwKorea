@@ -54,54 +54,6 @@
         window.parent.API_LoadPage("Login", "Login.aspx");
     }
 
-    function SendMail() {
-        var GUID = Math.uuid();
-        var ValidateType = 0;
-        var idEMail = document.getElementById("idEMail");
-
-        if (idEMail.value == "") {
-            idEMail.setCustomValidity(mlp.getLanguageKey("請輸入信箱"));
-            idEMail.reportValidity();
-            return;
-        } else {
-            if (!IsEmail(idEMail.value)) {
-                idEMail.setCustomValidity(mlp.getLanguageKey("請填寫正確的E-MAIL格式"));
-                idEMail.reportValidity();
-                return;
-            } else {
-                idEMail.setCustomValidity("");
-            }
-        }
-
-
-        var ContactPhonePrefix = '';
-        var ContactPhoneNumber = '';
-
-        if (isSent)
-            return;
-
-        p.CheckAccountExist(GUID, idEMail.value, function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-                    idEMail.setCustomValidity(mlp.getLanguageKey("查無此信箱"));
-                    idEMail.reportValidity();
-                } else {
-                    p.SetUserMail(GUID, ValidateType, 1, idEMail.value, ContactPhonePrefix, ContactPhoneNumber, function (success, o) {
-                        if (success) {
-                            if (o.Result == 0) {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("已寄送認證碼"));
-                            } else {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("email發送失敗，請重新發送"));
-                            }
-                        } else {
-                            window.parent.showMessageOK("", mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                        }
-                    });
-                }
-            }
-        });
-    }
-
     function SendPhone() {
 
         if (isSent) {
@@ -140,37 +92,29 @@
             }
         }
 
-        p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
+
+        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
+                if (o.Result == 0) {
+                    p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
-
-                                p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
-                                    if (success) {
-                                        if (o.Result == 0) {
-                                            isSent = true;
-                                            startCountDown(120);
-                                            window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
-                                        } else {
-                                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
-                                        }
-                                    } else {
-                                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                                    }
-                                });
+                                isSent = true;
+                                startCountDown(120);
+                                window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已寄送認證碼"));
                             } else {
-                                window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話不存在"));
+                                window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("發送失敗，請重新發送"));
                             }
+                        } else {
+                            window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路錯誤") + ":" + mlp.getLanguageKey(o.Message));
                         }
                     });
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message));
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話不存在"));
                 }
             }
         });
+
     }
 
     function SetNewPassword(validCode, newPassword) {
@@ -350,7 +294,7 @@
                         <div class="form-group col-3">
                             <label class="form-title language_replace">國碼</label>
                             <div class="input-group">
-                                <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                <input name="PhonePrefix" id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+82" inputmode="decimal" value="+82">
                                 <div class="invalid-feedback language_replace">請輸入國碼</div>
                             </div>
                         </div>

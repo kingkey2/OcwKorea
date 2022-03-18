@@ -135,20 +135,20 @@
     function updateBaseInfo() {
 
         var RealName = document.getElementById("idRealName");
-        //var NickName = document.getElementById("idNickName");
         var Birthday = document.getElementById("idBirthday");
         var PersonCode = document.getElementById("idPersonCode");
         var Amount = document.getElementById("idAmount");
-        var CountryName = document.getElementById("idCountryName");
-        var PostalCode = document.getElementById("idPostalCode");
-        var Prefectures = document.getElementById("idPrefectures");
-        var Address = document.getElementById("idAddress");
         var Phone = document.getElementById("idPhone");
         var Email = document.getElementById("idEmail");
-
+        var LoginAccount = document.getElementById("idLoginAccount");
+        //暱稱
+        var RealName = document.getElementById("idRealName");
+        //姓名
+        var KYCRealName = document.getElementById("idKYCRealName");
+        KYCRealName.innerText=
         RealName.innerText = WebInfo.UserInfo.RealName;
-        //NickName.innerText = WebInfo.UserInfo.NickName == undefined ? "" : WebInfo.UserInfo.NickName;
-        Email.innerText = WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail;
+        LoginAccount.innerText = WebInfo.UserInfo.LoginAccount;
+
         Phone.innerText = WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber;
         Amount.innerText = new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat();
 
@@ -159,9 +159,9 @@
                     var Birthdays = ExtraData[i].Value.split('/');
                     Birthday.innerText = Birthdays[0] + "/" + Birthdays[1];
                 }
-                //if (ExtraData[i].Name == "CountryName") {
-                //    CountryName.innerText = ExtraData[i].Value;
-                //}
+                if (ExtraData[i].Name == "KYCRealName") {
+                    KYCRealName.innerText = ExtraData[i].Value;
+                }
             }
         }
         
@@ -566,8 +566,8 @@
                             <div class="box-item-inner tab">
                                 <i class="icon-user"></i>
                                 <div class="box-item-detail">
-                                    <div class="box-item-title sup language_replace">姓名</div>
-                                    <div id="idRealName" class="box-item-desc highlight"></div>
+                                    <div class="box-item-title sup language_replace">帳號</div>
+                                    <div id="idLoginAccount" class="box-item-desc highlight"></div>
                                 </div>
                                 <%-- <div class="box-item-detail">
                                     <div class="box-item-title sup language_replace">姓名</div>
@@ -580,34 +580,20 @@
                             <div class="box-item-inner panel ">
                                 <div class="form-content">
                                     <form>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">國家</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idCountryName"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">郵遞區號</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idPostalCode"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">都道縣府</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idPrefectures"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">地址</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idAddress"></div>
-                                            </div>
-                                        </div>
+                                      
+                                     
+                                       
                                         <div class="form-group info">
-                                            <label class="form-title language_replace">生日</label>
+                                            <label class="form-title language_replace">姓名</label>
                                             <div class="input-group">
-                                                <div class="form-data" id="idBirthday"></div>
+                                                <div class="form-data" id="idKYCRealName"></div>
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="form-group info">
+                                            <label class="form-title language_replace">暱稱</label>
+                                            <div class="input-group">
+                                                <div class="form-data" id="idRealName"></div>
                                             </div>
                                         </div>
                                         <div class="form-group info">
@@ -616,16 +602,7 @@
                                                 <div class="form-data" id="idPhone"></div>
                                             </div>
                                         </div>
-                                        <div class="form-group info">
-                                            <label class="form-title language_replace">信箱</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idEmail"></div>
-                                            </div>
-                                        </div>
-                                        <div class="text-wrap">
-                                            <p class="note primary text-s language_replace mt-2 mb-3">※會員資料若需要修改，請與客服聯繫。</p>
-                                        </div>
-
+                                    
                                         <div class="btn-container">
                                             <button type="button" class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span class="language_replace">取消</span></button>
                                         </div>
