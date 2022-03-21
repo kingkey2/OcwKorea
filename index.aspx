@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 
 <%
     if (EWinWeb.IsInMaintain()) {
@@ -62,7 +62,11 @@
             Lang = "KOR";
         } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "KOR";
-        } else if (userLang.ToUpper() == "ja".ToUpper()) {
+        } else if (userLang.ToUpper() == "vi".ToUpper()) {
+            Lang = "VIET";
+   		} else if (userLang.ToUpper() == "vi-VN".ToUpper()) {
+            Lang = "VIET";
+   		} else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
         } else { Lang = "KOR"; }
     } else {
@@ -1087,6 +1091,9 @@
             case "CHS":
                 LangText = "簡體中文";
                 break;
+			case "VIET":
+                LangText = "Tiếng Việt";
+                break;	
             default:
                 LangText = "한국어";
                 break;
@@ -1540,6 +1547,7 @@
                                 <li><a onclick="switchLang('ENG', true)">EN</a></li>
                                 <li><a onclick="switchLang('CHT', true)">繁體中文</a></li>
                                 <li><a onclick="switchLang('CHS', true)">簡體中文</a></li>
+								<li><a onclick="switchLang('VIET', true)">Tiếng Việt</a></li>
                             </ul>
                         </div>
                     </div>
@@ -1699,12 +1707,12 @@
                                 <span class="language_replace">錢包中心</span>
                             </a>
                         </li>
-                        <li style="">
+                        <!--li style="">
                             <a onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
                                 <i class="icon-service"></i>
                                 <span class="language_replace">Q&A</span>
                             </a>
-                        </li>
+                        </li-->
                     </ul>
 
                     <ul id="idLogoutItem" class="nav-group is-hide">
@@ -1823,7 +1831,10 @@
                     <li class="info-item ">
                         <a onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                     </li>
-                    <li class="info-item">
+					<li class="info-item ">
+                        <a onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">下載代理工具</span></a>
+                    </li>
+                    <!--li class="info-item">
                         <a onclick="window.parent.API_ShowContactUs()"><span class="language_replace">聯絡客服</span></a>
                     </li>
                     <li class="info-item ">
@@ -1834,7 +1845,7 @@
                     </li>
                     <li class="info-item ">
                         <a onclick="window.parent.API_OpenHotArticle()"><span class="language_replace">熱門文章</span></a>
-                    </li>
+                    </li-->
 
 
                 </ul>
