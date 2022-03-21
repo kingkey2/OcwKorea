@@ -134,8 +134,8 @@
             Description: "FourGamesDescription04"
         },
         {
-            GameName: "126",
-            GameBrand: "PG",
+            GameName: "vs576hokkwolf",
+            GameBrand: "PP",
             Description: "FourGamesDescription05"
         },
         {
