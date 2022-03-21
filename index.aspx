@@ -62,7 +62,11 @@
             Lang = "KOR";
         } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "KOR";
-        } else if (userLang.ToUpper() == "ja".ToUpper()) {
+        } else if (userLang.ToUpper() == "vi".ToUpper()) {
+            Lang = "VIET";
+   		} else if (userLang.ToUpper() == "vi-VN".ToUpper()) {
+            Lang = "VIET";
+   		} else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
         } else { Lang = "KOR"; }
     } else {
@@ -1087,6 +1091,9 @@
             case "CHS":
                 LangText = "簡體中文";
                 break;
+			case "VIET":
+                LangText = "Tiếng Việt";
+                break;	
             default:
                 LangText = "한국어";
                 break;
@@ -1540,6 +1547,7 @@
                                 <li><a onclick="switchLang('ENG', true)">EN</a></li>
                                 <li><a onclick="switchLang('CHT', true)">繁體中文</a></li>
                                 <li><a onclick="switchLang('CHS', true)">簡體中文</a></li>
+								<li><a onclick="switchLang('VIET', true)">Tiếng Việt</a></li>
                             </ul>
                         </div>
                     </div>
