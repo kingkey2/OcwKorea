@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 
 <%
     if (EWinWeb.IsInMaintain()) {
@@ -1699,12 +1699,12 @@
                                 <span class="language_replace">錢包中心</span>
                             </a>
                         </li>
-                        <li style="">
+                        <!--li style="">
                             <a onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
                                 <i class="icon-service"></i>
                                 <span class="language_replace">Q&A</span>
                             </a>
-                        </li>
+                        </li-->
                     </ul>
 
                     <ul id="idLogoutItem" class="nav-group is-hide">
@@ -1823,7 +1823,10 @@
                     <li class="info-item ">
                         <a onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                     </li>
-                    <li class="info-item">
+					<li class="info-item ">
+                        <a onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">下載代理工具</span></a>
+                    </li>
+                    <!--li class="info-item">
                         <a onclick="window.parent.API_ShowContactUs()"><span class="language_replace">聯絡客服</span></a>
                     </li>
                     <li class="info-item ">
@@ -1834,7 +1837,7 @@
                     </li>
                     <li class="info-item ">
                         <a onclick="window.parent.API_OpenHotArticle()"><span class="language_replace">熱門文章</span></a>
-                    </li>
+                    </li-->
 
 
                 </ul>
