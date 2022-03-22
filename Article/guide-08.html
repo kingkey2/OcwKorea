@@ -10,11 +10,11 @@
     <link rel='stylesheet' id='wp-block-library-css' href='CSS/StyleSheet.css' media='all' />
     <link rel='stylesheet' id='bootstrap-style-css' href='CSS/StyleSheet2.css' media='all' />
     <link rel="stylesheet" href="CSS/layout.css">
-<link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/global.css">
     <!--<script defer src='https://www.japanesecasino.com/wp-content/themes/sunrise2/js/components/loadMorePosts.js?ver=5.7.2' id='sunrise2-loadMorePosts-js'></script>-->
     <link rel="canonical" href="Guide.html" />
     <meta name="description"
-        content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
+          content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -32,16 +32,16 @@
         })(window, document, 'script', 'dataLayer', 'GTM-M38QK3D');
     </script>
     <link rel="icon"
-        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-32x32.png"
-        sizes="32x32" />
+          href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-32x32.png"
+          sizes="32x32" />
     <link rel="icon"
-        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png"
-        sizes="192x192" />
+          href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png"
+          sizes="192x192" />
     <link rel="apple-touch-icon"
-        href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
+          href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
     <meta name="msapplication-TileImage"
-        content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
-
+          content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
+    <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="module">
         /**
 * Script to toggle and enable search
@@ -74,8 +74,8 @@
             }
 
         })();        /**
-     * Script to show more elements
-     */
+         * Script to show more elements
+         */
         (function () {
 
             // Elements
@@ -139,8 +139,8 @@
             }
 
         })();                            /**
-     * Script for activating the sticky-element
-     */
+         * Script for activating the sticky-element
+         */
         (function () {
 
             // Elements
@@ -483,6 +483,9 @@
         id='bootstrap-script-js'></script>
     <script src='js/main.js'></script>
     <script>
+        var mlp;
+        var lang;
+
         function getCookie(name) {
             var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
             return v ? v[2] : null;
@@ -547,8 +550,13 @@
             if (window.parent != window.top) {
                 window.location.href = "index.aspx";
             }
-            window.parent.API_LoadingEnd();
+            lang = window.parent.API_GetLang();
+            mlp = new multiLanguage();
+            mlp.loadLanguage(lang, function () {
+                window.parent.API_LoadingEnd();
+            });
         }
+
 
         function EWinEventNotify(eventName, isDisplay, param) {
             switch (eventName) {
@@ -559,27 +567,13 @@
                 case "BalanceChange":
                     break;
                 case "SetLanguage":
-                    var orgin = getOrginPath();
+                    lang = param;
+                    mlp.loadLanguage(lang);
 
-                    switch (param) {
-                        case "JPN":
-                            orgin = orgin + "_jp";
-                            break;
-                        case "CHT":
-                            break;
-                        case "ENG":
-                            orgin = orgin + "_en";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    orgin = "Article/" + orgin + ".html";
-
-                    window.parent.API_LoadPage("Article", orgin);
                     break;
             }
         }
+
 
         window.onload = init;
     </script>

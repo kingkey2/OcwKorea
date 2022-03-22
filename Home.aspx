@@ -617,19 +617,6 @@
             orgin = "guides";
         }
 
-        switch (lang) {
-            case "JPN":
-                orgin = orgin + "_jp";
-                break;
-            case "CHT":
-                break;
-            case "ENG":
-                orgin = orgin + "_en";
-                break;
-            default:
-                break;
-        }
-
         orgin = "Article/" + orgin + ".html";
 
         window.parent.API_LoadPage("Article", orgin);
