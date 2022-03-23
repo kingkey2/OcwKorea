@@ -636,7 +636,7 @@
         <div class="hero-container">
             <div class="swiper-container hero-main" id="hero">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" style="background-image: linear-gradient(to right, #29040b 0%, #29040b 50%, #84000e 51%, #84000e 100%);">
+                    <div class="swiper-slide" style="background-image: linear-gradient(to right, #030003 0%, #030003 50%, #030003 51%, #030003 100%);">
                         <div class="hero-item">
                             <div class="img-wrap">
                                 <img src="images/games/hero/hero-09.jpg" class="desktop">
