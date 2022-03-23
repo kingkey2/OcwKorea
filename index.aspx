@@ -1388,19 +1388,6 @@
     function openHotArticle() {
         var orgin = "guides";
 
-        switch (EWinWebInfo.Lang) {
-            case "JPN":
-                orgin = orgin + "_jp";
-                break;
-            case "CHT":
-                break;
-            case "ENG":
-                orgin = orgin + "_en";
-                break;
-            default:
-                break;
-        }
-
         orgin = "Article/" + orgin + ".html";
 
         API_LoadPage("Article", orgin);

@@ -41,7 +41,7 @@
           href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
     <meta name="msapplication-TileImage"
           content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
-
+    <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="module">
         /**
 * Script to toggle and enable search
@@ -74,8 +74,8 @@
             }
 
         })();        /**
-         * Script to show more elements
-         */
+             * Script to show more elements
+             */
         (function () {
 
             // Elements
@@ -139,8 +139,8 @@
             }
 
         })();                            /**
-         * Script for activating the sticky-element
-         */
+             * Script for activating the sticky-element
+             */
         (function () {
 
             // Elements
@@ -481,11 +481,13 @@
             id='bootstrap-script-js'></script>
     <script src='js/main.js'></script>
     <script>
+        var mlp;
+        var lang;
+
         function getCookie(name) {
             var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
             return v ? v[2] : null;
         }
-
 
         if (getCookie('cookie_consent')) {
             // SCRIPT NAME: xtremepush
@@ -545,8 +547,15 @@
             if (window.parent != window.top) {
                 window.location.href = "index.aspx";
             }
-            window.parent.API_LoadingEnd();
+
+            lang = window.parent.API_GetLang();
+            mlp = new multiLanguage();
+            mlp.loadLanguage(lang, function () {
+                window.parent.API_LoadingEnd();
+            });
+
         }
+
 
         function EWinEventNotify(eventName, isDisplay, param) {
             switch (eventName) {
@@ -557,27 +566,13 @@
                 case "BalanceChange":
                     break;
                 case "SetLanguage":
-                    var orgin = getOrginPath();
+                    lang = param;
+                    mlp.loadLanguage(lang);
 
-                    switch (param) {
-                        case "JPN":
-                            orgin = orgin + "_jp";
-                            break;
-                        case "CHT":
-                            break;
-                        case "ENG":
-                            orgin = orgin + "_en";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    orgin = "Article/" + orgin + ".html";
-
-                    window.parent.API_LoadPage("Article", orgin);
                     break;
             }
         }
+
 
         window.onload = init;
     </script>
