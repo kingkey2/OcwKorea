@@ -29,11 +29,11 @@
     <link rel="icon" href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-180x180.png" />
     <meta name="msapplication-TileImage" content="https://www.japanesecasino.com/wp-content/uploads/cropped-japanesecasino.com-favicon-270x270.png" />
-   
+    <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="module">
         /**
 * Script to toggle and enable search
-*/
+*/ 
         (function () {
 
             document.addEventListener("DOMContentLoaded", init);
@@ -41,25 +41,7 @@
             /**
              * Initiate script
              */
-            function init() {
-
-                var search_toggler = document.getElementById("search_toggler");
-
-                if (!search_toggler) return;
-
-                search_toggler.addEventListener("click", function () {
-                    var icon = this.children[0];
-                    var form = document.getElementById('search_form');
-                    if (icon.classList.contains('fa-search')) {
-                        icon.classList.remove('fa-search'); icon.classList.add('fa-times');
-                        form.querySelector('.search-input-field').classList.add('show');
-                        setTimeout(function () { form.querySelector('.search-input-field').focus(); }, 10);
-                    } else {
-                        icon.classList.remove('fa-times'); icon.classList.add('fa-search');
-                        form.querySelector('.search-input-field').classList.remove('show');
-                    }
-                }, false);
-            }
+   
 
         })();        /**
      * Script to show more elements
@@ -366,7 +348,7 @@
     </div>
     <i class="fas fa-chevron-right txt-grey"></i>
 </a>
-<a href="guide-05.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
+<!--a href="guide-05.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
     <div class="px-2 pr-3 flex-fill overflow-hidden">
         <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">路單是? 百家樂的攻略 - 上級篇 1：珠盤路和大路</h3>                           
     </div>
@@ -389,7 +371,7 @@
         <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">路單是? 百家樂的攻略 - 上級篇 4：小強路</h3>                           
     </div>
     <i class="fas fa-chevron-right txt-grey"></i>
-</a>
+</a-->
 <a href="guide-09.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
     <div class="px-2 pr-3 flex-fill overflow-hidden">
         <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">老虎機攻略導覽</h3>                           
@@ -422,11 +404,13 @@
     <script defer src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js?ver=5.7.2' id='bootstrap-script-js'></script>
     <script src='js/main.js'></script> 
     <script>
+        var mlp;
+        var lang;
+
         function getCookie(name) {
             var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
             return v ? v[2] : null;
         }
-
 
         if (getCookie('cookie_consent')) {
             // SCRIPT NAME: xtremepush
@@ -466,7 +450,6 @@
             };
         }
 
-
         function getOrginPath() {
             var temp;
             temp = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
@@ -483,7 +466,31 @@
             if (window.parent != window.top) {
                 window.location.href = "index.aspx";
             }
-            window.parent.API_LoadingEnd();
+
+            lang = window.parent.API_GetLang();
+            mlp = new multiLanguage();
+            mlp.loadLanguage(lang, function () {
+                window.parent.API_LoadingEnd();
+            });
+
+            var search_toggler = document.getElementById("search_toggler");
+
+            if (!search_toggler) return;
+
+            search_toggler.addEventListener("click", function () {
+                var icon = this.children[0];
+                var form = document.getElementById('search_form');
+                if (icon.classList.contains('fa-search')) {
+                    icon.classList.remove('fa-search'); icon.classList.add('fa-times');
+                    form.querySelector('.search-input-field').classList.add('show');
+                    setTimeout(function () { form.querySelector('.search-input-field').focus(); }, 10);
+                } else {
+                    icon.classList.remove('fa-times'); icon.classList.add('fa-search');
+                    form.querySelector('.search-input-field').classList.remove('show');
+                }
+            }, false);
+
+            //window.parent.API_LoadingEnd();
         }
 
         function EWinEventNotify(eventName, isDisplay, param) {
@@ -495,24 +502,9 @@
                 case "BalanceChange":
                     break;
                 case "SetLanguage":
-                    var orgin = getOrginPath();
+                    lang = param;
+                    mlp.loadLanguage(lang);
 
-                    switch (param) {
-                        case "JPN":
-                            orgin = orgin + "_jp";
-                            break;
-                        case "CHT":
-                            break;
-                        case "ENG":
-                            orgin = orgin + "_en";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    orgin = "Article/" + orgin + ".html";
-
-                    window.parent.API_LoadPage("Article", orgin);
                     break;
             }
         }
