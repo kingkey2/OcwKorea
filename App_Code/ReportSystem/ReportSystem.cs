@@ -17,7 +17,7 @@ public static class ReportSystem
     /// 金流(第四方)存款
     /// </summary>
     public static class UserAccountPayment
-    {                
+    {
         public static string GetUserAccountPayment(DateTime QueryDate, string LoginAccount)
         {
             string Folder;
@@ -115,9 +115,10 @@ public static class ReportSystem
 
             string Content = "";
 
-            foreach (System.Data.DataRow DR in DT.Rows) {
+            foreach (System.Data.DataRow DR in DT.Rows)
+            {
                 dynamic o = new System.Dynamic.ExpandoObject();
-               
+
                 o.PaymentType = (int)DR["PaymentType"];
                 o.BasicType = (int)DR["EWinPaymentType"];
                 o.PaymentFlowType = (int)DR["FlowStatus"];
@@ -146,7 +147,7 @@ public static class ReportSystem
 
                 Content += Newtonsoft.Json.JsonConvert.SerializeObject(o) + "\r\n";
 
-              
+
             }
 
 
@@ -157,6 +158,66 @@ public static class ReportSystem
         }
     }
 
+    public class UserAccountEventBonusHistory
+    {
+        public static void CreateUserAccountEventBonusHistory(int EventBonusHistoryID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+            string Folder;
+            string Filename;
+
+            SS = "SELECT * " +
+                 "FROM UserAccountEventBonusHistory WITH (NOLOCK) " +
+                 "WHERE EventBonusHistoryID=@EventBonusHistoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@EventBonusHistoryID", System.Data.SqlDbType.Int).Value = EventBonusHistoryID;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            foreach (System.Data.DataRow DR in DT.Rows)
+            {
+                dynamic o = new System.Dynamic.ExpandoObject();
+                string Content;
+                o.EventBonusHistoryID = (int)DR["EventBonusHistoryID"];
+                o.LoginAccount = (string)DR["LoginAccount"];
+                o.RelationID = (string)DR["RelationID"];
+                o.EventType = (int)DR["EventType"];
+                o.ActivityName = (string)DR["ActivityName"];
+                o.ThresholdRate = (decimal)DR["ThresholdRate"];
+                o.ThresholdValue = (decimal)DR["ThresholdValue"];
+                o.BonusRate = (decimal)DR["BonusRate"];
+                o.BonusValue = (decimal)DR["BonusValue"];
+                o.CreateDate = ((DateTime)DR["CreateDate"]).ToString("yyyy/MM/dd HH:mm:ss");
+
+                Content = Newtonsoft.Json.JsonConvert.SerializeObject(o) + "\r\n";
+
+                Folder = PrepareReportFolder("/EventBonusHistory/" + ((DateTime)DR["CreateDate"]).ToString("yyyy-MM-dd") + "/ByLoginAccount");
+                Filename = Folder + "\\" + DR["LoginAccount"].ToString() + ".json";
+                AppendAllText(Filename, Content);
+
+            }
+        }
+
+        public static string GetUserAccountEventBonusHistory(DateTime QueryDate, string LoginAccount)
+        {
+            string Folder;
+            string Filename;
+            string RetValue = string.Empty;
+
+            Folder = GetReportFolder("/EventBonusHistory/" + QueryDate.ToString("yyyy-MM-dd") + "/ByLoginAccount");
+            Filename = Folder + "\\" + LoginAccount + ".json";
+
+            if (System.IO.File.Exists(Filename))
+            {
+                RetValue = ReadAllText(Filename);
+            }
+
+            return RetValue;
+        }
+    }
 
     private static string[] CheckAndGetJSONRecordByIDRange(string AllContent, string KeyField, long LimitValueBegin = -1, long LimitValueEnd = -1)
     {
@@ -164,49 +225,63 @@ public static class ReportSystem
         Dictionary<string, Newtonsoft.Json.Linq.JObject> ObjDict = new Dictionary<string, Newtonsoft.Json.Linq.JObject>();
         List<string> DestJSONList = new List<string>();
 
-        foreach (string EachJSON in AllContent.Split('\r', '\n')) {
-            if (string.IsNullOrEmpty(EachJSON) == false) {
+        foreach (string EachJSON in AllContent.Split('\r', '\n'))
+        {
+            if (string.IsNullOrEmpty(EachJSON) == false)
+            {
                 bool stringIsExist = false;
                 string tmpJSON = EachJSON.Replace("\r", "").Replace("\n", "");
                 Newtonsoft.Json.Linq.JObject o = null;
 
                 try { o = Newtonsoft.Json.Linq.JObject.Parse(tmpJSON); } catch (Exception ex) { }
 
-                if (o != null) {
+                if (o != null)
+                {
                     object KeyValue = EWinWeb.GetJValue(o, KeyField);
 
-                    if (KeyValue != null) {
+                    if (KeyValue != null)
+                    {
                         bool AllowProcess = false;
 
-                        if (LimitValueBegin != -1) {
+                        if (LimitValueBegin != -1)
+                        {
                             long v = 0;
 
-                            if (System.Int64.TryParse(Convert.ToString(KeyValue), out v)) {
+                            if (System.Int64.TryParse(Convert.ToString(KeyValue), out v))
+                            {
                                 if (v >= LimitValueBegin)
                                     AllowProcess = true;
                             }
-                        } else {
+                        }
+                        else
+                        {
                             AllowProcess = true;
                         }
 
-                        if (AllowProcess == true) {
-                            if (LimitValueEnd != -1) {
+                        if (AllowProcess == true)
+                        {
+                            if (LimitValueEnd != -1)
+                            {
                                 long v = 0;
 
-                                if (System.Int64.TryParse(Convert.ToString(KeyValue), out v)) {
+                                if (System.Int64.TryParse(Convert.ToString(KeyValue), out v))
+                                {
                                     if (v > LimitValueEnd)
                                         AllowProcess = false;
                                 }
                             }
                         }
 
-                        if (AllowProcess) {
-                            if (ObjDict.ContainsKey(Convert.ToString(KeyValue))) {
+                        if (AllowProcess)
+                        {
+                            if (ObjDict.ContainsKey(Convert.ToString(KeyValue)))
+                            {
                                 int objectIndex;
                                 Newtonsoft.Json.Linq.JObject old_o = ObjDict[Convert.ToString(KeyValue)];
 
                                 objectIndex = ObjList.IndexOf(old_o);
-                                if (objectIndex != -1) {
+                                if (objectIndex != -1)
+                                {
                                     ObjList[objectIndex] = o;
                                 }
 
@@ -214,7 +289,8 @@ public static class ReportSystem
                                 stringIsExist = true;
                             }
 
-                            if (stringIsExist == false) {
+                            if (stringIsExist == false)
+                            {
                                 ObjList.Add(o);
                                 ObjDict.Add(EWinWeb.GetJValue(o, KeyField), o);
                             }
@@ -224,7 +300,8 @@ public static class ReportSystem
             }
         }
 
-        foreach (Newtonsoft.Json.Linq.JObject o in ObjList.ToArray()) {
+        foreach (Newtonsoft.Json.Linq.JObject o in ObjList.ToArray())
+        {
             DestJSONList.Add(Newtonsoft.Json.JsonConvert.SerializeObject(o));
         }
 
@@ -237,24 +314,30 @@ public static class ReportSystem
         Dictionary<string, Newtonsoft.Json.Linq.JObject> ObjDict = new Dictionary<string, Newtonsoft.Json.Linq.JObject>();
         System.Text.StringBuilder DestJSON = new System.Text.StringBuilder();
 
-        foreach (string EachJSON in AllContent.Split('\r', '\n')) {
-            if (string.IsNullOrEmpty(EachJSON) == false) {
+        foreach (string EachJSON in AllContent.Split('\r', '\n'))
+        {
+            if (string.IsNullOrEmpty(EachJSON) == false)
+            {
                 bool stringIsExist = false;
                 string tmpJSON = EachJSON.Replace("\r", "").Replace("\n", "");
                 Newtonsoft.Json.Linq.JObject o = null;
 
                 try { o = Newtonsoft.Json.Linq.JObject.Parse(tmpJSON); } catch (Exception ex) { }
 
-                if (o != null) {
+                if (o != null)
+                {
                     object KeyValue = EWinWeb.GetJValue(o, KeyField);
 
-                    if (KeyValue != null) {
-                        if (ObjDict.ContainsKey(Convert.ToString(KeyValue))) {
+                    if (KeyValue != null)
+                    {
+                        if (ObjDict.ContainsKey(Convert.ToString(KeyValue)))
+                        {
                             int objectIndex;
                             Newtonsoft.Json.Linq.JObject old_o = ObjDict[Convert.ToString(KeyValue)];
 
                             objectIndex = ObjList.IndexOf(old_o);
-                            if (objectIndex != -1) {
+                            if (objectIndex != -1)
+                            {
                                 ObjList[objectIndex] = o;
                             }
 
@@ -263,7 +346,8 @@ public static class ReportSystem
                         }
                     }
 
-                    if (stringIsExist == false) {
+                    if (stringIsExist == false)
+                    {
                         ObjList.Add(o);
                         ObjDict.Add(EWinWeb.GetJValue(o, KeyField), o);
                     }
@@ -271,7 +355,8 @@ public static class ReportSystem
             }
         }
 
-        foreach (Newtonsoft.Json.Linq.JObject o in ObjList.ToArray()) {
+        foreach (Newtonsoft.Json.Linq.JObject o in ObjList.ToArray())
+        {
             DestJSON.Append(Newtonsoft.Json.JsonConvert.SerializeObject(o) + "\r\n");
         }
 
@@ -284,45 +369,62 @@ public static class ReportSystem
         System.Text.StringBuilder DestJSON = new System.Text.StringBuilder();
         bool newRecordIsAppend = false;
 
-        if (System.IO.File.Exists(Filename)) {
+        if (System.IO.File.Exists(Filename))
+        {
             AllContent = ReadAllText(Filename);
         }
 
-        if (string.IsNullOrEmpty(AllContent) == false) {
+        if (string.IsNullOrEmpty(AllContent) == false)
+        {
             Newtonsoft.Json.Linq.JObject new_o = null;
 
-            try {
+            try
+            {
                 new_o = Newtonsoft.Json.Linq.JObject.Parse(NewRecordJSON);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
             }
 
-            if (new_o != null) {
+            if (new_o != null)
+            {
                 object new_KeyValue = EWinWeb.GetJValue(new_o, KeyField);
 
-                foreach (string EachJSON in AllContent.Split('\r', '\n')) {
-                    if (string.IsNullOrEmpty(EachJSON) == false) {
+                foreach (string EachJSON in AllContent.Split('\r', '\n'))
+                {
+                    if (string.IsNullOrEmpty(EachJSON) == false)
+                    {
                         bool stringIsExist = false;
                         string tmpJSON = EachJSON.Replace("\r", "").Replace("\n", "");
                         Newtonsoft.Json.Linq.JObject src_o = null;
 
-                        try {
+                        try
+                        {
                             src_o = Newtonsoft.Json.Linq.JObject.Parse(tmpJSON);
-                        } catch (Exception ex) {
+                        }
+                        catch (Exception ex)
+                        {
                         }
 
-                        if (src_o != null) {
+                        if (src_o != null)
+                        {
                             object src_KeyValue = EWinWeb.GetJValue(src_o, KeyField);
 
-                            if (src_KeyValue != null) {
-                                if (Convert.ToString(src_KeyValue) == Convert.ToString(new_KeyValue)) {
+                            if (src_KeyValue != null)
+                            {
+                                if (Convert.ToString(src_KeyValue) == Convert.ToString(new_KeyValue))
+                                {
                                     stringIsExist = true;
                                 }
                             }
                         }
 
-                        if (stringIsExist == false) {
+                        if (stringIsExist == false)
+                        {
                             DestJSON.Append(tmpJSON + "\r\n");
-                        } else {
+                        }
+                        else
+                        {
                             DestJSON.Append(NewRecordJSON);
                             newRecordIsAppend = true;
                         }
@@ -343,15 +445,20 @@ public static class ReportSystem
         bool ReadSuccess = false;
         Exception throwEx = null;
 
-        for (var i = 0; i < 3; i++) {
-            lock (iSyncRoot) {
-                try {
+        for (var i = 0; i < 3; i++)
+        {
+            lock (iSyncRoot)
+            {
+                try
+                {
                     RetValue = System.IO.File.ReadAllText(Filename);
 
                     ReadSuccess = true;
                     throwEx = null;
                     break;
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     ReadSuccess = false;
                     throwEx = ex;
                 }
@@ -360,7 +467,8 @@ public static class ReportSystem
             System.Threading.Thread.Sleep(0);
         }
 
-        if (ReadSuccess == false) {
+        if (ReadSuccess == false)
+        {
             if (throwEx != null)
                 throw throwEx;
         }
@@ -373,9 +481,12 @@ public static class ReportSystem
         byte[] ContentArray = System.Text.Encoding.UTF8.GetBytes(Content);
         Exception throwEx = null;
 
-        for (var i = 0; i < 10; i++) {
-            lock (iSyncRoot) {
-                try {
+        for (var i = 0; i < 10; i++)
+        {
+            lock (iSyncRoot)
+            {
+                try
+                {
                     System.IO.File.AppendAllText(Filename, Content);
                     /*
                     System.IO.FileStream FS = System.IO.File.Open(Filename, System.IO.FileMode.Append, System.IO.FileAccess.ReadWrite, System.IO.FileShare.ReadWrite);
@@ -387,7 +498,9 @@ public static class ReportSystem
                     */
                     throwEx = null;
                     break;
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     throwEx = ex;
                 }
             }
@@ -404,13 +517,18 @@ public static class ReportSystem
         byte[] ContentArray = System.Text.Encoding.UTF8.GetBytes(Content);
         Exception throwEx = null;
 
-        for (var i = 0; i < 3; i++) {
-            lock (iSyncRoot) {
-                try {
+        for (var i = 0; i < 3; i++)
+        {
+            lock (iSyncRoot)
+            {
+                try
+                {
                     System.IO.File.WriteAllText(Filename, Content);
                     throwEx = null;
                     break;
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     throwEx = ex;
                 }
             }
@@ -426,9 +544,11 @@ public static class ReportSystem
     {
         string ReportFolder;
 
-        lock (iSyncRoot) {
+        lock (iSyncRoot)
+        {
             ReportFolder = GetReportFolder(C);
-            if (System.IO.Directory.Exists(ReportFolder) == false) {
+            if (System.IO.Directory.Exists(ReportFolder) == false)
+            {
                 try { System.IO.Directory.CreateDirectory(ReportFolder); } catch (Exception ex) { }
             }
         }
@@ -441,7 +561,7 @@ public static class ReportSystem
         string ReportFolder;
 
         ReportFolder = EWinWeb.SharedFolder + C.Replace('/', '\\');
-        
+
         return ReportFolder;
     }
 
@@ -455,7 +575,8 @@ public static class ReportSystem
         Folder = GetReportFolder("/GameOrderHistory/" + SummaryDate.ToString("yyyy-MM-dd") + "/ByUserAccountID/" + CompanyID.ToString());
         Filename = Folder + "\\" + UserAccountID.ToString() + ".json";
 
-        if (System.IO.File.Exists(Filename)) {
+        if (System.IO.File.Exists(Filename))
+        {
             RetValue = CheckAndGetJSONRecord(ReadAllText(Filename), "OrderHistoryID");
         }
 

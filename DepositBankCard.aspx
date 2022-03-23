@@ -2,6 +2,7 @@
 
 <%
     string Version = EWinWeb.Version;
+    string MainCurrencyType = EWinWeb.MainCurrencyType;
 %>
 <!DOCTYPE html>
 
@@ -39,12 +40,12 @@
     var PaymentClient;
     var ActivityNames = [];
     var ExpireSecond = 0;
-
+    var MainCurrencyType = "<%:MainCurrencyType%>";
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
         }
-
+        $('.MainCurrencyType').html(MainCurrencyType);
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         PaymentClient = window.parent.API_GetPaymentAPI();
@@ -454,7 +455,7 @@
                                             <label class="btn btn-outline-primary" for="amount1">
                                                 <span class="coinType gameCoin">
                                                     <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-title">Ocoin</span>
+                                                    <span class="coinType-title MainCurrencyType"></span>
                                                     <span class="coinType-amount OcoinAmount">10000</span>
                                                 </span>
                                             </label>
@@ -464,7 +465,7 @@
                                             <input type="radio" name="amount" id="amount2" />
                                             <label class="btn btn-outline-primary" for="amount2">
                                                 <span class="coinType gameCoin">
-                                                    <span class="coinType-name">Ocoin</span>
+                                                    <span class="coinType-name MainCurrencyType"></span>
                                                     <span class="coinType-amount OcoinAmount">20000</span>
                                                 </span>
                                             </label>
@@ -475,7 +476,7 @@
                                             <label class="btn btn-outline-primary" for="amount3">
                                                 <span class="coinType gameCoin">
                                                     <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-name">Ocoin</span>
+                                                    <span class="coinType-name MainCurrencyType"></span>
                                                     <span class="coinType-amount OcoinAmount">50000</span>
                                                 </span>
                                             </label>
@@ -488,7 +489,7 @@
                                     <label class="form-title language_replace">輸入金額</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="amount" language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
-                                        <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
+                                        <div class="form-notice-aside unit MainCurrencyType" id="OrderCurrencyType"></div>
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
@@ -501,7 +502,7 @@
                                         <%--<span class="inputlike-box "><span ></span></span>--%>
                                         <span class="inputlike-box-append">
                                             <span class="inputlike-box-append-title" id="ExchangeVal"></span>
-                                            <span class="inputlike-box-append-unit">JPY</span>
+                                            <span class="inputlike-box-append-unit MainCurrencyType"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -534,7 +535,7 @@
                                             <h5 class="name language_replace">存入金額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name PaymentCode">OCoin</span>
+                                            <span class="name PaymentCode MainCurrencyType"></span>
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
@@ -543,7 +544,7 @@
                                             <h5 class="name language_replace">活動獎勵</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">OCoin</span>
+                                            <span class="name MainCurrencyType"></span>
                                             <span class="count" id="idBonusValue">0</span>
                                         </div>
                                     </div>
@@ -552,7 +553,7 @@
                                             <h5 class="name language_replace">可得總額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">OCoin</span>
+                                            <span class="name MainCurrencyType"></span>
                                             <span class="count TotalAmount" id="idTotalReceiveValue"></span>
                                         </div>
                                     </div>

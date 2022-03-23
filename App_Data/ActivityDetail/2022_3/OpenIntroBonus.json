@@ -1,8 +1,8 @@
 {
   "Name": "OpenBonusDeposit",
   "State": 0,
-  "StartDate": "2022/02/20 00:00:00",
-  "EndDate": "2022/05/31 00:00:00",
+  "StartDate": "2022/01/20 00:00:00",
+  "EndDate": "2022/01/31 00:00:00",
   "Self": {
     "BonusValue": 500,
     "ThresholdValue": 10000

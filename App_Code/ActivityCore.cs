@@ -16,14 +16,16 @@ public static class ActivityCore
     //暫時未使用到
     public static DepositActivitiesInfoResult GetDepositInfo(decimal Amount, string PaymentCode, string LoginAccount)
     {
-        DepositActivitiesInfoResult R = new DepositActivitiesInfoResult() {
+        DepositActivitiesInfoResult R = new DepositActivitiesInfoResult()
+        {
             InfoDataList = new List<DepositActivityInfoData>()
         };
         JObject InProgressActivity;
 
         InProgressActivity = GetInProgressActivity();
 
-        foreach (var item in InProgressActivity["Deposit"]) {
+        foreach (var item in InProgressActivity["Deposit"])
+        {
             DepositActivityInfoData InfoResult;
             string DetailPath = null;
             string MethodName = null;
@@ -46,7 +48,7 @@ public static class ActivityCore
 
     public static DepositActivityResult GetDepositResult(string ActiviyName, decimal Amount, string PaymentCode, string LoginAccount)
     {
-        DepositActivityResult R = new DepositActivityResult() { Result = enumActResult.ERR };      
+        DepositActivityResult R = new DepositActivityResult() { Result = enumActResult.ERR };
         JObject InProgressActivity;
 
 
@@ -56,8 +58,10 @@ public static class ActivityCore
 
         InProgressActivity = GetInProgressActivity();
 
-        foreach (var item in InProgressActivity["Deposit"]) {
-            if (item["Name"].ToString().ToUpper() == ActiviyName.ToUpper()) {
+        foreach (var item in InProgressActivity["Deposit"])
+        {
+            if (item["Name"].ToString().ToUpper() == ActiviyName.ToUpper())
+            {
                 IsInProgress = true;
                 DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
                 MethodName = item["MethodName"].ToString();
@@ -65,17 +69,23 @@ public static class ActivityCore
             }
         }
 
-        if (IsInProgress) {
+        if (IsInProgress)
+        {
             var DR = (DepositActivityResult)(typeof(ActivityExpand.Deposit).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, Amount, PaymentCode, LoginAccount }));
 
-            if (DR.Result == enumActResult.OK) {
+            if (DR.Result == enumActResult.OK)
+            {
                 R.Result = enumActResult.OK;
                 R.Data = DR.Data;
                 R.Data.ActivityName = ActiviyName;
-            } else {
+            }
+            else
+            {
                 SetResultException(R, "GetActivityFailure,Msg=" + DR.Message);
             }
-        } else {
+        }
+        else
+        {
             SetResultException(R, "ActivityIsExpired");
         }
 
@@ -84,7 +94,8 @@ public static class ActivityCore
 
     public static DepositActivitiesResult GetDepositAllResult(decimal Amount, string PaymentCode, string LoginAccount)
     {
-        DepositActivitiesResult R = new DepositActivitiesResult() {
+        DepositActivitiesResult R = new DepositActivitiesResult()
+        {
             DataList = new List<DepositActivityData>()
         };
         JObject InProgressActivity;
@@ -93,14 +104,16 @@ public static class ActivityCore
         string DetailPath = null;
         string MethodName = null;
 
-        foreach (var item in InProgressActivity["Deposit"]) {
+        foreach (var item in InProgressActivity["Deposit"])
+        {
             DepositActivityResult DataReslut;
             DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
             MethodName = item["MethodName"].ToString();
 
             DataReslut = (DepositActivityResult)(typeof(ActivityExpand.Deposit).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, Amount, PaymentCode, LoginAccount }));
 
-            if (DataReslut.Result == enumActResult.OK) {
+            if (DataReslut.Result == enumActResult.OK)
+            {
                 DataReslut.Data.ActivityName = item["Name"].ToString();
                 R.DataList.Add(DataReslut.Data);
             }
@@ -114,8 +127,10 @@ public static class ActivityCore
 
     //上線獎勵(下線儲值完成，強制參加)
     //初期先LoginAccount(可能會有該LoginAccount貢獻等等)，高機率上下線資訊都需要，再以LoginAccount去撈取
-    public static IntroActivitiesResult GetAllParentBonusAfterDepositResult(string LoginAccount) {
-        IntroActivitiesResult R = new IntroActivitiesResult() {
+    public static IntroActivitiesResult GetAllParentBonusAfterDepositResult(string LoginAccount)
+    {
+        IntroActivitiesResult R = new IntroActivitiesResult()
+        {
             DataList = new List<IntroActivityData>()
         };
         JObject InProgressActivity;
@@ -124,7 +139,8 @@ public static class ActivityCore
         string DetailPath = null;
         string MethodName = null;
 
-        foreach (var item in InProgressActivity["ParentBonusAfterDeposit"]) {
+        foreach (var item in InProgressActivity["ParentBonusAfterDeposit"])
+        {
             IntroActivityResult DataReslut;
             DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
             MethodName = item["MethodName"].ToString();
@@ -132,7 +148,8 @@ public static class ActivityCore
             DataReslut = (IntroActivityResult)(typeof(ActivityExpand.ParentBonusAfterDeposit).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, LoginAccount }));
 
 
-            if (DataReslut.Result == enumActResult.OK) {
+            if (DataReslut.Result == enumActResult.OK)
+            {
                 DataReslut.Data.ActivityName = item["Name"].ToString();
                 R.DataList.Add(DataReslut.Data);
             }
@@ -151,12 +168,14 @@ public static class ActivityCore
 
         Filename = HttpContext.Current.Server.MapPath(BasicFile);
 
-        if (System.IO.File.Exists(Filename)) {
+        if (System.IO.File.Exists(Filename))
+        {
             string SettingContent;
 
             SettingContent = System.IO.File.ReadAllText(Filename);
 
-            if (string.IsNullOrEmpty(SettingContent) == false) {
+            if (string.IsNullOrEmpty(SettingContent) == false)
+            {
                 try { o = JObject.Parse(SettingContent); } catch (Exception ex) { }
             }
         }
@@ -166,7 +185,8 @@ public static class ActivityCore
 
     public static void SetResultException(ActResult R, string Msg)
     {
-        if (R != null) {
+        if (R != null)
+        {
             R.Result = enumActResult.ERR;
             R.Message = Msg;
         }
@@ -185,7 +205,8 @@ public static class ActivityCore
         ERR = 1
     }
 
-    public class ActivityData {
+    public class ActivityData
+    {
         public string ActivityName { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
@@ -193,6 +214,7 @@ public static class ActivityCore
         public decimal ThresholdValue { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
+        public int JoinCount { get; set; }
     }
 
     public class ActivityInfoData
@@ -224,9 +246,9 @@ public static class ActivityCore
     }
 
     public class DepositActivityData : ActivityData
-    {      
+    {
         public string PaymentCode { get; set; }
-        public decimal Amount { get; set; }           
+        public decimal Amount { get; set; }
     }
 
 

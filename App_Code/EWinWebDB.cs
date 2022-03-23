@@ -10,7 +10,8 @@ using System.Web.UI.WebControls;
 /// <summary>
 /// EWin 的摘要描述
 /// </summary>
-public static class EWinWebDB {
+public static class EWinWebDB
+{
     public static class UserAccountPayment
     {
         public enum FlowStatus
@@ -163,12 +164,15 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@ToInfo", System.Data.SqlDbType.NVarChar).Value = ToInfo;
             DBCmd.Parameters.Add("@PaymentSerial", System.Data.SqlDbType.VarChar).Value = PaymentSerial;
 
-            if (string.IsNullOrEmpty(ActivityData)) {
+            if (string.IsNullOrEmpty(ActivityData))
+            {
                 DBCmd.Parameters.Add("@ActivityData", System.Data.SqlDbType.VarChar).Value = "";
-            } else {
+            }
+            else
+            {
                 DBCmd.Parameters.Add("@ActivityData", System.Data.SqlDbType.VarChar).Value = ActivityData;
             }
-           
+
 
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
@@ -236,7 +240,8 @@ public static class EWinWebDB {
         /// <param name="LoginAccount"></param>
         /// <param name="PaymentType"></param>
         /// <returns></returns>
-        public static System.Data.DataTable GetTodayPaymentByLoginAccount(string LoginAccount, int PaymentType) {
+        public static System.Data.DataTable GetTodayPaymentByLoginAccount(string LoginAccount, int PaymentType)
+        {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -257,9 +262,54 @@ public static class EWinWebDB {
 
             return DT;
         }
+
+        public static System.Data.DataTable GetInProgressPaymentByLoginAccount(string LoginAccount, int PaymentType)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT *, convert(varchar,CreateDate,120) CreateDate1  " +
+                      " FROM   UserAccountPayment " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND FlowStatus = 1 " +
+                      "        AND PaymentType = @PaymentType ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@PaymentType", System.Data.SqlDbType.Int).Value = PaymentType;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetInProgressPaymentByLoginAccountPaymentMethodID(string LoginAccount, int PaymentType, int PaymentMethodID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT *, convert(varchar,CreateDate,120) CreateDate1  " +
+                      " FROM   UserAccountPayment " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND FlowStatus = 1 " +
+                      "        AND PaymentType = @PaymentType " +
+                      "        AND forPaymentMethodID = @PaymentMethodID ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@PaymentType", System.Data.SqlDbType.Int).Value = PaymentType;
+            DBCmd.Parameters.Add("@PaymentMethodID", System.Data.SqlDbType.Int).Value = PaymentMethodID;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
     }
 
-    public static class UserAccountTotalSummary{
+    public static class UserAccountTotalSummary
+    {
         public static int UpdateFingerPrint(string FingerPrints, string LoginAccount)
         {
             string SS;
@@ -313,14 +363,16 @@ public static class EWinWebDB {
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-     
+
             return DT;
         }
     }
 
-    public static class PaymentMethod {
+    public static class PaymentMethod
+    {
 
-        public static System.Data.DataTable GetPaymentMethod() {
+        public static System.Data.DataTable GetPaymentMethod()
+        {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -333,6 +385,167 @@ public static class EWinWebDB {
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
 
             return DT;
+        }
+    }
+
+    public static class UserAccountEventBonusHistory
+    {
+
+        public enum EventType
+        {
+            Deposit = 0,
+            Login = 1
+        }
+
+        public static int InsertEventBonusHistory(string LoginAccount, string ActivityName, string RelationID, decimal BonusRate, decimal BonusValue, decimal ThresholdRate, decimal ThresholdValue, EventType EventType)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int EventBonusHistoryID = 0;
+
+            SS = "INSERT INTO UserAccountEventBonusHistory (LoginAccount, BonusRate, BonusValue, ThresholdRate, ThresholdValue, ActivityName, RelationID, EventType) " +
+                 "                VALUES (@LoginAccount, @BonusRate, @BonusValue, @ThresholdRate, @ThresholdValue, @ActivityName, @RelationID, @EventType)" +
+                " SELECT @@IDENTITY";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@BonusRate", System.Data.SqlDbType.Decimal).Value = BonusRate;
+            DBCmd.Parameters.Add("@BonusValue", System.Data.SqlDbType.Decimal).Value = BonusValue;
+            DBCmd.Parameters.Add("@ThresholdRate", System.Data.SqlDbType.Decimal).Value = ThresholdRate;
+            DBCmd.Parameters.Add("@ThresholdValue", System.Data.SqlDbType.Decimal).Value = ThresholdValue;
+            DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
+            DBCmd.Parameters.Add("@RelationID", System.Data.SqlDbType.VarChar).Value = RelationID;
+            DBCmd.Parameters.Add("@EventType", System.Data.SqlDbType.Int).Value = EventType;
+
+            EventBonusHistoryID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+            return EventBonusHistoryID;
+        }
+
+    }
+
+    public static class UserAccountFingerprint
+    {
+        public static System.Data.DataTable GetUserAccountFingerprintByLoginAccount(string LoginAccount)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                      " FROM   UserAccountFingerprint " +
+                      " WHERE  LoginAccount = @LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static System.Data.DataTable GetUserAccountFingerprintByLoginAccountFingerprintID(string LoginAccount, string FingerprintID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT * " +
+                      " FROM   UserAccountFingerprint " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "     AND FingerprintID = @FingerprintID ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@FingerprintID", System.Data.SqlDbType.VarChar).Value = FingerprintID;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static int InsertUserAccountFingerprint(string LoginAccount, string FingerprintID, string UserAgent)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountFingerprint (LoginAccount, FingerprintID, UserAgent) " +
+                      " VALUES (@LoginAccount, @FingerprintID, @UserAgent) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@FingerprintID", System.Data.SqlDbType.VarChar).Value = FingerprintID;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@UserAgent", System.Data.SqlDbType.VarChar).Value = UserAgent;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+    }
+
+    public static class NotifyMsg
+    {
+        public static int InsertNotifyMsg(string Title, string NotifyContent, string URL)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int NotifyMsgID = 0;
+
+            SS = "INSERT INTO NotifyMsg (Title, NotifyContent, URL) " +
+                      "                VALUES (@Title, @NotifyContent, @URL) " +
+                      " SELECT @@IDENTITY";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@Title", System.Data.SqlDbType.NVarChar).Value = Title;
+            DBCmd.Parameters.Add("@NotifyContent", System.Data.SqlDbType.NVarChar).Value = NotifyContent;
+            DBCmd.Parameters.Add("@URL", System.Data.SqlDbType.VarChar).Value = URL;
+            NotifyMsgID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+
+            return NotifyMsgID;
+        }
+    }
+
+    public static class UserAccountNotifyMsg
+    {
+        public static int InsertUserAccountNotifyMsg(int NotifyMsgID, int MessageReadStatus, string LoginAccount)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " INSERT INTO UserAccountNotifyMsg (forNotifyMsgID, LoginAccount, MessageReadStatus) " +
+                                  " VALUES (@forNotifyMsgID, @LoginAccount, @MessageReadStatus) ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@forNotifyMsgID", System.Data.SqlDbType.Int).Value = NotifyMsgID;
+            DBCmd.Parameters.Add("@MessageReadStatus", System.Data.SqlDbType.Int).Value = MessageReadStatus;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
+        }
+
+        public static int UpdateUserAccountNotifyMsgStatus(int forNotifyMsgID, string LoginAccount, int MessageReadStatus)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountNotifyMsg WITH (ROWLOCK) SET MessageReadStatus=@MessageReadStatus " +
+                      " WHERE LoginAccount=@LoginAccount AND forNotifyMsgID=@forNotifyMsgID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@forNotifyMsgID", System.Data.SqlDbType.Int).Value = forNotifyMsgID;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@MessageReadStatus", System.Data.SqlDbType.Int).Value = MessageReadStatus;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            return RetValue;
         }
     }
 }

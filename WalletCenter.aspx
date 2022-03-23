@@ -140,7 +140,7 @@
                                 <div class="item balance-amount">
                                     <div class="title language_replace">錢包餘額</div>
                                     <div class="data">
-                                        <span class="coinType" >OCoin</span>
+                                        <span class="coinType" ></span>
                                         <span id="idPointValue" class="coinAmount"> 9,999.265</span>
                                     </div>
                                 </div>                             

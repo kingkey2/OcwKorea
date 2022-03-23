@@ -1,8 +1,17 @@
 ﻿<%@ Page Language="C#" %>
 
 <%
-    string PCode = Request["PCode"];
+
     string Version = EWinWeb.Version;
+     string PersonCode;//直客線PersonCode
+
+      if (EWinWeb.IsTestSite) {
+        // 測試機
+        PersonCode = "S93615797299145";
+    } else {
+        // 正式機
+        PersonCode = "S93615797299145";
+    }
 %>
 <!doctype html>
 <html>
@@ -30,7 +39,6 @@
         window.parent.API_LoadingStart();
     }
     var c = new common();
-    var pCode = "<%=PCode%>";
     var WebInfo;
     var p;
     var mlp;
@@ -38,7 +46,7 @@
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v ="<%:Version%>";
     var isSent = false;
-
+    var PersonCode = "<%:PersonCode%>";
     function BackHome() {
         window.parent.API_Home();
     }
@@ -381,6 +389,7 @@
             window.location.href = "index.aspx";
         }
 
+        $('.PersonCode').val(PersonCode);
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
@@ -949,10 +958,10 @@
 
 
 
-                        <div class="form-group">
+                        <div class="form-group is-hide">
                             <label class="form-title language_replace">推廣碼</label>
                             <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
+                                <input type="text" class="form-control custom-style PersonCode" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
                             </div>
                         </div>
 

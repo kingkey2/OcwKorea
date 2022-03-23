@@ -43,21 +43,21 @@
             window.location.href = "index.aspx";
         }
 
-        lang = window.parent.API_GetLang();
+        //lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
-            if (IsOpenTime == "N") {
-                window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
-                    window.parent.API_Reload();
-                });
-            } else {
-                if (IsWithdrawlTemporaryMaintenance == "Y") {
-                    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
-                        window.parent.API_Reload();
-                    });
-                }
-            }
+            //if (IsOpenTime == "N") {
+            //    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
+            //        window.parent.API_Reload();
+            //    });
+            //} else {
+            //    if (IsWithdrawlTemporaryMaintenance == "Y") {
+            //        window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
+            //            window.parent.API_Reload();
+            //        });
+            //    }
+            //}
         }, "PaymentAPI");
     }
 
