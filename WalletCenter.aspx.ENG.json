@@ -1,0 +1,20 @@
+{
+ "全部": "All",
+ "完成": "Completed",
+ "進行中": "On-going",
+ "取消": "Cancel",
+ "提示": "System Message",
+ "沒有資料": "No data.",
+ "取得資料失敗": "Failed to get data.",
+ "日期": "Date",
+ "類型": "Type",
+ "金額": "Amount",
+ "已經是最新月份了!": "Already the latest month!",
+ "已完成":"Completed"
+ "存款日期": "Deposit Date",
+ "存款時間": "Deposit Time",
+ "存款管道": "Deposit Channel"
+ "交易訂單": "Order",
+ "輸入金額": "Amount",
+ "交易金額": "Transaction Amount",
+}

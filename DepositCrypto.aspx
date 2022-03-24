@@ -64,7 +64,7 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
-        },"PaymentAPI");
+        }, "PaymentAPI");
 
         GetPaymentMethod();
         startCountDown();
@@ -88,12 +88,30 @@
         //    return this;
         //}
 
-        //window.setInterval(function () {
-
-
-        //}, 30000);
+        window.setInterval(function () {
+            watchScroll();
+        }, 1000);
     }
 
+    function detectionAltitude() {
+        let scrollHeight = window.pageYOffset;
+
+        if (scrollHeight > 60) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function watchScroll() {
+        if (detectionAltitude()) {
+            $(".aside-panel").eq(0).addClass("sm-fixed");
+            return;
+        } else {
+            $(".aside-panel").eq(0).removeClass("sm-fixed");
+            return;
+        }
+    }
 
     function startCountDown() {
         let secondsRemaining = 30;
@@ -156,7 +174,7 @@
     }
 
     function copyTextPaymentSerial(tag) {
-      
+
         var copyText = $(tag).parent().find('.inputPaymentSerial')[0];
 
         copyText.select();
@@ -200,19 +218,19 @@
                     } else {
                         window.parent.API_LoadingEnd();
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-                         
+
                         });
                     }
                 } else {
                     window.parent.API_LoadingEnd();
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-                     
+
                     });
                 }
             }
             else {
                 window.parent.API_LoadingEnd();
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"),mlp.getLanguageKey(o.Message), function () {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                 });
             }
@@ -470,7 +488,7 @@
     function FormatNumber(x) {
         return new BigNumber(x).toFormat();
     }
-
+    var fff;
     //建立訂單
     function CreateCryptoDeposit() {
         if ($("#amount").val() != '') {
@@ -480,32 +498,62 @@
 
             if (selePaymentMethodID) {
                 var paymentID = selePaymentMethodID;
-                PaymentClient.CreateCryptoDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, function (success, o) {
-                    if (success) {
-                        let data = o.Data;
-                   
-                        if (o.Result == 0) {
-                            $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
-                            $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
-                            $("#depositdetail .OrderNumber").text(data.OrderNumber); 
-                            $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                            $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
-                            ExpireSecond = data.ExpireSecond;
-                            if (data.PaymentCryptoDetailList != null) {
-                                var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                                for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
 
-                                    var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                                    CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
-                                    c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
-                                    c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
-                                    depositdetail.appendChild(CollectionitemDom);
-                                }
+                PaymentClient.GetInProgressPaymentByLoginAccountPaymentMethodID(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 0, paymentID, function (success, o) {
+                    if (success) {
+                        let UserAccountPayments = o.UserAccountPayments;
+                        if (o.Result == 0) {
+                            if (UserAccountPayments.length > 0) {
+
+                                fff = o.UserAccountPayments[0];
+                                showProgressOrder(o.UserAccountPayments[0]);
+
+                                window.parent.API_LoadingEnd();
+                                //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("一個支付方式，只能有一筆進行中之訂單"), function () {
+
+                                //});
+                            } else {
+                                PaymentClient.CreateCryptoDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, function (success, o) {
+                                    if (success) {
+                                        let data = o.Data;
+
+                                        if (o.Result == 0) {
+                                            $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
+                                            $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
+                                            $("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                            $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
+                                            $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                                            ExpireSecond = data.ExpireSecond;
+                                            if (data.PaymentCryptoDetailList != null) {
+                                                var depositdetail = document.getElementsByClassName("Collectionitem")[0];
+                                                for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
+
+                                                    var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                                    CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
+                                                    c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
+                                                    c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
+                                                    depositdetail.appendChild(CollectionitemDom);
+                                                }
+                                            }
+                                            OrderNumber = data.OrderNumber;
+                                            GetDepositActivityInfoByOrderNumber(OrderNumber);
+                                        } else {
+                                            window.parent.API_LoadingEnd();
+                                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                                            });
+                                        }
+
+                                    }
+                                    else {
+                                        window.parent.API_LoadingEnd(1);
+                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
+
+                                        });
+                                    }
+                                })
                             }
-                            OrderNumber = data.OrderNumber;
-                            GetDepositActivityInfoByOrderNumber(OrderNumber);
                         } else {
-                            window.parent.API_LoadingEnd();
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                             });
@@ -513,12 +561,12 @@
 
                     }
                     else {
-                        window.parent.API_LoadingEnd(1);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                         });
                     }
                 })
+
             } else {
                 window.parent.API_LoadingEnd(1);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請選擇加密貨幣"))
@@ -570,7 +618,7 @@
                     }
                     setEthWalletAddress(k.WalletPublicAddress);
                     $(".OrderNumber").text(k.PaymentSerial);
-                     $("#depositdetail .inputPaymentSerial").val(k.PaymentSerial);
+                    $("#depositdetail .inputPaymentSerial").val(k.PaymentSerial);
                     $(".OrderNumber").parent().show();
                     setExpireSecond();
                     let Step3 = $('button[data-deposite="step3"]');
@@ -643,6 +691,76 @@
 
     function supplement(nn) {
         return nn = nn < 10 ? '0' + nn : nn;
+    }
+
+    function showProgressOrder(data) {
+        let divMessageBox = document.getElementById("divProgressOrder");
+        let divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
+        let divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
+        let divMessageBoxCloseButton1 = divMessageBox.querySelector(".close");
+        let divMessageBoxPaymentSerial = divMessageBox.querySelector(".PaymentSerial");
+        let divMessageBoxExpireSecond = divMessageBox.querySelector(".ExpireSecond");
+        let divMessageBoxAmount = divMessageBox.querySelector(".Amount");
+        let divMessageBoxBonusValue = divMessageBox.querySelector(".BonusValue");
+        let divMessageBoxTotalAmount = divMessageBox.querySelector(".TotalAmount");
+        let divMessageBoxcryptocontent = divMessageBox.querySelector(".crypto-content");
+
+        let modal = new bootstrap.Modal(divMessageBox);
+
+        if (divMessageBox != null) {
+            if (divMessageBoxCloseButton != null) {
+                divMessageBoxCloseButton.onclick = function () {
+                    modal.hide();
+                }
+            }
+            if (divMessageBoxCloseButton1 != null) {
+                divMessageBoxCloseButton1.onclick = function () {
+                    modal.hide();
+                }
+            }
+            if (divMessageBoxOKButton != null) {
+                divMessageBoxOKButton.onclick = function () {
+                    modal.hide();
+                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + data.PaymentSerial, true);
+                }
+            }
+
+            divMessageBoxPaymentSerial.innerHTML = data.PaymentSerial;
+            divMessageBoxAmount.innerHTML = FormatNumber(data.Amount);
+
+            if (data.ActivityData != "") {
+                let JsonActivityData = JSON.parse(data.ActivityData);
+                let bonusVal = 0;
+                if (JsonActivityData&&JsonActivityData.length > 0) {
+                    for (var i = 0; i < JsonActivityData.length; i++) {
+                        bonusVal += JsonActivityData[i].BonusValue;
+                    }
+
+                    divMessageBoxBonusValue.innerHTML = FormatNumber(bonusVal).toString();
+                    divMessageBoxTotalAmount.innerHTML = FormatNumber(data.Amount + bonusVal).toString();
+
+                }
+            }
+
+            if (data.DetailData != "") {
+                let JsonDetailData = JSON.parse(data.DetailData);
+                for (var i = 0; i < JsonDetailData.length; i++) {
+
+                    var CollectionitemDom = c.getTemplate("templateProgressOrderCurrency");
+                    CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + JsonDetailData[i]["TokenCurrencyType"].toLowerCase());
+                    c.setClassText(CollectionitemDom, "name", null, JsonDetailData[i]["TokenCurrencyType"]);
+                    c.setClassText(CollectionitemDom, "count", null, new BigNumber(JsonDetailData[i]["ReceiveAmount"]).toFormat());
+                    divMessageBoxcryptocontent.appendChild(CollectionitemDom);
+                }
+            }
+
+            let nowDate = new Date(data.CreateDate1);
+            nowDate.addSeconds(data.ExpireSecond);
+            nowDate.addHours(1);
+            divMessageBoxExpireSecond.innerHTML = format(nowDate, "/");
+
+            modal.toggle();
+        }
     }
 
     window.onload = init;
@@ -953,7 +1071,7 @@
                                     <div class="rate">
                                         <p class="crypto RateOutCurrency"><span class="amount">1</span><span class="unit">USDT</span></p>
                                         <span class="sym">=</span>
-                                        <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit MainCurrencyType"></span></p>
+                                        <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit MainCurrencyType">Ocoin</span></p>
                                     </div>
                                     <div class="refresh" style="display: none;">
                                         <p class="period"><span class="date"></span><span class="time" style="display: none">15:30:02</span></p>
@@ -1016,7 +1134,7 @@
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
                                         <input class="inputPaymentSerial is-hide" />
-                                        <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     
+                                        <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
@@ -1091,6 +1209,85 @@
         </div>
     </div>
 
+    <!-- Modal 已存在 "進行中訂單" 提醒-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" id="divProgressOrder">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom align-items-center">
+                    <i class="icon-info_circle_outline"></i>
+                    <h5 class="modal-title language_replace ml-1">已存在進行中訂單</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="deposit-list processing">
+                            <ul class="deposit-detail">
+                                <li class="item">
+                                    <h6 class="title language_replace">訂單號碼</h6>
+                                    <span class="data PaymentSerial"></span>
+                                </li>
+                                <li class="item">
+                                    <h6 class="title language_replace">交易限制時間</h6>
+                                    <span class="data text-primary ExpireSecond"></span>
+                                </li>
+                            </ul>
+                            <div class="deposit-total">
+                                <div class="item crypto-list">
+                                    <div class="title">
+                                        <h6 class="name language_replace">收款項目</h6>
+                                    </div>
+                                    <div class="data">
+                                        <div class="crypto-content">
+                                              
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item ">
+                                    <div class="title">
+                                        <h6 class="name language_replace">存款金額</h6>
+                                    </div>
+                                    <div class="data">
+                                        <span class="count Amount"></span>
+                                        <span class="name coin">
+                                            <img src="images/assets/coin-Ocoin.png" alt=""></span>
+                                    </div>
+                                </div>
+                                <div class="item ">
+                                    <div class="title">
+                                        <h6 class="name language_replace">活動獎勵</h6>
+                                    </div>
+                                    <div class="data">
+                                        <span class="count BonusValue"></span>
+                                        <span class="name coin">
+                                            <img src="images/assets/coin-Ocoin.png" alt=""></span>
+                                    </div>
+                                </div>
+                                <div class="item total">
+                                    <div class="title">
+                                        <h6 class="name language_replace">可得總額</h6>
+                                    </div>
+                                    <div class="data">
+                                        <span class="count TotalAmount"></span>
+                                        <span class="name coin">
+                                            <img src="images/assets/coin-Ocoin.png" alt=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">查看進行中訂單</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal 有溫馨提醒-->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="depositSucc" aria-hidden="true" id="depositSucc">
@@ -1146,6 +1343,17 @@
             <span class="data val"></span>
         </li>
     </div>
+
+    <div id="templateProgressOrderCurrency" style="display: none">
+        <div class="item">
+            <div class="title">
+                <i class="icon-logo round"></i>
+                <h6 class="name"></h6>
+            </div>
+            <span class="count"></span>
+        </div>
+    </div>
+
 
     <div id="templatePaymentMethod" style="display: none">
         <div class="box-item">

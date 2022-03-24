@@ -7,9 +7,9 @@
     if (CodingControl.FormSubmit()) {
         string PostBody = String.Empty;
         PaymentCallbackInfo BodyObj = new PaymentCallbackInfo();
-        string Path = "C:\\inetpub\\Dev\\OnlineCasinoWorld-JP\\Files\\EWinCallBack";
+        string Path = "C:\\inetpub\\Dev\\Casino3651\\Files\\EWinCallBack";
 
-        using (System.IO.StreamReader reader = new System.IO.StreamReader(Request.InputStream)) {
+         using (System.IO.StreamReader reader = new System.IO.StreamReader(Request.InputStream)) {
             PostBody = reader.ReadToEnd();
         };
 
@@ -60,7 +60,11 @@
                                             addThresholdResult = lobbyAPI.AddThreshold(GetToken(), System.Guid.NewGuid().ToString(), transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, activityData.ThresholdValue, description, false);
 
                                             if (addThresholdResult.Result == EWin.Lobby.enumResult.OK) {
-
+                                                //新增領取紀錄
+                                                var EventBonusHistoryID = EWinWebDB.UserAccountEventBonusHistory.InsertEventBonusHistory(BodyObj.LoginAccount, activityData.ActivityName, BodyObj.ClientOrderNumber, activityData.BonusRate, activityData.BonusValue, activityData.ThresholdRate, activityData.ThresholdValue, EWinWebDB.UserAccountEventBonusHistory.EventType.Deposit);
+                                                if (EventBonusHistoryID != 0) {
+                                                    ReportSystem.UserAccountEventBonusHistory.CreateUserAccountEventBonusHistory(EventBonusHistoryID);
+                                                }
                                             } else {
                                                 if (addThresholdResult.Message != "-2") {
                                                     TotalErrorMsg += "ActivityName=" + activityData.ActivityName + " AddThresholdError Msg=" + addThresholdResult.Message + ",";

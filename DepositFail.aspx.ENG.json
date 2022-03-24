@@ -1,0 +1,17 @@
+﻿{
+  "存款": "Deposit",
+  "完成": "Finish",
+  "存款失敗": "Deposit failed",
+  "本次存款並未完成!": "This deposit has not been completed!",
+  "交易失敗提示：": "Transaction failed notification：",
+  "信用卡或PayPal：": "Credit card or PayPal：",
+  "銀行的檢核過程可能遇到問題，可嘗試重新進行交易。": "There was a problem with the bank's review process, please try the transaction again.",
+  "網路異常或不穩定。": "The network is abnormal, please try again later.",
+  "更換別張卡片。": "Please change to another credit card.",
+  "虛擬貨幣：": "Virtual currency",
+  "交易所的錢包餘額不足。": "Insufficient balance.",
+  "交易時間": "Transaction time",
+  "訂單編號": "Booking NO.",
+  "金額": "Amount",
+  "建議您在網路環境良好的場所進行存款動作，以利交易順利進行。": "It is recommended that you make deposits in a place with a good network environment to facilitate the smooth transaction."
+}

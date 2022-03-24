@@ -4,5 +4,8 @@
   "登入復原中": "Sign in recovery",
   "登入已過期, 請重新登入": "Login exception, please login again.",
   "重新連線中...": "Reconnecting...",
-  "服務器連線中斷": "Server connection lost."
+  "服務器連線中斷": "Server connection lost.",
+  "說點甚麼...": "Enter",
+  "說點甚麼": "Enter",
+  "登出客服系統中": "Log out of the customer service system."
 }

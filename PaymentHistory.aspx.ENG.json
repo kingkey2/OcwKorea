@@ -1,0 +1,18 @@
+{
+"存取款紀錄":"Deposit/Withdrawal Records",
+"全部":"All",
+"存款":"Deposit",
+"取款":"Withdrawal",
+"日期":"Date",
+"支付方式":"Payment Method",
+"金額":"Amount",
+"狀態":"Status",
+"注意":"Notice",
+"主動取消、審核拒絕訂單，如有疑問請與客服聯繫。":"If you have any questions about voluntary cancellation or rejection of your order, please contact customer service.",
+"成功":"Success",
+"未成功":"Failed",
+"確定":"OK",
+"提示": "System Message",
+"沒有資料": "No data.",
+"取得資料失敗": "Failed to get data."
+}

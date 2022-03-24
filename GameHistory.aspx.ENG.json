@@ -1,0 +1,23 @@
+﻿{
+  "提示": "System Message",
+  "沒有資料": "There is no current data.",
+  "取得資料失敗": "Failed to obtain data, please try again later.",
+  "遊戲紀錄": "Record",
+  "日期": "Date",
+  "遊戲": "Game",
+  "輸贏": "Win/Loss",
+  "期間輸贏 Total": "Total Win/Loss",
+  "此遊戲紀錄僅列出各遊戲的當日總和，若您需要查詢各遊戲的詳細記錄，請於各遊戲中的遊戲紀錄進行查詢。": "The record only lists the daily total number. If you need to check the detailed records of each game, please check it on each game platform.",
+  "各平台遊戲紀錄查詢方式和路徑不盡相同，此處無法一一列舉說明，請各位玩家見諒。": "Each game company has different methods and routes for viewing game records. We are not able to list them all here, please understand.",
+  "各遊戲統計遊戲紀錄之時間有可能不盡相同，可能無法進行即時核對，發現金額計算有所差異，可稍後再試。": "It may not be possible to check/inquire in real time because the statistics time of each game may be different. Please try again later when there is a discrepancy in the calculation of the amount.",
+  "※遊戲紀錄統計時間從1分鐘~隔日統計都是有可能的。": "※Please note that game record statistics time is possible from 1 minute to the next day.",
+  "已經是最新月份了!": "Already the latest month!",
+  "投注金額": "Betting Amount",
+  "有效投注": "Valid Bet",
+  "餘額": "Balance",
+  "錢包": "Wallet",
+  "注意": "Notice",
+  "遊戲記錄統計由於每間廠商同步資訊時間可能稍有不同，若有發現即時記錄不同，請稍後重新查詢一次。": "The time it takes to sync varies from company to company. If you can't view the records, please try again later.",
+  "確定": "OK",
+  "EWin.BAC.2": "Live Baccarat(eWIN)"
+}

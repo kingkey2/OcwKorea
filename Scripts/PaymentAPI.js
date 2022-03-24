@@ -69,7 +69,7 @@
             }
         });
     };
-   
+
     this.GetDepositActivityInfoByOrderNumber = function (WebSID, GUID, OrderNumber, cb) {
         var url = APIUrl + "/GetDepositActivityInfoByOrderNumber";
         var postData;
@@ -140,7 +140,7 @@
             }
         });
     };
-    
+
     this.CreateCommonDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
         var url = APIUrl + "/CreateCommonDeposit";
         var postData;
@@ -288,34 +288,6 @@
         });
     };
 
-    this.CreateAgentWithdrawal = function (WebSID, GUID, Amount, BankName, BankBranchName, BankCard, BankCardName,  cb) {
-        var url = APIUrl + "/CreateAgentWithdrawal";
-        var postData;
-
-        postData = {
-            WebSID: WebSID,
-            GUID: GUID,
-            Amount: Amount,
-            BankName: BankName,
-            BankBranchName: BankBranchName,
-            BankCard: BankCard,
-            BankCardName: BankCardName
-        };
-
-        callService(url, postData, 10000, function (success, text) {
-            if (success == true) {
-                var obj = getJSON(text);
-
-                if (cb)
-                    cb(true, obj);
-            } else {
-                if (cb)
-                    cb(false, text);
-            }
-        });
-    };
-
-
     this.CreateCryptoWithdrawal = function (WebSID, GUID, Amount, PaymentMethodID, ToWalletAddress, cb) {
         var url = APIUrl + "/CreateCryptoWithdrawal";
         var postData;
@@ -385,7 +357,7 @@
             }
         });
     };
-    
+
     this.GetPaymentByPaymentSerial = function (WebSID, GUID, PaymentSerial, cb) {
         var url = APIUrl + "/GetPaymentByPaymentSerial";
         var postData;
@@ -409,14 +381,15 @@
         });
     };
 
-    this.GetPaymentByClientOrderNumber = function (WebSID, GUID, ClientOrderNumber, cb) {
-        var url = APIUrl + "/GetPaymentByClientOrderNumber";
+    this.GetInProgressPaymentByLoginAccount = function (WebSID, GUID, LoginAccount, PaymentType, cb) {
+        var url = APIUrl + "/GetInProgressPaymentByLoginAccount";
         var postData;
 
         postData = {
             WebSID: WebSID,
             GUID: GUID,
-            ClientOrderNumber: ClientOrderNumber          
+            LoginAccount: LoginAccount,
+            PaymentType: PaymentType
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -431,7 +404,55 @@
             }
         });
     };
-   
+
+    this.GetInProgressPaymentByLoginAccountPaymentMethodID = function (WebSID, GUID, LoginAccount, PaymentType, PaymentMethodID, cb) {
+        var url = APIUrl + "/GetInProgressPaymentByLoginAccountPaymentMethodID";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            LoginAccount: LoginAccount,
+            PaymentType: PaymentType,
+            PaymentMethodID: PaymentMethodID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.GetPaymentByClientOrderNumber = function (WebSID, GUID, ClientOrderNumber, cb) {
+        var url = APIUrl + "/GetPaymentByClientOrderNumber";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            ClientOrderNumber: ClientOrderNumber
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.CancelPayment = function (WebSID, GUID, PaymentSerial, OrderNumber, cb) {
         var url = APIUrl + "/CancelPayment";
         var postData;
@@ -456,7 +477,7 @@
         });
     };
 
-    this.GetExchangeRateFromNomics = function (WebSID, GUID,cb) {
+    this.GetExchangeRateFromNomics = function (WebSID, GUID, cb) {
 
         var url = APIUrl + "/GetExchangeRateFromNomics";
         var postData;
@@ -509,6 +530,30 @@
 
         //xmlHttp.send();
     }
+
+    this.GetUserAccountEventBonusHistoryByLoginAccount = function (WebSID, GUID, startDate, endDate, cb) {
+        var url = APIUrl + "/GetUserAccountEventBonusHistoryByLoginAccount";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            StartDate: startDate,
+            EndDate: endDate
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
 
 
     function callService(URL, postObject, timeoutMS, cb) {
