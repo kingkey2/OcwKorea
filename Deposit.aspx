@@ -111,7 +111,7 @@
 
                 <!-- 選擇存款管道  -->
                 <div class="card-container">
-					<!-- EPay -->
+					<!-- bankCard -->
                     <div class="card-item sd-03">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositBankCard','DepositBankCard.aspx')">
                             <div class="card-item-inner">
