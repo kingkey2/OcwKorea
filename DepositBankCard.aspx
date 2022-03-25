@@ -652,13 +652,13 @@
                                 <h5 class="subject-title language_replace">本次交易尚未結束!</h5>
 								<div class="data"><span class="language_replace">請於期限內將款項匯入指定帳戶中，匯款後於下方上傳憑證，並完成本次交易。<span></div>
                                 <!-- 未上傳交易水單檔案 -->
-                                <div style="display: none;">
+                                <div>
                                     <div style="margin: 15px 0px;background: #fff;border-radius: 5px;padding: 12px 12px;display: table;">
 										<input class="" type="file">
                                     </div>
                                 </div>
 								<!-- 已選擇交易水單檔案 -->
-                                <div style="display: none;">
+                                <div>
 										<button class="btn btn-outline-primary" data-deposite="">
 											<span class="language_replace" langkey="取消">取消</span>
 										</button>
@@ -667,15 +667,17 @@
 										</button>
                                 </div>
 								<!-- 已上傳交易水單檔案 -->
-                                <div style="margin: 15px 0px;background: #fff;border-radius: 50px;padding: 5px 7px 7px 12px;display: table;display: inline-block;">
-									<div style="border-radius: 5px;padding: 12px 12px;display: table;display: inline-block;">
-										<i class="ico icon-circle-check"></i>
-										<span class="language_replace">上傳完成<span>
-                                    </div>
-									<button class="btn btn-outline-primary" data-deposite="">
-										<span class="language_replace" langkey="取消">重新上傳</span>
-									</button>
-                                </div>
+								<div style="display: none;">	
+									<div style="margin: 15px 0px;background: #fff;border-radius: 50px;padding: 5px 7px 7px 12px;display: table;display: inline-block;">
+										<div style="border-radius: 5px;padding: 12px 12px;display: table;display: inline-block;">
+											<i class="ico icon-circle-check"></i>
+											<span class="language_replace">上傳完成<span>
+										</div>
+										<button class="btn btn-outline-primary" data-deposite="">
+											<span class="language_replace" langkey="取消">重新上傳</span>
+										</button>
+									</div>
+								</div>		
                             </div>
                         </div>
                     </div>
