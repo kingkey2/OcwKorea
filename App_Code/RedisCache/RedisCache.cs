@@ -784,6 +784,83 @@ public static class RedisCache
         }
     }
 
+    public static class AgentWithdrawalContent
+    {
+        private static string XMLPath = "AgentWithdrawalContent";
+        private static int DBIndex = 0;
+
+
+        public static T GetWithdrawalContents<T>(string LoginAccount, string Date)
+        {
+            T R = default(T);
+            string Key;
+
+            Key = XMLPath + ":"+ Date + ":LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == false)
+            {
+                return default(T);
+            }
+
+            if (KeyExists(DBIndex, Key))
+            {
+                R = JsonReadFromRedis<T>(DBIndex, Key);
+            }
+
+            return R;
+        }
+
+        public static void UpdateWithdrawalContents(string JsonData, string LoginAccount, string Date, int ExpireTime)
+        {
+            string Key;
+
+            Key = XMLPath + ":" + Date + ":LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTime);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
+        public static void KeepWithdrawalContents<T>(T Target, string LoginAccount, string Date)
+        {
+            string Key;
+            StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
+            List<T> NowDatas;
+
+            Key = XMLPath + ":" + Date + ":LoginAccount:" + LoginAccount;
+
+            if (KeyExists(DBIndex, Key))
+            {
+                NowDatas = JsonReadFromRedis<List<T>>(DBIndex, Key);
+            }
+            else
+            {
+                NowDatas = new List<T>();
+            }
+
+            NowDatas.Add(Target);
+
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
+    }
+
     public static class AppLogin
     {
         private static string XMLPath = "AppLogin";
@@ -1329,7 +1406,6 @@ public static class RedisCache
 
         return JsonContent;
     }
-
 
     public static T JsonReadFromRedis<T>(int DBIndex, string Key)
     {

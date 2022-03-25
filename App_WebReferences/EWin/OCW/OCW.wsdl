@@ -241,6 +241,29 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="UpdateUserAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserInfo" type="tns:UserAccount" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserAccount">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateUserAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserAccountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="CompanyWalletDepositResult" nillable="true" type="tns:CompanyWalletDepositResult" />
       <s:element name="ParentUserAccountInfoResult" nillable="true" type="tns:ParentUserAccountInfoResult" />
@@ -300,6 +323,12 @@
   </wsdl:message>
   <wsdl:message name="CreateBigEagleSoapOut">
     <wsdl:part name="parameters" element="tns:CreateBigEagleResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountResponse" />
   </wsdl:message>
   <wsdl:message name="TestAPIHttpGetIn" />
   <wsdl:message name="TestAPIHttpGetOut">
@@ -460,6 +489,10 @@
       <wsdl:input message="tns:CreateBigEagleSoapIn" />
       <wsdl:output message="tns:CreateBigEagleSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccount">
+      <wsdl:input message="tns:UpdateUserAccountSoapIn" />
+      <wsdl:output message="tns:UpdateUserAccountSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="OCWHttpGet">
     <wsdl:operation name="TestAPI">
@@ -612,6 +645,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccount">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OCWSoap12" type="tns:OCWSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -689,6 +731,15 @@
     </wsdl:operation>
     <wsdl:operation name="CreateBigEagle">
       <soap12:operation soapAction="http://tempuri.org/CreateBigEagle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccount">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -45,6 +45,28 @@
         });
     };
 
+    this.GetAgentWithdrawalPayment = function (WebSID, GUID, startDate, cb) {
+        var url = APIUrl + "/GetAgentWithdrawalPayment";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            SearchDate: startDate
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
 
     this.GetPaymentMethodByCategory = function (WebSID, GUID, PaymentCategoryCode, PaymentType, cb) {
         var url = APIUrl + "/GetPaymentMethodByCategory";
@@ -287,7 +309,33 @@
             }
         });
     };
+    this.CreateAgentWithdrawal = function (WebSID, GUID, Amount, BankName, BankBranchName, BankCard, BankCardName ,cb) {
+        var url = APIUrl + "/CreateAgentWithdrawal";
+        var postData;
 
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            BankName: BankName,
+            BankBranchName: BankBranchName,
+            BankCard: BankCard,
+            BankCardName: BankCardName
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+  
     this.CreateCryptoWithdrawal = function (WebSID, GUID, Amount, PaymentMethodID, ToWalletAddress, cb) {
         var url = APIUrl + "/CreateCryptoWithdrawal";
         var postData;
