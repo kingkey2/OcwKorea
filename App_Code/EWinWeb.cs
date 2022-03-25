@@ -271,4 +271,31 @@ public static class EWinWeb {
 
         return R;
     }
+
+    // (len: 40)
+    //PD 001 N26515708430650 17733320 211220175228
+    // PaymentSerial 編碼原則
+    // PD 充值
+    // PW 取款
+    // <PD|PW><三位數 CompanyID><PID><不固定位數PaymentID+HHmmss><yyyyMMddHHmmss>
+    public static string GetPaymentSerial(EWin.Payment.enumDirectionType DirectionType, int CompanyID, string PersonCode, int PaymentID, DateTime PaymentCreateDate)
+    {
+        string PaymentSerial = null;
+        string DateSerial = PaymentCreateDate.ToString("yyyyMMddHHmmss");
+        int BaseValue1;
+        string CompanyIDString = new string('0', 3 - CompanyID.ToString().Length) + CompanyID.ToString();
+
+        BaseValue1 = Convert.ToInt32(PaymentCreateDate.ToString("HHmmss"));
+
+        if (DirectionType == EWin.Payment.enumDirectionType.Deposit)
+        {
+            PaymentSerial = "PDA" + CompanyIDString + PersonCode + (PaymentID + BaseValue1).ToString() + DateSerial;
+        }
+        else if (DirectionType == EWin.Payment.enumDirectionType.Withdrawal)
+        {
+            PaymentSerial = "PWA" + CompanyIDString + PersonCode + (PaymentID + BaseValue1).ToString() + DateSerial;
+        }
+
+        return PaymentSerial;
+    }
 }

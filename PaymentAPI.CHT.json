@@ -29,6 +29,15 @@
   "OnlyDepositCanCancel": "只有儲值訂單可以取消",
   "NotFoundData": "找不到資料",
   "LockFailure": "鎖定失敗",
-  "InvalidStatus": "訂單狀態有誤"
-
+  "InvalidStatus": "訂單狀態有誤",
+  "InvalidCurrency": "指定幣別不存在",
+  "InsufficientBalance": "餘額不足",
+  "LockFail": "鎖定失敗",
+  "TransactionCodeExist": "交易單號已存在",
+  "Other": "其他",
+  "OPFailure": "加扣點失敗",
+  "NotCashWallet": "指定錢包不存在",
+  "WalletNotResponse": "指定錢包不存在",
+  "InvalidAmount": "無效金額",
+  "NoParentExist": "上線不存在"
 }

@@ -209,25 +209,25 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "BankCard", 1, function (success, o) {
+        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "Agent", 1, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
                         PaymentMethod = o.PaymentMethodResults;
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            windwo.parent.API_Home();
+                            window.parent.API_Home();
                         });
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        windwo.parent.API_Home();
+                        window.parent.API_Home();
                     });
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    windwo.parent.API_Home();
+                    window.parent.API_Home();
                 });
             }
 
@@ -305,7 +305,6 @@
             PaymentClient.CreateAgentWithdrawal(WebInfo.SID, Math.uuid(), amount, bankName, bankBranchName, bankCard, bankCardName, function (success, o) {
                         if (success) {
                             let data = o.Data;
-                            debugger;
                             if (o.Result == 0) {
                            
                                 $("#depositdetail .BankName").text(bankName);
