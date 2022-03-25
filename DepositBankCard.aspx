@@ -417,7 +417,7 @@
                     <!--<p data-deposite="step3" class="language_replace" style="display: none">完成</p>
                      <p data-deposite="step4">支付</p> -->
                 </div>
-
+				<!-- -->
                 <div class="split-layout-container">
                     <div class="aside-panel" data-deposite="step2">
                         <!-- PayPal -->
@@ -523,7 +523,7 @@
                     <!-- 虛擬錢包 step3 - 入金確認頁-->
                     <div class="deposit-confirm " data-deposite="step3" id="depositdetail">
                         <div class="aside-panel">
-                            <div class="deposit-calc">
+                            <!--div class="deposit-calc">
                                 <div class="deposit-crypto">
                                     <h5 class="subject-title language_replace">收款項目</h5>
                                     <ul class="deposit-crypto-list Collectionitem">
@@ -539,7 +539,7 @@
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
-                                    <div class="item subtotal">
+                                    <div class="item subtotal" style="display: none;">
                                         <div class="title">
                                             <h5 class="name language_replace">活動獎勵</h5>
                                         </div>
@@ -558,13 +558,63 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div-->
+							<div class="deposit-calc">
+                                <div class="deposit-crypto">
+                                    <h5 class="subject-title language_replace">收款項目</h5>
+                                    <ul class="deposit-crypto-list Collectionitem">
+                                    </ul>
+                                </div>
+                                <div class="deposit-total">
+									<div class="item total">
+                                        <div class="title">
+                                            <h5 class="name language_replace">存入金額</h5>
+                                        </div>
+                                        <div class="data">
+                                            <span class="name MainCurrencyType"></span>
+                                            <span class="count TotalAmount" id="idTotalReceiveValue"></span>
+											<input class="inputPaymentSerial is-hide">
+                                        </div>
+                                    </div>
+                                    <div class="item subtotal">
+                                        <div class="title">
+                                            <h5 class="name language_replace">銀行名稱</h5>
+                                        </div>
+                                        <div class="">
+                                            <span class="count Amount">XXX銀行</span>
+											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+											<input class="inputPaymentSerial is-hide">
+                                        </div>
+                                    </div>
+									<div class="item subtotal">
+                                        <div class="title">
+                                            <h5 class="name language_replace">分行別</h5>
+                                        </div>
+                                        <div class="">
+                                            <span class="count Amount">YY分行</span>
+											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+											<input class="inputPaymentSerial is-hide">
+                                        </div>
+                                    </div>
+									<div class="item subtotal">
+                                        <div class="title">
+                                            <h5 class="name language_replace">帳號</h5>
+                                        </div>
+                                        <div class="">
+                                            <span class="count Amount">000000000</span>
+											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+                                        </div>
+                                    </div>
+
+									
+                                </div>
                             </div>
                         </div>
                         <div class="main-panel">
                             <div class="deposit-list">
                                 <h5 class="subject-title language_replace">存款細項</h5>
                                 <ul class="deposit-detail">
-                                    <li class="item" style="display: none">
+                                    <li class="item">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
                                     </li>
@@ -573,7 +623,7 @@
                                         <span class="data PaymentMethodName"></span>
                                     </li>
 
-                                    <li class="item " style="display: none">
+                                    <li class="item ">
                                         <h6 class="title language_replace">交易限制時間</h6>
                                         <span class="data text-primary ExpireSecond"></span>
                                     </li>
@@ -586,7 +636,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="activity-container">
+                        <div class="activity-container" style="display: none;">
                             <div class="activity-item">
                                 <h5 class="subject-title language_replace">熱門活動</h5>
                                 <!-- 存款獎勵 -->
@@ -594,6 +644,40 @@
                                     <ul class="deposit-award-list ActivityMain">
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+						<!-- 完成存款 -->
+						<div class="activity-container">
+                            <div class="activity-item">
+                                <h5 class="subject-title language_replace">本次交易尚未結束!</h5>
+								<div class="data"><span class="language_replace">請於期限內將款項匯入指定帳戶中，匯款後於下方上傳憑證，並完成本次交易。<span></div>
+                                <!-- 未上傳交易水單檔案 -->
+                                <div>
+                                    <div style="margin: 15px 0px;background: #fff;border-radius: 5px;padding: 12px 12px;display: table;">
+										<input class="" type="file">
+                                    </div>
+                                </div>
+								<!-- 已選擇交易水單檔案 -->
+                                <div>
+										<button class="btn btn-outline-primary" data-deposite="">
+											<span class="language_replace" langkey="取消">取消</span>
+										</button>
+										<button class="btn btn-primary" data-deposite="">
+											<span class="language_replace" langkey="上傳並">上傳</span>
+										</button>
+                                </div>
+								<!-- 已上傳交易水單檔案 -->
+								<div style="display: none;">	
+									<div style="margin: 15px 0px;background: #fff;border-radius: 50px;padding: 5px 7px 7px 12px;display: table;display: inline-block;">
+										<div style="border-radius: 5px;padding: 12px 12px;display: table;display: inline-block;">
+											<i class="ico icon-circle-check"></i>
+											<span class="language_replace">上傳完成<span>
+										</div>
+										<button class="btn btn-outline-primary" data-deposite="">
+											<span class="language_replace" langkey="取消">重新上傳</span>
+										</button>
+									</div>
+								</div>		
                             </div>
                         </div>
                     </div>

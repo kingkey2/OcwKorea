@@ -171,12 +171,28 @@
                         </a>      
 
                     </div>--%>
+					<!-- bankCard -->
+                    <div class="card-item sd-03">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalBankCard','WithdrawalBankCard.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">銀行卡</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center">
+                                    <img src="images/assets/card-surface/icon-logo-bankCard.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
+                        </a>      
+
+                    </div>
 					<!-- 代理出款 -->
                     <div class="card-item sd-05" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span>銀行卡轉帳</span>
+                                    <span class="language_replace">銀行卡轉帳</span>
                                 </div>
                                 <div class="title vertical-center">
                                     <span class="language_replace">通知代理</span>
