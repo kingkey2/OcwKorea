@@ -97,7 +97,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/layoutAdj.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/toast.css<%:Version%>" type="text/css" />
+    <link rel="stylesheet" href="css/toast.css?<%:Version%>" type="text/css" />
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="images/ico/favicon.png">
     <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
