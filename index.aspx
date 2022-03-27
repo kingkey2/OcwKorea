@@ -13,7 +13,31 @@
     string CT = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
-    string Version=EWinWeb.Version;   
+    string Version=EWinWeb.Version;  
+    string Bulletin = string.Empty;
+    string FileData= string.Empty;
+    string isModify = "0";
+    string[] stringSeparators = new string[] { "&&_" };
+    string[] Separators;
+
+    try { 
+        if (System.IO.File.Exists(Server.MapPath("/App_Data/Bulletin.txt"))) {
+            FileData = System.IO.File.ReadAllText(Server.MapPath("/App_Data/Bulletin.txt"));
+            if (string.IsNullOrEmpty(FileData) == false) {
+                Separators = FileData.Split(stringSeparators,StringSplitOptions.None);
+                Bulletin = Separators[0];
+                Bulletin = Bulletin.Replace("\r", "<br />").Replace("\n", string.Empty);
+                if (Separators.Length >1) {
+                    isModify = Separators[1];
+                }
+
+                if (isModify == "1") {
+                    Response.Redirect("Maintain.aspx");
+                }
+            }
+        }
+    }
+    catch (Exception ex) {};
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
         SID = Request["SID"];
@@ -161,6 +185,9 @@
         DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
         IsOpenGame: false
     };
+	
+	var hasBulletin = <%=(string.IsNullOrEmpty(Bulletin) ? "false" : "true")%>;
+	
     var messageModal;
     var SiteInfo;
     var selectedCurrency = '';
@@ -2142,7 +2169,7 @@
 			<div class="fullADDText">
 				<H5><span class="language_replace">歡迎來到BET 파라다이스</span></H5>
 				<!-- 公告寫在這裡面 -->
-				<span>即將於2022/04/01 正式開放</span>
+				<p><%=Bulletin %></p>
 			</div>
 		</div>	
 	</div>
