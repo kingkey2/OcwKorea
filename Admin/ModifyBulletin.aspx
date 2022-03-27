@@ -2,6 +2,7 @@
 <%
     string Filename = string.Empty;
     string TextContent;
+    string TextContentAgent= string.Empty;
     string FileData;
     string isModify = "0";
     string[] stringSeparators = new string[] { "&&_" };
@@ -14,6 +15,7 @@
 
     if (CodingControl.FormSubmit()) {
         TextContent = Request["TextData"];
+        TextContentAgent = Request["TextDataAgent"];
 
         if (string.IsNullOrEmpty(Request["isModify"]) == false)
         {
@@ -23,6 +25,7 @@
             TextContent = TextContent + "&&_0";
         }
 
+        TextContent = TextContent + "&&_" + TextContentAgent;
         System.IO.File.WriteAllText(Filename, TextContent);
 
         ASG.AlertMessage("OK", String.Empty);
@@ -36,7 +39,9 @@
         isModify = Separators[1];
     }
 
-       
+    if (Separators.Length > 2) { 
+        TextContentAgent = Separators[2];
+    } 
 %>
 <!doctype html>
 <html>
@@ -50,6 +55,8 @@
         <input type="checkbox" name="isModify" <%if (isModify == "1"){%>checked<%}%> />System Under Maintenance
         <br />
         <textarea id="TextArea1" cols="60" name="TextData" rows="20"><%=Server.HtmlEncode(TextContent) %></textarea>
+        <br />
+        <textarea id="TextAreaAgent" cols="60" name="TextDataAgent" rows="20"><%=Server.HtmlEncode(TextContentAgent) %></textarea>
         <br />
         <input type="submit" value="OK" />
     </form>
