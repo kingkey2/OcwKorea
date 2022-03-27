@@ -111,11 +111,11 @@
     <meta property="og:title" content="BET 파라다이스" />
     <meta property="og:Keyword" content="BET 파라다이스" />
     <meta property="og:description" content="BET 파라다이스" />
-    <!--meta property="og:url" content="https://bbc117.com/" />
-    <meta property="og:image" content="https://bbc117.com/images/share_pic.png" /-->
+    <!--meta property="og:url" content="https://bbc117.com/" /-->
+    <meta property="og:image" content="images/share_pic.png">
     <meta property="og:type" content="website" />
     <!-- Share image -->
-    <!--link rel="image_src" href="https://bbc117.com/images/share_pic.png"-->
+    <link rel="image_src" href="images/share_pic.png">
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
@@ -124,10 +124,10 @@
     <link rel="stylesheet" href="css/toast.css?<%:Version%>" type="text/css" />
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="images/ico/favicon.png">
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="ico/apple-touch-icon-57-precomposed.png"> -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/share_pic.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/share_pic.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/share_pic.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/share_pic.png">
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
