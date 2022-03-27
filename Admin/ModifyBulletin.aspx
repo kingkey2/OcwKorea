@@ -54,11 +54,15 @@
     <form method="post">
         <input type="checkbox" name="isModify" <%if (isModify == "1"){%>checked<%}%> />System Under Maintenance
         <br />
+		<br />
+		<div>webSite</div>
         <textarea id="TextArea1" cols="60" name="TextData" rows="20"><%=Server.HtmlEncode(TextContent) %></textarea>
         <br />
+		<br />
+		<div>Agent</div>
         <textarea id="TextAreaAgent" cols="60" name="TextDataAgent" rows="20"><%=Server.HtmlEncode(TextContentAgent) %></textarea>
         <br />
-        <input type="submit" value="OK" />
+        <input type="submit" value="SAVE" />
     </form>
 </body>
 </html>
