@@ -28,6 +28,7 @@ public static class EWinWeb {
     public static string WebRedisConnStr = System.Configuration.ConfigurationManager.AppSettings["WebRedisConnStr"];
     public static string SharedFolder = System.Configuration.ConfigurationManager.AppSettings["SharedFolder"];
     public static string Key3DES = "onoeTs39aHfAATKGxYmyJ3Nf";
+    public static string TimeZone = System.Configuration.ConfigurationManager.AppSettings["TimeZone"];
     public static string DirSplit = "\\";
 
     private static StackExchange.Redis.ConnectionMultiplexer RedisClient = null;

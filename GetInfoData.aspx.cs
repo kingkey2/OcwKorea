@@ -23,7 +23,7 @@ public partial class GetInfoData : System.Web.UI.Page
         string[] InfoDataStrArr;
         string[] InfoAccountArr;
         string[] stringSeparators = new string[] { "\r\n" };
-        DateTime InfoDate = DateTime.Now.AddHours(9);
+        DateTime InfoDate = DateTime.Now.AddHours(Convert.ToInt32(EWinWeb.TimeZone));
         ArrayList RetInfoArr = new ArrayList();
         Random rnd = new Random();
         Newtonsoft.Json.Linq.JObject Jobj = new Newtonsoft.Json.Linq.JObject();
@@ -65,7 +65,6 @@ public partial class GetInfoData : System.Web.UI.Page
             if (System.IO.File.Exists(Server.MapPath("/Files/InfoData") + "/InfoData.txt") == false)
             {
                 InfoID = "0";
-
                 InfoAccountStr = System.IO.File.ReadAllText(Server.MapPath("/App_Data") + "/InfoAccount.txt");
                 InfoAccountArr = InfoAccountStr.Split(stringSeparators, StringSplitOptions.None);
                 for (var i = 0; i < 2500; i++)
@@ -87,10 +86,9 @@ public partial class GetInfoData : System.Web.UI.Page
                 }
 
                 System.IO.File.AppendAllText(Server.MapPath("/Files/InfoData") + "/InfoData.txt", InfoDataStr);
-
             }
-
         }
+
         catch (Exception ex) { }
         finally
         {
@@ -98,85 +96,89 @@ public partial class GetInfoData : System.Web.UI.Page
         }
 
 
-
-
-        if (System.IO.File.Exists(Server.MapPath("/Files/InfoData") + "/InfoData.txt") == true)
+        try
         {
-            InfoDataStr = string.Empty;
-            InfoDataStr = System.IO.File.ReadAllText(Server.MapPath("/Files/InfoData") + "/InfoData.txt");
-
-            InfoDataStrArr = InfoDataStr.Split(stringSeparators, StringSplitOptions.None);
-
-            if (InfoDataStrArr.Length > (Convert.ToInt32(InfoID) + 1))
+            if (System.IO.File.Exists(Server.MapPath("/Files/InfoData") + "/InfoData.txt") == true)
             {
-                for (var i = (InfoDataStrArr.Length - 1); i >= 0; i--)
+                InfoDataStr = string.Empty;
+                InfoDataStr = System.IO.File.ReadAllText(Server.MapPath("/Files/InfoData") + "/InfoData.txt");
+
+                InfoDataStrArr = InfoDataStr.Split(stringSeparators, StringSplitOptions.None);
+
+                if (InfoDataStrArr.Length > (Convert.ToInt32(InfoID) + 1))
                 {
-                    if (Convert.ToInt32(InfoID) == 0)
+                    for (var i = (InfoDataStrArr.Length - 1); i >= 0; i--)
                     {
                         JsonStr = InfoDataStrArr[i];
-                        if (string.IsNullOrEmpty(JsonStr) == false)
+                        if (Convert.ToInt32(InfoID) == 0)
                         {
-                            Jobj = Newtonsoft.Json.Linq.JObject.Parse(JsonStr);
-
-                            if (Convert.ToDateTime(Jobj["InfoDate"]) < DateTime.Now.AddHours(9))
-                            {
-                                iInfoData = new InfoData();
-                                iInfoData.InfoID = Convert.ToInt32(Jobj["InfoID"]);
-                                iInfoData.InfoDate = Jobj["InfoDate"].ToString();
-                                iInfoData.InfoAccount = Jobj["InfoAccount"].ToString();
-                                iInfoData.InfoAmount = Convert.ToInt32(Jobj["InfoAmount"]);
-
-                                RetInfoArr.Add(iInfoData);
-                                
-
-                                if (RetInfoArr.Count > 2) {
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        if (i >= Convert.ToInt32(InfoID))
-                        {
-                            JsonStr = InfoDataStrArr[i];
                             if (string.IsNullOrEmpty(JsonStr) == false)
                             {
                                 Jobj = Newtonsoft.Json.Linq.JObject.Parse(JsonStr);
 
-                                if (Convert.ToInt32(Jobj["InfoID"]) > Convert.ToInt32(InfoID))
+                                if (Convert.ToDateTime(Jobj["InfoDate"]) < DateTime.Now.AddHours(Convert.ToInt32(EWinWeb.TimeZone)))
                                 {
-                                    if (Convert.ToDateTime(Jobj["InfoDate"]) < DateTime.Now.AddHours(9))
-                                    {
-                                        iInfoData = new InfoData();
-                                        iInfoData.InfoID = Convert.ToInt32(Jobj["InfoID"]);
-                                        iInfoData.InfoDate = Jobj["InfoDate"].ToString();
-                                        iInfoData.InfoAccount = Jobj["InfoAccount"].ToString();
-                                        iInfoData.InfoAmount = Convert.ToInt32(Jobj["InfoAmount"]);
+                                    iInfoData = new InfoData();
+                                    iInfoData.InfoID = Convert.ToInt32(Jobj["InfoID"]);
+                                    iInfoData.InfoDate = Jobj["InfoDate"].ToString();
+                                    iInfoData.InfoAccount = Jobj["InfoAccount"].ToString();
+                                    iInfoData.InfoAmount = Convert.ToInt32(Jobj["InfoAmount"]);
 
-                                        RetInfoArr.Add(iInfoData);
+                                    RetInfoArr.Add(iInfoData);
+
+
+                                    if (RetInfoArr.Count > 2)
+                                    {
+                                        break;
                                     }
                                 }
                             }
+
                         }
                         else
                         {
-                            break;
-                        }
+                            if (i >= Convert.ToInt32(InfoID))
+                            {
+                                if (string.IsNullOrEmpty(JsonStr) == false)
+                                {
+                                    Jobj = Newtonsoft.Json.Linq.JObject.Parse(JsonStr);
 
+                                    if (Convert.ToInt32(Jobj["InfoID"]) > Convert.ToInt32(InfoID))
+                                    {
+                                        if (Convert.ToDateTime(Jobj["InfoDate"].ToString()) < DateTime.Now.AddHours(Convert.ToInt32(EWinWeb.TimeZone)))
+                                        {
+                                            iInfoData = new InfoData();
+                                            iInfoData.InfoID = Convert.ToInt32(Jobj["InfoID"]);
+                                            iInfoData.InfoDate = Jobj["InfoDate"].ToString();
+                                            iInfoData.InfoAccount = Jobj["InfoAccount"].ToString();
+                                            iInfoData.InfoAmount = Convert.ToInt32(Jobj["InfoAmount"]);
+
+                                            RetInfoArr.Add(iInfoData);
+                                        }
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+
+                        }
                     }
                 }
-            }
-            else
-            {
-                iInfoData = new InfoData();
-                iInfoData.InfoID = 0;
+                else
+                {
+                    iInfoData = new InfoData();
+                    iInfoData.InfoID = 0;
 
-                RetInfoArr.Add(iInfoData);
+                    RetInfoArr.Add(iInfoData);
+                }
             }
+
         }
-
+        catch (Exception ex) { }
+        
         if (RetInfoArr.Count > 0)
         {
             ReturnStr = Newtonsoft.Json.JsonConvert.SerializeObject(RetInfoArr);
