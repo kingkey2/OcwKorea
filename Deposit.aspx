@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 
 <%
        string Version=EWinWeb.Version;
@@ -144,7 +144,7 @@
 
                     </div>
                     <!-- PayPal -->
-                    <div class="card-item sd-08" id="idDepositPaypal">
+                    <div class="card-item sd-08 is-hide" id="idDepositPaypal">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -200,24 +200,17 @@
                     </div>
                 </div>
                 <!-- 溫馨提醒 -->
-                <div class="notice-container mt-5">
+                <!--div class="notice-container mt-5">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
-                            <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
-                            <p class="language_replace">2.因為選擇的送金方法有所不同，在帳戶上反映的時間是入金之後最多一個營業日為範圍。</p>
-                            <p class="language_replace">3.ローリング倍率について​</p>
-                            <p class="language_replace">Paypal・主要暗号資産＝入金額の1.5倍</p>
-                            <p class="language_replace">JKETH＝入金額の8倍​ ボーナス＝20倍​</p>
-                            <p class="language_replace">（計算例）</p>
-                            <p class="language_replace">PayPal　10,000+ボーナス10,000の場合​</p>
-                            <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
-                            <p class="language_replace">ローリングについての詳しい説明は<span class="link" style="cursor:pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">こちら</span></p>
+                            <p class="language_replace">不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
+      
                             
                         </div>
                     </div>
-                </div>
+                </div-->
 
             </section>
 

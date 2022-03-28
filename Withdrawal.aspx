@@ -247,11 +247,7 @@
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
-                            <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
-                            <p class="language_replace">2.因為選擇的送金方法有所不同，在帳戶上反映的時間是出金之後最多一個營業日為範圍。</p>
-                            <p class="language_replace">3. 1日出金最高限度額及び回数:​1アカウントにつき1日出最高限度額100万Ocoin</p>
-                            <p class="language_replace">4.最高回数三回​</p>
-                            <p class="language_replace">5.何れかが制限に達した際は翌日以降の出金申請をお願いします。</p>
+                            <p class="language_replace">不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
                         </div>
                     </div>
                 </div>
