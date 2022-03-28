@@ -663,7 +663,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" style="background: #efd21e">
+<%--                    <div class="swiper-slide" style="background: #efd21e">
                         <div class="hero-item">
                             <a onclick="window.parent.API_LoadPage('OpenBonusDeposit_03012022', '/Activity/OpenBonusDeposit_03012022/index.html')">
                                 <div class="img-wrap">
@@ -682,7 +682,7 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="swiper-slide" style="background-image: linear-gradient(to right, #c1a679 0%, #c1a679 50%, #11100f 51%, #11100f 100%);">
                         <div class="hero-item">
                             <div class="img-wrap">
@@ -910,11 +910,18 @@
                                 <span class="btn btn-primary language_replace">規則介紹</span>
                             </div>
                         </div>
-                        <div class="wrap-box">
+                        <!--div class="wrap-box">
                             <div class="game-play" onclick="window.parent.API_OpenGameCode('EWin', 'EWinGaming')">
                                 <img src="images/games/play_game_n_s.jpg" class="mobile" alt="">
                                 <img src="images/games/play_game_n.jpg" class="desk" alt="">
                                 <span class="btn btn-primary language_replace">開始遊戲</span>
+                            </div>
+                        </div-->
+						<div class="wrap-box">
+                            <div class="game-play" onclick="#">
+                                <img src="images/games/app_game_n_s.png" class="mobile" alt="">
+                                <img src="images/games/app_game_n.png" class="desk" alt="">
+                                <span class="btn btn-primary language_replace">App Download</span>
                             </div>
                         </div>
                     </section>
