@@ -968,7 +968,6 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                         <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                        <p class="language_replace">ガス代は入金のお客様負担となります。</p>
                                     </div>
                                 </div>
                             </div>
@@ -1190,7 +1189,6 @@
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
                             <ul class="list-style-decimal">
-                                <li><span class="language_replace">OCoin為平台使用的專屬遊戲幣。</span></li>
                                 <li><span class="language_replace">請正確使用對應的錢包入款，否則可能造成您入款失敗。</span></li>
                                 <li><span class="language_replace">虛擬貨幣入款需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
                                 <li><span class="language_replace">實際入款遊戲幣為入款金額-手續費後之餘額進行換算。</span></li>
