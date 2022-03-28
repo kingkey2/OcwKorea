@@ -200,7 +200,7 @@
                     </div>
                 </div>
                 <!-- 溫馨提醒 -->
-                <!--div class="notice-container mt-5">
+                <div class="notice-container mt-5">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
@@ -210,7 +210,7 @@
                             
                         </div>
                     </div>
-                </div-->
+                </div>
 
             </section>
 

@@ -242,7 +242,7 @@
                     </div>
                 </div>
                 <!-- 溫馨提醒 -->
-                <div class="notice-container mt-5">
+                <!--div class="notice-container mt-5">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
@@ -250,7 +250,7 @@
                             <p class="language_replace">不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
                         </div>
                     </div>
-                </div>
+                </div-->
 
             </section>
 
