@@ -13,7 +13,31 @@
     string CT = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
-    string Version=EWinWeb.Version;   
+    string Version=EWinWeb.Version;  
+    string Bulletin = string.Empty;
+    string FileData= string.Empty;
+    string isModify = "0";
+    string[] stringSeparators = new string[] { "&&_" };
+    string[] Separators;
+
+    try { 
+        if (System.IO.File.Exists(Server.MapPath("/App_Data/Bulletin.txt"))) {
+            FileData = System.IO.File.ReadAllText(Server.MapPath("/App_Data/Bulletin.txt"));
+            if (string.IsNullOrEmpty(FileData) == false) {
+                Separators = FileData.Split(stringSeparators,StringSplitOptions.None);
+                Bulletin = Separators[0];
+                Bulletin = Bulletin.Replace("\r", "<br />").Replace("\n", string.Empty);
+                if (Separators.Length >1) {
+                    isModify = Separators[1];
+                }
+
+                if (isModify == "1") {
+                    Response.Redirect("Maintain.aspx");
+                }
+            }
+        }
+    }
+    catch (Exception ex) {};
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
         SID = Request["SID"];
@@ -87,22 +111,23 @@
     <meta property="og:title" content="BET 파라다이스" />
     <meta property="og:Keyword" content="BET 파라다이스" />
     <meta property="og:description" content="BET 파라다이스" />
-    <!--meta property="og:url" content="https://bbc117.com/" />
-    <meta property="og:image" content="https://bbc117.com/images/share_pic.png" /-->
+    <!--meta property="og:url" content="https://bbc117.com/" /-->
+    <meta property="og:image" content="images/share_pic.png">
     <meta property="og:type" content="website" />
     <!-- Share image -->
-    <!--link rel="image_src" href="https://bbc117.com/images/share_pic.png"-->
+    <link rel="image_src" href="images/share_pic.png">
 
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/layoutAdj.css?<%:Version%>" type="text/css" />
+    <link rel="stylesheet" href="css/toast.css?<%:Version%>" type="text/css" />
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="images/ico/favicon.png">
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="ico/apple-touch-icon-57-precomposed.png"> -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/share_pic.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/share_pic.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/share_pic.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/share_pic.png">
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -160,6 +185,9 @@
         DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
         IsOpenGame: false
     };
+	
+	var hasBulletin = <%=(string.IsNullOrEmpty(Bulletin) ? "false" : "true")%>;
+	
     var messageModal;
     var SiteInfo;
     var selectedCurrency = '';
@@ -169,7 +197,69 @@
     var test = "";
 
     var LobbyGameList;
+	
+	var ID = 0;
+	
+    //出款POPUP
+    function queryInfoData() {
 
+        c.callService("/GetInfoData.aspx?ID=" + ID, null, function (success, resp) {
+            if (success) {
+                if ((resp != null) && (resp != "")) {
+                    var o = null;
+
+                    try { o = JSON.parse(resp); }
+                    catch (ex) { }
+
+                    if (o != null) {
+                        for (var i = 0; i < o.length; i++) {
+                            if (o[i].InfoID > 0) {
+                                var t = c.getTemplate("templateToast");
+                                var guid = Math.uuid();
+
+                                t.id = guid;
+                                c.setClassText(t, "ToastItemTime", null, o[i].InfoDate);
+                                c.setClassText(t, "ToastName", null, o[i].InfoAccount);
+                                c.setClassText(t, "ToastAmount", null, c.toCurrency(o[i].InfoAmount));
+                                t.classList.add("toast");
+                                t.getElementsByClassName("ToastItemCloseBtn")[0].setAttribute("guid", guid);
+                                t.getElementsByClassName("ToastItemCloseBtn")[0].onclick = function () {
+                                    var toast = document.getElementById(this.getAttribute("guid"));
+                                    toast.parentNode.removeChild(toast);
+                                }
+                                document.getElementById("ToasterDiv").appendChild(t);
+
+                                if (ID == 0) {
+                                    ID = o[i].InfoID;
+                                }
+
+                                if (o[i].InfoID > ID) {
+                                    ID = o[i].InfoID;
+                                }
+
+                                window.setTimeout(function () {
+                                    for (var i = 0; i < document.getElementsByClassName("toast").length; i++) {
+                                        if (document.getElementsByClassName("toast")[i].style.opacity == 0) {
+                                            var toast = document.getElementsByClassName("toast")[i];
+                                            toast.parentNode.removeChild(toast);
+                                        }
+                                    }
+
+                                }, 15000)
+                            }
+                            else {
+                                if (o[0].InfoID == 0) {
+                                    ID = 0;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        });
+    }
+	
 
     //#region TOP API
 
@@ -1280,6 +1370,10 @@
         //document.getElementById("IFramePage").onload = loadingEnd;
 
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"));
+		
+		//出款POPUP
+		queryInfoData();
+        setInterval(queryInfoData, 20000);
     }
 
     function getCompanyGameCode(cb) {
@@ -1471,6 +1565,8 @@
 
     window.onload = init;
 </script>
+
+	
 <body>
     <div class="loader-container" style="display: none">
         <div class="loader-box">
@@ -2059,10 +2155,47 @@
             </div>
         </div>
     </div>
+	<script>
+		function fullAdClose(){
+			var idFullAD = document.getElementById("idFullAD");
+			idFullAD.style.display = "none";
+		}
+	</script>
 	
 	<!-- 蓋板公告 -->
-	<div>
-	
+	<div id="idFullAD" class="popupFullAD">
+		<div class="fullADDDiv">
+			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
+			<div class="fullADDText">
+				<H5><span class="language_replace">歡迎來到BET 파라다이스</span></H5>
+				<!-- 公告寫在這裡面 -->
+				<p><%=Bulletin %></p>
+			</div>
+		</div>	
 	</div>
+	<!-- Toaster 1014新增 -->
+    <div class="ToasterMain">
+        <div id="ToasterDiv" class="ToasterDiv">
+        </div>
+        <div id="templateToast" style="display: none">
+            <!-- Item 物件持續15秒 請在15秒後刪除 -->
+            <div class="ToastAin fadeInAni">
+                <div class="ToastItem">
+                    <div>
+                        <div><span class="ToastItemTime">12:00</span></div>
+                    </div>
+                    <div class="ToastItemCon">
+                        <div><span class="ToastName">User000**1</span></div>
+                        <div class="ToastText"><span class="language_replace">出金</span></div>
+                        <div><span class="ToastAmount">120,000,000</span></div>
+                    </div>
+                    <div class="ToastItemCloseBtn"><span></span></div>
+                </div>
+            </div>
+            <!-- Item End -->
+
+        </div>
+    </div>
+	<!-- -->
 </body>
 </html>

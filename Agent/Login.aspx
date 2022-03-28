@@ -5,6 +5,32 @@
     string Lang;
     string DefaultCompany = EWinWeb.CompanyCode;
     string Version=EWinWeb.Version;
+  	 string Bulletin = string.Empty;
+    string FileData= string.Empty;
+    string isModify = "0";
+    string[] stringSeparators = new string[] { "&&_" };
+    string[] Separators;
+
+    try { 
+        if (System.IO.File.Exists(Server.MapPath("/App_Data/Bulletin.txt"))) {
+            FileData = System.IO.File.ReadAllText(Server.MapPath("/App_Data/Bulletin.txt"));
+            if (string.IsNullOrEmpty(FileData) == false) {
+                Separators = FileData.Split(stringSeparators,StringSplitOptions.None);
+                Bulletin = Separators[2];
+                Bulletin = Bulletin.Replace("\r", "<br />").Replace("\n", string.Empty);
+                if (Separators.Length >1) {
+                    isModify = Separators[1];
+                }
+
+                if (isModify == "1") {
+                    Response.Redirect("Maintain.aspx");
+                }
+            }
+        }
+    }
+    catch (Exception ex) {};
+   
+   
     if (string.IsNullOrEmpty(Request["Lang"]))
     {
         string userLang = CodingControl.GetDefaultLanguage();
@@ -47,6 +73,9 @@
     <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
     <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
     <link rel="stylesheet" href="css/login.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+	
+	<link rel="stylesheet" href="../css/icons.css" type="text/css" />
+	<link rel="stylesheet" href="../css/layoutAdj.css" type="text/css" />
 </head>
 <script src="/Scripts/Common.js"></script>
 <script src="/Scripts/bignumber.min.js"></script>
@@ -354,7 +383,7 @@
         <div class="container loginWrapper">
             <section class="login__brand">
                 <div class="heading-login text-center">
-                    <span class="language_replace" onclick="showCompanyCode()">Club Maharaja</span>
+                    <span class="language_replace" onclick="showCompanyCode()">BET 파라다이스</span>
                 </div>
                 <!-- <div class="login__qrcode"><span class="qrcode"></span></div> -->
                 <%if (EWinWeb.IsTestSite == true)
@@ -380,12 +409,18 @@
                         </div>
                     </div>
                     <div class="form-group form-group-lang">
-                        <!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')">
+						<div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('KOR')">
+                            <input type="radio" id="lang4" name="lang" class="custom-control-input-hidden" value="KOR">
+                            <label class="custom-control-label-lang ico-before-kr" for="lang4">
+                                <span
+                                    class="language_replace">한국어</span></label>
+                        </div>
+                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')">
                             <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" checked>
                             <label class="custom-control-label-lang ico-before-cn" for="lang1">
                                 <span
                                     class="language_replace">简体中文</span></label>
-                        </div-->
+                        </div>
                         <div class="custom-control  custom-control-inline custom-radio-lang" onclick="setLanguage('CHT')">
                             <input type="radio" id="lang2" name="lang" class="custom-control-input-hidden" value="CHT">
                             <label class="custom-control-label-lang ico-before-hk" for="lang2">
@@ -398,12 +433,6 @@
                                 <span
                                     class="language_replace">english</span></label>
                         </div>
-                        <!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('KOR')">
-                            <input type="radio" id="lang4" name="lang" class="custom-control-input-hidden" value="KOR">
-                            <label class="custom-control-label-lang ico-before-kr" for="lang4">
-                                <span
-                                    class="language_replace">한국어</span></label>
-                        </div-->
                         <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('JPN')">
                             <input type="radio" id="lang5" name="lang" class="custom-control-input-hidden" value="JPN">
                             <label class="custom-control-label-lang ico-before-jp" for="lang5">
@@ -504,6 +533,24 @@
         <!-- mask_overlay 半透明遮罩-->
         <div id="mask_overlay_popup" class="mask_overlay_popup mask_overlay_loading" ></div>
     </div>
+			
+	<!-- 蓋板公告 -->
+	<script>
+		function fullAdClose(){
+			var idFullAD = document.getElementById("idFullAD");
+			idFullAD.style.display = "none";
+		}
+	</script>
+	<div id="idFullAD" class="popupFullAD">
+		<div class="fullADDDiv">
+			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
+			<div class="fullADDText">
+				<H5><span class="language_replace">歡迎來到BET 파라다이스</span></H5>
+				<!-- 公告寫在這裡面 -->
+				<span><%=Bulletin %></span>
+			</div>
+		</div>	
+	</div>		
 
 </body>
 </html>
