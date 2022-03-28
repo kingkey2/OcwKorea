@@ -523,42 +523,7 @@
                     <!-- 虛擬錢包 step3 - 入金確認頁-->
                     <div class="deposit-confirm " data-deposite="step3" id="depositdetail">
                         <div class="aside-panel">
-                            <!--div class="deposit-calc">
-                                <div class="deposit-crypto">
-                                    <h5 class="subject-title language_replace">收款項目</h5>
-                                    <ul class="deposit-crypto-list Collectionitem">
-                                    </ul>
-                                </div>
-                                <div class="deposit-total">
-                                    <div class="item subtotal">
-                                        <div class="title">
-                                            <h5 class="name language_replace">存入金額</h5>
-                                        </div>
-                                        <div class="data">
-                                            <span class="name PaymentCode MainCurrencyType"></span>
-                                            <span class="count Amount"></span>
-                                        </div>
-                                    </div>
-                                    <div class="item subtotal" style="display: none;">
-                                        <div class="title">
-                                            <h5 class="name language_replace">活動獎勵</h5>
-                                        </div>
-                                        <div class="data">
-                                            <span class="name MainCurrencyType"></span>
-                                            <span class="count" id="idBonusValue">0</span>
-                                        </div>
-                                    </div>
-                                    <div class="item total">
-                                        <div class="title">
-                                            <h5 class="name language_replace">可得總額</h5>
-                                        </div>
-                                        <div class="data">
-                                            <span class="name MainCurrencyType"></span>
-                                            <span class="count TotalAmount" id="idTotalReceiveValue"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div-->
+                          
 							<div class="deposit-calc">
                                 <div class="deposit-crypto">
                                     <h5 class="subject-title language_replace">收款項目</h5>

@@ -43,7 +43,7 @@
             window.location.href = "index.aspx";
         }
 
-        //lang = window.parent.API_GetLang();
+        lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();

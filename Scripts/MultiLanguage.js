@@ -275,7 +275,7 @@
                 _LanguageContextJSON = [];
 
                 loadLanguageFromFile("/_Global." + lang + ".json", function () {
-                    loadLanguageFromFile(pageName + "." + lang + ".json", function () {
+                    loadLanguageFromFile(pageName + "." + lang + ".json" + "?" + Math.random(), function () {
                         if (orderPageName) {
                             loadLanguageFromFile(`/${orderPageName}.` + lang + ".json", function () {
                                 DoLanguageReplace(cb);
