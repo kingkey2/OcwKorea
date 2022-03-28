@@ -164,17 +164,17 @@ public class PaymentAPI : System.Web.Services.WebService {
 
                                                 if (string.IsNullOrEmpty(BankBranchName))
                                                 {
-                                                    Description = WithdrawalGUID + "<br/>" + BankName + "<br/>" + BankCard + "<br/>" + BankCardName + "<br/>";
+                                                    Description = WithdrawalGUID + "<br/>" + BankName + "<br/>" + BankCard + "<br/>" + BankCardName;
                                                 }
                                                 else {
-                                                    Description = WithdrawalGUID + "<br/>" + BankName + "<br/>" + BankBranchName + "<br/>" + BankCard + "<br/>" + BankCardName + "<br/>";
+                                                    Description = WithdrawalGUID + "<br/>" + BankName + "<br/>" + BankBranchName + "<br/>" + BankCard + "<br/>" + BankCardName;
                                                 }
 
                                                 EWin.Lobby.APIResult InsertResult  = lobbyAPI.RequireWithdrawal(GetToken(), SI.EWinSID, GUID,(string)PaymentMethodDT.Rows[0]["CurrencyType"],Amount,Description);
 
                                                 if (InsertResult.Result == EWin.Lobby.enumResult.OK)
                                                 {
-                                                    AgentWithdrawal _AgentWithdrawalData = new AgentWithdrawal() { BankBranchName = BankBranchName, BankCard = BankCard, BankCardName = BankCardName, BankName = BankName, GUID = WithdrawalGUID, LoginAccount = SI.LoginAccount };
+                                                    AgentWithdrawal _AgentWithdrawalData = new AgentWithdrawal() { BankBranchName = BankBranchName, BankCard = BankCard, BankCardName = BankCardName, BankName = BankName, GUID = WithdrawalGUID, LoginAccount = SI.LoginAccount,CreateDate= DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss")),Status=0 ,Amount= Amount};
                                                     int Year= DateTime.Now.Year;
                                                     int Month = DateTime.Now.Month;
                                                     RedisCache.AgentWithdrawalContent.KeepWithdrawalContents<AgentWithdrawal>(_AgentWithdrawalData,SI.LoginAccount, Year + "-" + Month);
@@ -1586,23 +1586,82 @@ public class PaymentAPI : System.Web.Services.WebService {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public AgentWithdrawalListResult GetAgentWithdrawalPayment(string WebSID, string GUID, DateTime SearchDate) {
-        AgentWithdrawalListResult R = new AgentWithdrawalListResult() { Result = enumResult.ERR };
+        AgentWithdrawalListResult R = new AgentWithdrawalListResult() { Result = enumResult.ERR,Datas = new List<AgentWithdrawal>() };
         EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        string strDate = SearchDate.Year + "-" + SearchDate.Month;
+        List<AgentWithdrawal> ListEWinRequireWithdrawal = new List<AgentWithdrawal>();
+        List<AgentWithdrawal> ListEndEWinRequireWithdrawal = new List<AgentWithdrawal>();
+        string[] separatingStrings = { "<br/>"};
+        string strDate = SearchDate.Year + "-" + (SearchDate.Month+1);
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            EWin.Lobby.RequireWithdrawalHistoryResult userInfoResult = lobbyAPI.GetRequireWithdrawalHistoryByUserAccountID(GetToken(), SI.EWinSID, GUID,SearchDate.Year,SearchDate.Month);
 
-            R.Datas = new List<AgentWithdrawal>();
-            R.Result = enumResult.OK;
-            List<AgentWithdrawal> payments = RedisCache.AgentWithdrawalContent.GetWithdrawalContents<List<AgentWithdrawal>>(SI.LoginAccount,strDate);
+            EWin.Lobby.RequireWithdrawalHistoryResult EWinRequireWithdrawal = lobbyAPI.GetRequireWithdrawalHistoryByUserAccountID(GetToken(), SI.EWinSID, GUID, SearchDate.Year, SearchDate.Month + 1);
 
-            if (payments.Count > 0)
+            if (EWinRequireWithdrawal.Result == EWin.Lobby.enumResult.OK)
             {
-                R.Datas = payments;
+                for (int i = 0; i < EWinRequireWithdrawal.HistoryList.Length; i++)
+                {
+                    var data = new AgentWithdrawal();
+                    var splitDescription = EWinRequireWithdrawal.HistoryList[i].Description.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
+                    if (splitDescription.Length == 5)
+                    {
+                        data.GUID = splitDescription[0];
+                        data.BankName = splitDescription[1];
+                        data.BankBranchName = splitDescription[2];
+                        data.BankCard = splitDescription[3];
+                        data.BankCardName = splitDescription[4];
+                    }
+                    else {
+                        data.GUID = splitDescription[0];
+                        data.BankName = splitDescription[1];
+                        data.BankCard = splitDescription[2];
+                        data.BankCardName = splitDescription[3];
+                    }
+
+                    data.Status = EWinRequireWithdrawal.HistoryList[i].ProcessStatus;
+                    data.Amount = EWinRequireWithdrawal.HistoryList[i].Amount;
+                    data.FinishDate = EWinRequireWithdrawal.HistoryList[i].CreateDate + " " + EWinRequireWithdrawal.HistoryList[i].CreateTime;
+
+                    ListEWinRequireWithdrawal.Add(data);
+                }
+
+            }
+
+            List<AgentWithdrawal> ListRequireWithdrawal = RedisCache.AgentWithdrawalContent.GetWithdrawalContents<List<AgentWithdrawal>>(SI.LoginAccount, strDate);
+            if (ListRequireWithdrawal != null && ListRequireWithdrawal.Count > 0)
+            {
+                for (int i = 0; i < ListRequireWithdrawal.Count; i++)
+                {
+                    var EWinRequireWithdrawalData = ListEWinRequireWithdrawal.Find(x => x.GUID.Contains(ListRequireWithdrawal[i].GUID));
+                    if (EWinRequireWithdrawalData != null)
+                    {
+                        ListRequireWithdrawal[i].Status = EWinRequireWithdrawalData.Status;
+                        ListRequireWithdrawal[i].FinishDate = EWinRequireWithdrawalData.FinishDate;
+                    }
+                    ListEndEWinRequireWithdrawal.Add(ListRequireWithdrawal[i]);
+                }
+            }
+
+            if (ListEWinRequireWithdrawal != null && ListEWinRequireWithdrawal.Count > 0)
+            {
+                for (int i = 0; i < ListEWinRequireWithdrawal.Count; i++)
+                {
+                    var RequireWithdrawalData = ListRequireWithdrawal.Find(x => x.GUID.Contains(ListEWinRequireWithdrawal[i].GUID));
+                    if (RequireWithdrawalData == null)
+                    {
+                        ListEndEWinRequireWithdrawal.Add(ListEWinRequireWithdrawal[i]);
+                    }
+                }
+            }
+
+
+            if (ListEndEWinRequireWithdrawal.Count > 0)
+            {
+                R.Datas = ListEndEWinRequireWithdrawal;
+                R.Result = enumResult.OK;
             }
             else {
                 SetResultException(R, "NoData");
@@ -2029,6 +2088,10 @@ public class PaymentAPI : System.Web.Services.WebService {
         public string BankBranchName  { get; set; }
         public string BankCard  { get; set; }
         public string BankCardName  { get; set; }
+        public int Status  { get; set; }
+        public string CreateDate  { get; set; }
+        public string FinishDate  { get; set; }
+        public decimal Amount  { get; set; }
     }
 
     public class PaymentCommonResult : APIResult {

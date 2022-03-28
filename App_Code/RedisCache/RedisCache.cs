@@ -789,7 +789,6 @@ public static class RedisCache
         private static string XMLPath = "AgentWithdrawalContent";
         private static int DBIndex = 0;
 
-
         public static T GetWithdrawalContents<T>(string LoginAccount, string Date)
         {
             T R = default(T);
@@ -807,24 +806,6 @@ public static class RedisCache
             }
 
             return R;
-        }
-
-        public static void UpdateWithdrawalContents(string JsonData, string LoginAccount, string Date, int ExpireTime)
-        {
-            string Key;
-
-            Key = XMLPath + ":" + Date + ":LoginAccount:" + LoginAccount;
-            for (int I = 0; I <= 3; I++)
-            {
-                try
-                {
-                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTime);
-                    break;
-                }
-                catch (Exception ex)
-                {
-                }
-            }
         }
 
         public static void KeepWithdrawalContents<T>(T Target, string LoginAccount, string Date)
@@ -850,7 +831,7 @@ public static class RedisCache
             {
                 try
                 {
-                    JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key);
+                    JsonStringWriteToRedis(DBIndex, Newtonsoft.Json.JsonConvert.SerializeObject(NowDatas), Key, 604800);
                     break;
                 }
                 catch (Exception ex)

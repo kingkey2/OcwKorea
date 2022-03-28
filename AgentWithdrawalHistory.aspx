@@ -44,11 +44,13 @@
         var Text;
         if (recordStatus == -1) {
             Text = mlp.getLanguageKey('全部');
+        } else if (recordStatus == 1) {
+            Text = mlp.getLanguageKey('完成');
         } else if (recordStatus == 2) {
-            Text = mlp.getLanguageKey('成功');
-        } else if (recordStatus == 3) {
-            Text = mlp.getLanguageKey('未成功');
-        } else {
+            Text = mlp.getLanguageKey('已取消');
+        } else if (recordStatus == 0) {
+            Text = mlp.getLanguageKey('進行中');
+        }else {
             recordStatus == -1;
             Text = mlp.getLanguageKey('全部');
         }
@@ -60,32 +62,40 @@
         updatePaymentHistory();
     }
 
-    function switchtRecordDepositeWithdrawal(recordStatus) {
-        var Text;
-        if (recordStatus == -1) {
-            document.getElementById("record-type-all").setAttribute("checked", "checked");
-            document.getElementById("record-type-deposit").removeAttribute("checked");
-            document.getElementById("record-type-withdraw").removeAttribute("checked");
+    //function switchtRecordStatus(recordStatus) {
+    //    var Text;
+    //    if (recordStatus == -1) {
+    //        document.getElementById("record-type-all").setAttribute("checked", "checked");
+    //        document.getElementById("record-type-success").removeAttribute("checked");
+    //        document.getElementById("record-type-fail").removeAttribute("checked");
+    //        document.getElementById("record-type-process").removeAttribute("checked");
+    //    } else if (recordStatus == 0) {
+    //        document.getElementById("record-type-process").setAttribute("checked", "checked");
+    //        document.getElementById("record-type-success").removeAttribute("checked");
+    //        document.getElementById("record-type-fail").removeAttribute("checked");
+    //        document.getElementById("record-type-all").removeAttribute("checked");
+    //    } else if (recordStatus == 1) {
+    //        document.getElementById("record-type-success").setAttribute("checked", "checked");
+    //        document.getElementById("record-type-all").removeAttribute("checked");
+    //        document.getElementById("record-type-fail").removeAttribute("checked");
+    //        document.getElementById("record-type-process").removeAttribute("checked");
+    //    } else if (recordStatus == 2) {
+    //        document.getElementById("record-type-fail").setAttribute("checked", "checked");
+    //        document.getElementById("record-type-success").removeAttribute("checked");
+    //        document.getElementById("record-type-all").removeAttribute("checked");
+    //        document.getElementById("record-type-process").removeAttribute("checked");
+    //    } else {
+    //        recordStatus == -1;
+    //        document.getElementById("record-type-all").setAttribute("checked", "checked");
+    //        document.getElementById("record-type-success").removeAttribute("checked");
+    //        document.getElementById("record-type-fail").removeAttribute("checked");
+    //        document.getElementById("record-type-process").removeAttribute("checked");
+    //    }
 
-        } else if (recordStatus == 0) {
-            document.getElementById("record-type-all").removeAttribute("checked");
-            document.getElementById("record-type-deposit").setAttribute("checked", "checked");
-            document.getElementById("record-type-withdraw").removeAttribute("checked");
-        } else if (recordStatus == 1) {
-            document.getElementById("record-type-all").removeAttribute("checked");
-            document.getElementById("record-type-deposit").removeAttribute("checked");
-            document.getElementById("record-type-withdraw").setAttribute("checked", "checked");
-        } else {
-            recordStatus == -1;
-            document.getElementById("record-type-all").setAttribute("checked", "checked");
-            document.getElementById("record-type-deposit").removeAttribute("checked");
-            document.getElementById("record-type-withdraw").removeAttribute("checked");
-        }
+    //    nowRecordStatus = recordStatus;
 
-        isDepositeOrWithdrawal = recordStatus;
-
-        updatePaymentHistory();
-    }
+    //    updatePaymentHistory();
+    //}
 
     function getDateString(date) {
         var mm = date.getMonth() + 1; // getMonth() is zero-based
@@ -146,7 +156,7 @@
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
     }
-    var q;
+
     function updatePaymentHistory() {
         //var dateType = document.querySelector('input[name="record-type"]:checked').value;
         var idSearchYear = document.getElementById("idSearchYear");
@@ -164,9 +174,6 @@
 
         p.GetAgentWithdrawalPayment(WebInfo.SID, Math.uuid(), startDate, function (success, o) {
             if (success) {
-                console.log("ff", o);
-            q= o;
-
                 if (o.Result == 0) {
                     if (o.Datas.length > 0) {
                         var RecordDom;
@@ -174,11 +181,9 @@
                         //var numGameTotalValidBetValue = new BigNumber(0);
                         for (var i = 0; i < o.Datas.length; i++) {
                             var record = o.Datas[i];
-                            if (record.PaymentType == 0) {
-                                RecordDom = c.getTemplate("temRecordItem2");
-                            } else {
-                                RecordDom = c.getTemplate("temRecordItem");
-                            }
+                         
+                            RecordDom = c.getTemplate("temRecordItem");
+                            
 
                             //ewin資料存GMT+8，取出後改+9看是否該資料符合搜尋區間
                             var strSearchMonthDate;
@@ -188,68 +193,69 @@
                                 strSearchMonthDate = idSearchMonth.dataset.date;
                             }
 
-                            if (c.addHours(record.FinishDate, 1).format("MM") == strSearchMonthDate) {
-                                var recordDate = new Date(c.addHours(record.FinishDate, 1));
+                            var CheckDate;
+                            if (record.CreateDate) {
+                                CheckDate = c.addHours(record.CreateDate, 1).format("MM");
+                            } else {
+                                CheckDate = c.addHours(record.FinishDate, 1).format("MM");
+                            }
+                            if (CheckDate == strSearchMonthDate) {
+
+                                var recordDate;
+                                if (record.CreateDate) {
+                                    recordDate = new Date(c.addHours(record.CreateDate, 1))
+                                } else if (record.FinishDate) {
+                                    recordDate = new Date(c.addHours(record.FinishDate, 1))
+                                }
+                                else {
+                                    recordDate = '';
+                                }
+
                                 var paymentRecordStatus
                                 var paymentRecordText;
                                 var BasicType;
 
-                                switch (record.PaymentFlowType) {
-                                    case 2:
-                                        paymentRecordStatus = 2;
+                                switch (record.Status) {
+                                    case 1:
+                                        paymentRecordStatus = 1;
                                         paymentRecordText = mlp.getLanguageKey('完成');
                                         break;
-                                    case 3:
-                                        paymentRecordStatus = 3;
-                                        paymentRecordText = mlp.getLanguageKey('主動取消');
-                                        $(RecordDom).find('.PaymentStatus').addClass('fail');
-                                        $(RecordDom).find('.PaymentStatus').addClass('icon-info_circle_outline');
-
-
-                                        break;
-                                    case 4:
-                                        paymentRecordStatus = 4;
-                                        paymentRecordText = mlp.getLanguageKey('審核拒絕');
-                                        $(RecordDom).find('.PaymentStatus').addClass('fail');
-                                        $(RecordDom).find('.PaymentStatus').addClass('icon-info_circle_outline');
-                                        break;
-                                }
-
-                                // 0=一般/1=銀行卡/2=區塊鏈
-                                switch (record.BasicType) {
-                                    case 0:
-                                        BasicType = mlp.getLanguageKey('一般');
-                                        break;
-                                    case 1:
-                                        BasicType = mlp.getLanguageKey('銀行卡');
-                                        break;
                                     case 2:
-                                        BasicType = mlp.getLanguageKey('區塊鏈');
+                                        paymentRecordStatus = 2;
+                                        paymentRecordText = mlp.getLanguageKey('已取消');
+                                        $(RecordDom).find('.Status').addClass('fail');
+                                        $(RecordDom).find('.Status').addClass('icon-info_circle_outline');
                                         break;
-                                    default:
+                                    case 0:
+                                        paymentRecordStatus = 0;
+                                        paymentRecordText = mlp.getLanguageKey('進行中');
+                                        $(RecordDom).find('.Status').addClass('processing');
+                                        
+                                        break;
                                 }
 
+                               
                                 if (nowRecordStatus != -1) {
-                                    if (nowRecordStatus == 3) {
-                                        if (!(paymentRecordStatus == 3 || paymentRecordStatus == 4)) {
+                                    if (nowRecordStatus == 1) {
+                                        if (!(paymentRecordStatus == 1)) {
                                             continue;
                                         }
-                                    } else if (nowRecordStatus != paymentRecordStatus) {
+                                    } else if (nowRecordStatus == 2) {
+                                        if (!(paymentRecordStatus == 2)) {
+                                            continue;
+                                        }
+                                    } else if (nowRecordStatus == 0) {
+                                        if (!(paymentRecordStatus == 0)) {
+                                            continue;
+                                        }
+                                    }
+                                    else if (nowRecordStatus != paymentRecordStatus) {
                                         continue;
                                     }
                                 }
 
-                                if (isDepositeOrWithdrawal != -1) {
-                                    if (isDepositeOrWithdrawal != record.PaymentType) {
-                                        continue;
-                                    }
-                                }
-
-                                if (record.PaymentType == 0) {
-                                    Amount = record.Amount;
-                                } else {
-                                    Amount = record.Amount * -1;
-                                }
+                                 Amount = record.Amount;
+                             
 
                                 //金額處理
                                 var countDom = RecordDom.querySelector(".amount");
@@ -260,26 +266,32 @@
                                     countDom.classList.add("negative");
                                     countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
                                 }
-
-                                c.setClassText(RecordDom, "month", null, recordDate.toLocaleString('en-US', { month: 'short' }).toUpperCase());
-                                c.setClassText(RecordDom, "date2", null, recordDate.toLocaleString('en-US', { day: 'numeric' }).toUpperCase());
-                                c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd"));
-                                c.setClassText(RecordDom, "FinishTime", null, c.addHours(record.FinishDate, 1).format("hh:mm:ss"));
-                                if (record.PaymentType == 1) {
-                                    c.setClassText(RecordDom, "ToWalletAddress", null, record.ToWalletAddress);
+                                if (recordDate!='') {
+                                    c.setClassText(RecordDom, "month", null, recordDate.toLocaleString('en-US', { month: 'short' }).toUpperCase());
+                                    c.setClassText(RecordDom, "date2", null, recordDate.toLocaleString('en-US', { day: 'numeric' }).toUpperCase());
                                 }
-                                c.setClassText(RecordDom, "PaymentMethodName", null, record.PaymentMethodName);
-                                c.setClassText(RecordDom, "BasicType", null, BasicType);
-                                c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
-
-                                $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
+                            
+                                c.setClassText(RecordDom, "Status", null, paymentRecordText);
+                                if (record.FinishDate) {
+                                    c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd"));
+                                    c.setClassText(RecordDom, "FinishTime", null, c.addHours(record.FinishDate, 1).format("hh:mm:ss"));
+                                }
+                                c.setClassText(RecordDom, "GUID", null, record.GUID);
+                                c.setClassText(RecordDom, "BankName", null, record.BankName);
+                                c.setClassText(RecordDom, "BankBranchName", null, record.BankBranchName);
+                                c.setClassText(RecordDom, "BankCard", null, record.BankCard);
+                                c.setClassText(RecordDom, "BankCardName", null, record.BankCardName); 
+                                
+                                $(RecordDom).find('.inputPaymentSerial').val(record.GUID);
                                 ParentMain.appendChild(RecordDom);
-                                if ($(ParentMain).length == 0) {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                                }
+                                
                             }
                         }
+
+                        if ($(ParentMain).length == 0) {
+                            window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        }
+
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                         //document.getElementById('gameTotalValidBetValue').textContent = 0;
@@ -396,32 +408,35 @@
                 <div class="page-title-container">
                     <div class="page-title-wrap">
                         <div class="page-title-inner">
-                            <h3 class="title language_replace">存取款紀錄</h3>
+                            <h3 class="title language_replace">下線領取紀錄</h3>
                         </div>
                     </div>
                 </div>
 
                 <!-- 類別選單 -->
-                <div class="slide-menu-container">
+      <%--          <div class="slide-menu-container">
                     <div class="slide-menu-wraper">
-                        <input type="radio" name="record-type" id="record-type-all" onclick="switchtRecordDepositeWithdrawal(-1)" checked>
+                        <input type="radio" name="record-type" id="record-type-all" onclick="switchtRecordStatus(-1)" checked>
                         <label class="slide-menu-item" for="record-type-all">
                             <span class="language_replace">全部</span>
                         </label>
 
-                        <input type="radio" name="record-type" id="record-type-deposit" onclick="switchtRecordDepositeWithdrawal(0)">
-                        <label class="slide-menu-item" for="record-type-deposit">
-                            <span class="language_replace">存款</span>
+                        <input type="radio" name="record-type" id="record-type-success" onclick="switchtRecordStatus(1)">
+                        <label class="slide-menu-item" for="record-type-success">
+                            <span class="language_replace">成功</span>
                         </label>
 
-                        <input type="radio" name="record-type" id="record-type-withdraw" onclick="switchtRecordDepositeWithdrawal(1)">
-                        <label class="slide-menu-item" for="record-type-withdraw">
-                            <span class="language_replace">取款</span>
+                        <input type="radio" name="record-type" id="record-type-fail" onclick="switchtRecordStatus(2)">
+                        <label class="slide-menu-item" for="record-type-fail">
+                            <span class="language_replace">失敗</span>
                         </label>
-
+                         <input type="radio" name="record-type" id="record-type-process" onclick="switchtRecordStatus(0)">
+                        <label class="slide-menu-item" for="record-type-process">
+                            <span class="language_replace">處理</span>
+                        </label>
                         <div class="tracking-bar"></div>
                     </div>
-                </div>
+                </div>--%>
 
                 <!-- 紀錄列表 -->
                 <div class="record-table-container payment-record">
@@ -441,8 +456,8 @@
                                 </button>
                             </div>
                         </div>
-                        <!--  下拉加入 class="cur" -->
-                        <div class="dropdown-selector">
+                 <!--  下拉加入 class="cur" -->
+                 <div class="dropdown-selector">
                             <div class="dropdown-selector-tab" data-click-btn="toggle-dropdown">
                                 <span class="language_replace">全部</span>
                             </div>
@@ -455,24 +470,27 @@
                                         </label>
                                     </div>
                                     <div class="btn-radio">
-                                        <input type="radio" name="recordStatus" id="type_0" onclick="switchtRecordStatus(2)">
-                                        <label class="btn btn-outline-primary btn-sm" for="type_0">
-                                            <span class="language_replace">成功</span>
+                                        <input type="radio" name="recordStatus" id="type_1" onclick="switchtRecordStatus(1)">
+                                        <label class="btn btn-outline-primary btn-sm" for="type_1">
+                                            <span class="language_replace">完成</span>
                                         </label>
                                     </div>
                                     <div class="btn-radio">
-                                        <input type="radio" name="recordStatus" id="type_1" onclick="switchtRecordStatus(3)">
-                                        <label class="btn btn-outline-primary btn-sm" for="type_1">
-                                            <span class="language_replace">未成功</span>
+                                        <input type="radio" name="recordStatus" id="type_2" onclick="switchtRecordStatus(2)">
+                                        <label class="btn btn-outline-primary btn-sm" for="type_2">
+                                            <span class="language_replace">已取消</span>
                                         </label>
                                     </div>
-
+                                      <div class="btn-radio">
+                                        <input type="radio" name="recordStatus" id="type_0" onclick="switchtRecordStatus(0)">
+                                        <label class="btn btn-outline-primary btn-sm" for="type_0">
+                                            <span class="language_replace">進行中</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
-
-
                     </div>
 
                     <div class="record-table payment-record">
@@ -671,18 +689,15 @@
             <div class="record-table-tab">
                 <div class="record-table-cell date">
                     <div class="data-date">
-                        <div class="month">OCT</div>
-                        <div class="date date2">10</div>
+                        <div class="month"></div>
+                        <div class="date date2"></div>
                     </div>
-                </div>
-                <div class="record-table-cell payment-way">
-                    <div class="paymen-tway PaymentMethodName"></div>
                 </div>
                 <div class="record-table-cell count">
                     <div class="count positive amount">+9,999</div>
                 </div>
                 <div class="record-table-cell status">
-                    <span class="data-status PaymentStatus language_replace">已完成</span>
+                    <span class="data-status Status language_replace">已完成</span>
                 </div>
             </div>
 
@@ -692,26 +707,34 @@
                     <tbody>
                         <tr>
                             <th class="title language_replace">訂單編號</th>
-                            <td><span class="PaymentSerial"></span>
+                            <td><span class="GUID"></span>
                                 <input class="inputPaymentSerial is-hide" />
                                 <i class="icon-copy" onclick="copyText(this)" style="display: inline;"></i>
                             </td>
                         </tr>
                         <tr>
-                            <th class="title language_replace">出款地址</th>
-                            <td class="ToWalletAddress">XXXX-XXXX-XXXXXXXX</td>
+                            <th class="title language_replace">銀行名稱</th>
+                            <td class="BankName"></td>
                         </tr>
                         <tr>
-                            <th class="title language_replace">類型</th>
-                            <td class="BasicType">XXXX-XXXX-XXXXXXXX</td>
+                            <th class="title language_replace">支行名稱</th>
+                            <td class="BankBranchName"></td>
+                        </tr>
+                         <tr>
+                            <th class="title language_replace">卡號</th>
+                            <td class="BankCard"></td>
+                        </tr>
+                         <tr>
+                            <th class="title language_replace">姓名</th>
+                            <td class="BankCardName"></td>
                         </tr>
                         <tr>
                             <th class="title language_replace">完成日期</th>
-                            <td class="FinishDate">XXXX-XXXX-XXXXXXXX</td>
+                            <td class="FinishDate"></td>
                         </tr>
-                        <tr>
+                          <tr>
                             <th class="title language_replace">完成時間</th>
-                            <td class="FinishTime">XXXX-XXXX-XXXXXXXX</td>
+                            <td class="FinishTime"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -719,56 +742,6 @@
 
         </div>
     </div>
-    <div id="temRecordItem2" class="is-hide">
-        <div class="record-table-item" data-record-type="diposit">
-            <div class="record-table-tab">
-                <div class="record-table-cell date">
-                    <div class="data-date">
-                        <div class="month">OCT</div>
-                        <div class="date date2">10</div>
-                    </div>
-                </div>
-                <div class="record-table-cell payment-way">
-                    <div class="paymen-tway PaymentMethodName"></div>
-                </div>
-                <div class="record-table-cell count">
-                    <div class="count positive amount">+9,999</div>
-                </div>
-                <div class="record-table-cell status">
-                    <span class="data-status PaymentStatus language_replace">已完成</span>
-                </div>
-            </div>
-
-            <!-- 明細 -->
-            <div class="record-table-drop-panel">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr>
-                            <th class="title language_replace">訂單編號</th>
-                            <td><span class="PaymentSerial"></span>
-                                <input class="inputPaymentSerial is-hide" />
-                                <i class="icon-copy" onclick="copyText(this)" style="display: inline;"></i>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th class="title language_replace">類型</th>
-                            <td class="BasicType">XXXX-XXXX-XXXXXXXX</td>
-                        </tr>
-                        <tr>
-                            <th class="title language_replace">完成日期</th>
-                            <td class="FinishDate">XXXX-XXXX-XXXXXXXX</td>
-                        </tr>
-                        <tr>
-                            <th class="title language_replace">完成時間</th>
-                            <td class="FinishTime">XXXX-XXXX-XXXXXXXX</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-    </div>
+  
 </body>
 </html>

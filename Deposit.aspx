@@ -144,7 +144,7 @@
 
                     </div>
                     <!-- PayPal -->
-                    <div class="card-item sd-08" id="idDepositPaypal">
+                    <div class="card-item sd-08 is-hide" id="idDepositPaypal">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">

@@ -218,6 +218,16 @@
                         </a>
                     </div>
                     <div class="box-item">
+                        <a class="box-item-link" onclick="window.parent.API_LoadPage('AgentWithdrawalHistory','AgentWithdrawalHistory.aspx?1', true)">
+                            <div class="box-item-inner tab">
+                                <i class="icon icon-file"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title language_replace">下線取款紀錄</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="box-item">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('instructions-crypto','instructions-crypto.html')">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-casinoworld-newspaper"></i>
