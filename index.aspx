@@ -1597,6 +1597,9 @@
                                     <%-- <span class="notify"><span class="notify-dot"></span></span>        --%>                              
                                     <img src="images/assets/coin-Ocoin.png" alt="">
                                 </div>
+								<div class="currency-info">
+                                    <div class="currencyType">KRW</div>
+                                </div>
                                 <div class="balance-info">
                                     <div class="amount">0</div>
                                 </div>
@@ -1606,7 +1609,7 @@
                             </div>
                         </div>                   
                        
-                        <a class="item-tab" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                        <a class="item-tab MemberCenterBtn" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
                             <div class="avatar">
                                 <img id="idAvatarImg" src="images/assets/avatar/avatar-05.jpg">
                             </div>
