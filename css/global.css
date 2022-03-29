@@ -1658,6 +1658,7 @@ select.custom-style:focus {
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
   margin: 0 3em 0 0;
+	text-align: center;
 }
 .box-item-title {
   width: 100%;
@@ -1826,6 +1827,7 @@ i.icon-logo-tron {
 }
 i.icon-logo-eth {
   background-color: #2C2D3A;
+	color: #fff;
 }
 i.icon-logo-usdt, i.icon-casinoworld-logo-usdt {
   background-color: #26a17b !important;
