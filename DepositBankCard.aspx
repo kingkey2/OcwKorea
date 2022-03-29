@@ -181,7 +181,7 @@
             var amount = parseFloat($("#amount").val());
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
             
-            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, function (success, o) {
+            PaymentClient.CreateBankCardDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, function (success, o) {
                  if (success) {
                     let data = o.Data;
                     if (o.Result == 0) {
@@ -538,7 +538,6 @@
                                         <div class="data">
                                             <span class="name MainCurrencyType"></span>
                                             <span class="count TotalAmount" id="idTotalReceiveValue"></span>
-											<input class="inputPaymentSerial is-hide">
                                         </div>
                                     </div>
                                     <div class="item subtotal">
@@ -546,9 +545,9 @@
                                             <h5 class="name language_replace">銀行名稱</h5>
                                         </div>
                                         <div class="">
-                                            <span class="count Amount">XXX銀行</span>
+                                            <span class="count BankName">XXX銀行</span>
 											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
-											<input class="inputPaymentSerial is-hide">
+											<input class="inputBankName is-hide">
                                         </div>
                                     </div>
 									<div class="item subtotal">
@@ -556,9 +555,9 @@
                                             <h5 class="name language_replace">分行別</h5>
                                         </div>
                                         <div class="">
-                                            <span class="count Amount">YY分行</span>
+                                            <span class="count BankBranchName">YY分行</span>
 											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
-											<input class="inputPaymentSerial is-hide">
+											<input class="inputBankBranchName is-hide">
                                         </div>
                                     </div>
 									<div class="item subtotal">
@@ -566,8 +565,9 @@
                                             <h5 class="name language_replace">帳號</h5>
                                         </div>
                                         <div class="">
-                                            <span class="count Amount">000000000</span>
+                                            <span class="count BankCard"></span>
 											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+                                            <input class="inputBankCard is-hide">
                                         </div>
                                     </div>
 
