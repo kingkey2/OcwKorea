@@ -238,7 +238,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="box-item">
+                    <div class="box-item is-hide" style="display: none;">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('instructions-crypto','instructions-crypto.html')">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-casinoworld-newspaper"></i>
