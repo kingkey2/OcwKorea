@@ -793,11 +793,8 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
-                                            <li><span class="language_replace">出金表示金額には燃料費が含まれております(10万OCOIN以下の場合は、燃料費を差引いての着金となります。)</span></li>
-                                            <li><span class="language_replace">10万 OCOIN 以上の出金の場合は燃料費は無料となります。</span></li>
-                                            <li><span class="language_replace">出金は1日３回までとなります。</span></li>
-                                            <li><span class="language_replace">1日出金最大限度額が100万OCOINとなります。</span></li>
-                                            <li><span class="language_replace">出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</span></li>
+                                            <li><span class="language_replace">請使用所選幣別對應的錢包地址，錯誤的錢包地址所造成交易問題，本公司將不負擔任何責任。</span></li>
+                                            <li><span class="language_replace">每次交易將收取0.1%的手續費。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
@@ -1006,9 +1003,8 @@
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
                             <ul class="list-style-decimal">
-                                <li><span class="language_replace">OCoin為平台使用的專屬遊戲幣。</span></li>
-                                <li><span class="language_replace">請正確使用對應的錢包入款，否則可能造成您入款失敗。</span></li>
-                                <li><span class="language_replace">虛擬貨幣入款需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
+                                <li><span class="language_replace">請正確使用對應的錢包收款，否則可能造成您收款失敗。</span></li>
+                                <li><span class="language_replace">虛擬貨幣交易需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
                                 <li><span class="language_replace">實際入款遊戲幣為入款金額-手續費後之餘額進行換算。</span></li>
                                 <li><span class="language_replace">匯率可能隨時變動中，所有交易以本網站的匯率為準，打幣後交易期間若有變動，將以實際入幣時的匯率撥給遊戲幣。建議您可於入款前重整匯率資訊，確保您同意目前的匯率後進行入款。</span></li>
                                 <li><span class="language_replace">『ETH』和USDT的『ERC20』可透過 https://etherscan.io/ 進行查詢交易的狀況。</span></li>
