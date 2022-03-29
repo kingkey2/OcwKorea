@@ -196,36 +196,37 @@
         if (LobbyGameList) {
             if (LobbyGameList.CategoryList) {
                 for (var i = 0; i < LobbyGameList.CategoryList.length; i++) {
-                    //上方tab
-                    var li = document.createElement("li");
-                    var li_a = document.createElement("a");
-                    var li_a_span = document.createElement("span");
-                    var li_a_i = createITag(LobbyGameList.CategoryList[i].Categ);
-                    //下方遊戲內容，全隱藏
-                    //var secGameCateg = document.createElement("section");
+                    if (LobbyGameList.CategoryList[i].Categ != "Sports") {
+                        //上方tab
+                        var li = document.createElement("li");
+                        var li_a = document.createElement("a");
+                        var li_a_span = document.createElement("span");
+                        var li_a_i = createITag(LobbyGameList.CategoryList[i].Categ);
+                        //下方遊戲內容，全隱藏
+                        //var secGameCateg = document.createElement("section");
 
 
-                    //上方tab
+                        //上方tab
 
-                    li_a.appendChild(li_a_i);
-                    li_a.appendChild(li_a_span);
-                    li.appendChild(li_a);
-                    li.classList.add("tab-item");
-                    li.classList.add("tab_" + LobbyGameList.CategoryList[i].Categ);
-                    li_a.classList.add("tab-item-link");
-                    li_a_span.innerText = mlp.getLanguageKey(LobbyGameList.CategoryList[i].Categ);
+                        li_a.appendChild(li_a_i);
+                        li_a.appendChild(li_a_span);
+                        li.appendChild(li_a);
+                        li.classList.add("tab-item");
+                        li.classList.add("tab_" + LobbyGameList.CategoryList[i].Categ);
+                        li_a.classList.add("tab-item-link");
+                        li_a_span.innerText = mlp.getLanguageKey(LobbyGameList.CategoryList[i].Categ);
 
-                    li_a.onclick = new Function("selGameCategory('" + LobbyGameList.CategoryList[i].Categ + "')");
-                    idGameItemTitle.appendChild(li);
+                        li_a.onclick = new Function("selGameCategory('" + LobbyGameList.CategoryList[i].Categ + "')");
+                        idGameItemTitle.appendChild(li);
 
-                    //下方遊戲內容建立
-                    //secGameCateg.classList.add("game-list");
-                    //secGameCateg.classList.add("section-wrap");
-                    //secGameCateg.classList.add("sec_" + LobbyGameList.CategoryList[i].Categ);
-                    //secGameCateg.classList.add("is-hide");
+                        //下方遊戲內容建立
+                        //secGameCateg.classList.add("game-list");
+                        //secGameCateg.classList.add("section-wrap");
+                        //secGameCateg.classList.add("sec_" + LobbyGameList.CategoryList[i].Categ);
+                        //secGameCateg.classList.add("is-hide");
 
-                    //idSecContent.appendChild(secGameCateg);
-
+                        //idSecContent.appendChild(secGameCateg);
+                    }
                 }
             }
 
@@ -356,6 +357,7 @@
     function createITag(Category) {
         var iTag = document.createElement("i");
         var iTagCls = "";
+        
         switch (Category) {
             case "All":
                 iTagCls = "icon-casinoworld-menu";
@@ -428,7 +430,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="menu-filter brand">
+                        <div class="menu-filter brand" style="display: none;">
                             <select id="idGameBrandSel" onchange="changeGameBrand();" class="form-control custom-style">
                                 <option value="All">All</option>
                             </select>
