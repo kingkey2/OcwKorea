@@ -2,6 +2,7 @@
 
 <%
     string Version = EWinWeb.Version;
+    string MainCurrencyType = EWinWeb.MainCurrencyType;
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +39,13 @@
     var c = new common();
     var p;
     var v = "<%:Version%>";
-
+    var MainCurrencyType = "<%:MainCurrencyType%>";
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
         }
 
+        $('.MainCurrencyType').html(MainCurrencyType);
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
@@ -184,10 +186,34 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
         //alert("Copied the text: " + copyText.value);
+    }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
     }
 
     function copyTextPaymentSerial(tag) {
@@ -197,9 +223,33 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
     }
   
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -301,7 +351,7 @@
                                 <div class="rate">
                                     <p class="crypto RateOutCurrency"><span class="amount">1</span><span class="unit">USDT</span></p>
                                     <span class="sym">=</span>
-                                    <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit">Ocoin</span></p>
+                                    <p class="currency ExchangeRateOut"><span class="amount">100</span><span class="unit MainCurrencyType"></span></p>
                                 </div>
                                 <div class="refresh">
                                     <p class="period"><span class="date"></span><span class="time">15:30:02</span></p>
@@ -329,7 +379,7 @@
                                             <h5 class="name language_replace">存入金額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">Ocoin</span>
+                                            <span class="name MainCurrencyType"></span>
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
@@ -338,7 +388,7 @@
                                             <h5 class="name language_replace">活動獎勵</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">Ocoin</span>
+                                            <span class="name MainCurrencyType"></span>
                                             <span class="count BonusValue"></span>
                                         </div>
                                     </div>
@@ -347,7 +397,7 @@
                                             <h5 class="name language_replace">可得總額</h5>
                                         </div>
                                         <div class="data">
-                                            <span class="name">Ocoin</span>
+                                            <span class="name MainCurrencyType"></span>
                                             <span class="count TotalAmount"></span>
                                         </div>
                                     </div>
