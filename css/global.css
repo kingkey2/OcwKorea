@@ -1658,8 +1658,11 @@ select.custom-style:focus {
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
   margin: 0 3em 0 0;
-	text-align: center;
+	
 }
+.walletcenter-menu .box-item-detail {text-align: center;}
+
+
 .box-item-title {
   width: 100%;
   font-size: 1.125em;
