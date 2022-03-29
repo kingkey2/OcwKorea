@@ -15,6 +15,7 @@ public static class EWinWeb {
     public static DateTime DateTimeNull = Convert.ToDateTime("1900/1/1");
     public static bool IsTestSite = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["IsTestSite"]);
     public static string Version = System.Configuration.ConfigurationManager.AppSettings["Version"];
+    public static string MainPersonCode = System.Configuration.ConfigurationManager.AppSettings["MainPersonCode"];
     public static string APIKey = System.Configuration.ConfigurationManager.AppSettings["Key"];
     public static string PrivateKey = System.Configuration.ConfigurationManager.AppSettings["PrivateKey"];
     public static string CompanyCode = System.Configuration.ConfigurationManager.AppSettings["CompanyCode"];

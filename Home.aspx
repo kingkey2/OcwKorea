@@ -134,13 +134,13 @@
             Description: "FourGamesDescription04"
         },
         {
-            GameName: "vs576hokkwolf",
-            GameBrand: "PP",
+            GameName: "TaikoDrumMasterEX",
+            GameBrand: "CG",
             Description: "FourGamesDescription05"
         },
         {
-            GameName: "vs20tweethouse",
-            GameBrand: "PP",
+            GameName: "LineBrownDaydreamEX",
+            GameBrand: "CG",
             Description:"FourGamesDescription06"
         }
     ];

@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" %> 
-<%string Version=EWinWeb.Version; %>
+<%
+    string Version=EWinWeb.Version;
+    string PersonCode=EWinWeb.MainPersonCode;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +34,7 @@
     var mlp;
     var lang;
     var WebInfo;
-
+    var PersonCode = "<%:PersonCode%>";
     var v ="<%:Version%>";
 
     function updateBaseInfo() {
@@ -67,6 +70,14 @@
             window.parent.API_LoadingEnd();
             updateBaseInfo()
         });
+
+        if (WebInfo.UserInfo.PersonCode == PersonCode) {
+            $('.box-itemPaymentHistory').removeClass('is-hide');
+            $('.box-itemDeposit').removeClass('is-hide');
+        } else {
+            $('.box-itemAgentWithdrawalHistory').removeClass('is-hide');
+      
+        }
 
         changeAvatar(getCookie("selectAvatar"));
 
@@ -147,7 +158,7 @@
                                 <div class="item withdraw-limit">
                                     <div class="title language_replace">取款門檻</div>
                                     <div class="data">
-                                        <span class="coinType">OCoin</span>
+                                        <span class="coinType"></span>
                                         <span id="idThrehold" class="coinAmount" > 9,999.265</span>
                                     </div>
                                 </div>                             
@@ -167,7 +178,7 @@
         <div class="page-content">
             <section class="section-wrap">
                 <div class="box-item-container walletcenter-menu">
-                    <div class="box-item">
+                    <div class="box-item is-hide box-itemDeposit">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-deposit"></i>
@@ -207,7 +218,7 @@
                             </div>
                         </a>
                     </div>
-                     <div class="box-item">
+                     <div class="box-item is-hide  box-itemPaymentHistory">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('PaymentHistory','PaymentHistory.aspx?1', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-file"></i>
@@ -217,7 +228,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="box-item">
+                    <div class="box-item is-hide box-itemAgentWithdrawalHistory">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('AgentWithdrawalHistory','AgentWithdrawalHistory.aspx?1', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-file"></i>

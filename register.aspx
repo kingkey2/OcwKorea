@@ -3,15 +3,8 @@
 <%
 
     string Version = EWinWeb.Version;
-     string PersonCode;//直客線PersonCode
+    string PersonCode=EWinWeb.MainPersonCode;//直客線PersonCode
 
-      if (EWinWeb.IsTestSite) {
-        // 測試機
-        PersonCode = "S93615797299145";
-    } else {
-        // 正式機
-        PersonCode = "S93615797299145";
-    }
 %>
 <!doctype html>
 <html>
