@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 
 <%
     string Version = EWinWeb.Version;
@@ -1104,7 +1104,7 @@
                                             <span class="count Amount"></span>
                                         </div>
                                     </div>
-                                    <div class="item subtotal">
+                                    <div class="item subtotal" style="display: none;">
                                         <div class="title">
                                             <h5 class="name language_replace">活動獎勵</h5>
                                         </div>
@@ -1153,7 +1153,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="activity-container">
+                        <div class="activity-container" style="display: none;">
                             <div class="activity-inner">
                                 <h5 class="subject-title language_replace">熱門活動</h5>
                                 <!-- 存款獎勵 -->
@@ -1252,7 +1252,7 @@
                                             <img src="images/assets/coin-Ocoin.png" alt=""></span>
                                     </div>
                                 </div>
-                                <div class="item ">
+                                <div class="item " style="display: none;">
                                     <div class="title">
                                         <h6 class="name language_replace">活動獎勵</h6>
                                     </div>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-<% string Version=EWinWeb.Version; %>
+<% string Version=EWinWeb.Version;%>
    
 <!DOCTYPE html>
 <html>
@@ -773,7 +773,7 @@
                             </div>
                         </div>
                         <!-- 我的推廣碼 -->
-                        <div class="box-item expansion is-hide"  id="idPersonCodeDiv">
+                        <div class="box-item expansion is-hide"  id="idPersonCodeDiv" style="display: none;">
                             <div class="box-item-inner tab">
                                 <i class="icon-star"></i>
                                 <div class="box-item-detail">
@@ -815,7 +815,7 @@
                         </div>                       
                     </div>
                 </div>
-                <div class="activity-container is-hide">
+                <div class="activity-container is-hide" style="display: none;">
                     <div class="activity-inner">
                         <h5 class="subject-title language_replace">熱門活動</h5>
                         <div class="text-wrap promo-container">

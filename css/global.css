@@ -3437,7 +3437,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
       justify-content: space-around;
   position: relative;
   margin: 0 auto;
-  width: 240px;
+  width: 320px;
   padding: 4px;
   border-radius: 40px;
   background-color: rgba(137, 153, 167, 0.15);
@@ -3449,6 +3449,8 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   cursor: pointer;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
+  -webkit-flex: 1;
+  flex: 1;
 }
 .slide-menu-container .slide-menu-item span {
   display: block;
@@ -4236,4 +4238,17 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
                 align-items: center;
             }
 
-
+/* */
+.currency-info{
+	margin-right: 5px;
+	color: #888;
+}
+@media only screen and (max-width: 480px) {
+  .header-tool-item .MemberCenterBtn {
+    display: none;
+  }
+	.balance-container{
+		margin-right: 5px;
+	}
+}
+	
