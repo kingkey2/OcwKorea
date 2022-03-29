@@ -793,11 +793,8 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
-                                            <li><span class="language_replace">出金表示金額には燃料費が含まれております(10万OCOIN以下の場合は、燃料費を差引いての着金となります。)</span></li>
-                                            <li><span class="language_replace">10万 OCOIN 以上の出金の場合は燃料費は無料となります。</span></li>
-                                            <li><span class="language_replace">出金は1日３回までとなります。</span></li>
-                                            <li><span class="language_replace">1日出金最大限度額が100万OCOINとなります。</span></li>
-                                            <li><span class="language_replace">出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</span></li>
+                                            <li><span class="language_replace">請使用所選幣別對應的錢包地址，錯誤的錢包地址所造成交易問題，本公司將不負擔任何責任。</span></li>
+                                            <li><span class="language_replace">每次交易將收取0.1%的手續費。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
