@@ -1394,12 +1394,12 @@
                                             <a onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)" class="content">
                                                 <h4 class="title language_replace">ローリングのルール</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li-->
                                         <li class="article-item">
                                             <a onclick="window.parent.API_LoadPage('instructions-crypto', 'instructions-crypto.html', false)" class="content">
                                                 <h4 class="title language_replace">虛擬貨幣存款說明</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li-->
+                                        </li>
 
 
                                         <li class="article-item">
@@ -1431,17 +1431,17 @@
                                             <a onclick="openHotArticle('guide-08')" class="content">
                                                 <h4 class="title language_replace">路單是? 百家樂的攻略 - 上級篇 4：小強路</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li>--%>
                                         <li class="article-item">
                                             <a onclick="openHotArticle('guide-09')" class="content">
                                                 <h4 class="title language_replace">老虎機攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>--%>
-                                        <li class="article-item">
+                                        </li>
+                                        <!--li class="article-item">
                                             <a onclick="openHotArticle('guide-10')" class="content">
                                                 <h4 class="title language_replace">德州撲克攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li-->
                                     </ul>
                                 </div>
 
@@ -1605,11 +1605,11 @@
                                 <img src="images/logo/logo-pagcor.png" alt="">
                             </div>
                         </div>
-                        <div class="logo-item">
+                        <!--div class="logo-item">
                             <div class="img-crop">
                                 <img src="images/logo/logo-Bti.png" alt="">
                             </div>
-                        </div>
+                        </div-->
                         <div class="logo-item">
                             <div class="img-crop">
                                 <img src="images/logo/logo-zeus.png" alt="">
