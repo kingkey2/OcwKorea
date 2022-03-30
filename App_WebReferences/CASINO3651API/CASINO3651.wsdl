@@ -232,8 +232,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="PaymentMethod" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
-            <s:element minOccurs="0" maxOccurs="1" name="WalletPassword" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="BankCardGUID" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientOrderNumber" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -541,8 +541,8 @@
     <wsdl:part name="CurrencyType" type="s:string" />
     <wsdl:part name="PaymentMethod" type="s:string" />
     <wsdl:part name="Amount" type="s:string" />
-    <wsdl:part name="WalletPassword" type="s:string" />
     <wsdl:part name="BankCardGUID" type="s1:StringArray" />
+    <wsdl:part name="ClientOrderNumber" type="s:string" />
   </wsdl:message>
   <wsdl:message name="BankCardWithdrawalHttpGetOut">
     <wsdl:part name="Body" element="tns:BankCardWithdrawalResult" />
@@ -654,8 +654,8 @@
     <wsdl:part name="CurrencyType" type="s:string" />
     <wsdl:part name="PaymentMethod" type="s:string" />
     <wsdl:part name="Amount" type="s:string" />
-    <wsdl:part name="WalletPassword" type="s:string" />
     <wsdl:part name="BankCardGUID" type="s1:StringArray" />
+    <wsdl:part name="ClientOrderNumber" type="s:string" />
   </wsdl:message>
   <wsdl:message name="BankCardWithdrawalHttpPostOut">
     <wsdl:part name="Body" element="tns:BankCardWithdrawalResult" />

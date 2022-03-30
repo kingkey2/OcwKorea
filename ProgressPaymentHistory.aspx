@@ -277,7 +277,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    updatePaymentHistory();
+                });
                 break;
         }
     }

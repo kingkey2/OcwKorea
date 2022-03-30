@@ -64,68 +64,22 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
-            if (IsOpenTime == "N") {
-                window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
-                    window.parent.API_Reload();
-                });
-            } else {
-                if (IsWithdrawlTemporaryMaintenance == "Y") {
-                    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
-                        window.parent.API_Reload();
-                    });
-                }
-            }
+            //if (IsOpenTime == "N") {
+            //    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
+            //        window.parent.API_Reload();
+            //    });
+            //} else {
+            //    if (IsWithdrawlTemporaryMaintenance == "Y") {
+            //        window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
+            //            window.parent.API_Reload();
+            //        });
+            //    }
+            //}
         },"PaymentAPI");
 
         GetPaymentMethod();
-        startCountDown();
+
         btn_NextStep();
-
-        var EthWalletAddress = WebInfo.UserInfo.EthWalletAddress;
-        var walletList = WebInfo.UserInfo.WalletList;
-        var selectedLang = $('.header-tool-item').eq(2).find('a>span').text();
-        var HasBitCoin = false;
-        for (var i = 0; i < walletList.length; i++) {
-            if (walletList[i].ValueType == 2) {
-                HasBitCoin = true;
-            }
-        }
-
-        seleCurrency = $(".crypto-list").children().find("input[type=radio]:checked").data("val");
-        //RefreshExchange();
-
-        window.setInterval(function () {
-
-
-        }, 30000);
-    }
-
-
-    function startCountDown() {
-        let secondsRemaining = 30;
-
-        CountInterval = setInterval(function () {
-            let idRecClock = document.getElementById("idRecClock");
-
-            //min = parseInt(secondsRemaining / 60);
-            //sec = parseInt(secondsRemaining % 60);
-            idRecClock.innerText = secondsRemaining;
-
-            secondsRemaining = secondsRemaining - 1;
-            if (secondsRemaining < 0) {
-                secondsRemaining = 30;
-                GetExchangeRateFromNomics(function () {
-                    let amountText = document.getElementById("amount").value;
-
-                    if (amountText) {
-                        ReSetPaymentAmount(true, Number(amountText));
-                    } else {
-                        ReSetPaymentAmount(true);
-                    }
-                });
-            };
-
-        }, 1000);
     }
 
     function btn_NextStep() {
@@ -152,12 +106,12 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
     }
 
-        function copyTextPaymentSerial(tag) {
+    function copyTextPaymentSerial(tag) {
       
         var copyText = $(tag).parent().find('.inputPaymentSerial')[0];
 
@@ -206,60 +160,6 @@
                 mlp.loadLanguage(lang);
                 break;
         }
-    }
-
-    function CurrencyChange(e) {
-        seleCurrency = $(e).data("val");
-        $(".RateOutCurrency .unit").text(seleCurrency);
-    }
-
-    function GetExchangeRateFromNomics(cb) {
-
-        PaymentClient.GetExchangeRateFromNomics(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.Message != "") {
-                        NomicsExchangeRate = JSON.parse(o.Message);
-                        if (cb) {
-                            cb();
-                        }
-                    } else {
-                        window.parent.API_LoadingEnd();
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"),mlp.getLanguageKey(o.Message), function () {
-
-                        });
-                    }
-                } else {
-                    window.parent.API_LoadingEnd();
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"),mlp.getLanguageKey(o.Message), function () {
-
-                    });
-                }
-            }
-            else {
-                window.parent.API_LoadingEnd();
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o.Message, function () {
-
-                });
-            }
-        })
-
-    }
-
-    function GetRealExchange(currency) {
-        var R = 0;
-        var price;
-
-        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
-            if (currency == "JKC") {
-                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
-                R = 1 / (price / 3000);
-            } else {
-                price = NomicsExchangeRate.find(x => x["currency"] == currency).price;
-                R = 1 / price;
-            }
-        }
-        return R;
     }
 
     function ReSetPaymentAmount(isResetRealRate, Amount) {

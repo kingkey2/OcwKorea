@@ -56,11 +56,6 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
-
-            if (WebInfo.UserInfo.LoginAccount == '819059202064' || WebInfo.UserInfo.LoginAccount == 'test002') {
-                window.parent.API_Reload();
-            }
-
         },"PaymentAPI");
         btn_NextStep();
 

@@ -374,7 +374,9 @@
                 break;
             case "SetLanguage":
                 lang = param;
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    updateGameHistory();
+                });
                 var gameDoms = document.querySelectorAll(".gameLangkey");
 
                 for (var i = 0; i < gameDoms.length; i++) {
