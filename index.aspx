@@ -1633,7 +1633,7 @@
                                 <li><a onclick="switchLang('ENG', true)">EN</a></li>
                                 <li><a onclick="switchLang('CHT', true)">繁體中文</a></li>
                                 <li><a onclick="switchLang('CHS', true)">簡體中文</a></li>
-								<li><a onclick="switchLang('VIET', true)">Tiếng Việt</a></li>
+								<!--li><a onclick="switchLang('VIET', true)">Tiếng Việt</a></li>
                             </ul>
                         </div>
                     </div>
@@ -1694,12 +1694,12 @@
                                 <span class="language_replace">真人</span>
                             </a>
                         </li>
-                        <li>
+                      <%--  <li>
                             <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Sports')">
                                 <i class="icon-casinoworld-football"></i>
                                 <span class="language_replace">體育</span>
                             </a>
-                        </li>
+                        </li>--%>
                         <li>
                             <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Slot')">
                                 <i class="icon-slot"></i>
@@ -2170,7 +2170,6 @@
 		<div class="fullADDDiv">
 			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
 			<div class="fullADDText">
-				<H5><span class="language_replace">歡迎來到BET 파라다이스</span></H5>
 				<!-- 公告寫在這裡面 -->
 				<p><%=Bulletin %></p>
 			</div>
