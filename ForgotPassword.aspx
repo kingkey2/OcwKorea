@@ -302,7 +302,7 @@
                         <div class="form-group col-9">
                             <label class="form-title language_replace">手機電話號碼</label>
                             <div class="input-group">
-                                <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                <input name="PhoneNumber" id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的0請勿輸入)" inputmode="decimal">
                                 <div class="invalid-feedback language_replace">請輸入正確電話</div>
                             </div>
                         </div>
