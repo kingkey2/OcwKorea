@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+﻿<%@ Page Language="C#" %>
 
 <%
     int RValue;
@@ -701,6 +701,25 @@
                             </div-->
                         </div>
                     </div>
+					<div class="swiper-slide" style="background-image: linear-gradient(to right, #251455 0%, #251455 50%, #251455 51%, #251455 100%);">
+                        <div class="hero-item">
+                            <div class="img-wrap">
+                                <img src="images/games/hero/hero-13.jpg?20211004" class="desktop">
+                                <img src="images/games/hero/hero-13-m.jpg" class="mobile">
+                            </div>
+                            <!--div class="hero-info">
+                                <div class="hero-info-inner">
+                                    <div class="hero-info-title language_replace">貂蟬の甘い罠</div>
+                                    <div class="hero-info-text">
+                                        <p class="language_replace" style="font-size: .7em">三国志で大人気のあの貂蝉がスロットに登場、呂布と董卓を翻弄し、歴史を大きく転換させた三国志随一の美人が皆さんを誘惑しますよー！</p>
+                                    </div>
+                                    <a onclick="window.parent.API_OpenGameCode('PG', '1')" class="btn btn-primary">
+                                        <span class="language_replace">Game Now</span>
+                                    </a>
+                                </div>
+                            </div-->
+                        </div>
+                    </div>
 <%--                    <div class="swiper-slide" style="background: #efd21e">
                         <div class="hero-item">
                             <a onclick="window.parent.API_LoadPage('OpenBonusDeposit_03012022', '/Activity/OpenBonusDeposit_03012022/index.html')">
@@ -1375,12 +1394,12 @@
                                             <a onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)" class="content">
                                                 <h4 class="title language_replace">ローリングのルール</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li-->
                                         <li class="article-item">
                                             <a onclick="window.parent.API_LoadPage('instructions-crypto', 'instructions-crypto.html', false)" class="content">
                                                 <h4 class="title language_replace">虛擬貨幣存款說明</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li-->
+                                        </li>
 
 
                                         <li class="article-item">
@@ -1412,17 +1431,17 @@
                                             <a onclick="openHotArticle('guide-08')" class="content">
                                                 <h4 class="title language_replace">路單是? 百家樂的攻略 - 上級篇 4：小強路</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li>--%>
                                         <li class="article-item">
                                             <a onclick="openHotArticle('guide-09')" class="content">
                                                 <h4 class="title language_replace">老虎機攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>--%>
-                                        <li class="article-item">
+                                        </li>
+                                        <!--li class="article-item">
                                             <a onclick="openHotArticle('guide-10')" class="content">
                                                 <h4 class="title language_replace">德州撲克攻略導覽</h4>
                                                 <i class="icon-arrow-right"></i></a>
-                                        </li>
+                                        </li-->
                                     </ul>
                                 </div>
 
@@ -1586,11 +1605,11 @@
                                 <img src="images/logo/logo-pagcor.png" alt="">
                             </div>
                         </div>
-                        <div class="logo-item">
+                        <!--div class="logo-item">
                             <div class="img-crop">
                                 <img src="images/logo/logo-Bti.png" alt="">
                             </div>
-                        </div>
+                        </div-->
                         <div class="logo-item">
                             <div class="img-crop">
                                 <img src="images/logo/logo-zeus.png" alt="">
