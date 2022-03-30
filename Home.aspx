@@ -663,6 +663,25 @@
                             </div-->
                         </div>
                     </div>
+                    <div class="swiper-slide" style="background-image: linear-gradient(to right, #09887b 0%, #09887b 50%, #00252b 51%, #00252b 100%);">
+                        <div class="hero-item">
+                            <div class="img-wrap">
+                                <img src="images/games/hero/hero-11.jpg?20211004" class="desktop">
+                                <img src="images/games/hero/hero-11-m.jpg" class="mobile">
+                            </div>
+                            <!--div class="hero-info">
+                                <div class="hero-info-inner">
+                                    <div class="hero-info-title language_replace">貂蟬の甘い罠</div>
+                                    <div class="hero-info-text">
+                                        <p class="language_replace" style="font-size: .7em">三国志で大人気のあの貂蝉がスロットに登場、呂布と董卓を翻弄し、歴史を大きく転換させた三国志随一の美人が皆さんを誘惑しますよー！</p>
+                                    </div>
+                                    <a onclick="window.parent.API_OpenGameCode('PG', '1')" class="btn btn-primary">
+                                        <span class="language_replace">Game Now</span>
+                                    </a>
+                                </div>
+                            </div-->
+                        </div>
+                    </div>
 <%--                    <div class="swiper-slide" style="background: #efd21e">
                         <div class="hero-item">
                             <a onclick="window.parent.API_LoadPage('OpenBonusDeposit_03012022', '/Activity/OpenBonusDeposit_03012022/index.html')">

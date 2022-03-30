@@ -2170,7 +2170,6 @@
 		<div class="fullADDDiv">
 			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
 			<div class="fullADDText">
-				<H5><span class="language_replace">歡迎來到BET 파라다이스</span></H5>
 				<!-- 公告寫在這裡面 -->
 				<p><%=Bulletin %></p>
 			</div>
