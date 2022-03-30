@@ -430,7 +430,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="menu-filter brand">
+                        <div class="menu-filter brand" style="display: none;">
                             <select id="idGameBrandSel" onchange="changeGameBrand();" class="form-control custom-style">
                                 <option value="All">All</option>
                             </select>

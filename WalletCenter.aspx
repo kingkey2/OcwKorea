@@ -258,7 +258,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="box-item">
+                    <div class="box-item is-hide" style="display: none;">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('MemberCenter','MemberCenter.aspx', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-setting"></i>

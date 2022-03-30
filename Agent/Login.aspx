@@ -433,12 +433,12 @@
                                 <span
                                     class="language_replace">english</span></label>
                         </div>
-                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('JPN')">
+                        <!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('JPN')">
                             <input type="radio" id="lang5" name="lang" class="custom-control-input-hidden" value="JPN">
                             <label class="custom-control-label-lang ico-before-jp" for="lang5">
                                 <span
                                     class="language_replace">日本語</span></label>
-                        </div>
+                        </div-->
 						<!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('THAI')">
                             <input type="radio" id="lang6" name="lang" class="custom-control-input-hidden" value="THAI">
                             <label class="custom-control-label-lang ico-before-th" for="lang6">
@@ -545,7 +545,6 @@
 		<div class="fullADDDiv">
 			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
 			<div class="fullADDText">
-				<H5><span class="language_replace">歡迎來到BET 파라다이스</span></H5>
 				<!-- 公告寫在這裡面 -->
 				<span><%=Bulletin %></span>
 			</div>
