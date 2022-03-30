@@ -701,7 +701,7 @@
                             </div-->
                         </div>
                     </div>
-					<div class="swiper-slide" style="background-image: linear-gradient(to right, #200512 0%, #200512 50%, #200512 51%, #200512 100%);">
+					<div class="swiper-slide" style="background-image: linear-gradient(to right, #251455 0%, #251455 50%, #251455 51%, #251455 100%);">
                         <div class="hero-item">
                             <div class="img-wrap">
                                 <img src="images/games/hero/hero-13.jpg?20211004" class="desktop">
