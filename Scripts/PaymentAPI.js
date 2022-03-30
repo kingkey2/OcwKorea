@@ -115,6 +115,126 @@
         });
     };
 
+    this.CompleteReceiptFile = function (WebSID, GUID, UploadId, cb) {
+        var url = APIUrl + "/CreateReceiptFIleUpload";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            UploadId: UploadId
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.CreateReceiptFIleUpload = function (WebSID, GUID, PaymentSerial, ExtName, cb) {
+        var url = APIUrl + "/CreateReceiptFIleUpload";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PaymentSerial: PaymentSerial,
+            ExtName: ExtName
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.UploadReceiptFIle = function (WebSID, GUID, UploadId, ChunkIndex, ContentB64 ,cb) {
+        var url = APIUrl + "/UploadReceiptFIle";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            UploadId: UploadId,
+            ChunkIndex: ChunkIndex,
+            ContentB64: ContentB64
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.CreateBankCardDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
+        var url = APIUrl + "/CreateBankCardDeposit";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            PaymentMethodID: PaymentMethodID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.CreateBankCardDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
+        var url = APIUrl + "/CreateBankCardDeposit";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            PaymentMethodID: PaymentMethodID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.CreateCryptoDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
         var url = APIUrl + "/CreateCryptoDeposit";
         var postData;
@@ -260,6 +380,33 @@
         });
     };
 
+    this.ConfirmBankCardDeposit = function (WebSID, GUID, OrderNumber, ActivityNames, Lang, PaymentSerial, cb) {
+        var url = APIUrl + "/ConfirmBankCardDeposit";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            OrderNumber: OrderNumber,
+            ActivityNames: ActivityNames,
+            Lang: Lang,
+            PaymentSerial: PaymentSerial
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+    
+
 
     this.CreatePayPalDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
         var url = APIUrl + "/CreatePayPalDeposit";
@@ -309,6 +456,8 @@
             }
         });
     };
+
+
     this.CreateAgentWithdrawal = function (WebSID, GUID, Amount, BankName, BankBranchName, BankCard, BankCardName ,cb) {
         var url = APIUrl + "/CreateAgentWithdrawal";
         var postData;

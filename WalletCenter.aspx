@@ -218,7 +218,7 @@
                             </div>
                         </a>
                     </div>
-                     <div class="box-item is-hide  box-itemPaymentHistory">
+                     <div class="box-item box-itemPaymentHistory">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('PaymentHistory','PaymentHistory.aspx?1', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-file"></i>
