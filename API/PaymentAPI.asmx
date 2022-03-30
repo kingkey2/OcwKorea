@@ -2254,11 +2254,15 @@ public class PaymentAPI : System.Web.Services.WebService {
             {
                 for (int i = 0; i < ListRequireWithdrawal.Count; i++)
                 {
-                    var EWinRequireWithdrawalData = ListEWinRequireWithdrawal.Find(x => x.GUID.Contains(ListRequireWithdrawal[i].GUID));
-                    if (EWinRequireWithdrawalData != null)
+                    if (ListEWinRequireWithdrawal != null)
                     {
-                        ListRequireWithdrawal[i].Status = EWinRequireWithdrawalData.Status;
-                        ListRequireWithdrawal[i].FinishDate = EWinRequireWithdrawalData.FinishDate;
+                        var EWinRequireWithdrawalData = ListEWinRequireWithdrawal.Find(x => x.GUID.Contains(ListRequireWithdrawal[i].GUID));
+                        if (EWinRequireWithdrawalData != null)
+                        {
+                            ListRequireWithdrawal[i].Status = EWinRequireWithdrawalData.Status;
+                            ListRequireWithdrawal[i].FinishDate = EWinRequireWithdrawalData.FinishDate;
+                        }
+
                     }
                     ListEndEWinRequireWithdrawal.Add(ListRequireWithdrawal[i]);
                 }
@@ -2266,13 +2270,21 @@ public class PaymentAPI : System.Web.Services.WebService {
 
             if (ListEWinRequireWithdrawal != null && ListEWinRequireWithdrawal.Count > 0)
             {
-                for (int i = 0; i < ListEWinRequireWithdrawal.Count; i++)
+                if (ListRequireWithdrawal != null)
                 {
-                    var RequireWithdrawalData = ListRequireWithdrawal.Find(x => x.GUID.Contains(ListEWinRequireWithdrawal[i].GUID));
-                    if (RequireWithdrawalData == null)
+                    for (int i = 0; i < ListEWinRequireWithdrawal.Count; i++)
                     {
-                        ListEndEWinRequireWithdrawal.Add(ListEWinRequireWithdrawal[i]);
+
+                        var RequireWithdrawalData = ListRequireWithdrawal.Find(x => x.GUID.Contains(ListEWinRequireWithdrawal[i].GUID));
+                        if (RequireWithdrawalData == null)
+                        {
+                            ListEndEWinRequireWithdrawal.Add(ListEWinRequireWithdrawal[i]);
+                        }
                     }
+
+                }
+                else {
+                    ListEndEWinRequireWithdrawal = ListEWinRequireWithdrawal;
                 }
             }
 
