@@ -519,7 +519,7 @@
                 if (success) {
                     PaymentClient.UploadReceiptFIle(WebInfo.SID, Math.uuid(), uploadId, readIndex, contentB64, function (success2, ret) {
                         var sendSuccess = false;
-
+                        debugger;
                         if (success2) {
                             if (ret.ResultState == 0) {
                                 sendSuccess = true;
@@ -568,6 +568,7 @@
                         readMediaNext(function (finished) {
                             // finished
                             if (finished) {
+                                debugger;
                                 PaymentClient.CompleteReceiptFile(WebInfo.SID, Math.uuid(),uploadId, function () {
                                     var idProgressBar = document.getElementById("idProgressBar");
 

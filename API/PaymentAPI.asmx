@@ -1506,7 +1506,7 @@ public class PaymentAPI : System.Web.Services.WebService {
 
                                     //PaymentMethod 0=上分/1=下分
                                     CASINO3651API.BankCardDepositResult bankCardDepositRet= _CASINO3651API.BankCardDepostit(SI.EWinCT,GUID,EWinWeb.MainCurrencyType,0,Amount,"",OrderNumber);
-                                        
+
                                     if (bankCardDepositRet.ResultState == CASINO3651API.enumResultState.OK)
                                     {
                                         paymentBankCommonData.BankCode = bankCardDepositRet.BankCardInfo.BankCode;
@@ -1560,6 +1560,255 @@ public class PaymentAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentCommonResult CreateBankCardWithdrawal(string WebSID, string GUID, decimal Amount, string BankName, string BankBranchName, string BankCard, string BankCardName,int PaymentMethodID)
+    {
+        PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
+        PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
+
+        RedisCache.SessionContext.SIDInfo SI;
+        string PaymentMethodName;
+        string PaymentCode;
+        string ReceiveCurrencyType;
+        string MultiCurrencyInfo;
+        int MinLimit;
+        int MaxLimit;
+        int DailyMaxAmount;
+        int DailyMaxCount;
+        decimal ReceiveTotalAmount;
+        decimal HandingFeeRate;
+        int HandingFeeAmount;
+        int WalletType;
+        decimal WithdrawalAmountByDay;
+        int WithdrawalCountByDay;
+        int ExpireSecond;
+        bool GetExchangeRateSuccess = true;
+        int DecimalPlaces;
+        System.Data.DataTable PaymentMethodDT;
+
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            if (EWinWeb.CheckInWithdrawalTime())
+            {
+                if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
+                {
+                    PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
+
+                    if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
+                    {
+                        if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                        {
+                            if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 1)
+                            {
+                                MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
+                                MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
+                                DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
+                                DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
+                                DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
+                                if (Amount >= MinLimit)
+                                {
+                                    if (Amount <= MaxLimit || MaxLimit == 0)
+                                    {
+                                        System.Data.DataTable SummaryDT = EWinWebDB.UserAccountPayment.GetTodayPaymentByLoginAccount(SI.LoginAccount, 1);
+
+                                        if (SummaryDT != null && SummaryDT.Rows.Count > 0)
+                                        {
+                                            WithdrawalAmountByDay = 0;
+                                            foreach (System.Data.DataRow dr in SummaryDT.Rows)
+                                            {
+                                                WithdrawalAmountByDay += (decimal)dr["Amount"];
+                                            }
+                                            WithdrawalCountByDay = SummaryDT.Rows.Count;
+                                        }
+                                        else
+                                        {
+                                            WithdrawalAmountByDay = 0;
+                                            WithdrawalCountByDay = 0;
+                                        }
+
+                                        if (DailyMaxCount == 0 || (WithdrawalCountByDay + 1) <= DailyMaxCount)
+                                        {
+                                            if (DailyMaxAmount == 0 || (WithdrawalAmountByDay + Amount) <= DailyMaxAmount)
+                                            {
+                                                if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
+                                                {
+                                                    //Check ThresholdValue
+                                                    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+                                                    EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+                                                    EWin.Lobby.ThresholdInfo thresholdInfo;
+                                                    decimal thresholdValue;
+
+                                                    if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
+                                                    {
+                                                        thresholdInfo = userInfoResult.ThresholdInfo.Where(x => x.CurrencyType.ToUpper() == EWinWeb.MainCurrencyType.ToUpper()).FirstOrDefault();
+
+                                                        if (thresholdInfo != null)
+                                                        {
+                                                            thresholdValue = thresholdInfo.ThresholdValue;
+                                                        }
+                                                        else
+                                                        {
+                                                            thresholdValue = 0;
+                                                        }
+                                                        if (thresholdValue == 0)
+                                                        {
+                                                            PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                                                            PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
+                                                            ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+                                                            ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                                            WalletType = (int)PaymentMethodDT.Rows[0]["EWinCryptoWalletType"];
+                                                            MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
+                                                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
+                                                            if (!string.IsNullOrEmpty(MultiCurrencyInfo))
+                                                            {
+                                                               
+                                                               
+                                                                  
+
+
+                                                            }
+                                                            else
+                                                            {
+                                                                decimal ExchangeRate;
+                                                                decimal ReceiveAmount;
+
+                                                                ExchangeRate = CryptoExpand.GetCryptoExchangeRate(ReceiveCurrencyType);
+                                                                ReceiveAmount = Amount * ExchangeRate;
+
+                                                                if (ExchangeRate == 0)
+                                                                {
+                                                                    //表示取得匯率失敗
+                                                                    GetExchangeRateSuccess = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    CryptoDetail Dcd = new CryptoDetail()
+                                                                    {
+                                                                        TokenCurrencyType = ReceiveCurrencyType,
+                                                                        TokenContractAddress = (string)PaymentMethodDT.Rows[0]["TokenContractAddress"],
+                                                                        ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
+                                                                        PartialRate = 1,
+                                                                        ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount * 1 * ExchangeRate, DecimalPlaces),
+                                                                    };
+
+                                                                    PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
+                                                                }
+                                                            }
+
+                                                            if (GetExchangeRateSuccess)
+                                                            {
+                                                                string OrderNumber = System.Guid.NewGuid().ToString();
+                                                                int InsertRet;
+
+                                                                PaymentCommonData.PaymentType = 1;
+                                                                PaymentCommonData.BasicType = 2;
+                                                                PaymentCommonData.WalletType = WalletType;
+                                                                PaymentCommonData.OrderNumber = OrderNumber;
+                                                                PaymentCommonData.LoginAccount = SI.LoginAccount;
+                                                                PaymentCommonData.Amount = Amount;
+                                                                PaymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                                                                PaymentCommonData.HandingFeeRate = HandingFeeRate;
+                                                                PaymentCommonData.HandingFeeAmount = HandingFeeAmount;
+                                                                PaymentCommonData.ExpireSecond = ExpireSecond;
+                                                                PaymentCommonData.PaymentMethodID = PaymentMethodID;
+                                                                PaymentCommonData.PaymentMethodName = PaymentMethodName;
+                                                                PaymentCommonData.PaymentCode = PaymentCode;
+                                                                PaymentCommonData.ToWalletAddress = ToWalletAddress;
+                                                                PaymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
+
+                                                                InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, 2, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
+
+                                                                if (InsertRet == 1)
+                                                                {
+                                                                    R.Result = enumResult.OK;
+                                                                    R.Data = PaymentCommonData;
+                                                                    RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
+                                                                }
+                                                                else
+                                                                {
+                                                                    SetResultException(R, "InsertFailure");
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                SetResultException(R, "GetExchangeFailed");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            SetResultException(R, "ThresholdLimit");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        SetResultException(R, "GetInfoError");
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    SetResultException(R, "PaymentMethodNotCrypto");
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                SetResultException(R, "DailyAmountGreaterThanMaxlimit");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            SetResultException(R, "DailyCountGreaterThanMaxlimit");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SetResultException(R, "AmountGreaterThanMaxlimit");
+                                    }
+                                }
+                                else
+                                {
+                                    SetResultException(R, "AmountLessThanMinLimit");
+                                }
+                            }
+                            else
+                            {
+                                SetResultException(R, "PaymentMethodNotSupportDeposit");
+                            }
+                        }
+                        else
+                        {
+                            SetResultException(R, "PaymentMethodDisable");
+                        }
+                    }
+                    else
+                    {
+                        SetResultException(R, "PaymentMethodNotExist");
+                    }
+                }
+                else
+                {
+                    SetResultException(R, "WithdrawlTemporaryMaintenance");
+                }
+            }
+            else
+            {
+                SetResultException(R, "NotInOpenTime");
+            }
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
