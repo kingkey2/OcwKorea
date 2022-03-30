@@ -41,9 +41,11 @@
   "地址": "Address",
   "檢視": "View",
   "※會員資料若需要修改，請與客服聯繫。": "※ To change personal information, please contact customer service.",
-  "存款紀錄": "Deposit Records",
+  "存款紀錄": "Deposit/Withdrawal Records",
   "取款紀錄": "Withdrawal Records",
   "存取款紀錄": "Deposit/Withdrawal Records",
   "我的推廣碼": "My Promo Code",
-  "熱門活動": "Popular Activities"
+  "熱門活動": "Popular Activities",
+  "帳號": "ID",
+  "暱稱": "Nickname"
 }

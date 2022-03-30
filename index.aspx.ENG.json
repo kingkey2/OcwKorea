@@ -83,5 +83,7 @@
   "ログイン時に表示しない！": "No longer displayed today.",
   "今日不再顯示": "No longer displayed today.",
   "關閉遊戲": "Close",
-  "下載代理工具": "Agent APP Download"
+  "下載代理工具": "Agent APP Download",
+  "出金": "Withdrawal",
+  "請重新登入:LoginExpire:InvalidHash": "You have been automatically logged out because you are already logged in on another device. (If you do not log in by yourself, please reset your password as soon as possible!)"
 }

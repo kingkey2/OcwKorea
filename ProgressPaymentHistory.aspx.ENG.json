@@ -1,0 +1,23 @@
+﻿{
+  "進行中交易": "On-going Order",
+  "全部": "All",
+  "存款": "Deposit",
+  "取款": "Withdraw",
+  "日期": "Date",
+  "支付方式": "Payment",
+  "金額": "Amount",
+  "狀態": "Status",
+  "訂單編號": "Order NO.",
+  "類型": "Type",
+  "建立日期": "Date",
+  "一般": "Bank Transfer",
+  "區塊鏈": "Blockchain",
+  "進行中": "On-going",
+  "確定": "OK",
+  "提示": "System Message",
+  "沒有資料": "There is no any data yet.",
+  "取得資料失敗": "Failed to get data.",
+  "已經是最新月份了!": "It's the latest month!",
+  "複製成功": "The order number is copied successfully!",
+  "複製失敗": "The order number is failed to copy, please try again."
+}

@@ -1,0 +1,16 @@
+﻿{
+  "百家樂攻略法 - 中級篇": "Quick-Start for Newbies - Baccarat Third Card Rules",
+  "進入中級，主要和各位玩家說明為何兩張牌不分出勝負，還需要第三張牌的情況，稱為博牌。": "WHEN IS A THIRD CARD DRAWN? <BR> If neither hand totals 8 or 9, the dealer may draw an additional card on one or more hands, depending on its total. <BR> A great thing about Baccarat is that the rules for when a third card is drawn are very clear.",
+  "若要精確的計算和判斷勝負，第三張牌如何計算、牌局的紀錄等都是重要的，但若只是要單純的看結果，第三張牌的計算雖然複雜，但終究不需要玩家自行計算，荷官(ディーラー)會為大家解決這個問題。": "<OL> ● THIRD CARD RULES FOR THE PLAYER <BR><br> Baccarat rules call for the Player to always go first. The Banker's hand depends on the Player's hand. Here are the rules : <br><br> ① If the Player's hand is a total of 8 or 9 points, it's a natural win and no additional cards will be drawn. The Playe's hand will stand. <br> ② The Player's hand always stands on point totals of 6 or 7 as well. <br> ③ On any total from 0 to 5, the Player draws a third card – unless the Banker has 8 or 9. In that case, the Banker wins, and there are no further cards drawn. </OL> <br> <OL> ● THIRD CARD RULES FOR THE BANKER <br> <br> When Banker's first two cards total : <br><br> ★ 0 – 1 – 2 : Bank draws unless Player shows a natural 8 or 9. <br> ★ 3 : Bank draws if Player's third card is 0 – 1 – 2 – 3 – 4 – 5 – 6 – 7 or 9. Bank stands when Player's third card is 8. <br> ★ 4 : Bank draws if Player’s third card is 2 – 3 – 4 – 5 – 6 – 7. Bank stands when Player’s third card is 0 – 1 – 8 – 9. <br> ★ 5 : Bank draws if Player’s third card is 4 – 5 – 6 – 7.  Bank stands when Player’s third card is 0 – 1 – 2 – 3 – 8 – 9. <br> ★ 6 : Bank draws if Player’s third card is 6 – 7. Bank stands when Player’s third card is 0 – 1 – 2 – 3 – 4 – 5 – 8 – 9. <br> ★ 7 : Stands. <br> ★ 8 – 9 : Natural Numbers – neither hand draws a third card.",
+  "不需要補牌的情況為例牌": "NO THE THIRD CARD - NATURAL WIN",
+  "莊閒任何一方兩牌合計共得8或9點為例牌(Natural)，對方不須補牌，即定勝負（雙方同持8或9點的話為和）。另外莊閒兩方各持6、7點的話亦為即定勝負（雙方同持6或7點的話為和）。 用文字說明可能還是不容易理解，下圖可以明確的知道，閒家和莊家的分別在何情況下，補牌或不補牌：": "If the points total is 8 or 9 for either the Player's or the Banke's hand on the first two cards dealt, this is called a NATURAL win and the game is over. Placed bets are paid.",
+  "整體百家樂的進行的流程": "The overall process of baccarat",
+  "虛擬貨幣存款說明": "Blockchain Deposit Guide",
+  "百家樂攻略法 - 基礎規則篇": "Quick-Start for Newbies - Baccarat Game Rules",
+  "路單是? 百家樂的攻略 - 上級篇 1：珠盤路和大路": "Quick-Start for Newbies - Big Road & Bead Plate Road",
+  "路單是? 百家樂的攻略 - 上級篇 2：大眼仔路": "Quick-Start for Newbies - Big Eye Road",
+  "路單是? 百家樂的攻略 - 上級篇 3：小路": "Quick-Start for Newbies - Small Road",
+  "路單是? 百家樂的攻略 - 上級篇 4：小強路": "Quick-Start for Newbies - Cockroach Road",
+  "老虎機攻略導覽": "Slot Machine Guide",
+  "德州撲克攻略導覽": "Texas Hold'em Guide"
+}

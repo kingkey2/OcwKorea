@@ -1,0 +1,17 @@
+﻿{
+  "存款": "Nạp tiền",
+  "完成": "Hoàn thành",
+  "存款失敗": "Nạp tiền thất bại",
+  "本次存款並未完成!": "Chưa hoàn thành nạp tiền!",
+  "交易失敗提示：": "Thông báo giao dịch không thành công ：",
+  "信用卡或PayPal：": "Thẻ tín dụng hoặc PayPal ：",
+  "銀行的檢核過程可能遇到問題，可嘗試重新進行交易。": "Đã xảy ra sự cố với quy trình xem xét của ngân hàng, vui lòng thử lại giao dịch.",
+  "網路異常或不穩定。": "Mạng không bình thường, vui lòng thử lại sau.",
+  "更換別張卡片。": "Vui lòng đổi thẻ tín dụng khác.",
+  "虛擬貨幣：": "Tiền ảo",
+  "交易所的錢包餘額不足。": "Số dư không đủ.",
+  "交易時間": "Thời gian giao dịch",
+  "訂單編號": "Mã đặt hàng",
+  "金額": "Số tiền",
+  "建議您在網路環境良好的場所進行存款動作，以利交易順利進行。": "Khuyên bạn nên nạp tiền ở nơi có môi trường mạng tốt để việc giao dịch diễn ra suôn sẻ."
+}
