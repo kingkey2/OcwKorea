@@ -41,6 +41,7 @@
     var ActivityNames = [];
     var ExpireSecond = 0;
     var MainCurrencyType = "<%:MainCurrencyType%>";
+    var boolCheckFileUpload = false;
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
@@ -138,9 +139,15 @@
             CreatePayPalDeposit();
         });
         $('button[data-deposite="step3"]').click(function () {
-            window.parent.API_LoadingStart();
-            //加入參加的活動
-            setActivityNames();
+            if (boolCheckFileUpload) {
+                window.parent.API_LoadingStart();
+                //加入參加的活動
+                ConfirmPayPalDeposit();
+            } else {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未上傳憑證"));
+            }
+    
+         
         });
     }
 
@@ -182,14 +189,19 @@
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
             
             PaymentClient.CreateBankCardDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, function (success, o) {
-                 if (success) {
-                    let data = o.Data;
+                if (success) {
+                     let data = o.Data;
+                     let bankdata = o.BankData;
                     if (o.Result == 0) {
-                        $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
                         $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
-                        $("#depositdetail .OrderNumber").text(data.OrderNumber);
+                   
+                        $("#depositdetail .BankName").text(bankdata.BankName);
+                        $("#depositdetail .BankBranchName").text(bankdata.BranchName);
+                        $("#depositdetail .BankCard").text(bankdata.BankNumber);
+                        $("#depositdetail .OrderNumber").text(bankdata.PaymentSerial);
                         $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                        $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                        $("#depositdetail .ExpireSecond").text(data.ExpireSecond);
+                        $("#depositdetail .ThresholdValue").text(data.ThresholdValue);
                         ExpireSecond = data.ExpireSecond;
 
                         var depositdetail = document.getElementsByClassName("Collectionitem")[0];
@@ -199,7 +211,13 @@
                         depositdetail.appendChild(CollectionitemDom);
 
                         OrderNumber = data.OrderNumber;
+
+                        $("#depositdetail .inputBankName").val(bankdata.BankName);
+                        $("#depositdetail .inputBankBranchName").val(bankdata.BranchName);
+                        $("#depositdetail .inputBankCard").val(bankdata.BankNumber);
+                        $("#inputBankPaymentSerial").val(bankdata.PaymentSerial);
                         GetDepositActivityInfoByOrderNumber(OrderNumber);
+
                     } else {
                         window.parent.API_LoadingEnd(1);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
@@ -293,6 +311,65 @@
         ParentActivity.appendChild(ActivityDom);
     }
 
+    function copyBankName(tag) {
+
+        var copyText = $(tag).parent().find('.inputBankName')[0];
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+
+    function copyBankBranchName(tag) {
+
+        var copyText = $(tag).parent().find('.inputBankBranchName')[0];
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+
+    function copyBankCard(tag) {
+
+        var copyText = $(tag).parent().find('.inputBankCard')[0];
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+    // return a promise
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
+    }
 
     function ReFormatNumber(x) {
         return Number(x.toString().replace(/,/g, ''));
@@ -313,17 +390,11 @@
     }
 
     function ConfirmPayPalDeposit() {
-        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang, function (success, o) {
+        PaymentClient.ConfirmBankCardDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang, $('#inputBankPaymentSerial').val(), function (success, o) {
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                             var data = o.Data;
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
                   
-                    window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.OrderNumber}`, "_blank");
-
-                    });
-
                     setExpireSecond();
                     let Step3 = $('button[data-deposite="step3"]');
                     //let Step4 = $('[data-deposite="step4"]');
@@ -377,6 +448,153 @@
 
     function supplement(nn) {
         return nn = nn < 10 ? '0' + nn : nn;
+    }
+
+    function onBtnReceiptFile() {
+        debugger;
+        var idReceiptFile = document.getElementById("idReceiptFile");
+
+        if (idReceiptFile != null) {
+            if (idReceiptFile.files != null) {
+                if (idReceiptFile.files.length > 0) {
+                    var userFile = idReceiptFile.files[0];
+
+                    uploadReceiptFile(userFile);
+                }
+            }
+        }
+    }
+
+    function uploadReceiptFile(f) {
+        var chunkSize = 20000;
+        var readIndex = 0;
+        var uploadId;
+        var sendExceptionCount = 0;
+        debugger;
+        function readForChunk(chunkIndex, cb) {
+            var position = (chunkIndex * chunkSize);
+            var fr = new FileReader();
+
+            fr.onload = function () {
+                var contentB64 = fr.result;
+                var tmpIndex;
+
+                tmpIndex = contentB64.indexOf(",");
+                if (tmpIndex != -1) {
+                    contentB64 = contentB64.substr(tmpIndex + 1);
+                }
+
+                if (cb != null)
+                    cb(true, contentB64);
+            };
+
+            if (position >= f.size) {
+                if (cb != null)
+                    cb(false, null);
+            } else {
+                var endPos = (position + chunkSize);
+                var slice;
+                var chunkCount;
+                var persent;
+                var idProgressBar = document.getElementById("idProgressBar");
+
+                if (endPos >= f.size)
+                    endPos = (f.size);
+
+                if ((f.size % chunkSize) != 0)
+                    chunkCount = (f.size / chunkSize) + 1;
+                else
+                    chunkCount = (f.size / chunkSize);
+
+                persent = parseInt((chunkIndex / chunkCount) * 100);
+                idProgressBar.style.width = persent + "%";
+
+                slice = f.slice(position, endPos);
+                fr.readAsDataURL(slice);
+            }
+        }
+
+        function readMediaNext(finCb) {
+            readForChunk(readIndex, function (success, contentB64) {
+                if (success) {
+                    PaymentClient.UploadReceiptFIle(WebInfo.SID, Math.uuid(), uploadId, readIndex, contentB64, function (success2, ret) {
+                        var sendSuccess = false;
+
+                        if (success2) {
+                            if (ret.ResultState == 0) {
+                                sendSuccess = true;
+                                sendExceptionCount = 0;
+                                readIndex++;
+                                readMediaNext(finCb);
+                            }
+                        }
+
+                        if (sendSuccess == false) {
+                            if (sendExceptionCount < 10) {
+                                sendExceptionCount++;
+
+                                setTimeout(function () {
+                                    readMediaNext(finCb);
+                                }, 500);
+                            } else {
+                            }
+                        }
+                    });
+                } else {
+                    // end read
+                    if (finCb)
+                        finCb(true);
+                }
+            });
+        }
+
+        if (f != null) {
+            var filename = f.name;
+            var extName = "";
+            var tmpIndex;
+
+            tmpIndex = filename.lastIndexOf(".");
+            if (tmpIndex != -1)
+                extName = filename.substr(tmpIndex + 1);
+
+            // upload image
+            PaymentClient.CreateReceiptFIleUpload(WebInfo.SID, Math.uuid(), $('#inputBankPaymentSerial').val(), extName, function (success, UI) {
+                if (success) {
+                    if (UI.ResultState == 0) {
+                        chunkSize = UI.ChunkSize;
+                        uploadId = UI.UploadId;
+                        document.getElementById("idProgressBarParent").style.display = "";
+
+                        readMediaNext(function (finished) {
+                            // finished
+                            if (finished) {
+                                PaymentClient.CompleteReceiptFile(WebInfo.SID, Math.uuid(),uploadId, function () {
+                                    var idProgressBar = document.getElementById("idProgressBar");
+
+                                    idProgressBar.style.width = "0px";
+                                    document.getElementById("idProgressBarParent").style.display = "none";
+                                    boolCheckFileUpload = true;
+                                    window.parent.showMessageOK(mlp.getLanguageKey("完成"), mlp.getLanguageKey("上傳完成"));
+                                });
+                            } else {
+                                // upload exception
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+                            }
+                        });
+                    } else {
+                        // upload exception
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+                    }
+                } else {
+                    // upload exception
+                    if (o == "Timeout")
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+                    else
+                        if ((o != null) && (o != ""))
+                            alert(o);
+                }
+            });
+        }
     }
 
     window.onload = init;
@@ -511,7 +729,7 @@
                         </div>
                     </div>
                     <!-- 虛擬錢包 step4 -->
-                    <div class="main-panel" data-deposite="step4">
+                    <div class="main-panel" style="display:none;" data-deposite="step4">
 
                         <div class="crypto-info-coantainer">
 
@@ -546,7 +764,7 @@
                                         </div>
                                         <div class="">
                                             <span class="count BankName">XXX銀行</span>
-											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+											<i class="icon-copy" onclick="copyBankName(this)" style="display: inline;color: #bbb;"></i>
 											<input class="inputBankName is-hide">
                                         </div>
                                     </div>
@@ -556,7 +774,7 @@
                                         </div>
                                         <div class="">
                                             <span class="count BankBranchName">YY分行</span>
-											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+											<i class="icon-copy" onclick="copyBankBranchName(this)" style="display: inline;color: #bbb;"></i>
 											<input class="inputBankBranchName is-hide">
                                         </div>
                                     </div>
@@ -566,7 +784,7 @@
                                         </div>
                                         <div class="">
                                             <span class="count BankCard"></span>
-											<i class="icon-copy" onclick="#" style="display: inline;color: #bbb;"></i>
+											<i class="icon-copy" onclick="copyBankCard(this)" style="display: inline;color: #bbb;"></i>
                                             <input class="inputBankCard is-hide">
                                         </div>
                                     </div>
@@ -619,16 +837,17 @@
                                 <!-- 未上傳交易水單檔案 -->
                                 <div>
                                     <div style="margin: 15px 0px;background: #fff;border-radius: 5px;padding: 12px 12px;display: table;">
-										<input class="" type="file">
+										<input type="file" accept="image/*"  id="idReceiptFile" name="idReceiptFile">
                                     </div>
                                 </div>
 								<!-- 已選擇交易水單檔案 -->
                                 <div>
-										<button class="btn btn-outline-primary" data-deposite="">
+                                        <div id="idProgressBarParent" class="UploadProgressBar" style="display: none;"><div id="idProgressBar" style="width:0%;"></div></div>
+										<%--<button class="btn btn-outline-primary" data-deposite="">
 											<span class="language_replace" langkey="取消">取消</span>
-										</button>
+										</button>--%>
 										<button class="btn btn-primary" data-deposite="">
-											<span class="language_replace" langkey="上傳並">上傳</span>
+											<span class="language_replace" langkey="上傳並" onclick="onBtnReceiptFile()">上傳</span>
 										</button>
                                 </div>
 								<!-- 已上傳交易水單檔案 -->
@@ -662,7 +881,7 @@
                 </div>
 
                 <!-- 溫馨提醒 -->
-                <div class="notice-container" data-deposite="step4">
+                <div class="notice-container">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
@@ -742,5 +961,6 @@
             </div>
         </li>
     </div>
+    <input id="inputBankPaymentSerial" class="is-hide"/>
 </body>
 </html>

@@ -69,7 +69,7 @@ public static class RedisCache
             Key4 = XMLPath + ":CompanyGameCode";
             for (int I = 0; I <= 3; I++) {
                 try {
-                    JsonStringWriteToRedis(DBIndex, JsonData, Key4, 1800);
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key4, 300);
                     break;
                 } catch (Exception ex) {
                 }
