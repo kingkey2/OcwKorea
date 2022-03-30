@@ -1,0 +1,23 @@
+{
+  "出款": "Agent - Withdrawal",
+  "選擇或填入出款金額": "Enter The Withdrawal Amount",
+  "請從下方金額選擇您要的金額，或是自行填入想要出款的金額。兩種方式擇一即可。": "Please enter the amount.",
+  "輸入金額": "Withdrawal Amount",
+  "請輸入金額": "Please enter the amount.",
+  "輸入銀行名稱": "Bank Name",
+  "輸入分行別": "Branch Name",
+  "輸入銀行卡號": "Account",
+  "收款人姓名": "Receiver",
+  "下一步": "Next",
+  "請輸入購買金額": "Please enter the amount.",
+  "銀行名稱不能為空": "Please enter the bank name.",
+  "銀行卡號不能為空": "Please enter the account.",
+  "收款人姓名不能為空": "Please enter the receiver.",
+  "出款項目": "The withdrawal request has been passed to the agent.",
+  "出金金額": "Withdrawal Amount",
+  "出款細項": "Withdrawal Details",
+  "銀行名稱": "Bank Name",
+  "分行別": "Branch Name",
+  "收款人": "Receiver",
+  "銀行卡號": "Account"
+}
