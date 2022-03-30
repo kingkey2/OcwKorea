@@ -116,7 +116,7 @@
     };
 
     this.CompleteReceiptFile = function (WebSID, GUID, UploadId, cb) {
-        var url = APIUrl + "/CreateReceiptFIleUpload";
+        var url = APIUrl + "/CompleteReceiptFile";
         var postData;
 
         postData = {

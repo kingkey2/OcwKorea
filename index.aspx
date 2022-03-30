@@ -1694,12 +1694,12 @@
                                 <span class="language_replace">真人</span>
                             </a>
                         </li>
-                        <li>
+                    <%--    <li>
                             <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Sports')">
                                 <i class="icon-casinoworld-football"></i>
                                 <span class="language_replace">體育</span>
                             </a>
-                        </li>
+                        </li>--%>
                         <li>
                             <a onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Slot')">
                                 <i class="icon-slot"></i>
