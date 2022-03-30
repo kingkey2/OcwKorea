@@ -1317,7 +1317,7 @@
                                 </div>
                             </div>--%>
                             <!-- 熱門活動 -->
-                            <div class="category-item category-activity cat-rwd" onclick="window.parent.showMessage('',mlp.getLanguageKey('即將開放'))">
+                         <%--   <div class="category-item category-activity cat-rwd" onclick="window.parent.showMessage('',mlp.getLanguageKey('即將開放'))">
                                 <div class="category-item-inner">
                                     <div class="content">
                                         <h3 class="title language_replace">熱門活動</h3>
@@ -1326,7 +1326,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                         </section>
                         <!-- 客服 -->
                         <!-- <div class="customer-service" onclick="window.parent.API_OpenServiceChat()">
