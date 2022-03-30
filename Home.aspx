@@ -119,8 +119,8 @@
             Description: "FourGamesDescription01"
         },
         {
-            GameName: "Sport",
-            GameBrand: "BTI",
+            GameName: "32",
+            GameBrand: "KGS",
             Description: "FourGamesDescription02"
         },
         {
@@ -650,7 +650,7 @@
                                 <img src="images/games/hero/hero-10.jpg?20211004" class="desktop">
                                 <img src="images/games/hero/hero-10-m.jpg" class="mobile">
                             </div>
-                            <div class="hero-info">
+                            <!--div class="hero-info">
                                 <div class="hero-info-inner">
                                     <div class="hero-info-title language_replace">貂蟬の甘い罠</div>
                                     <div class="hero-info-text">
@@ -660,7 +660,7 @@
                                         <span class="language_replace">Game Now</span>
                                     </a>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
                     </div>
 <%--                    <div class="swiper-slide" style="background: #efd21e">
@@ -698,7 +698,7 @@
                                     <a onclick="window.parent.API_OpenGameCode('EWin', 'EWinGaming')" class="btn btn-primary">
                                         <span class="language_replace">Game Now</span>
                                     </a>
-                                    <p class="hero-info-period language_replace">活動期間: 2021年9月24日午前0時00分開始</p>
+                                    <!--p class="hero-info-period language_replace">活動期間: 2021年9月24日午前0時00分開始</p-->
                                 </div>
                             </div>
                         </div>
@@ -862,7 +862,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx?Category=Sports')" class="category-item category-sport cat-rwd">
+                        <%--<div onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx?Category=Sports')" class="category-item category-sport cat-rwd">
                             <div class="category-item-inner">
                                 <div class="content">
                                     <div class="img-wrap">
@@ -878,7 +878,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                         <div onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx?Category=Slot')" class="category-item category-slot cat-rwd">
                             <div class="category-item-inner">
                                 <div class="content">
@@ -1269,7 +1269,7 @@
                             </div>
 
                             <!-- Bti Banner -->
-                            <div class="category-item banner-activity b-02" onclick="">
+                    <%--        <div class="category-item banner-activity b-02" onclick="">
                                 <div class="category-item-inner">
                                     <div class="img-wrap b-cover">
                                         <img src="images/games/sidebar_category_activity_bti_01.jpg">
@@ -1280,11 +1280,11 @@
                                     <div class="b-bg"></div>
                                     <div class="content">
                                         <div class="detail">
-                                            <%-- 
+                                         
                                             <div class="logo">
                                                 <div class="img-wrap">
                                                     <img src="images/logo/logo-Bti_w.png" alt=""></div>
-                                            </div>--%>
+                                            </div>
                                             <div class="intro">
                                                 <h3 class="title language_replace">Bti 綜合娛樂游戲</h3>
                                                 <p class="desc language_replace">提供1000+ 多種投注類型</p>
@@ -1296,7 +1296,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div>--%>
                             <!-- 熱門活動 -->
                             <div class="category-item category-activity cat-rwd" onclick="window.parent.showMessage('',mlp.getLanguageKey('即將開放'))">
                                 <div class="category-item-inner">
