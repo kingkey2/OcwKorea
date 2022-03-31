@@ -713,7 +713,7 @@
                                     </div>
                                 </div>
                                 <!-- 換算金額(日元) -->
-                                <div class="form-group ">
+                                <div class="form-group " style="display: none;">
                                     <div class="input-group inputlike-box-group">
                                         <span class="inputlike-box-prepend">≒</span>
                                         <!-- 換算金額(日元)-->
@@ -882,7 +882,7 @@
                 </div>
 
                 <!-- 溫馨提醒 -->
-                <div class="notice-container">
+                <!--div class="notice-container">
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
@@ -895,14 +895,14 @@
                                 <li><span class="language_replace">匯率可能隨時變動中，所有交易以本網站的匯率為準，打幣後交易期間若有變動，將以實際入幣時的匯率撥給遊戲幣。建議您可於入款前重整匯率資訊，確保您同意目前的匯率後進行入款。</span></li>
                                 <li><span class="language_replace">『ETH』和USDT的『ERC20』可透過 https://etherscan.io/ 進行查詢交易的狀況。</span></li>
                             </ul>
-                            <!-- <ul class="list-style-decimal">
+                            <ul class="list-style-decimal">
                                 <li><span class="language_replace">請正確使用對應的錢包入款，否則將造成資產損失。</span><br>
                                     <span class="primary language_replace">※USDT請勿使用ERC20以外的協定。</span></li>
                                 <li class="language_replace">虛擬貨幣入賬需經過數個區塊確認，約需要數分鐘時間。</li>
-                            </ul> -->
+                            </ul>
                         </div>
                     </div>
-                </div>
+                </div-->
 
             </section>
         </div>
