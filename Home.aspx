@@ -5,6 +5,11 @@
     string Token;
     string MarqueeText = "";
     string Version = EWinWeb.Version;
+    string Bulletin = string.Empty;
+    string FileData= string.Empty;
+    string isModify = "0";
+    string[] stringSeparators = new string[] { "&&_" };
+    string[] Separators;
     Random R = new Random();
 
     EWin.Lobby.APIResult Result;
@@ -17,6 +22,25 @@
     {
         MarqueeText = Result.Message;
     }
+
+    try { 
+        if (System.IO.File.Exists(Server.MapPath("/App_Data/Bulletin.txt"))) {
+            FileData = System.IO.File.ReadAllText(Server.MapPath("/App_Data/Bulletin.txt"));
+            if (string.IsNullOrEmpty(FileData) == false) {
+                Separators = FileData.Split(stringSeparators,StringSplitOptions.None);
+                Bulletin = Separators[0];
+                Bulletin = Bulletin.Replace("\r", "<br />").Replace("\n", string.Empty);
+                if (Separators.Length >1) {
+                    isModify = Separators[1];
+                }
+
+                if (isModify == "1") {
+                    Response.Redirect("Maintain.aspx");
+                }
+            }
+        }
+    }
+    catch (Exception ex) {};
 %>
 <!doctype html>
 <html>
@@ -29,6 +53,8 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/games.css" type="text/css" />
+    <link rel="stylesheet" href="css/layoutAdj.css?<%:Version%>" type="text/css" />
+    <link rel="stylesheet" href="css/toast.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
 </head>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
@@ -49,6 +75,7 @@
     var lang;
     var WebInfo;
     var marqueeText = "<%=MarqueeText%>";
+    var hasBulletin = <%=(string.IsNullOrEmpty(Bulletin) ? "false" : "true")%>;
     var HotList;
     var v ="<%:Version%>";
     //temp
@@ -1620,5 +1647,22 @@
             </div>
         </section>
     </div>
+	<script>
+        function fullAdClose() {
+            var idFullAD = document.getElementById("idFullAD");
+            idFullAD.style.display = "none";
+        }
+    </script>
+	
+	<!-- 蓋板公告 -->
+	<div id="idFullAD" class="popupFullAD">
+		<div class="fullADDDiv">
+			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
+			<div class="fullADDText">
+				<!-- 公告寫在這裡面 -->
+				<p><%=Bulletin %></p>
+			</div>
+		</div>	
+	</div>
 </body>
 </html>

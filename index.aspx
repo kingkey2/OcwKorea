@@ -2158,23 +2158,6 @@
             </div>
         </div>
     </div>
-	<script>
-		function fullAdClose(){
-			var idFullAD = document.getElementById("idFullAD");
-			idFullAD.style.display = "none";
-		}
-    </script>
-	
-	<!-- 蓋板公告 -->
-	<div id="idFullAD" class="popupFullAD">
-		<div class="fullADDDiv">
-			<div class="close" onClick="fullAdClose()"><i class="CloseIcon"></i></div>
-			<div class="fullADDText">
-				<!-- 公告寫在這裡面 -->
-				<p><%=Bulletin %></p>
-			</div>
-		</div>	
-	</div>
 	<!-- Toaster 1014新增 -->
     <div class="ToasterMain">
         <div id="ToasterDiv" class="ToasterDiv">
