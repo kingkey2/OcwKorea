@@ -200,9 +200,14 @@
                         $("#depositdetail .BankCard").text(bankdata.BankNumber);
                         $("#depositdetail .OrderNumber").text(bankdata.PaymentSerial);
                         $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                        $("#depositdetail .ExpireSecond").text(data.ExpireSecond);
+                        //$("#depositdetail .ExpireSecond").text(data.ExpireSecond);
                         $("#depositdetail .ThresholdValue").text(data.ThresholdValue);
                         ExpireSecond = data.ExpireSecond;
+
+                        let nowDate = new Date();
+                        nowDate.addSeconds(ExpireSecond);
+                        nowDate.addHours(1);
+                        $("#depositdetail .ExpireSecond").text(format(nowDate, "-"));
 
                         var depositdetail = document.getElementsByClassName("Collectionitem")[0];
                         var CollectionitemDom = c.getTemplate("templateCollectionitem");
@@ -215,6 +220,7 @@
                         $("#depositdetail .inputBankName").val(bankdata.BankName);
                         $("#depositdetail .inputBankBranchName").val(bankdata.BranchName);
                         $("#depositdetail .inputBankCard").val(bankdata.BankNumber);
+                        $("#depositdetail .inputOrderNumber").val(bankdata.PaymentSerial);
                         $("#inputBankPaymentSerial").val(bankdata.PaymentSerial);
                         GetDepositActivityInfoByOrderNumber(OrderNumber);
 
@@ -314,6 +320,18 @@
     function copyBankName(tag) {
 
         var copyText = $(tag).parent().find('.inputBankName')[0];
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+
+        copyToClipboard(copyText.value)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+
+    function copyOrderNumber(tag) {
+
+        var copyText = $(tag).parent().find('.inputOrderNumber')[0];
 
         copyText.select();
         copyText.setSelectionRange(0, 99999);
@@ -801,6 +819,8 @@
                                     <li class="item">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
+											<i class="icon-copy" onclick="copyOrderNumber(this)" style="display: inline;color: #bbb;"></i>
+											<input class="inputOrderNumber is-hide" />
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
@@ -847,8 +867,8 @@
 										<%--<button class="btn btn-outline-primary" data-deposite="">
 											<span class="language_replace" langkey="取消">取消</span>
 										</button>--%>
-										<button class="btn btn-primary" data-deposite="">
-											<span class="language_replace" langkey="上傳並" onclick="onBtnReceiptFile()">上傳</span>
+										<button class="btn btn-primary" data-deposite="" onclick="onBtnReceiptFile()">
+											<span class="language_replace" langkey="上傳並">上傳</span>
 										</button>
                                 </div>
 								<!-- 已上傳交易水單檔案 -->

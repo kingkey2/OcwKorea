@@ -78,6 +78,7 @@
                     if (ParentPersonCode == PersonCode) {
                         $('.box-itemPaymentHistory').removeClass('is-hide');
                         $('.box-itemDeposit').removeClass('is-hide');
+                        $('.box-itemProgressPaymentHistory').removeClass('is-hide');
                     } else {
                         $('.box-itemAgentWithdrawalHistory').removeClass('is-hide');
                     }
@@ -205,7 +206,7 @@
                             </div>
                         </a>
                     </div>
-                     <div class="box-item">
+                     <div class="box-item is-hide box-itemProgressPaymentHistory">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('ProgressPaymentHistory','ProgressPaymentHistory.aspx', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-casinoworld-process-order"></i>
