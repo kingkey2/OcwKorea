@@ -4,6 +4,7 @@
     string Version = EWinWeb.Version;
     string InOpenTime = EWinWeb.CheckInWithdrawalTime() ? "Y":"N";
     string IsWithdrawlTemporaryMaintenance = EWinWeb.IsWithdrawlTemporaryMaintenance() ? "Y" : "N";
+    string PersonCode=EWinWeb.MainPersonCode;
 %>
 <!DOCTYPE html>
 <html>
@@ -34,8 +35,11 @@
     }
     var lang;
     var mlp;
+    var p;
+    var WebInfo;
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
+    var PersonCode = "<%:PersonCode%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
 
     function init() {
@@ -45,8 +49,25 @@
 
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
+        p = window.parent.API_GetLobbyAPI();
+        WebInfo = window.parent.API_GetWebInfo();
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+
+            p.GetParentPersonCode(WebInfo.SID, Math.uuid(), function (success, o) {
+                if (success) {
+                    if (o.ResultState == 0) {
+                        ParentPersonCode = o.Message;
+                        if (ParentPersonCode == PersonCode) {
+                            $('.WithdrawalBankCard').removeClass('is-hide');
+                            $('.WithdrawalCrypto').removeClass('is-hide');
+                        } else {
+                            $('.WithdrawalAgent').removeClass('is-hide');
+                        }
+                    }
+                }
+            });
+
             //if (IsOpenTime == "N") {
             //    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
             //        window.parent.API_Reload();
@@ -172,7 +193,7 @@
 
                     </div>--%>
 					<!-- bankCard -->
-                    <div class="card-item sd-03">
+                    <div class="card-item sd-03 is-hide WithdrawalBankCard">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalBankCard','WithdrawalBankCard.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -188,7 +209,7 @@
 
                     </div>
 					<!-- 代理出款 -->
-                    <div class="card-item sd-05" style="">
+                    <div class="card-item sd-05 is-hide WithdrawalAgent" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -202,7 +223,7 @@
                         </a>
                     </div>
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02 is-hide WithdrawalCrypto" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
