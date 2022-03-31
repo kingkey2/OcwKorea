@@ -35,24 +35,39 @@
     }
     var lang;
     var mlp;
-    var WebInfo;
     var p;
+    var WebInfo;
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var PersonCode = "<%:PersonCode%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
-    var PersonCode = "<%:PersonCode%>";
-    var ParentPersonCode = "";
+
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
         }
-        WebInfo = window.parent.API_GetWebInfo();
-        p = window.parent.API_GetLobbyAPI();
+
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
+        p = window.parent.API_GetLobbyAPI();
+        WebInfo = window.parent.API_GetWebInfo();
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+
+            p.GetParentPersonCode(WebInfo.SID, Math.uuid(), function (success, o) {
+                if (success) {
+                    if (o.ResultState == 0) {
+                        ParentPersonCode = o.Message;
+                        if (ParentPersonCode == PersonCode) {
+                            $('.WithdrawalBankCard').removeClass('is-hide');
+                            $('.WithdrawalCrypto').removeClass('is-hide');
+                        } else {
+                            $('.WithdrawalAgent').removeClass('is-hide');
+                        }
+                    }
+                }
+            });
+
             //if (IsOpenTime == "N") {
             //    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
             //        window.parent.API_Reload();
@@ -65,22 +80,9 @@
             //    }
             //}
         }, "PaymentAPI");
-
-        p.GetParentPersonCode(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.ResultState == 0) {
-                    ParentPersonCode = o.Message;
-                    if (ParentPersonCode == PersonCode) {
-                     
-                    } else {
-                        $('.divWithdrawalAgent').removeClass('is-hide');
-                    }
-                }
-            }
-        });
     }
 
-     function API_showMessageOK(title, message, cbOK) {
+    function API_showMessageOK(title, message, cbOK) {
         if ($("#alertContact").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertContact");
             var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
@@ -91,7 +93,7 @@
             if (messageModal == null) {
                 messageModal = new bootstrap.Modal(divMessageBox);
             }
-           
+
             if (divMessageBox != null) {
                 messageModal.show();
 
@@ -207,7 +209,7 @@
 
                     </div>
 					<!-- 代理出款 -->
-                    <div class="card-item sd-05" style="">
+                    <div class="card-item sd-05 is-hide WithdrawalAgent" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
