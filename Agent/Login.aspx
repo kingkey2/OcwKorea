@@ -110,10 +110,8 @@
         var form = document.forms[0];
 
         
-        if (form.PhonePrefix.value == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入國碼"));
-        } else if (form.PhoneNumber.value == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入電話號碼"));
+        if (form.LoginAccount.value.trim() == "") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入帳號"));
         } else if (form.LoginPassword.value == "") {
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
         } else {
@@ -454,16 +452,11 @@
                     </div>
                 </div>
                 <div class="loginForm__right">
+                  
                     <div class="form-group">
                         <div class="form-control-underline form-input-icon">
-                            <input type="text" class="form-control" name="PhonePrefix" value="+81" required>
-                            <label for="area" class="form-label ico-before-member"><span class="language_replace">國碼</span></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-control-underline form-input-icon">
-                            <input type="text" class="form-control" name="PhoneNumber" required>
-                            <label for="phoneNo" class="form-label ico-before-member"><span class="language_replace">電話號碼</span></label>
+                            <input type="text" class="form-control" name="LoginAccount" required>
+                            <label for="LoginAccount" class="form-label ico-before-member"><span class="language_replace">帳號</span></label>
                         </div>
                     </div>
                     <div class="form-group">
