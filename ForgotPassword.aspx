@@ -65,15 +65,18 @@
         var ValidateType = 0;
         var idPhonePrefix = document.getElementById("idPhonePrefix");
         var idPhoneNumber = document.getElementById("idPhoneNumber");
+        var idLoginAccount = document.getElementById("idLoginAccount");
 
-
-        if (idPhonePrefix.value == "") {
+        if (idPhonePrefix.value.trim() == "") {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入國碼"));
             return;
-        } else if (idPhoneNumber.value == "") {
+        } else if (idPhoneNumber.value.trim() == "") {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入電話"));
             return;
-        } else {
+        } else if (idLoginAccount.value.trim() == "") {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入帳號"));
+            return;
+        }  else {
             var phoneValue = idPhonePrefix.value + idPhoneNumber.value;
             var phoneObj;
 
@@ -92,10 +95,9 @@
             }
         }
 
-
-        p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
+        p.CheckUserAccountByPhoneNumberAndLoginAccount(Math.uuid(), idLoginAccount.value.trim(), idPhonePrefix.value.trim(), idPhoneNumber.value.trim(), function (success, o) {
             if (success) {
-                if (o.Result == 0) {
+                if (o.ResultState == 0) {
                     p.SetUserMail(GUID, 1, 1, "", idPhonePrefix.value, idPhoneNumber.value, mlp.getLanguageKey("您的驗證碼為 ({0})\r\n請您於2分鐘內驗證，如超過時間，請重新發送驗證碼。"), function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
@@ -110,7 +112,7 @@
                         }
                     });
                 } else {
-                    window.parent.showMessageOK("", mlp.getLanguageKey("電話不存在"));
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話號碼與帳號不相符"));
                 }
             }
         });
@@ -291,6 +293,13 @@
                 </div>
 
                 <div class="form-content">
+                    <div class="form-group">
+                            <label class="form-title language_replace">帳號</label>
+                            <div class="input-group">
+                                <input id="idLoginAccount" name="LoginAccount" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="英文或數字12位以內，不分大小寫" inputmode="email">
+                                <div class="invalid-feedback language_replace">請輸入正確帳號</div>
+                            </div>
+                    </div>
                     <div id="idPhoneLoginGroup" class="form-row">
                         <div class="form-group col-3">
                             <label class="form-title language_replace">國碼</label>

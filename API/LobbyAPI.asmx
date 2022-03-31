@@ -272,6 +272,16 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public CASINO3651API.APIResult CheckUserAccountByPhoneNumberAndLoginAccount(string GUID, string LoginAccount, string PhonePrefix, string PhoneNumber)
+    {
+        CASINO3651API.CASINO3651 casino3651 = new CASINO3651API.CASINO3651();
+        TelPhoneNormalize TN = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
+        return casino3651.CheckUserAccountByPhoneNumberAndLoginAccount(GetToken(), GUID, TN.PhonePrefix, TN.PhoneNumber, LoginAccount);
+         
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult CheckAccountExist(string GUID, string LoginAccount) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         return lobbyAPI.CheckAccountExist(GetToken(), GUID, LoginAccount);
@@ -805,7 +815,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
                 SMSContent = string.Format(SMSContent, ValidateCode);
-         
+
                 R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, SMSContent);
                 break;
             default:

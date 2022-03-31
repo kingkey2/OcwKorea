@@ -365,6 +365,24 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="CheckUserAccountByPhoneNumberAndLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUserAccountByPhoneNumberAndLoginAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckUserAccountByPhoneNumberAndLoginAccountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="string" nillable="true" type="s:string" />
       <s:element name="UploadInfoResult" nillable="true" type="tns:UploadInfoResult" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
@@ -463,6 +481,12 @@
   </wsdl:message>
   <wsdl:message name="GetCompanyPaymentBankCardSoapOut">
     <wsdl:part name="parameters" element="tns:GetCompanyPaymentBankCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserAccountByPhoneNumberAndLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckUserAccountByPhoneNumberAndLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserAccountByPhoneNumberAndLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckUserAccountByPhoneNumberAndLoginAccountResponse" />
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpGetIn">
     <wsdl:part name="EchoString" type="s:string" />
@@ -577,6 +601,16 @@
   <wsdl:message name="GetCompanyPaymentBankCardHttpGetOut">
     <wsdl:part name="Body" element="tns:CompanyPaymentBankCardResult" />
   </wsdl:message>
+  <wsdl:message name="CheckUserAccountByPhoneNumberAndLoginAccountHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserAccountByPhoneNumberAndLoginAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="HeartBeatHttpPostIn">
     <wsdl:part name="EchoString" type="s:string" />
   </wsdl:message>
@@ -690,6 +724,16 @@
   <wsdl:message name="GetCompanyPaymentBankCardHttpPostOut">
     <wsdl:part name="Body" element="tns:CompanyPaymentBankCardResult" />
   </wsdl:message>
+  <wsdl:message name="CheckUserAccountByPhoneNumberAndLoginAccountHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="ContactPhonePrefix" type="s:string" />
+    <wsdl:part name="ContactPhoneNumber" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserAccountByPhoneNumberAndLoginAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:portType name="CASINO3651Soap">
     <wsdl:operation name="HeartBeat">
       <wsdl:input message="tns:HeartBeatSoapIn" />
@@ -742,6 +786,10 @@
     <wsdl:operation name="GetCompanyPaymentBankCard">
       <wsdl:input message="tns:GetCompanyPaymentBankCardSoapIn" />
       <wsdl:output message="tns:GetCompanyPaymentBankCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <wsdl:input message="tns:CheckUserAccountByPhoneNumberAndLoginAccountSoapIn" />
+      <wsdl:output message="tns:CheckUserAccountByPhoneNumberAndLoginAccountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="CASINO3651HttpGet">
@@ -797,6 +845,10 @@
       <wsdl:input message="tns:GetCompanyPaymentBankCardHttpGetIn" />
       <wsdl:output message="tns:GetCompanyPaymentBankCardHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <wsdl:input message="tns:CheckUserAccountByPhoneNumberAndLoginAccountHttpGetIn" />
+      <wsdl:output message="tns:CheckUserAccountByPhoneNumberAndLoginAccountHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="CASINO3651HttpPost">
     <wsdl:operation name="HeartBeat">
@@ -850,6 +902,10 @@
     <wsdl:operation name="GetCompanyPaymentBankCard">
       <wsdl:input message="tns:GetCompanyPaymentBankCardHttpPostIn" />
       <wsdl:output message="tns:GetCompanyPaymentBankCardHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <wsdl:input message="tns:CheckUserAccountByPhoneNumberAndLoginAccountHttpPostIn" />
+      <wsdl:output message="tns:CheckUserAccountByPhoneNumberAndLoginAccountHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CASINO3651Soap" type="tns:CASINO3651Soap">
@@ -964,6 +1020,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCompanyPaymentBankCard">
       <soap:operation soapAction="http://tempuri.org/GetCompanyPaymentBankCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/CheckUserAccountByPhoneNumberAndLoginAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1091,6 +1156,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/CheckUserAccountByPhoneNumberAndLoginAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CASINO3651HttpGet" type="tns:CASINO3651HttpGet">
     <http:binding verb="GET" />
@@ -1211,6 +1285,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <http:operation location="/CheckUserAccountByPhoneNumberAndLoginAccount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CASINO3651HttpPost" type="tns:CASINO3651HttpPost">
     <http:binding verb="POST" />
@@ -1324,6 +1407,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCompanyPaymentBankCard">
       <http:operation location="/GetCompanyPaymentBankCard" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserAccountByPhoneNumberAndLoginAccount">
+      <http:operation location="/CheckUserAccountByPhoneNumberAndLoginAccount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
