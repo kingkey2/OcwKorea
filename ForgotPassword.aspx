@@ -344,7 +344,7 @@
                     </div>
 
                     <div class="btn-container">
-                        <button type="button" class="btn btn-primary"  onclick="formSubmitCheck()"><span class="language_replace">重設密碼</span></button>
+                        <button type="button" class="btn btn-primary"  onclick="formSubmitCheck()"><span class="language_replace">重設密碼1</span></button>
                     </div>
                 </div>
             </div>

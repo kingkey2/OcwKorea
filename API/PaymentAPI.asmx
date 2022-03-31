@@ -1562,7 +1562,7 @@ public class PaymentAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentCommonResult CreateBankCardWithdrawal(string WebSID, string GUID, decimal Amount)
+    public PaymentCommonResult CreateBankCardWithdrawal(string WebSID, string GUID, decimal Amount,int PaymentMethodID)
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
@@ -1593,10 +1593,10 @@ public class PaymentAPI : System.Web.Services.WebService {
             {
                 if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
                 {
-                    
-                   PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("BankCard");
-                    var PaymentMethodRow=PaymentMethodDT.Select("PaymentType=1");
 
+                    PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("BankCard");
+                    var PaymentMethodRow=PaymentMethodDT.Select("PaymentType=1");
+                
                     if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
                     {
                         if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
