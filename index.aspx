@@ -5,6 +5,7 @@
         Response.Redirect("/Maintain.aspx");
     }
 
+    string PersonCode=EWinWeb.MainPersonCode;
     string Token;
     int RValue;
     Random R = new Random();
@@ -185,7 +186,8 @@
         DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
         IsOpenGame: false
     };
-	
+    var PersonCode = "<%:PersonCode%>";
+    var ParentPersonCode = "";
 	var hasBulletin = <%=(string.IsNullOrEmpty(Bulletin) ? "false" : "true")%>;
 	
     var messageModal;
@@ -1253,6 +1255,19 @@
                 lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
                 paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
+                lobbyClient.GetParentPersonCode(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+                    if (success) {
+                        if (o.ResultState == 0) {
+                            ParentPersonCode = o.Message;
+                            if (ParentPersonCode == PersonCode) {
+                                $('.navDeposit').removeClass('is-hide');
+                            } else {
+                               
+                            }
+                        }
+                    }
+                });
+
                 if (dstPage) {
                     var loadPage;
                     switch (dstPage.toUpperCase()) {
@@ -1769,7 +1784,7 @@
                     </ul>
 
                     <ul class="nav-group">
-                        <li>
+                        <li class="is-hide navDeposit">
                             <a onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                 <i class="icon-deposit"></i>
                                 <span class="language_replace">存款</span>

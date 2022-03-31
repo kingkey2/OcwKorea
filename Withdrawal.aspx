@@ -4,6 +4,7 @@
     string Version = EWinWeb.Version;
     string InOpenTime = EWinWeb.CheckInWithdrawalTime() ? "Y":"N";
     string IsWithdrawlTemporaryMaintenance = EWinWeb.IsWithdrawlTemporaryMaintenance() ? "Y" : "N";
+    string PersonCode=EWinWeb.MainPersonCode;
 %>
 <!DOCTYPE html>
 <html>
@@ -34,15 +35,19 @@
     }
     var lang;
     var mlp;
+    var WebInfo;
+    var p;
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
-
+    var PersonCode = "<%:PersonCode%>";
+    var ParentPersonCode = "";
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
         }
-
+        WebInfo = window.parent.API_GetWebInfo();
+        p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
@@ -59,6 +64,19 @@
             //    }
             //}
         }, "PaymentAPI");
+
+        p.GetParentPersonCode(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.ResultState == 0) {
+                    ParentPersonCode = o.Message;
+                    if (ParentPersonCode == PersonCode) {
+                     
+                    } else {
+                        $('.divWithdrawalAgent').removeClass('is-hide');
+                    }
+                }
+            }
+        });
     }
 
      function API_showMessageOK(title, message, cbOK) {
@@ -188,7 +206,7 @@
 
                     </div>
 					<!-- 代理出款 -->
-                    <div class="card-item sd-05" style="">
+                    <div class="card-item sd-05 is-hide divWithdrawalAgent" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
