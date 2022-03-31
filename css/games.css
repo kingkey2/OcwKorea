@@ -663,6 +663,9 @@
 .push .game-play .btn {
   left: 10px;
 }
+.push .game-APP .btn {
+    left: 10px;
+  }
 
 .menu-wrap-main {
   background: rgba(0, 0, 0, 0.03);
@@ -1400,10 +1403,10 @@
 }
 .section-category .category-item.banner-activity.b-01 .category-item-inner,
 .section-category .category-item.banner-activity.b-01 .b-bg {
-  background: #052015;
+  background: rgba(188,110,0,0.8);
 }
 .section-category .category-item.banner-activity.b-01 .game-link {
-  background: rgba(0, 167, 108, 0.3);
+  background: rgba(0, 167, 108, 0.0);
 }
 .section-category .category-item.banner-activity.b-01 .content .logo .img-wrap {
   padding: 3px;
@@ -1606,6 +1609,9 @@
   .push .game-play .btn {
     left: 30px;
   }
+  .push .game-APP .btn {
+    left: 15px;
+  }
 }
 @media only screen and (min-width: 768px) {
   .hero-main .hero-info-period {
@@ -1632,6 +1638,10 @@
   .push .game-play .btn {
     left: 50px;
   }
+  .push .game-APP .btn {
+    left: 30px;
+  }
+	
 }
 @media only screen and (min-width: 992px) {
   .hero-main .hero-info-period {
@@ -1743,6 +1753,9 @@
   }
   .push .game-play .btn {
     left: 60px;
+  }
+  .push .game-APP .btn {
+    left: 30px;
   }
 }
 @media only screen and (min-width: 1600px) {
