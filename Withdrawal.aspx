@@ -39,6 +39,7 @@
     var p;
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
+    var PersonCode = "<%:PersonCode%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
     var PersonCode = "<%:PersonCode%>";
     var ParentPersonCode = "";
@@ -190,7 +191,7 @@
 
                     </div>--%>
 					<!-- bankCard -->
-                    <div class="card-item sd-03">
+                    <div class="card-item sd-03 is-hide WithdrawalBankCard">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalBankCard','WithdrawalBankCard.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -206,7 +207,7 @@
 
                     </div>
 					<!-- 代理出款 -->
-                    <div class="card-item sd-05 is-hide divWithdrawalAgent" style="">
+                    <div class="card-item sd-05" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalAgent','WithdrawalAgent.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -220,7 +221,7 @@
                         </a>
                     </div>
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02 is-hide WithdrawalCrypto" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
