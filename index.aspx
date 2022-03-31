@@ -1918,7 +1918,7 @@
                         <a onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                     </li>
 					<li class="info-item ">
-                        <a onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">下載代理工具</span></a>
+                        <a onclick="location.href='https://game.ewin-soft.com/GetDownloadLink.aspx?Tag=X07TATY8';"><span class="language_replace">下載代理工具</span></a>
                     </li>
                     <!--li class="info-item">
                         <a onclick="window.parent.API_ShowContactUs()"><span class="language_replace">聯絡客服</span></a>

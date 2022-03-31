@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scale=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Club Maharaja APP</title>
+    <title>BET 파라다이스</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/downloadPage.css">
 </head>
@@ -57,13 +57,13 @@
                     <div class="dlP_ConAppInfo">
                         <div class="dlP_AppIcon"><img src="../images/MaharajaAgent.png" alt="icon_game"></div>
                         <div class="dlP_AppType"><span>Agent APP</span></div>
-                        <div class="dlP_AppName"><span>Club Maharaja</span></div>
+                        <div class="dlP_AppName"><span>BET 파라다이스</span></div>
                     </div>
                     <div class="dlP_ConAppQrcode">
                         <img class="img" src="images/MaharajaAgentDownLoad.png" alt="qrcode" />
                     </div>
                     <div class="dlP_ConBtnDiv">
-                        <div class="dlP_ConBtn" onclick="javascript:location.href='https://game.ewin-soft.com/GetDownloadLink.aspx?Tag=MDBE0B1K'">
+                        <div class="dlP_ConBtn" onclick="javascript:location.href='https://game.ewin-soft.com/GetDownloadLink.aspx?Tag=X07TATY8'">
                             <img src="images/APPSTOREICON.png">
                             <img src="images/APPSTOREICON2.png">
                             <span>Download</span>

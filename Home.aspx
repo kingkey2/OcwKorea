@@ -975,7 +975,7 @@
                             </div>
                         </div-->
 						<div class="wrap-box">
-                            <div class="game-play" onclick="#">
+                            <div class="game-play" onclick="location.href='https://game.ewin-soft.com/GetDownloadLink.aspx?Tag=4AY6PD0F';">
                                 <img src="images/games/app_game_n_s.png" class="mobile" alt="">
                                 <img src="images/games/app_game_n.png" class="desk" alt="">
                                 <span class="btn btn-primary language_replace">App Download</span>
