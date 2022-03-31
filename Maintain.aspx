@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
+    <title>BET 파라다이스</title>
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css" type="text/css" />
     <link rel="stylesheet" href="css/global.css" type="text/css" />  
@@ -34,9 +34,9 @@
                         </div>
                         <div class="text-wrap text-center">
                             <p>
-                                <span class="language_replace">サイト点検中</span><br>　
-                                <span class="language_replace">しばらく待ってから、お戻りください。</span><br><br>
-                                <span class="language_replace"><%:MaintainMessage%></span>                                
+                                <H3 class="language_replace">Sorry</H3><br>　
+                                <span class="language_replace">System is under maintenance</span><br><br>
+                                <span class="language_replace" style="display: none;"><%:MaintainMessage%></span>                                
                             </p> 
                             <!-- <p><span class="language_replace">您點選的頁面沒有反應，請回到首頁。</span></p> -->
                         </div>
@@ -44,7 +44,7 @@
                             <a href="index.aspx" class="square-link outline">
                                 <i class="icon-home"></i>
                                 <!-- <span class="language_replace">首頁</span> -->
-                                <span class="language_replace">ホームページ</span>
+                                <span class="language_replace">HOME</span>
                             </a>
                         </div>
                     </section>
