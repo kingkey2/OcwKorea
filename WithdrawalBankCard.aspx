@@ -231,55 +231,63 @@
 
     //建立訂單
     function CreateCryptoWithdrawal() {
-        if ($("#amount").val() != '') {
+        if ($("#amount").val().trim() != '') {
+   
             var amount = parseFloat($("#amount").val());
             var selPaymentMethod = $("input[name=payment-crypto]:checked.PaymentCode");
+            var bankName = $("#idBankName").val().trim();
+            var branchName = $("#idBranchName").val().trim();
+            var bankCard = $("#idBankCard").val().trim();
+            var bankCardName = $("#idBankCardName").val().trim();
 
-            //var paymentID = PaymentMethod.find(x => x["PaymentName"].trim() == selePaymentName).PaymentMethodID;
-            if (selPaymentMethod.length > 0) {
-                var selPaymentMethodID = selPaymentMethod.val();
+            if (bankName== '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入銀行名稱"));
+                return false;
+            }
 
-                PaymentClient.CreateBankCardWithdrawal(WebInfo.SID, Math.uuid(), amount, function (success, o) {
+            if (branchName == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入分行別"));
+                return false;
+            }
+
+            if (bankCard == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入銀行卡號"));
+                return false;
+            }
+
+            if (bankCardName == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未收款人姓名"));
+                return false;
+            }
+
+            PaymentClient.CreateBankCardWithdrawal(WebInfo.SID, Math.uuid(), amount, function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
-                            let strCryptoWalletType;
+                             OrderNumber = o.Data.OrderNumber;
 
-                            switch (data.WalletType) {
-                                case 0:
-                                    strCryptoWalletType = "ERC";
-                                    break;
-                                case 1:
-                                    strCryptoWalletType = "XRP";
-                                    break;
-                                case 2:
-                                    strCryptoWalletType = "BTC";
-                                    break;
-                                case 3:
-                                    strCryptoWalletType = "TRC";
-                                    break;
-                                default:
-                                    strCryptoWalletType = "ERC";
-                                    break;
-                            }
-                            $("#depositdetail .Amount").text(BigNumber(data.Amount).toFormat());
-                            //$("#depositdetail .OrderNumber").text(data.OrderNumber);
-                            $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                            $("#depositdetail .ToWalletAddress").text(data.ToWalletAddress);
-                            $("#depositdetail .EWinCryptoWalletType").text(strCryptoWalletType);
+                            PaymentClient.ConfirmBankCardWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankName, branchName, bankCard, bankCardName, function (success, o) {
+                                if (success) {
+                                    if (o.Result == 0) {
+                                        $("#depositdetail .Amount").text(BigNumber(amount).toFormat());
+                                        //$("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                        $("#depositdetail .BankName").text(bankName);
+                                        $("#depositdetail .BranchName").text(branchName);
+                                        $("#depositdetail .BankCardName").text(bankCardName);
+                                        $("#depositdetail .BankCard").text(bankCard);
+                                        $("#depositdetail .inputPaymentSerial").val(o.Message);
+                                        $("#depositdetail .OrderNumber").text(o.Message);
+                                        var Step2 = $('[data-deposite="step2"]');
+                                        var Step3 = $('[data-deposite="step3"]');
+                                        Step2.hide();
+                                        Step3.fadeIn();
+                                        $('.progress-step:nth-child(4)').addClass('cur');
 
-                            if (data.PaymentCryptoDetailList != null) {
-                                var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                                for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
-
-                                    var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                                    CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
-                                    c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
-                                    c.setClassText(CollectionitemDom, "val", null, BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
-                                    depositdetail.appendChild(CollectionitemDom);
+                                    }
+                                    else {
+                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {});
+                                    }
                                 }
-                            }
-                            OrderNumber = data.OrderNumber;
-                            GetDepositActivityInfoByOrderNumber(OrderNumber);
+                            });
                         } else {
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
@@ -293,12 +301,6 @@
                         });
                     }
                 })
-            } else {
-
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請選擇加密貨幣"));
-            }
-
-
         } else {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
 
@@ -379,7 +381,7 @@
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
                     </div>
-                    <div class="progress-step">
+                    <div class="progress-step" style="display:none">
                         <div class="progress-step-item"></div>
                     </div>
                     <div class="progress-step">
@@ -529,7 +531,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon icon-bank"></i></span>
                                         </div>
-										<input type="text" class="form-control custom-style" id="idToWalletAddress" language_replace="placeholder" placeholder="輸入銀行名稱" />
+										<input type="text" class="form-control custom-style" id="idBankName" language_replace="placeholder" placeholder="輸入銀行名稱" />
                                     </div>
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
@@ -539,7 +541,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon icon-bank"></i></span>
                                         </div>
-										<input type="text" class="form-control custom-style" id="idToWalletAddress" language_replace="placeholder" placeholder="輸入分行別" />
+										<input type="text" class="form-control custom-style" id="idBranchName" language_replace="placeholder" placeholder="輸入分行別" />
                                     </div>
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
@@ -549,7 +551,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon icon-wallet"></i></span>
                                         </div>
-										<input type="text" class="form-control custom-style" id="idToWalletAddress" language_replace="placeholder" placeholder="輸入銀行卡號" />
+										<input type="text" class="form-control custom-style" id="idBankCard" language_replace="placeholder" placeholder="輸入銀行卡號" />
                                     </div>
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
@@ -559,7 +561,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon icon-user-circle"></i></span>
                                         </div>
-										<input type="text" class="form-control custom-style" id="idToWalletAddress" language_replace="placeholder" placeholder="收款人姓名" />
+										<input type="text" class="form-control custom-style" id="idBankCardName" language_replace="placeholder" placeholder="收款人姓名" />
                                     </div>
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
@@ -655,7 +657,7 @@
                             <div class="deposit-list">
                                 <h5 class="subject-title language_replace">出款細項</h5>
                                 <ul class="deposit-detail">
-                                    <li class="item" style="display: none">
+                                    <li class="item">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
                                          <input class="inputPaymentSerial is-hide" />
@@ -663,19 +665,19 @@
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">銀行名稱</h6>
-                                        <span class="data PaymentMethodName"></span>
+                                        <span class="data BankName"></span>
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">分行別</h6>
-                                        <span class="data EWinCryptoWalletType"></span>
+                                        <span class="data BranchName"></span>
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">收款人</h6>
-										<span class="data">ERC</span>
+										<span class="data BankCardName"></span>
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">銀行卡號</h6>
-                                        <span class="data ToWalletAddress"></span>
+                                        <span class="data BankCard"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -779,9 +781,9 @@
                     <button class="btn btn-primary" data-deposite="step2">
                         <span class="language_replace">下一步</span>
                     </button>
-                    <button class="btn btn-primary" data-deposite="step3">
+                 <%--   <button class="btn btn-primary" data-deposite="step3">
                         <span class="language_replace">下一步</span>
-                    </button>
+                    </button>--%>
                     <%--     <button class="btn btn-outline-primary" data-deposite="step4" href="index.aspx">
                         <span class="language_replace">首頁</span>
                     </button>

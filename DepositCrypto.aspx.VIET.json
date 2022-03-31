@@ -21,8 +21,8 @@
   "存款成功 !": "Nạp thành công",
   "您可進入遊戲確認您本次的入金，以及對應的 Bouns 獎勵。": "Để kiểm tra tiền nạp và Tiền thưởng, vui lòng đăng nhập vào trang web.",
   "不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。": "Thời gian số tiền được chuyển vào ví của bạn sẽ thay đổi tùy theo các kênh nạp tiền khác nhau. Thời gian trì hoãn trong vòng một ngày làm việc là một phạm vi hợp lý.",
-  "複製成功": "SAO CHÉP thành công.",
-  "複製失敗": "SAO CHÉP thất bại.",
+  "複製成功": "Số thứ tự đã được sao chép.",
+  "複製失敗": "Không sao chép được số đơn đặt hàng, vui lòng sao chép lại.",
   "提示": "Tin nhắn hệ thống",
   "加密貨幣": "Tiền điện tử",
   "貨幣未設定匯率": "Không có tỷ giá cho loại tiền tệ này.",
@@ -63,8 +63,10 @@
   "可透過 https://etherscan.io/ 查詢入款交易狀況": "Nhấp vào đây https://etherscan.io/ để kiểm tra trạng thái giao dịch.",
   "訂單號碼": "Mã đơn hàng",
   "交易限制時間": "Hết hạn giao dịch",
-  "已存在進行中訂單": "The order already exists.",
-  "查看進行中訂單": "View On-going Orders",
-  "匯率波動以交易所為主，匯率可能不定時更新。": "● Exchange rate fluctuations are dominated by exchanges, and exchange rates may be updated from time to time. <BR> ● To avoid deposit failure, please confirm that the currency you have selected is correct! <BR>NOTICE: <BR>The Company shall not be held liable for compensation for any erroneous payment due to incorrect information.",
-  "次へ進めて頂くと送金用QRコード（ウォレットアドレス）が生成されます、QRコードはこの取引のみの使用となります。QRコードの有効時間は1時間となりますが、送金の際は常に新しいQRコードの生成をお勧めします。": "▲ This page is the QR code (wallet address) used for remittance. The QR code can only be used for this transaction and the time limit is 1 hour. NOTICE: If the time of your transaction is not within the validity period, please refresh the page to obtain a new QR code."
+  "已存在進行中訂單": "Đơn đặt hàng đã tồn tại.",
+  "查看進行中訂單": "Xem các đơn hàng đang thực hiện",
+  "匯率波動以交易所為主，匯率可能不定時更新。": "● Biến động tỷ giá hối đoái bị chi phối bởi các sàn giao dịch và tỷ giá hối đoái có thể được cập nhật theo thời gian. <BR> ● Để tránh thất bại trong việc gửi tiền, vui lòng xác nhận rằng đơn vị tiền tệ bạn đã chọn là chính xác! <BR> LƯU Ý: <BR> Công ty sẽ không chịu trách nhiệm bồi thường cho bất kỳ khoản thanh toán sai sót nào do thông tin không chính xác.",
+  "次へ進めて頂くと送金用QRコード（ウォレットアドレス）が生成されます、QRコードはこの取引のみの使用となります。QRコードの有効時間は1時間となりますが、送金の際は常に新しいQRコードの生成をお勧めします。": "● Trang này là mã QR (địa chỉ ví) được sử dụng để chuyển tiền. Mã QR chỉ có thể được sử dụng cho giao dịch này và thời hạn là 1 giờ. LƯU Ý: Nếu thời điểm giao dịch của bạn không nằm trong thời gian hiệu lực, vui lòng làm mới trang để lấy mã QR mới.",
+  "訂單建立失敗": "Thiết lập đơn hàng không thành công, vui lòng đăng ký đặt cọc lại.",
+  "無可用錢包": "Hạn mức đăng ký gửi tiền cho địa chỉ ví này hiện đã đầy. Vui lòng liên hệ với nhân viên dịch vụ khách hàng hoặc đăng ký gửi tiền sau."
 }

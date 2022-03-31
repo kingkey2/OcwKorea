@@ -60,7 +60,6 @@
         Lang = Request["Lang"];
     }
 
-    Lang = "KOR";
 
 %>
 <!doctype html>

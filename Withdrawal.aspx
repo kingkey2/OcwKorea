@@ -82,7 +82,7 @@
         }, "PaymentAPI");
     }
 
-     function API_showMessageOK(title, message, cbOK) {
+    function API_showMessageOK(title, message, cbOK) {
         if ($("#alertContact").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertContact");
             var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
@@ -93,7 +93,7 @@
             if (messageModal == null) {
                 messageModal = new bootstrap.Modal(divMessageBox);
             }
-           
+
             if (divMessageBox != null) {
                 messageModal.show();
 

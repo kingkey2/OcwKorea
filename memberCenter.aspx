@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" %>
-<% string Version=EWinWeb.Version;%>
+<% 
+    string Version=EWinWeb.Version;
+    string PersonCode=EWinWeb.MainPersonCode;
+%>
    
 <!DOCTYPE html>
 <html>
@@ -37,7 +40,8 @@
     var BackCardInfo = null;
     var v = "<%:Version%>";
     var swiper;
-
+    var PersonCode = "<%:PersonCode%>";
+    var ParentPersonCode = "";
     function cancelWalletPassword() {
         var idWalletLoginPassword = document.getElementById("idWalletLoginPassword");
         var idWalletDivNew1s = document.getElementById("idWalletDivNew1").getElementsByTagName("input");
@@ -216,6 +220,20 @@
                 $("#divTransfer").show();
             }
 
+        });
+
+        p.GetParentPersonCode(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.ResultState == 0) {
+                    ParentPersonCode = o.Message;
+                    //直客
+                    if (ParentPersonCode == PersonCode) {
+                        $('#idPaymentDepositHistoryBox').removeClass('is-hide');
+                    } else {
+                        $('#idAgentWithdrawalHistoryBox').removeClass('is-hide');
+                    }
+                }
+            }
         });
 
         memberInit();
@@ -809,13 +827,25 @@
                             </div>
                         </div>--%>
                         <!-- 存款紀錄 -->
-                        <div id="idPaymentDepositHistoryBox" class="box-item expansion">
+                        <div id="idPaymentDepositHistoryBox" class="box-item expansion is-hide">
                             <div class="box-item-inner tab">
                                 <i class="icon-wallet"></i>
                                 <div class="box-item-detail">
                                     <div class="box-item-title language_replace">存款紀錄</div>
                                 </div>
                                 <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" onclick="window.parent.API_LoadPage('PaymentHistory', 'PaymentHistory.aspx', true)">
+                                    <span class="language_replace">檢視</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- 存款紀錄 -->
+                        <div id="idAgentWithdrawalHistoryBox" class="box-item expansion is-hide">
+                            <div class="box-item-inner tab">
+                                <i class="icon-wallet"></i>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title language_replace">錢包存取紀錄</div>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" onclick="window.parent.API_LoadPage('AgentWithdrawalHistory', 'AgentWithdrawalHistory.aspx', true)">
                                     <span class="language_replace">檢視</span>
                                 </button>
                             </div>

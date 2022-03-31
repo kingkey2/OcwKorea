@@ -1304,7 +1304,7 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <div class="btn-container">
-                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal" style="display:none"><span class="language_replace">取消</span></button>
                         <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">查看進行中訂單</span></button>
                     </div>
                 </div>

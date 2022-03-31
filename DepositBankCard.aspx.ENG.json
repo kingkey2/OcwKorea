@@ -24,5 +24,12 @@
   "未選擇任何檔案": "Please select the file.",
   "取消": "Cancel",
   "上傳": "Upload",
-  "前往付款": "The deposit application has been sent, please upload the bank slip after the deposit is completed, thank you!"
+  "前往付款": "The deposit application has been sent, please upload the bank slip after the deposit is completed, thank you!",
+  "上傳完成": "The bank slip has been uploaded, please click [ Next ] to make your deposit application complete.",
+  "複製成功": "The order number is copied successfully!",
+  "複製失敗": "The order number is failed to copy, please try again.",
+  "訂單建立失敗": "The order is not able to be created, please apply again.",
+  "尚未上傳憑證": "To proceed to [Next], please upload the bank slip first. Thank you!",
+  "1張照片": "Photo uploaded."
+
 }
