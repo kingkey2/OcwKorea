@@ -290,7 +290,7 @@ public static class EWinWebDB
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
 
-            SS = " SELECT *, convert(varchar,CreateDate,120) CreateDate1  " +
+            SS = " SELECT *, convert(varchar,CreateDate,126) CreateDate1  " +
                       " FROM   UserAccountPayment " +
                       " WHERE  LoginAccount = @LoginAccount " +
                       "        AND FlowStatus = 1 " +
