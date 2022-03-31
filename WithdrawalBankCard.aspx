@@ -660,7 +660,7 @@
                                     <li class="item">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data OrderNumber"></span>
-                                         <input class="inputPaymentSerial" />
+                                         <input class="inputPaymentSerial is-hide" />
                                         <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     
                                     </li>
                                     <li class="item">
