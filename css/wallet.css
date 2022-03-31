@@ -2645,3 +2645,9 @@
             transform: rotate(360deg);
   }
 }
+
+
+
+.deposit-list .OrderNumber,.deposit-list .ToWalletAddress{
+	text-align: left!important;
+}
