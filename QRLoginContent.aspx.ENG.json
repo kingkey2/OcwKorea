@@ -1,0 +1,15 @@
+﻿{
+  "錯誤": "Error",
+  "密碼錯誤": "Password is incorrect.",
+  "帳號異常": "Your account has an exception.",
+  "圖片驗證碼錯誤": "Incorrect verification code.",
+  "帳號": "Account ",
+  "請輸入密碼": "Password",
+  "確認": "Confirm",
+  "登入": "LOGIN",
+  "取消": "Cancel",
+  "請輸入驗證碼": "Enter verification code",
+  "請選擇登入地區": "Please select login area",
+  "預設": "Default",
+  "中國": "China"
+}

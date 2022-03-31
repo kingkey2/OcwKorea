@@ -1562,7 +1562,7 @@ public class PaymentAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PaymentCommonResult CreateBankCardWithdrawal(string WebSID, string GUID, decimal Amount,int PaymentMethodID)
+    public PaymentCommonResult CreateBankCardWithdrawal(string WebSID, string GUID, decimal Amount)
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
@@ -1582,8 +1582,8 @@ public class PaymentAPI : System.Web.Services.WebService {
         int WithdrawalCountByDay;
         int ExpireSecond;
         int DecimalPlaces;
+        int PaymentMethodID;
         System.Data.DataTable PaymentMethodDT;
-
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
@@ -1595,19 +1595,20 @@ public class PaymentAPI : System.Web.Services.WebService {
                 {
 
                     PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("BankCard");
-                    var PaymentMethodRow=PaymentMethodDT.Select("PaymentType=1");
-                
-                    if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
+                    var PaymentMethodRow=PaymentMethodDT.Select("PaymentType=1").FirstOrDefault();
+
+                    if (PaymentMethodRow != null )
                     {
-                        if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                        if ((int)PaymentMethodRow["State"] == 0)
                         {
-                            if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 1)
+                            if ((int)PaymentMethodRow["PaymentType"] == 1)
                             {
-                                MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
-                                MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
-                                DailyMaxCount = (int)PaymentMethodDT.Rows[0]["DailyMaxCount"];
-                                DailyMaxAmount = (int)PaymentMethodDT.Rows[0]["DailyMaxAmount"];
-                                DecimalPlaces = (int)PaymentMethodDT.Rows[0]["DecimalPlaces"];
+                                MinLimit = (int)PaymentMethodRow["MinLimit"];
+                                MaxLimit = (int)PaymentMethodRow["MaxLimit"];
+                                DailyMaxCount = (int)PaymentMethodRow["DailyMaxCount"];
+                                DailyMaxAmount = (int)PaymentMethodRow["DailyMaxAmount"];
+                                DecimalPlaces = (int)PaymentMethodRow["DecimalPlaces"];
+                                PaymentMethodID= (int)PaymentMethodRow["PaymentMethodID"];
                                 if (Amount >= MinLimit)
                                 {
                                     if (Amount <= MaxLimit || MaxLimit == 0)
