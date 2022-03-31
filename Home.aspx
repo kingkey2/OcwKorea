@@ -989,8 +989,8 @@
                     <section class="section-wrap push">
                         <div class="wrap-box">
                             <div class="game-rules" onclick="openHotArticle('guide-03')">
-                                <img src="images/games/rules_game_n_s.jpg" class="mobile" alt="">
-                                <img src="images/games/rules_game_n.jpg" class="desk" alt="">
+                                <img src="images/games/rules_game_n_s.png" class="mobile" alt="">
+                                <img src="images/games/rules_game_n.png" class="desk" alt="">
                                 <span class="btn btn-primary language_replace">規則介紹</span>
                             </div>
                         </div>
