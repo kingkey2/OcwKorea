@@ -14,22 +14,17 @@
         EWin.Agent.LoginResult ASS = null;
         string CompanyCode = Request["CompanyCode"];
         string LoginType = Request["LoginType"];  //0=主帳戶登入/1=助手登入
-        string PhoneNumber = Request["PhoneNumber"];
-        string PhonePrefix = Request["PhonePrefix"];
-        string LoginAccount;
+  
+        string LoginAccount= Request["LoginAccount"];
         string LoginPassword = Request["LoginPassword"];
         string LoginGUID  = string.Empty;
         string Token;
         int RValue;
         Random R = new Random();
-        TelPhoneNormalize telPhoneNormalize;
-
 
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
-        telPhoneNormalize = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
         LoginGUID = loginAPI.CreateLoginGUID(Token);
-        LoginAccount = telPhoneNormalize.PhonePrefix + telPhoneNormalize.PhoneNumber;
 
         if (LoginType == "0")
         {

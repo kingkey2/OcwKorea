@@ -457,6 +457,56 @@
         });
     };
 
+    this.CreateBankCardWithdrawal = function (WebSID, GUID, Amount, cb) {
+        var url = APIUrl + "/CreateBankCardWithdrawal";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.ConfirmBankCardWithdrawal = function (WebSID, GUID, OrderNumber, BankName, BankBranchName, BankCard, BankCardName,cb) {
+        var url = APIUrl + "/ConfirmBankCardWithdrawal";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            OrderNumber: OrderNumber,
+            BankName: BankName,
+            BankBranchName: BankBranchName,
+            BankCard: BankCard,
+            BankCardName: BankCardName
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
 
     this.CreateAgentWithdrawal = function (WebSID, GUID, Amount, BankName, BankBranchName, BankCard, BankCardName ,cb) {
         var url = APIUrl + "/CreateAgentWithdrawal";

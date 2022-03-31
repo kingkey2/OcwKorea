@@ -194,6 +194,18 @@
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
             cb(false);
             return;
+        } else if (idLoginPassword.value.trim().length < 4) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入密碼"));
+            cb(false);
+            return;
+        } else if (idLoginPassword.value.trim().length < 4) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("密碼長度最小為 4"));
+            cb(false);
+            return;
+        } else if (idLoginPassword.value.trim().length > 20) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("密碼長度最大為 20"));
+            cb(false);
+            return;
         }
 
 

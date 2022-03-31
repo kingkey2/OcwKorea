@@ -240,20 +240,20 @@
                             cb();
                         }
                     } else {
-                        window.parent.API_LoadingEnd();
+                        window.parent.API_LoadingEnd(1);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
                     }
                 } else {
-                    window.parent.API_LoadingEnd();
+                    window.parent.API_LoadingEnd(1);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                     });
                 }
             }
             else {
-                window.parent.API_LoadingEnd();
+                window.parent.API_LoadingEnd(1);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                 });
@@ -532,7 +532,7 @@
                                 fff = o.UserAccountPayments[0];
                                 showProgressOrder(o.UserAccountPayments[0]);
 
-                                window.parent.API_LoadingEnd();
+                                window.parent.API_LoadingEnd(1);
                                 //window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("一個支付方式，只能有一筆進行中之訂單"), function () {
 
                                 //});
@@ -562,7 +562,7 @@
                                             OrderNumber = data.OrderNumber;
                                             GetDepositActivityInfoByOrderNumber(OrderNumber);
                                         } else {
-                                            window.parent.API_LoadingEnd();
+                                            window.parent.API_LoadingEnd(1);
                                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                                             });
@@ -728,6 +728,7 @@
         let divMessageBoxBonusValue = divMessageBox.querySelector(".BonusValue");
         let divMessageBoxTotalAmount = divMessageBox.querySelector(".TotalAmount");
         let divMessageBoxcryptocontent = divMessageBox.querySelector(".crypto-content");
+        divMessageBoxcryptocontent.innerHTML = "";
 
         let modal = new bootstrap.Modal(divMessageBox);
 

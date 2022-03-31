@@ -36,7 +36,7 @@
     var WebInfo;
     var PersonCode = "<%:PersonCode%>";
     var v ="<%:Version%>";
-
+    var ParentPersonCode = "";
     function updateBaseInfo() {
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
         document.getElementById("idPointValue").innerText = new BigNumber(wallet.PointValue).toFormat();
@@ -71,13 +71,20 @@
             updateBaseInfo()
         });
 
-        if (WebInfo.UserInfo.PersonCode == PersonCode) {
-            $('.box-itemPaymentHistory').removeClass('is-hide');
-            $('.box-itemDeposit').removeClass('is-hide');
-        } else {
-            $('.box-itemAgentWithdrawalHistory').removeClass('is-hide');
-      
-        }
+        p.GetParentPersonCode(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.ResultState == 0) {
+                    ParentPersonCode = o.Message;
+                    if (ParentPersonCode == PersonCode) {
+                        $('.box-itemPaymentHistory').removeClass('is-hide');
+                        $('.box-itemDeposit').removeClass('is-hide');
+                    } else {
+                        $('.box-itemAgentWithdrawalHistory').removeClass('is-hide');
+                    }
+                } 
+            } 
+        });
+       
 
         changeAvatar(getCookie("selectAvatar"));
 
@@ -218,7 +225,7 @@
                             </div>
                         </a>
                     </div>
-                     <div class="box-item box-itemPaymentHistory">
+                     <div class="box-item is-hide box-itemPaymentHistory">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('PaymentHistory','PaymentHistory.aspx?1', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-file"></i>
