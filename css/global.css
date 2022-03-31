@@ -3609,8 +3609,10 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 @media only screen and (min-width: 375px) {
   .footer-inner .company-info .info-item {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 33.3%;
-            flex: 0 0 33.3%;
+        /*-ms-flex: 0 0 33.3%;
+            flex: 0 0 33.3%;*/
+	  -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     text-align: center;
   }
 }
