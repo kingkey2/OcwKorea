@@ -24,5 +24,11 @@
   "未選擇任何檔案": "Please select the file.",
   "取消": "Cancel",
   "上傳": "Upload",
-  "前往付款": "The deposit application has been sent, please upload the bank slip after the deposit is completed, thank you!"
+  "前往付款": "The deposit application has been sent, please upload the bank slip after the deposit is completed, thank you!",
+  "上傳完成": "Phiếu ngân hàng đã được tải lên, vui lòng nhấp vào [Tiếp theo] để hoàn tất đơn gửi tiền của bạn.",
+  "複製成功": "Số thứ tự đã được sao chép.",
+  "複製失敗": "Không sao chép được số đơn đặt hàng, vui lòng sao chép lại.",
+  "訂單建立失敗": "Thiết lập đơn hàng không thành công, vui lòng đăng ký đặt cọc lại.",
+  "尚未上傳憑證": "Để tiếp tục [Tiếp theo], vui lòng tải lên danh sách nước trước, cảm ơn bạn!",
+  "1張照片": "Ảnh đã tải lên"
 }

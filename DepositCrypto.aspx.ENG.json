@@ -66,5 +66,7 @@
   "已存在進行中訂單": "The order already exists.",
   "查看進行中訂單": "View On-going Orders",
   "匯率波動以交易所為主，匯率可能不定時更新。": "● Exchange rate fluctuations are dominated by exchanges, and exchange rates may be updated from time to time. <BR> ● To avoid deposit failure, please confirm that the currency you have selected is correct! <BR>NOTICE: <BR>The Company shall not be held liable for compensation for any erroneous payment due to incorrect information.",
-  "次へ進めて頂くと送金用QRコード（ウォレットアドレス）が生成されます、QRコードはこの取引のみの使用となります。QRコードの有効時間は1時間となりますが、送金の際は常に新しいQRコードの生成をお勧めします。": "▲ This page is the QR code (wallet address) used for remittance. The QR code can only be used for this transaction and the time limit is 1 hour. NOTICE: If the time of your transaction is not within the validity period, please refresh the page to obtain a new QR code."
+  "次へ進めて頂くと送金用QRコード（ウォレットアドレス）が生成されます、QRコードはこの取引のみの使用となります。QRコードの有効時間は1時間となりますが、送金の際は常に新しいQRコードの生成をお勧めします。": "▲ This page is the QR code (wallet address) used for remittance. The QR code can only be used for this transaction and the time limit is 1 hour. NOTICE: If the time of your transaction is not within the validity period, please refresh the page to obtain a new QR code.",
+  "訂單建立失敗": "The order is not able to be created, please apply again.",
+  "無可用錢包": "The deposit application quota for this wallet address is currently full. Please contact customer service or apply for deposit later."
 }
