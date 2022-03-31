@@ -21,8 +21,6 @@
         string Token;
         int RValue;
         Random R = new Random();
-        TelPhoneNormalize telPhoneNormalize;
-
 
         RValue = R.Next(100000, 9999999);
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
