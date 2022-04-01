@@ -34,7 +34,7 @@
         LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
 
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
-
+            
             WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
 
             if (string.IsNullOrEmpty(WebSID) == false)
