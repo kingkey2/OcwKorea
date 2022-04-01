@@ -113,8 +113,14 @@
                     $(paymentInfoDom).find('.inputPaymentSerial').val(PaymentSerial);
                     c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
                     //c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
+                   
                     c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, GetWalletChain(retData.WalletType));
                     c.setClassText(paymentInfoDom, "ToWalletAddress", null, retData.ToWalletAddress);
+                    
+                    if (retData.BasicType != 2) {
+                        $(paymentInfoDom).find('.EWinCryptoWalletType').parent().hide();
+                        $(paymentInfoDom).find('.ToWalletAddress').parent().hide();
+                    }
 
                     if (retData.PaymentCryptoDetailList != null) {
                         var depositdetail = document.getElementsByClassName("Collectionitem")[0];
@@ -378,7 +384,6 @@
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
                             <ul class="list-style-decimal">
-                                <li><span class="language_replace">OCoin為平台使用的專屬遊戲幣。</span></li>
                                 <li><span class="language_replace">請正確使用對應的錢包入款，否則可能造成您入款失敗。</span></li>
                                 <li><span class="language_replace">虛擬貨幣入款需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
                                 <li><span class="language_replace">實際入款遊戲幣為入款金額-手續費後之餘額進行換算。</span></li>
