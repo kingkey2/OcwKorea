@@ -1486,7 +1486,7 @@ public class PaymentAPI : System.Web.Services.WebService {
                                     ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
 
                                     paymentCommonData.PaymentType = 0;
-                                    paymentCommonData.BasicType = 0;
+                                    paymentCommonData.BasicType = 1;
                                     paymentCommonData.OrderNumber = OrderNumber;
                                     paymentCommonData.LoginAccount = SI.LoginAccount;
                                     paymentCommonData.Amount = Amount;
@@ -2471,16 +2471,34 @@ public class PaymentAPI : System.Web.Services.WebService {
                     if (paymentCommonData.BasicType == 2)
                     {
                         new EWin.OCW.OCW().FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)paymentCommonData.WalletType, paymentCommonData.ToWalletAddress);
-                    }
+                        var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
+                        if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
+                        {
+                            R.Result = enumResult.OK;
+                        }
+                        else
+                        {
+                            SetResultException(R, paymentResult.ResultMessage);
+                        }
 
-                    var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
-                    if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
+                    }
+                    else if (paymentCommonData.BasicType == 1)
                     {
-                        R.Result = enumResult.OK;
+                        CASINO3651API.CASINO3651 _CASINO3651API = new CASINO3651API.CASINO3651();
+                        //PaymentMethod 0=上分/1=下分
+                        var BankCardDepostitR = _CASINO3651API.BankCardDepostitCancel(SI.EWinCT, GUID, PaymentSerial);
+                        if (BankCardDepostitR.ResultState == CASINO3651API.enumResultState.OK)
+                        {
+                            R.Result = enumResult.OK;
+                        }
+                        else
+                        {
+                            SetResultException(R, BankCardDepostitR.Message);
+                        }
                     }
                     else
                     {
-                        SetResultException(R, paymentResult.ResultMessage);
+                        SetResultException(R, "NoOrderCanCancel");
                     }
                 }
                 else

@@ -2,11 +2,10 @@
 
 <%
     string Token;
-    string SID;
+    string WebSID = null;
     int RValue;
     Random R = new Random();
     string Version = EWinWeb.Version;
-    TelPhoneNormalize telPhoneNormalize;
 
     if (CodingControl.FormSubmit()) {
         string LoginGUID = Request["LoginGUID"];
@@ -17,6 +16,9 @@
         string PhoneNumber = Request["PhoneNumber"];
         string LoginType = Request["LoginType"];
         string NewFingerPrint = Request["FingerPrint"];
+        bool IsOldFingerPrint = false;
+        string UserAgent = Request["UserAgent"];
+
         Newtonsoft.Json.Linq.JObject obj_FingerPrint = new Newtonsoft.Json.Linq.JObject();
         Newtonsoft.Json.Linq.JArray arr_FingerPrint = new Newtonsoft.Json.Linq.JArray();
         string UserIP = CodingControl.GetUserIP();
@@ -30,19 +32,49 @@
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
         LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
-        
 
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
-         
-            SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
-      
+
+            WebSID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);
+
+            if (string.IsNullOrEmpty(WebSID) == false)
+            {
+                DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
+
+                if (DT != null && DT.Rows.Count > 0)
+                {
+                    for (int i = 0; i < DT.Rows.Count; i++)
+                    {
+                        if (DT.Rows[i]["FingerprintID"].ToString() == NewFingerPrint)
+                        {
+                            IsOldFingerPrint = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (LoginType == "0")
+                {
+                    if (IsOldFingerPrint == false)
+                    {
+                        EWinWebDB.UserAccountFingerprint.InsertUserAccountFingerprint(LoginAccount, NewFingerPrint, UserAgent);
+                        RedisCache.UserAccountFingerprint.UpdateUserAccountFingerprint(LoginAccount);
+                    }
+                }
+
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
-                Response.SetCookie(new HttpCookie("SID", SID));
+                Response.SetCookie(new HttpCookie("SID", WebSID));
                 Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
 
                 Response.Redirect("RefreshParent.aspx?index.aspx");
-          
+
+            }
+            else
+            {
+                Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
+            }
+
         } else {
             Response.Write("<script>var defalutLoginAccount = '" + LoginAccount + "'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') + ' ' +  mlp.getLanguageKey('" + LoginAPIResult.Message + "'),function () { })};</script>");
             //Response.Write("<script>var defalutLoginAccount = '" + LoginAccount +"'; var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");

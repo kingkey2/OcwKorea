@@ -1342,6 +1342,64 @@ public static class RedisCache
         }
     }
 
+    public static class UserAccountFingerprint
+    {
+        private static string XMLPath = "UserAccountFingerprint";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetUserAccountFingerprint(string LoginAccount)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":" + LoginAccount;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateUserAccountFingerprint(LoginAccount);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateUserAccountFingerprint(string LoginAccount)
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+            Key = XMLPath + ":" + LoginAccount;
+
+            SS = "SELECT * FROM UserAccountFingerprint WITH (NOLOCK)" +
+                     " WHERE LoginAccount = @LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key, 86400);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
+        }
+    }
+
     public static void UpdateRedisByPrivateKey() {
         PaymentCategory.UpdatePaymentCategory();
         PaymentMethod.UpdatePaymentMethodByCategory("Paypal");
