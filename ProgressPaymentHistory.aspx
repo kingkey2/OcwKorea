@@ -169,7 +169,7 @@
                                 if ($(this).data('PaymentType') == 0) {
                                     window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + $(this).data('PaymentSerial'), true);
                                 } else {
-                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + $(this).data('PaymentSerial'), true);
+                                    window.parent.API_LoadPage('WithdrawalDetail', 'WithdrawalDetail.aspx?PS=' + $(this).data('PaymentSerial'), true);
                                 }
 
                             };

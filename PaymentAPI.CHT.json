@@ -38,5 +38,9 @@
   "AmountCredit": "金額不再限額內",
   "NotCashWallet": "錢包並非現金錢包",
   "WalletNotResponse": "指定錢包不存在",
-  "NoParentExist": "上線不存在"
+  "NoParentExist": "上線不存在",
+  "InvalidGUID": "GUID 已過期",
+  "UserAccountNotMatch": "UserAccountNotMatch",
+  "NotExist": "NotExist",
+  "InvalidPaymentSerial": "InvalidPaymentSerial"
 }

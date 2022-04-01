@@ -67,6 +67,7 @@
 
     function cancelPayment() {
         p.CancelPayment(WebInfo.SID, Math.uuid(), PaymentSerial, OrderNumber, function (success, o) {
+            debugger;
             if (success) {
                 if (o.Result == 0) {
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已取消訂單"), function () {

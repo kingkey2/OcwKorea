@@ -6,7 +6,6 @@
     int RValue;
     Random R = new Random();
     string Version = EWinWeb.Version;
-    TelPhoneNormalize telPhoneNormalize;
 
     if (CodingControl.FormSubmit()) {
         string LoginGUID = Request["LoginGUID"];
@@ -17,6 +16,9 @@
         string PhoneNumber = Request["PhoneNumber"];
         string LoginType = Request["LoginType"];
         string NewFingerPrint = Request["FingerPrint"];
+        bool IsOldFingerPrint = false;
+        string UserAgent = Request["UserAgent"];
+
         Newtonsoft.Json.Linq.JObject obj_FingerPrint = new Newtonsoft.Json.Linq.JObject();
         Newtonsoft.Json.Linq.JArray arr_FingerPrint = new Newtonsoft.Json.Linq.JArray();
         string UserIP = CodingControl.GetUserIP();
@@ -30,8 +32,7 @@
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
         LoginAPIResult = LoginAPI.UserLogin(Token, LoginGUID, LoginAccount, LoginPassword, EWinWeb.CompanyCode, ValidImg, UserIP);
-        
-
+      
         if (LoginAPIResult.ResultState == EWin.Login.enumResultState.OK) {
          
             SID = RedisCache.SessionContext.CreateSID(EWinWeb.CompanyCode, LoginAccount, UserIP, false, LoginAPIResult.SID, LoginAPIResult.CT);

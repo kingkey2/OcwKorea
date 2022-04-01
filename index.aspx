@@ -4,7 +4,7 @@
     if (EWinWeb.IsInMaintain()) {
         Response.Redirect("/Maintain.aspx");
     }
-
+    string PersonCode=EWinWeb.MainPersonCode;
     string Token;
     int RValue;
     Random R = new Random();
@@ -187,13 +187,14 @@
     };
 	
 	var hasBulletin = <%=(string.IsNullOrEmpty(Bulletin) ? "false" : "true")%>;
-	
+ 
     var messageModal;
     var SiteInfo;
     var selectedCurrency = '';
     var GameInfoModal;
     var v ="<%:Version%>";
-
+    var PersonCode = "<%:PersonCode%>";
+    var ParentPersonCode = "";
     var test = "";
 
     var LobbyGameList;
