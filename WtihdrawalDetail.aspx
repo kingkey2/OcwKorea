@@ -113,8 +113,14 @@
                     $(paymentInfoDom).find('.inputPaymentSerial').val(PaymentSerial);
                     c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
                     //c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
+                   
                     c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, GetWalletChain(retData.WalletType));
                     c.setClassText(paymentInfoDom, "ToWalletAddress", null, retData.ToWalletAddress);
+                    
+                    if (retData.BasicType != 2) {
+                        $(paymentInfoDom).find('.EWinCryptoWalletType').parent().hide();
+                        $(paymentInfoDom).find('.ToWalletAddress').parent().hide();
+                    }
 
                     if (retData.PaymentCryptoDetailList != null) {
                         var depositdetail = document.getElementsByClassName("Collectionitem")[0];

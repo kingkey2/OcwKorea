@@ -1486,7 +1486,7 @@ public class PaymentAPI : System.Web.Services.WebService {
                                     ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
 
                                     paymentCommonData.PaymentType = 0;
-                                    paymentCommonData.BasicType = 0;
+                                    paymentCommonData.BasicType = 1;
                                     paymentCommonData.OrderNumber = OrderNumber;
                                     paymentCommonData.LoginAccount = SI.LoginAccount;
                                     paymentCommonData.Amount = Amount;

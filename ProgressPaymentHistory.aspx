@@ -153,14 +153,20 @@
                             if (record.PaymentType == 1) {
                                 c.setClassText(RecordDom, "ToWalletAddress", null, record.ToWalletAddress);
                             }
+
+                            if (record.BasicType!=2) {
+                                $(RecordDom).find('.ToWalletAddress').parent().hide();
+                            }
+
                             c.setClassText(RecordDom, "PaymentMethodName", null, record.PaymentMethodName);
                             c.setClassText(RecordDom, "BasicType", null, BasicType);
                             c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
                             $(RecordDom).find(".detailbtn").data('PaymentSerial', record.PaymentSerial);
+                            $(RecordDom).find(".detailbtn").data('PaymentType', record.PaymentType);
                             $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
                             RecordDom.querySelector(".detailbtn").onclick = function () {
 
-                                if (record.PaymentType == 0) {
+                                if ($(this).data('PaymentType') == 0) {
                                     window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + $(this).data('PaymentSerial'), true);
                                 } else {
                                     window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + $(this).data('PaymentSerial'), true);
