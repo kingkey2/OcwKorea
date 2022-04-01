@@ -61,8 +61,10 @@
                         if (ParentPersonCode == PersonCode) {
                             $('.WithdrawalBankCard').removeClass('is-hide');
                             $('.WithdrawalCrypto').removeClass('is-hide');
+                            $('#divPaymentHistoryButton').removeClass('is-hide');
                         } else {
                             $('.WithdrawalAgent').removeClass('is-hide');
+                            $('#divAgentWithdrawalHistoryButton').removeClass('is-hide');
                         }
                     }
                 }
@@ -257,15 +259,18 @@
                 <div class="notice-container mt-5">
                     <div class="notice-item">
                         <i class="icon-wallet"></i>
-                        <div class="text-wrap">
+                        <div class="text-wrap is-hide" id="divPaymentHistoryButton">
                             <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('PaymentHistory', 'PaymentHistory.aspx', true)">檢視出款紀錄</p>
+                        </div>
+                         <div class="text-wrap is-hide" id="divAgentWithdrawalHistoryButton">
+                            <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('AgentWithdrawalHistory', 'AgentWithdrawalHistory.aspx', true)">檢視出款紀錄</p>
                         </div>
                     </div>
                 </div>
                 <!-- 溫馨提醒 -->
                 <!--div class="notice-container mt-5">
                     <div class="notice-item">
-                        <i class="icon-info_circle_outline"></i>
+                        <i class="icon-info_circle_outline"></i>s
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
                             <p class="language_replace">不同的存款管道可能影響存款金額到達玩家錢包的時間。最遲一個營業日為合理的範圍。</p>
