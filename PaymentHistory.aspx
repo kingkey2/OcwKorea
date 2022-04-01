@@ -299,6 +299,10 @@
                                 c.setClassText(RecordDom, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
+                                if (record.BasicType != 2) {
+                                    $(RecordDom).find('.ToWalletAddress').parent().hide();
+                                }
+                                
                                 $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
                                 ParentMain.appendChild(RecordDom);
                                 if ($(ParentMain).length == 0) {

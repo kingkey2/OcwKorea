@@ -90,7 +90,7 @@
         } else if (walletType == 1) {
             return "XRP";
         } else if (walletType == 2) {
-            return "XRP";
+            return "BTC";
         } else if (walletType == 3) {
             return "TRX";
         } else {

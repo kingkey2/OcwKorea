@@ -1080,6 +1080,7 @@
 
 
             // 已登入
+            $('#navWalletGroup').removeClass('is-hide');
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
             idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
@@ -1252,6 +1253,19 @@
                 var dstPage = c.getParameter("DstPage");
                 lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
                 paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
+
+                lobbyClient.GetParentPersonCode(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+                    if (success) {
+                        if (o.ResultState == 0) {
+                            ParentPersonCode = o.Message;
+                            if (ParentPersonCode == PersonCode) {
+                                $('.navDeposit').removeClass('is-hide');
+                            } else {
+
+                            }
+                        }
+                    }
+                });
 
                 if (dstPage) {
                     var loadPage;
@@ -1768,8 +1782,8 @@
                         </li>--%>
                     </ul>
 
-                    <ul class="nav-group">
-                        <li>
+                    <ul class="nav-group is-hide" id="navWalletGroup">
+                        <li class="is-hide navDeposit">
                             <a onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                 <i class="icon-deposit"></i>
                                 <span class="language_replace">存款</span>
