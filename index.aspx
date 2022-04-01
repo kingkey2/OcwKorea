@@ -5,7 +5,6 @@
         Response.Redirect("/Maintain.aspx");
     }
 
-    string PersonCode=EWinWeb.MainPersonCode;
     string Token;
     int RValue;
     Random R = new Random();
@@ -186,8 +185,7 @@
         DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
         IsOpenGame: false
     };
-    var PersonCode = "<%:PersonCode%>";
-    var ParentPersonCode = "";
+	
 	var hasBulletin = <%=(string.IsNullOrEmpty(Bulletin) ? "false" : "true")%>;
 	
     var messageModal;
@@ -1255,19 +1253,6 @@
                 lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
                 paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
-                lobbyClient.GetParentPersonCode(EWinWebInfo.SID, Math.uuid(), function (success, o) {
-                    if (success) {
-                        if (o.ResultState == 0) {
-                            ParentPersonCode = o.Message;
-                            if (ParentPersonCode == PersonCode) {
-                                $('.navDeposit').removeClass('is-hide');
-                            } else {
-                               
-                            }
-                        }
-                    }
-                });
-
                 if (dstPage) {
                     var loadPage;
                     switch (dstPage.toUpperCase()) {
@@ -1618,7 +1603,7 @@
                                 <div class="balance-info">
                                     <div class="amount">0</div>
                                 </div>
-                                <button class="btn btn-deposit" onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                <button class="btn btn-deposit" onclick="API_LoadPage('Deposit','Deposit.aspx', true)" style="display: none;">
                                     <span class="icon-add"></span>
                                 </button>
                             </div>
@@ -1784,7 +1769,7 @@
                     </ul>
 
                     <ul class="nav-group">
-                        <li class="is-hide navDeposit">
+                        <li>
                             <a onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                 <i class="icon-deposit"></i>
                                 <span class="language_replace">存款</span>

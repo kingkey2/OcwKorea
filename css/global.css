@@ -3192,6 +3192,11 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 .game-intro-box .game-rtp .rtp-data {
   font-weight: 500;
 }
+.game-rtp{
+	display:none!important;
+	
+}
+
 .game-intro-box .game-myFavorite {
   cursor: pointer;
   min-width: 45%;
