@@ -1512,16 +1512,16 @@
   </wsdl:binding>
   <wsdl:service name="CASINO3651">
     <wsdl:port name="CASINO3651Soap" binding="tns:CASINO3651Soap">
-      <soap:address location="https://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
+      <soap:address location="http://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
     </wsdl:port>
     <wsdl:port name="CASINO3651Soap12" binding="tns:CASINO3651Soap12">
-      <soap12:address location="https://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
+      <soap12:address location="http://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
     </wsdl:port>
     <wsdl:port name="CASINO3651HttpGet" binding="tns:CASINO3651HttpGet">
-      <http:address location="https://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
+      <http:address location="http://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
     </wsdl:port>
     <wsdl:port name="CASINO3651HttpPost" binding="tns:CASINO3651HttpPost">
-      <http:address location="https://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
+      <http:address location="http://ewin.dev.mts.idv.tw/API/Partner/CASINO3651.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

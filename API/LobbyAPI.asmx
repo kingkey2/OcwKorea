@@ -277,7 +277,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         CASINO3651API.CASINO3651 casino3651 = new CASINO3651API.CASINO3651();
         TelPhoneNormalize TN = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
         return casino3651.CheckUserAccountByPhoneNumberAndLoginAccount(GetToken(), GUID, TN.PhonePrefix, TN.PhoneNumber, LoginAccount);
-         
+
     }
 
     [WebMethod]
@@ -347,7 +347,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         LoginMessageResult R = new LoginMessageResult() { Result = EWin.Lobby.enumResult.ERR };
         Newtonsoft.Json.Linq.JObject SettingData;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-          
+
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             SettingData = EWinWeb.GetSettingJObj();
@@ -396,7 +396,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return  casino3651API.GetParentPersonCode(GetToken(), SI.EWinSID, GUID);
+            return casino3651API.GetParentPersonCode(GetToken(), SI.EWinSID, GUID);
         } else {
             var R = new CASINO3651API.APIResult() {
                 ResultState =  CASINO3651API.enumResultState.ERR,

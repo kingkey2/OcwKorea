@@ -563,7 +563,7 @@
             }
         });
 
-        setBulletinBoard();
+        //setBulletinBoard();
     }
 
     /*function setBulletinBoard() {
