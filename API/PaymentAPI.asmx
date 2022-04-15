@@ -29,20 +29,20 @@ public class PaymentAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CASINO3651API.APIResult CompleteReceiptFile(string WebSID, string GUID, string UploadId) {
+    public EWin.CASINO.APIResult CompleteReceiptFile(string WebSID, string GUID, string UploadId) {
         RedisCache.SessionContext.SIDInfo SI;
-        CASINO3651API.APIResult R = new CASINO3651API.APIResult();
-
+        EWin.CASINO.APIResult R = new EWin.CASINO.APIResult();
+ 
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            CASINO3651API.CASINO3651 CASINO3651API = new CASINO3651API.CASINO3651();
+            EWin.CASINO.CASINO3651 CASINO3651API = new EWin.CASINO.CASINO3651();
             //PaymentMethod 0=上分/1=下分
             R= CASINO3651API.CompleteReceiptFile(SI.EWinCT,GUID,UploadId);
 
         } else {
-            R.ResultState = CASINO3651API.enumResultState.ERR;
+            R.ResultState = EWin.CASINO.enumResultState.ERR;
             R.Message = "InvalidWebSID";
         }
 
@@ -51,20 +51,19 @@ public class PaymentAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CASINO3651API.UploadInfoResult CreateReceiptFIleUpload(string WebSID, string GUID, string PaymentSerial, string ExtName) {
+    public EWin.CASINO.UploadInfoResult CreateReceiptFIleUpload(string WebSID, string GUID, string PaymentSerial, string ExtName) {
         RedisCache.SessionContext.SIDInfo SI;
-        CASINO3651API.UploadInfoResult R = new CASINO3651API.UploadInfoResult();
-
+        EWin.CASINO.UploadInfoResult R = new EWin.CASINO.UploadInfoResult();
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            CASINO3651API.CASINO3651 CASINO3651API = new CASINO3651API.CASINO3651();
+            EWin.CASINO.CASINO3651 CASINO3651API = new EWin.CASINO.CASINO3651();
             //PaymentMethod 0=上分/1=下分
             R= CASINO3651API.CreateReceiptFIleUpload(SI.EWinCT,GUID,PaymentSerial,ExtName);
 
         } else {
-            R.ResultState = CASINO3651API.enumResultState.ERR;
+            R.ResultState = EWin.CASINO.enumResultState.ERR;
             R.Message = "InvalidWebSID";
         }
 
@@ -73,20 +72,20 @@ public class PaymentAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CASINO3651API.APIResult UploadReceiptFIle(string WebSID, string GUID, string UploadId, int ChunkIndex, string ContentB64) {
+    public EWin.CASINO.APIResult UploadReceiptFIle(string WebSID, string GUID, string UploadId, int ChunkIndex, string ContentB64) {
         RedisCache.SessionContext.SIDInfo SI;
-        CASINO3651API.APIResult R = new CASINO3651API.APIResult();
+        EWin.CASINO.APIResult R = new EWin.CASINO.APIResult();
 
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            CASINO3651API.CASINO3651 CASINO3651API = new CASINO3651API.CASINO3651();
+            EWin.CASINO.CASINO3651 CASINO3651API = new EWin.CASINO.CASINO3651();
             //PaymentMethod 0=上分/1=下分
             R= CASINO3651API.UploadReceiptFIle(SI.EWinCT,GUID,UploadId,ChunkIndex,ContentB64);
 
         } else {
-            R.ResultState = CASINO3651API.enumResultState.ERR;
+            R.ResultState = EWin.CASINO.enumResultState.ERR;
             R.Message = "InvalidWebSID";
         }
 
@@ -1502,12 +1501,12 @@ public class PaymentAPI : System.Web.Services.WebService {
                                     paymentCommonData.ThresholdValue = Amount * ThresholdRate;
                                     paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 
-                                    CASINO3651API.CASINO3651 _CASINO3651API = new CASINO3651API.CASINO3651();
+                                    EWin.CASINO.CASINO3651 _CASINO3651API = new EWin.CASINO.CASINO3651();
 
                                     //PaymentMethod 0=上分/1=下分
-                                    CASINO3651API.BankCardDepositResult bankCardDepositRet= _CASINO3651API.BankCardDepostit(SI.EWinCT,GUID,EWinWeb.MainCurrencyType,0,Amount,"",OrderNumber);
+                                    EWin.CASINO.BankCardDepositResult bankCardDepositRet= _CASINO3651API.BankCardDepostit(SI.EWinCT,GUID,EWinWeb.MainCurrencyType,0,Amount,"",OrderNumber);
 
-                                    if (bankCardDepositRet.ResultState == CASINO3651API.enumResultState.OK)
+                                    if (bankCardDepositRet.ResultState == EWin.CASINO.enumResultState.OK)
                                     {
                                         paymentBankCommonData.BankCode = bankCardDepositRet.BankCardInfo.BankCode;
                                         paymentBankCommonData.BankName=bankCardDepositRet.BankCardInfo.BankName;
@@ -1804,11 +1803,11 @@ public class PaymentAPI : System.Web.Services.WebService {
                                         {
                                             string BankCardGUID = userBankCardListResult.BankCardList.Where(s => s.CurrencyType == EWinWeb.MainCurrencyType && s.BankName == BankName && s.BankNumber == BankCard).First().BankCardGUID;
 
-                                            CASINO3651API.CASINO3651 _CASINO3651API = new CASINO3651API.CASINO3651();
+                                            EWin.CASINO.CASINO3651 _CASINO3651API = new EWin.CASINO.CASINO3651();
                                             //PaymentMethod 0=銀行卡
-                                            CASINO3651API.BankCardWithdrawalResult bankCardWithdrawalRet= _CASINO3651API.BankCardWithdrawal(SI.EWinCT,GUID,EWinWeb.MainCurrencyType,0,PointValue,new string[] {BankCardGUID },OrderNumber);
+                                            EWin.CASINO.BankCardWithdrawalResult bankCardWithdrawalRet= _CASINO3651API.BankCardWithdrawal(SI.EWinCT,GUID,EWinWeb.MainCurrencyType,0,PointValue,new string[] {BankCardGUID },OrderNumber);
 
-                                            if (bankCardWithdrawalRet.ResultState == CASINO3651API.enumResultState.OK)
+                                            if (bankCardWithdrawalRet.ResultState == EWin.CASINO.enumResultState.OK)
                                             {
 
                                                 int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, "", bankCardWithdrawalRet.PaymentSerial, PointValue, "");
@@ -2484,10 +2483,10 @@ public class PaymentAPI : System.Web.Services.WebService {
                     }
                     else if (paymentCommonData.BasicType == 1)
                     {
-                        CASINO3651API.CASINO3651 _CASINO3651API = new CASINO3651API.CASINO3651();
+                        EWin.CASINO.CASINO3651 _CASINO3651API = new EWin.CASINO.CASINO3651();
                         //PaymentMethod 0=上分/1=下分
                         var BankCardDepostitR = _CASINO3651API.BankCardDepostitCancel(SI.EWinCT, GUID, PaymentSerial);
-                        if (BankCardDepostitR.ResultState == CASINO3651API.enumResultState.OK)
+                        if (BankCardDepostitR.ResultState == EWin.CASINO.enumResultState.OK)
                         {
                             R.Result = enumResult.OK;
                         }

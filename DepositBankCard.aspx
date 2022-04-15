@@ -868,7 +868,7 @@
 											<span class="language_replace" langkey="取消">取消</span>
 										</button>--%>
 										<button class="btn btn-primary" data-deposite="" onclick="onBtnReceiptFile()">
-											<span class="language_replace" langkey="上傳並">上傳</span>
+											<span class="language_replace" langkey="上傳">上傳</span>
 										</button>
                                 </div>
 								<!-- 已上傳交易水單檔案 -->

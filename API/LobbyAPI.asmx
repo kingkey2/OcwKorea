@@ -272,9 +272,9 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CASINO3651API.APIResult CheckUserAccountByPhoneNumberAndLoginAccount(string GUID, string LoginAccount, string PhonePrefix, string PhoneNumber)
+    public EWin.CASINO.APIResult CheckUserAccountByPhoneNumberAndLoginAccount(string GUID, string LoginAccount, string PhonePrefix, string PhoneNumber)
     {
-        CASINO3651API.CASINO3651 casino3651 = new CASINO3651API.CASINO3651();
+        EWin.CASINO.CASINO3651 casino3651 = new EWin.CASINO.CASINO3651();
         TelPhoneNormalize TN = new TelPhoneNormalize(PhonePrefix, PhoneNumber);
         return casino3651.CheckUserAccountByPhoneNumberAndLoginAccount(GetToken(), GUID, TN.PhonePrefix, TN.PhoneNumber, LoginAccount);
 
@@ -390,16 +390,16 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CASINO3651API.APIResult GetParentPersonCode(string WebSID, string GUID) {
-        CASINO3651API.CASINO3651 casino3651API = new CASINO3651API.CASINO3651();
+    public EWin.CASINO.APIResult GetParentPersonCode(string WebSID, string GUID) {
+        EWin.CASINO.CASINO3651 casino3651API = new EWin.CASINO.CASINO3651();
         RedisCache.SessionContext.SIDInfo SI;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return casino3651API.GetParentPersonCode(GetToken(), SI.EWinSID, GUID);
+             return  casino3651API.GetParentPersonCode(GetToken(), SI.EWinSID, GUID);
         } else {
-            var R = new CASINO3651API.APIResult() {
-                ResultState =  CASINO3651API.enumResultState.ERR,
+            var R = new EWin.CASINO.APIResult() {
+                ResultState =  EWin.CASINO.enumResultState.ERR,
                 Message = "InvalidWebSID",
                 GUID = GUID
             };
