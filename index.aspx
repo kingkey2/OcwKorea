@@ -984,7 +984,7 @@
             GameBrand: gameBrand,
             GameName: gameName
         };
-        debugger
+       
         if (type == 0) {
             //add
             favoriteGames.splice(0, 0, favoriteGame);
